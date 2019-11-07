@@ -36,7 +36,7 @@ class TenantFlatsDetail extends Component{
         let id  = localStorage.getItem('tenantId1');
         this.setState({tenantId: id})
         if(id){
-            this.props.getFlats(id).then(() => this.setState({loading: false})).catch((err) => {err;
+            this.props.getFlats(id).then(() => this.setState({loading: false})).catch((err) => {
                 this.setState({loading: false})
             });
         }
@@ -109,7 +109,7 @@ class TenantFlatsDetail extends Component{
         }
         this.props.deleteFlat(values)
         .then(() => this.refreshData())
-        .catch((err) =>{err;
+        .catch((err) =>{
              this.refreshData()
             })
     }
@@ -247,8 +247,7 @@ class TenantFlatsDetail extends Component{
                 }
                 this.props.addNewFlatForTenant(data)
                 .then(() => this.props.getFlats(this.state.tenantId).then(() => this.refreshFlatData()))
-                .catch(err => {err
-                    console.log(err)
+                .catch(err => {
                     this.setState({addFlatLoading: false, flatError:err.response.data.message})})
             }
             
@@ -275,7 +274,6 @@ class TenantFlatsDetail extends Component{
                 console.log(tenantId, flatDetailId, previousFlatDetailId )
                 this.props.editFlats(parseInt(tenantId), flatDetailId, previousFlatDetailId).then(() => this.refreshUpdated())
                 .catch(err => {
-                    err;
                     this.setState({editFlatLoad:false, message: err.response.data.message})
                 })
             } 

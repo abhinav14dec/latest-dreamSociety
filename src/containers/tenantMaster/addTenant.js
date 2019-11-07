@@ -249,8 +249,6 @@ class AddTenant extends Component{
         this.props.validOnChangeContact(e.target.value)
         .then(res => console.log(res.data))
         .catch(err => {
-            err;
-            console.log(err.response.data)
             if(err.response.data.message){
                 this.setState({validChangeContactErr: err.response.data.message});
             }
@@ -281,8 +279,6 @@ class AddTenant extends Component{
             this.props.addTenantDetail(data1)
                 .then(() => this.props.history.push('/superDashboard/tenantDetails'))
                 .catch(err => {
-                    err.response
-                    
                     this.setState({message:err.response.data.message ,messageContactErr:err.response.data.messageContactErr,messageEmailErr:err.response.data.messageEmailErr,
                          loading:false, defaultPermanent:false, permanentAddrDefault:true})
                 });
@@ -432,7 +428,6 @@ class AddTenant extends Component{
         this.props.validOnChangeEmail(e.target.value)
         .then(res => console.log(res))
         .catch(err => {
-            err;
             if(err.response.data.message){
                 this.setState({emailChangeErr: err.response.data.message})
             }

@@ -5,7 +5,6 @@ import { addEventBooking,getMemberEvent, getEventDetails } from '../../actions/p
 
 
 import UI from '../../components/newUI/ownerDashboard';
-import _ from 'underscore';
 import Spinner from '../../components/spinner/spinner';
 import { Form, Button, FormGroup, Input, Label, Row, Col } from 'reactstrap';
 import DefaultSelect from '../../constants/defaultSelect';

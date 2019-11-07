@@ -92,7 +92,7 @@ class MaintenanceSubMasterForm extends Component{
             this.setState({loading: true});
             this.props.postMaintenanceSubMaster({...this.state})
             .then(() => this.props.history.push('/superDashboard/MaintenanceSubMasterDetails'))
-            .catch(err => {err
+            .catch(err => {
                 this.setState({loading:false, subMaintenanceErr: err.response.data.message})
             });
         }

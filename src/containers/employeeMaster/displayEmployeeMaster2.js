@@ -321,7 +321,7 @@ class DisplayEmployeeMaster2 extends Component {
             data.append('profilePicture', this.state.profilePicture)
 
             this.props.updateEmployee(this.state.editEmployeeData.employeeId, data).then(() => this.refreshData()).catch(err => {
-                err.response.data.message
+               
                 this.setState({
                     modalLoading: false, contactServerError: err.response.data.messageContactErr,
                     emailServerError: err.response.data.messageEmailErr

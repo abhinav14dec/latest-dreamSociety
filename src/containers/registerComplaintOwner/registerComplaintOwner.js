@@ -134,14 +134,12 @@ class RegisterComplaintOwner extends Component{
         if(isValid){
                     this.setState({loading:true})
                     this.props.postRegister(this.state)
-                    .then((msg)=>{ msg;
-                        console.log(msg)
+                    .then((msg)=>{
                         this.setState({message : msg.payload.message, loading: false 
                         })
                         this.toggle()
                     })
-                    .catch(err=>{err;
-                        console.log(err);
+                    .catch(err=>{
                         this.setState({message : err.response.data.message, loading: false})
                     })
                 

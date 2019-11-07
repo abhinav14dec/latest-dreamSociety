@@ -59,7 +59,7 @@ class DisplaySocietyEventBooking extends Component {
 
     refreshData() {
         this.props.getSocietyEvents().then(()=> this.setState({loading:false, modalLoading: false, editEventModal:false})).catch((err)=>{
-            err;
+
             this.setState({loading:false, modalLoading: false, editEventModal:false})
         });
         this.props.ViewEvent();

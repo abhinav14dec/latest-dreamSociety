@@ -8,7 +8,7 @@ import DefaultSelect from '../../constants/defaultSelect';
 import { getTowerName } from '../../actions/flatDetailMasterAction';
 import { getfloorsOfTowers, addElectricityExpense } from '../../actions/electricityExpense';
 import { getExpenseDetail, calculateCharges, addMonthlyElecCharges } from '../../actions/monthlyElectricityExpense';
-import { memberMaxDate } from '../../validation/validation';
+
 
 class MonthlyElectricityExpense extends Component {
     constructor(props){
@@ -254,8 +254,6 @@ class MonthlyElectricityExpense extends Component {
             this.props.addMonthlyElecCharges(data)
             .then(() => this.props.history.push('/superDashboard/monthlyElectricityExpenseDetail'))
             .catch(err => {
-                err;
-                console.log(err.response)
                 this.setState({errMessage:err.response.data.message, loading:false});
             })
         }

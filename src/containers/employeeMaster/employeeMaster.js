@@ -9,7 +9,7 @@ import {getEmployee,getEmployeeType,getEmployeeWorkType} from  '../../actions/em
 import {bindActionCreators} from 'redux';
 import DefaultSelect from '../../constants/defaultSelect'
 import './employeeMaster.css';
-import {  FormGroup, Input, Label, Button, Row, Col } from 'reactstrap';
+import {  FormGroup, Input, Label, Row, Col } from 'reactstrap';
 import {getRfId} from '../../actions/rfIdAction';
 import { PlaceHolder } from '../../actionCreators/index';
 
@@ -293,8 +293,6 @@ FileChange=(event)=>{
         // console.log(data);
 
          this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  {
-            err.response.data;
-            console.log(err.response.data)
             this.setState({emailServerError:  err.response.data.messageEmailErr,
                 contactServerError:  err.response.data.messageContactErr,loading: false})
         });
@@ -718,9 +716,9 @@ updatePermanentAddress = (pin) => {
 }
 
 render(){
-let form;
-<Spinner/>
 
+
+{/* <Spinner/> */}
 let formData=
 <div>
 

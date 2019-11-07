@@ -79,7 +79,7 @@ class Inventory extends Component {
     }
 
 
-    onSubmit = (e) => {assetSubTypeId
+    onSubmit = (e) => {
         e.preventDefault();
         const {assetId,assetSubTypeId,numberOfInventory,ratePerInventory,serialNo,dateOfPurchase,autoGenerate, serialNumbers } = this.state
         let errors = {};

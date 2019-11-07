@@ -468,8 +468,6 @@ submit = (e) => {
             this.props.addMemberDetails(this.state)
             .then(() => this.props.history.push('/superDashboard/boardMemberDetails'))
             .catch(err => {
-                err.response.data;
-                console.log(err.response.data)
                 this.setState({emailServerError: err.response.data.messageEmailErr, userNameServerError:err.response.data.messageUsernameErr,
                     contactServerError: err.response.data.messageContactErr,loading: false})
             });

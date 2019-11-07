@@ -1,33 +1,14 @@
-// export  const URN = 'http://54.162.184.38:8082/api';
-// export  const PicURN = 'http://54.162.184.38:8082/';
-// export  const DocURN = 'http://54.162.184.38:8082/';
-// export  const UR = 'http://54.162.184.38:8082/';
 
-export const URN = 'http://13.235.13.21:8082/api';
-export  const PicURN = 'http://13.235.13.21:8082/';
-export  const DocURN = 'http://13.235.13.21:8082/';
-export  const UR = 'http://13.235.13.21:8082/';
+export const URN = 'http://13.235.13.21:8083/api';
+export  const PicURN = 'http://13.235.13.21:8083/';
+export  const DocURN = 'http://13.235.13.21:8083/';
+export  const UR = 'http://13.235.13.21:8083/';
 
-// export  const URN = 'http://192.168.1.106:8081/api';
-// export  const PicURN = 'http://192.168.1.106:8081/';
-// export  const DocURN = 'http://192.168.1.106:8081/';
-// export  const UR = 'http://192.168.1.106:8081/';
-
-// export const URN = 'http://192.168.1.114:8082/api';
-// export  const PicURN = 'http://192.168.1.114:8082/';
-// export  const DocURN = 'http://192.168.1.114:8082/';
-// export  const UR = 'http://192.168.1.114:8082/';
-
-// export  const PicURN = 'https://mydreamsociety.herokuapp.com/';
-// export  const DocURN = 'https://mydreamsociety.herokuapp.com/';
-// export  const UR = 'https://mydreamsociety.herokuapp.com/';
-// export  const URN = 'https://mydreamsociety.herokuapp.com/api'; 
-
-// export  const PicURN = 'https://dreamsociety.herokuapp.com/';
-// export  const DocURN = 'https://dreamsociety.herokuapp.com/';
-// export  const UR = 'https://dreamsociety.herokuapp.com/';
-// export  const URN = 'https://dreamsociety.herokuapp.com/api';
-                                                                                      
+// export  const URN = 'http://192.168.0.117:8082/api';
+// export  const PicURN = 'http://192.168.0.117:8082/';
+// export  const DocURN = 'http://192.168.0.117:8082/';
+// export  const UR = 'http://192.168.0.117:8082/';
+                   
 
 
 

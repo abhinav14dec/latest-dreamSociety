@@ -48,7 +48,7 @@ class FacilityDetails extends Component {
 
     refreshData() {
      this.props.getFacility().then(()=> this.setState({loading:false, modalLoading: false, editModal:false})).catch((err)=>{
-        err;
+        
         this.setState({loading:false, modalLoading: false, editModal:false})
     });
     }   

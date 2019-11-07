@@ -94,7 +94,7 @@ class Registration extends Component {
 
     emailChange = (e) => {
         if(e.target.value !== ''){
-            this.state.errors.email === '';
+            this.state.errors.email ='';
         }
         console.log(this.state.email)
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){

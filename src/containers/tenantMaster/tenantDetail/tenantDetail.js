@@ -381,8 +381,7 @@ class TenantDetail extends Component {
     //     this.props.getFlatDetailViaTowerId(this.state.towerId)
     // }
     towerChangeHandler = (towerId, towerName, selectOption) => {
-        document.getElementById('floor').value === null
-        console.log(towerId, towerName, selectOption)
+        document.getElementById('floor').value = null;
         this.setState({correspondenceAddress:'',memberError:''})
         this.setState(function (prevState, props) {
             return {

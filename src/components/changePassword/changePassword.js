@@ -33,9 +33,7 @@ class ChangePassword extends Component{
           user=localStorage.getItem('userId')      
     }
 
-    // refreshData=()=>{
-    //   this.props.postSociety()
-    // }
+
 
 
     passwordOnChange=(e)=> {

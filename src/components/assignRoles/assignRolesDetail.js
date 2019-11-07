@@ -6,18 +6,17 @@ import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 import { Table, Button } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
-import _ from 'underscore';
+
 
 class AssignRolesDetail extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state={
             editRolesData: {
                 roleName:'',
                 userId:'',
                 firstName:'',
                 lastName:'',
-               
                 isActive: false,
 
             },
@@ -55,7 +54,6 @@ class AssignRolesDetail extends Component {
     searchFilter = (search) => {
       
         return function (x) {
-            console.log(x)
             return x.firstName.toLowerCase().includes(search.toLowerCase())  ||!search;
         }
     }
@@ -65,10 +63,10 @@ class AssignRolesDetail extends Component {
     renderRoles = ({ assignDisplay }) => {
     
         if (assignDisplay) { 
-          return assignDisplay.sort((item1,item2)=>{ console.log(item1, item2)
+          return assignDisplay.sort((item1,item2)=>{ 
         var cmprVal = (item1.userId && item2.userId ) ? (item1[this.state.filterName].localeCompare(item2[this.state.filterName])) : ''
         return this.state.sortVal ? cmprVal : -cmprVal;
-        }).filter(this.searchFilter(this.state.search)).map((item, index) => { console.log(item)
+        }).filter(this.searchFilter(this.state.search)).map((item, index) => { 
            
                 return (
                     <tr key={item.userId}>
@@ -163,7 +161,6 @@ class AssignRolesDetail extends Component {
 
 
 function mapStateToProps(state) {
-   console.log(state)
     return {
         AssignRolesReducer : state.AssignRolesReducer
     }

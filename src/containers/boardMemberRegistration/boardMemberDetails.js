@@ -625,7 +625,6 @@ class BoardMemberDetails extends Component {
                 accountNumber, panCardNumber, dob, IFSCCode, accountHolderName, societyBoardMemberId)
                 .then(() => this.loadingInactive())
                 .catch(err => {
-                    err.response.data.message
                     this.setState({
                         modalLoading: false,  contactServerError: err.response.data.messageContactErr,
                         emailServerError: err.response.data.messageEmailErr
@@ -1323,7 +1322,6 @@ ifscChange = (e) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(this.state)
     return {
         societyReducer: state.societyReducer,
         boardMemberReducer: state.boardMemberReducer

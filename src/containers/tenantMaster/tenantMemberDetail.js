@@ -72,7 +72,7 @@ class TenantMemberDetail extends Component {
     refreshData = () => {
         let id  = localStorage.getItem('tenantId');
         this.setState({tenantId: id})
-        this.props.viewMember(id).then(() => this.setState({loading: false})).catch((err) => {err;
+        this.props.viewMember(id).then(() => this.setState({loading: false})).catch((err) => {
             this.setState({loading: false})
         });
         console.log(id);
@@ -317,7 +317,6 @@ class TenantMemberDetail extends Component {
                 this.loadDetailAfterEdit()
             })
             .catch(err => {
-                err;
                 this.setState({loadDetailAfterEdit:false})
             })
         }
@@ -347,13 +346,11 @@ class TenantMemberDetail extends Component {
         if(isValid && this.state.emailChangeErr === '' && this.state.validChangeContactErr === ''){
             this.setState({loadingAfterAdd:true})
             this.props.addNewTenantDetail({firstName, lastName, memberDob, gender, email, contact,aadhaarNumber, relationId, tenantId, rfidId, flatDetailId})
-            .then((res) => {res
-                console.log(res)
+            .then((res) => {
                 this.loadDetailAfterAdd();
                 this.setState({successMessage: res.payload.message})
             })
             .catch(err => {
-                err;
                 this.setState({loadDetailAfterAdd:false})
             })
         }
@@ -445,7 +442,6 @@ class TenantMemberDetail extends Component {
         this.props.validOnChangeEmail(e.target.value)
         .then(res => console.log(res))
         .catch(err => {
-            err;
             this.setState({emailChangeErr: err.response.data.message})
         });
     }
@@ -465,8 +461,7 @@ class TenantMemberDetail extends Component {
             this.props.validOnChangeContact(e.target.value)
             .then(res => console.log(res))
             .catch(err => {
-                err;
-                console.log(err.response.data.message)
+                
                 this.setState({validChangeContactErr: err.response.data.message})
             })
         }

@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import { PlaceHolder } from '../../actionCreators/index';
 import UI from '../../components/newUI/superAdminDashboard';
 import { getVendorMaster} from '../../actions/vendorMasterAction';
-import { Form,FormGroup, Input, Table, Label, Button, Modal, ModalBody, ModalHeader, Row, Col } from 'reactstrap';
+import { Form,FormGroup, Input, Label, Button, Row, Col } from 'reactstrap';
 import { fetchAssets} from '../../actions/assetsSubAction';
 import { getServiceType } from '../../actions/serviceMasterAction';
 import {addPurchaseOrder,assetTypeId} from '../../actions/purchaseOrderAction';
@@ -95,7 +95,7 @@ class PurchaseOrder extends Component {
         })   
     }
     userMemberHandler = (e) => {
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             this.setState({
                 numberOfAssets: e.target.value
             });
@@ -105,7 +105,7 @@ class PurchaseOrder extends Component {
     
     numberOfServices=(e)=>{
         
-        if(e.target.value!=''){
+        if(e.target.value!==''){
             this.setState({
                 numberOfServices:e.target.value
             });

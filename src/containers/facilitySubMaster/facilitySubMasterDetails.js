@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 import { Table, Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Label } from 'reactstrap';
-import _ from 'underscore';
 import Spinner from '../../components/spinner/spinner';
 import { getFacility } from '../../actions/facilityAction';
 import DefaultSelect from '../../constants/defaultSelect';

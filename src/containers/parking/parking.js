@@ -79,8 +79,7 @@ class Parking extends Component {
                 this.setState({loading: false})
                 this.props.history.push('/superDashboard/parking_master')
                 })
-                .catch((err) => {
-                    err
+                .catch(() => {
                     this.setState({loading:false})
                 })
             

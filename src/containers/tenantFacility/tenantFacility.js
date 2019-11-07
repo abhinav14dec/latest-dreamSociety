@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addUserFacility, getUserFacility, notInFacility, updateUserFacility, updateFacility } from '../../actions/userFacilityAction';
+import { addUserFacility, getUserFacility, notInFacility, updateUserFacility} from '../../actions/userFacilityAction';
 import { bindActionCreators } from 'redux';
 
 import UI from '../../components/newUI/tenantDashboard';
-import { Table, Button, Modal, FormGroup, Form, ModalBody, ModalHeader, Input, Label, Row, Col } from 'reactstrap';
-import _ from 'underscore';
+import { Table, Button, FormGroup, Input, Label} from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 import DefaultSelect from '../../constants/defaultSelect';
-import { stat } from 'fs';
 import $ from 'jquery';
 import moment from 'moment';
 

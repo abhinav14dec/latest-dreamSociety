@@ -92,7 +92,7 @@ class MaintenanceSubMasterDetails extends Component{
             this.setState({modalLoading:true})
             this.props.updateMaintenanceSubMasterDetail(maintenanceTypeId, category, sizeType, rate, startDate, endDate, maintenanceId, sizeId)
             .then(() => this.modalRefresh())
-            .catch(err => { err
+            .catch(err => {
                 this.setState({modalLoading:false, subMaintenanceErr: err.response.data.message})
             });
         }

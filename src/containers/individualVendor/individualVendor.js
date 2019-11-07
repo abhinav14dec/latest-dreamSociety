@@ -9,7 +9,7 @@ import UI from '../../components/newUI/superAdminDashboard';
 import {Form, Button,  FormGroup,  Input, Label, Row, Col } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 import DefaultSelect from './../../constants/defaultSelect';
-import _ from 'underscore';
+
 import Select from 'react-select';
 import { PlaceHolder } from '../../actionCreators/index';
 import {getRfId} from '../../actions/rfIdAction';

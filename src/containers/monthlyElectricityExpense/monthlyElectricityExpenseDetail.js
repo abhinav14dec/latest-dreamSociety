@@ -93,7 +93,6 @@ class MonthlyElectricityExpenseDetail extends Component {
 
     getFilterdExpenseList = ({ filtered }) => {
         if (filtered && filtered.electricityConsumer) {
-            console.log(filtered);
             return filtered.electricityConsumer.sort((item1, item2) => {
                 var items1 = item1.flat_detail_master
                 var items2 = item2.flat_detail_master
@@ -148,7 +147,6 @@ class MonthlyElectricityExpenseDetail extends Component {
 
     getElectricityExpense = ({ getMonthlyElectricityExpense }) => {
         if (getMonthlyElectricityExpense && getMonthlyElectricityExpense.electricityConsumer) {
-            console.log(getMonthlyElectricityExpense && getMonthlyElectricityExpense.electricityConsumer)
             return getMonthlyElectricityExpense.electricityConsumer.sort((item1, item2) => {
                 var items1 = item1.flat_detail_master
                 var items2 = item2.flat_detail_master
@@ -478,7 +476,7 @@ class MonthlyElectricityExpenseDetail extends Component {
                         <InputField label="Last Amount Due"
                             name="lastAmountDue"
                             type="text"
-                            value={(amountDue == true ? '-' : amountDue == false ? '+' : '') + amount}
+                            value={(amountDue === true ? '-' : amountDue === false ? '+' : '') + amount}
                             disabled={true} />
                     </Col>
                     <Col md={3}>
