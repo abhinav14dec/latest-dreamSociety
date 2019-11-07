@@ -114,7 +114,7 @@ class AddElectricityExpense extends Component {
     getFlatData = ({ floorDetails }) => {
         if (floorDetails && floorDetails.flatDetail) {
             return floorDetails.flatDetail.filter((flatRecord) => {
-                return flatRecord.floorId == this.state.floorId
+                return flatRecord.floorId === this.state.floorId
             }).map((items) => {
                 return (
                     <option key={items.flatDetailId} value={items.flatDetailId}>

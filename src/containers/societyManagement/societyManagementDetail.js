@@ -396,13 +396,13 @@ class SocietyManagementDetail extends Component {
     fetchCountry({ countryResult }) {
         if (countryResult) {
             return (
-                countryResult.map((item) => { 
+                countryResult ? countryResult.map((item) => { 
                     return (
                         <option value={item.countryName} key={item.countryId}>
                             {item.countryName}
                         </option>
                     )
-                })
+                }) :''
             )
         }
     }
