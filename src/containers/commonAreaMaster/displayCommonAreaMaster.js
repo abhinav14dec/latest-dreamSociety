@@ -55,7 +55,7 @@ handleChange = (event) => {
     }
 }
 
-edit (commonAreaId,commonArea) {console.log(commonArea)
+edit (commonAreaId,commonArea) {
     this.setState({
 
         commonAreaId,commonArea, editCommonAreaModal: !this.state.editCommonAreaModal
@@ -111,7 +111,7 @@ updateAreas() {
     }         
 }
 
-deleteArea(commonAreaId){console.log(commonAreaId)
+deleteArea(commonAreaId){
     this.setState({loading:true})
     let {isActive } =this.state;  
     this.props.deleteCommonArea(commonAreaId,isActive)
@@ -177,7 +177,7 @@ logout=()=>{
 }
 
 
-renderList = ({ getAreas }) => {console.log(getAreas)
+renderList = ({ getAreas }) => {
     if (getAreas && getAreas.commonAreas) {
         return getAreas.commonAreas.sort((item1,item2)=>{
             var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))

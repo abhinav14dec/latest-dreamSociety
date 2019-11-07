@@ -389,7 +389,7 @@ class MonthlyElectricityExpenseDetail extends Component {
     }
 
     render() {
-        let { towerId, floorId, flatDetailId, lastReading, currentReading, unitConsumed, lastAmountDue, rate, rent, sanctionedLoad,
+        let { towerId, floorId, flatDetailId, lastReading, currentReading, unitConsumed, rate, rent, sanctionedLoad,
             mdi, amountDue, amount, monthlyCharges, errors, towerName, floorName, flatNo, startDate, endDate } = this.state;
         let tableData = <Table bordered>
             <thead>

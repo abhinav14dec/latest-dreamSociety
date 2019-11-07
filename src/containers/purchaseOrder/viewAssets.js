@@ -55,7 +55,6 @@ class ViewAssets extends Component {
         // document.getElementById('purchaseOrderName').removeChild(document.getElementById('purchaseOrderName').childNodes[0]);
         // this.setState({purchaseOrderName:''})
         let selected= e.target.value;
-        console.log(selected)
         this.setState({message:''})
         if(!!this.state.errors[e.target.name]){
             let errors =Object.assign({},this.state.errors)
@@ -66,12 +65,11 @@ class ViewAssets extends Component {
             this.setState({[e.target.name]:e.target.value});
             }
 
-            var data = _.find(this.props.ListOfAssets.getAssetsType.assetsType,function(obj){ console.log(obj)
+            var data = _.find(this.props.ListOfAssets.getAssetsType.assetsType,function(obj){
                 return obj.asset_master.assetName === selected
                 })
             
                 if(data && data.asset_master){
-                    console.log(data.asset_master)
                     this.props.assetTypeId(data.asset_master.assetId)
                 }
                

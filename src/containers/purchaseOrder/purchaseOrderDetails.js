@@ -177,7 +177,6 @@ class PurchaseOrderDetails extends Component {
      
         this.props.pdf(purchaseOrderId)
             .then((res) => {
-                console.log(res.payload.data.message)
                 this.setState({
                     pdfPath: res.payload.data.message,
                     pdfOpen: !this.state.pdfOpen,
@@ -243,9 +242,7 @@ class PurchaseOrderDetails extends Component {
     updatePurchaseOrder = () => {
         
         let {purchaseOrderId, issuedBy, vendorId,expDateOfDelievery} = this.state
-        console.log(purchaseOrderId, issuedBy, vendorId,expDateOfDelievery)
-       
-       
+           
 
         let errors = {};
 
@@ -258,7 +255,7 @@ class PurchaseOrderDetails extends Component {
 
             this.props.updatePurchaseOrderData(purchaseOrderId, issuedBy, vendorId,expDateOfDelievery)
                 .then(() => this.refreshData())
-                .catch(err=>{ console.log(err.response.data.message)
+                .catch(err=>{
                     this.setState({modalLoading: false, message: err.response.data.message, loading: false, modal:false})
                     })
                     if (this.state.message === '') {
@@ -277,8 +274,6 @@ class PurchaseOrderDetails extends Component {
         }
     }
     editPurchaseOrder = (purchaseOrderId,issuedBy, vendorName, assetLength, serviceLength, assets, services, vendorId, expDateOfDelievery) => {
-        console.log(purchaseOrderId, issuedBy, vendorName, assetLength, serviceLength, assets, services, vendorId, expDateOfDelievery)
-
 
         this.setState({assetData:[], serviceData:[],  errors:{} })
         let data;
@@ -308,7 +303,6 @@ class PurchaseOrderDetails extends Component {
         }
         
         this.setState({assetData:[data]})
-        console.log(this.state.assetData)
       let data1;
         for (var i = 0; i < services.length; i++) {
             this.setState({
@@ -335,7 +329,6 @@ class PurchaseOrderDetails extends Component {
 
         }
         this.setState({serviceData:[data1]})
-        console.log(this.state.serviceData)
 
         this.setState({
             purchaseOrderId,
@@ -345,7 +338,9 @@ class PurchaseOrderDetails extends Component {
             numberOfServices: serviceLength,
             vendorId,
             expDateOfDelievery
-        }, function () { console.log(this.state) })
+        }, function () {
+             console.log(this.state)
+             })
     }
 
     viewServices=(purchaseOrderId)=>{
@@ -361,7 +356,6 @@ class PurchaseOrderDetails extends Component {
     renderList = ({ getpurchaseOrder }) => {
        
         if (getpurchaseOrder && getpurchaseOrder.purchaseOrder) {
-            console.log(getPurchaseOrder)
             return getpurchaseOrder.purchaseOrder.sort((item1, item2) => { 
                  let cmpValue=(item1.vendor_master[this.state.filterName].localeCompare(item2.vendor_master[this.state.filterName]))
                  return this.state.sortVal?cmpValue: -cmpValue;
@@ -414,10 +408,7 @@ class PurchaseOrderDetails extends Component {
         }
     }
 
-    // onDocumentLoadSuccess = ({ getPdf }) => {
-    //    console.log(getPdf)
-    //    const pdfBlob=new Blob([getPdf],{type:'application/pdf'})
-    //   }
+  
     toggleEmployeeModal = () => {
         this.setState({ pdfOpen: !this.state.pdfOpen })
     }
@@ -465,7 +456,6 @@ class PurchaseOrderDetails extends Component {
                             {items.serviceName}
                         </option>
                     )
-                    //   return ({...item, label:items.serviceName ,value:items.serviceId})
                 })
             )
         }
@@ -508,20 +498,6 @@ class PurchaseOrderDetails extends Component {
             }
         }
 
-
-    // getAssetType = ({ getAssetsType }) => {
-    //     if (getAssetsType && getAssetsType.assetsType) {
-    //         console.log(getAssetsType)
-    //         return (
-    //             getAssetsType.assetsType.map((item) => {
-    //                 <option value={item.assetTypeId} key={item.assetTypeId} >
-    //                     {item.assetType}
-    //                 </option>
-    //                 // return ({...item, label:item.assetType ,value:item.assetId})
-    //             })
-    //         )
-    //     }
-    // }
     onAssetsChangeHandler1 = (i, selectOption) => {
         this.setState({
             ['assetName' + i]: selectOption.label
@@ -548,8 +524,7 @@ class PurchaseOrderDetails extends Component {
     onVendorChangeHandler = (selectOption) => {
         this.setState({
             vendorId: selectOption.vendorId,
-            // vendorAddress:selectOption.permanentAddress,
-            // vendorContact:selectOption.contact
+           
         })
     }
 
@@ -601,12 +576,7 @@ class PurchaseOrderDetails extends Component {
                                 {this.getServices(this.props.displayServiceMasterReducer)}
                             </Input>
 
-                            {/* <Select options={this.getServices(this.props.displayServiceMasterReducer)}
-          name={`serviceName${i}`}
-          onChange={this.onServicesChangeHandler.bind(this,i)}
-        //   value={this.state['serviceName'+i]}
-        value={this.state.serviceData[i].serviceName}
-          /> */}
+                          
                         </Col>
                         <Col md={4}>
                             <Label>Rate</Label>
@@ -643,7 +613,6 @@ class PurchaseOrderDetails extends Component {
                         <Label>Asset</Label>
                          <Input type="select" id={`assetName${i}`} name={`assetName${i}`} onChange={this.onAssetDataChangeHandler.bind(this,i)}>
                             <option>{this.state['assetName' + i]}</option>
-                            {console.log(this.state['assetName' + i])}
                             <DefaultSelect />
                             {this.getAsset(this.props.ListOfAssets)}
                         </Input> 
