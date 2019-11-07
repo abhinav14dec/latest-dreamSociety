@@ -47,10 +47,9 @@ class FlatMaster extends Component {
         if (isValid) {
             
             this.setState({loading:true})
-            console.log(this.state);
             this.props.addStates(this.state)
             .then(() => this.props.history.push('/superDashboard/statemaster/statemasterdetails'))
-            .catch((err)=>{console.log(err.response.data.message)
+            .catch((err)=>{
                 this.setState({loading:false, message:err.response.data.message})})
             
             
@@ -75,11 +74,9 @@ class FlatMaster extends Component {
             this.setState({ [e.target.name]: e.target.value.trim('') });
         }
 
-        console.log(this.state)
     }
 
     countryName({ country1 }) {
-        console.log(country1)
         if (country1) {
 
             return (

@@ -40,9 +40,7 @@ class ShowActiveListDetails extends Component{
    }
 
      refreshData(){
-        console.log('reaching');
         const url=window.location.href.slice(window.location.href.lastIndexOf('/')+1);
-        console.log(url);
     this.props.showActiveList(url).then(() => this.setState({loading:false, modalLoading: false, editUserModal: false}));
     }  
 
@@ -100,7 +98,7 @@ class ShowActiveListDetails extends Component{
         const isValid = Object.keys(errors).length === 0;
         if(isValid && this.state.message === ''){
         this.props.updateCountry(countryId,countryName,code,currency,phoneCode).then(() => this.refreshData())
-        .catch((err)=>{console.log(err.response.data.message)
+        .catch((err)=>{
             this.setState({modalLoading:false, message:err.response.data.message})});
             if(this.state.message === ''){
                 this.setState({editUserModal: true})
@@ -119,18 +117,14 @@ class ShowActiveListDetails extends Component{
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value, errors });
         } else {
-            console.log('hii');
             this.setState( {[e.target.name]: [e.target.value]});
          }
 
-        console.log(this.state)
     }
 
     deleteUser(userId,type){
-        console.log(userId,type);
         this.setState({loading:true});
         // let { isActive } = this.state
         this.props.deactivateMember(userId,type).then(()=>this.refreshData());
@@ -140,7 +134,6 @@ class ShowActiveListDetails extends Component{
 }
 
      fetchRoles=({roles1})=>{
-         console.log(roles1);
 
          if(roles1){
             return roles1.users.sort((item1,item2)=>{
@@ -148,8 +141,6 @@ class ShowActiveListDetails extends Component{
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item,index) =>{
                 this.state.type1=item.type
-                
-                //  console.log('shub',item);
                 
                 return (
                     <tr key={item.userId}>
@@ -197,7 +188,6 @@ class ShowActiveListDetails extends Component{
 
 
      deleteSelectedActiveMembers(ids,type){
-        console.log(ids,type)
         this.setState({loading:true, isDisabled: true});
         this.props.deleteSelectedActiveMembers(ids,type)
         .then(() => this.refreshData())
@@ -286,7 +276,6 @@ class ShowActiveListDetails extends Component{
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.toUpperCase().trim(''), errors });
         } else {
        this.setState({code:e.target.value.toUpperCase().trim('')})

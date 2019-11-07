@@ -6,15 +6,11 @@ import {URN,GET_DETAILS,FETCH_DETAILS,FETCH_DROP,FETCH_SIZE_DROP,FETCH_SOCIETY_D
 
 
 export  function AddDetails(values){
-    console.log(values);
   
     const request= axios.post(`${URN}/flat`,values,{headers:authHeader()})
     .then(response => response.data)
     // .then(getDetails())
     // .then(getDetails())
- 
-    // this.setState({flatId:response,flatType:response,flatSize:response})
-    // console.log(request)
     
     return{
         type:GET_DETAILS,
@@ -24,7 +20,6 @@ export  function AddDetails(values){
 }
 
 export  function getDetails(defaultPage){
-    console.log(defaultPage);
 
     const request = axios.get(`${URN}/flat/pagination/${defaultPage}`,{headers:authHeader()})
     .then(response => response.data)
@@ -38,7 +33,6 @@ export  function getDetails(defaultPage){
 }
 
 export function getPageDetails(activePage){
-     console.log(activePage);
      const request = axios.get(`${URN}/flat/pagination/${activePage}`,{headers:authHeader()})
      .then(response => response.data)
 
@@ -50,7 +44,6 @@ export function getPageDetails(activePage){
 
 export function noOfCount(countPerPage,activePage){
     let data = {flat:[]};
-    console.log("InAction",countPerPage,activePage);
     const request= axios.get(`http://192.168.1.103:5000/api/flat/test/?page=${activePage}&&limit=${countPerPage}`,{headers:authHeader()})
     
     return{
@@ -112,7 +105,6 @@ export  function getSizeTypeDetails(){
 }
 
 export function deleteSelectedFlatMasterDetail(ids){
-    console.log(ids);
     const request = axios.put(`${URN}/flat/delete/deleteSelected`, {ids}, {headers: authHeader()})
     .catch(err => err)
 
@@ -123,7 +115,6 @@ export function deleteSelectedFlatMasterDetail(ids){
 }
 
 export function getTotalItems(){
-    console.log("action callx")
 
     const request = axios.get(`${URN}/flat`, {headers: authHeader()})
     .catch(err => err)
