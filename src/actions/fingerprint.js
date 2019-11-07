@@ -4,16 +4,11 @@ import { URN,GET_FINGERPRINT_DATA,GET_MACHINE_DATA,GET_MACHINE_DETAILS,DISABLE_M
 
 
 
-export const getFingerprintData=(type)=>{
-    console.log(type,"===========")
-   
+export const getFingerprintData=(type)=>{   
     const request = axios.get(`${URN}/fingerPrint/userFlats/${type}`, {headers:authHeader()})
      .then(response => response.data)
      .catch(error => error)
- 
-   
      return{
- 
          type:GET_FINGERPRINT_DATA,
          payload: request 
      }
@@ -40,10 +35,7 @@ export const getMachineDetails=(userId)=>{
     }
     const request = axios.put(`${URN}/fingerPrint/enable/${userId}`,data, {headers:authHeader()})
      .then(response => response.data)
- 
-   
      return{
- 
          type:GET_MACHINE_DETAILS,
          payload: request 
      }
@@ -52,8 +44,7 @@ export const getMachineDetails=(userId)=>{
 
  export const disableMachine=(userId)=>{
     const data={
-        userId,
-       
+        userId, 
     }
     const request = axios.put(`${URN}/fingerPrint/disable/${userId}`,data, {headers:authHeader()})
      .then(response => response.data)
