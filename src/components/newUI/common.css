@@ -1,0 +1,608 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    background-image: url('/assets/society.jpg');
+    background-size: cover;
+    max-height: inherit;
+    min-height: 100vh;
+}
+
+.error {
+    color: red;
+}
+
+/* .w3-container{
+    width: 109%;
+    margin-left: 35px;
+    
+} */
+
+.w3-margin-top {
+    background: #f3f3f3 !important;
+    padding: 20px !important;
+}
+
+.top-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+form {
+    width: 800px;
+    padding: 20px 20px;
+    border-radius: 20px;
+    margin: 0 auto;
+    background: #f3f3f3;
+    position: relative
+}
+
+.modal-content {
+    width: 700px;
+    right: 80px;
+}
+
+#sidebar {
+    min-width: 150px;
+    max-width: 150px;
+    display: inline;
+    z-index: 1000;
+}
+
+#sidebar-content {
+    position: fixed;
+    width: 10rem;
+    height: 100vh;
+    overflow: auto;
+}
+
+.table {
+    background: #f3f3f3 !important;
+    padding: 20px;
+}
+
+#sidebar.inactive {
+    margin-left: -150px;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: 0px;
+    transition: all 0.3s;
+}
+
+#sidebarMaster {
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 999;
+}
+
+#sidebarMaster-content {
+    position: fixed;
+    width: 10rem;
+    height: 100vh;
+    overflow: auto;
+}
+
+#sidebarMaster.inactive {
+    margin-left: -150px;
+    transition: all 0.6s;
+}
+
+#sidebarMaster.active {
+    margin-left: 0px;
+    transition: all 0.6s;
+}
+
+#sidebarDetails {
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 998;
+}
+
+#sidebarDetails-content {
+    position: fixed;
+    width: 10rem;
+    height: 100vh;
+    overflow: auto;
+}
+
+#sidebarDetails.inactive {
+    margin-left: -150px;
+    transition: all 1.2s;
+    margin-right: 100px;
+}
+
+#sidebarDetails.active {
+    margin-left: 0px;
+    transition: all 1.2s;
+    margin-right: 0px;
+}
+
+#sidebarAdmin {
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 999;
+}
+
+#sidebarAdmin-content {
+    position: fixed;
+    width: 10rem;
+    height: 100vh;
+    overflow: auto;
+}
+
+#sidebarAdmin.inactive {
+    margin-left: -150px;
+    transition: all 0.6s;
+}
+
+#sidebarAdmin.active {
+    margin-left: 0px;
+    transition: all 0.6s;
+}
+
+#sidebarOwner {
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 998;
+}
+
+#sidebarOwner-content {
+    position: fixed;
+    width: 10rem;
+    height: 100vh;
+    overflow: auto;
+}
+
+#sidebarOwner.inactive {
+    margin-left: -150px;
+    transition: all 1.2s;
+}
+
+#sidebarOwner.active {
+    margin-left: 0px;
+    transition: all 1.2s;
+}
+
+#sidebarTenant {
+    min-width: 150px;
+    max-width: 150px;
+    z-index: 997;
+}
+
+#sidebarTenant-content {
+    position: fixed;
+    width: 10rem;
+    height: 100vh;
+    overflow: auto;
+}
+
+#sidebarTenant.inactive {
+    margin-left: -150px;
+    transition: all 1.8s;
+}
+
+#sidebarTenant.active {
+    margin-left: 0px;
+    transition: all 1.8s;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#sidebarMasterCollapse, #sidebarDetailsCollapse {
+    cursor: pointer;
+}
+
+#body {
+    display: block;
+    height: inherit;
+    align-content: center;
+    /* width: 100%; */
+    /* margin: auto; */
+    /* margin-right: 150px; */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active>a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+.btn {
+    margin-left: 0px !important;
+}
+
+.TextTransformToCapital {
+    text-transform: uppercase;
+}
+
+/* .modal-backdrop.show{
+    opacity: 0;
+} */
+
+/* .pg-viewer-wrapper .loading-container .loading{
+ height:0px;
+}
+.modal-content{
+    height:0px;
+} */
+
+#sortArrow {
+    position: relative;
+    margin-left: 40px;
+}
+
+.customLabel {
+    display: none !important;
+}
+
+#gallery {
+    display: block;
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    /* box-sizing: border-box; */
+}
+
+form {
+    width: auto;
+}
+
+.modal-content {
+    width: 100%;
+    right: 0;
+}
+
+.contentHead {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+}
+
+.contentBox {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.iconBgSquare {
+    background-color: white;
+    opacity: 0.8;
+    padding: 6rem;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    font-size: 5rem;
+    margin: 0.8rem;
+    transition: transform 3s;
+    perspective: 1000px;
+}
+
+.iconBgSquare .react {
+    color: #00D8FF;
+}
+
+.iconBgSquare .html5 {
+    color: #EF652A;
+}
+
+.iconBgSquare .css3 {
+    color: #1C88C7;
+}
+
+.iconBgSquare .node {
+    color: #669F64;
+}
+
+.iconBgSquare .redux {
+    color: #764ABC;
+}
+
+.iconBgSquare .mysql {
+    color: #5D87A1;
+}
+
+.iconBgSquare .aws {
+    color: #FF9900;
+}
+
+.iconBgSquare .git {
+    color: #F05033;
+}
+
+.iconBgSquare.transform {
+    transform: rotateY(360deg);
+}
+
+.iconBgSquare .iconLabel {
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.iconBgSquare .iconLabelAWS {
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+#homeFirstSlider {
+    width: 100vw;
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#slider {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 100vw;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+}
+
+.slides {
+    position: relative;
+    width: inherit;
+    display: none;
+    z-index: 0;
+}
+
+.slides.active {
+    display: block;
+}
+
+#sliderOverlay {
+    background-color: black;
+    opacity: 0.4;
+    z-index: 1;
+    position: absolute;
+    width: inherit;
+    height: 100%;
+}
+
+#sliderButtonsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    width: 90vw;
+    z-index: 2;
+}
+
+.sliderButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+    background-color: white;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.sliderButtons:hover {
+    background-color: black;
+    opacity: 1;
+}
+
+.sliderButtons:hover>.arrows {
+    border-color: white;
+}
+
+.arrows {
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    transform: rotateZ(45deg);
+    border: 0.25rem solid black;
+    border-radius: 25%;
+    padding: 0.2rem;
+}
+
+.arrows.left {
+    left: 25%;
+    border-top: 0;
+    border-right: 0;
+}
+
+.arrows.right {
+    right: 25%;
+    border-left: 0;
+    border-bottom: 0;
+}
+
+#sliderTextsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 80%;
+    top: 40%;
+    z-index: 2;
+}
+
+.sliderTexts {
+    display: none;
+    text-align: center;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.sliderTexts.active {
+    display: block;
+}
+
+.sliderTexts>span {
+    background-color: black;
+    opacity: 0.8;
+    padding: 0.15rem 2.8rem;
+}
+
+.sliderTexts>span:last-child {
+    font-size: 1.5rem;
+}
+
+#sliderCirclesContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: inherit;
+    bottom: 0%;
+    height: 3rem;
+    background: white;
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.sliderCircles {
+    margin: 0.1rem 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 0.25rem solid black;
+    border-radius: 50%;
+    padding: 0.15rem;
+    opacity: 1;
+}
+
+.sliderCircles.active {
+    background-color: black;
+}
+
+.skyBlue {
+    color: skyblue;
+}
+
+@media (min-width:721px) and (max-width:820px) {
+    .sliderTexts {
+        font-size: 1.5rem;
+    }
+    .sliderTexts>span:last-child {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width:720px) {
+    .sliderTexts {
+        font-size: 0.8rem;
+    }
+    .sliderTexts>span:last-child {
+        font-size: 0.5rem;
+    }
+}
+
+#aboutUs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    padding: 5rem;
+}
+
+.contentHead {
+    padding: 0.25rem 1.5rem;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.contentBox {
+    width: 80%;
+    margin-top: 2rem;
+}
+
+#contactUs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+    padding: 5rem;
+}
+
+.contactUsForm {
+    width: 70%;
+}

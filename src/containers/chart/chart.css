@@ -1,0 +1,33 @@
+/* .largeShow {
+    display: inline-block;
+}
+
+.largeHide {
+    display: none;
+}
+
+.smallShow {
+    display: inline-block;
+}
+
+.smallHide {
+    display: none;
+} */
+
+@media (min-width: 992px) {
+    .largeShow {
+        display: block;
+    }
+    .largeHide {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .smallHide {
+        display: none;
+    }
+    .smallShow {
+        display: block;
+    }
+}

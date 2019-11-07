@@ -1,0 +1,12 @@
+@media only screen and (max-width: 768px) {	
+	.override .res-tbl { border: 0; border-collapse: collapse;  }
+	.override .res-tbl, .override .res-tbl thead, .override .res-tbl tbody, .override .res-tbl th, .override .res-tbl td, .override .res-tbl tr { display: block;  }
+	.override .res-tbl thead tr { position: absolute; top: -9999px; left: -9999px; overflow: hidden;  }
+	.override .res-tbl tbody tr { margin: 0 0 15px 0; display: flex; flex-flow: column; border: 1px solid #ddd; border-bottom: 0;  }
+	/* .override .res-tbl tbody tr:nth-child(odd) { }
+	.override .res-tbl tbody tr:nth-child(even) { } */
+	.override .res-tbl tr td { border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #ddd; position: relative; padding-left: 40%; word-wrap: break-word; }
+	.override .res-tbl tr td:last-child { border-bottom: none;  }
+	​.override .res-tbl tr td:first-child { border-top: 1px solid #ddd;  }
+	.override .res-tbl td:before { position: absolute; top: 6px; left: 6px; width: 55%; padding-right: 10px; white-space: nowrap; content: attr(data-label); text-align: left;  }
+}

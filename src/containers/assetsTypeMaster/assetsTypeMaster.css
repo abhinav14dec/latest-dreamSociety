@@ -1,0 +1,31 @@
+.Assets{
+    margin: 73px;
+    position: relative;
+    height: 150%;
+   }
+   .Assets input{
+       border-radius: 10px;
+   }
+   .Assets textarea{
+   height: 150px;
+   border-radius: 10px;
+   }
+   .Assets button{
+       text-align: center
+   }
+   #addAssets{
+       margin:10px;
+   }
+   .search{
+       margin-top: 50px;
+   }
+   .search{
+    /* color: aliceblue; */
+    font-family:cursive
+}
+h3{
+font-family:cursive;
+font-size: 30px;
+font-weight: 200
+
+}

@@ -1,0 +1,15 @@
+.input-container {
+    margin: 2em auto;
+    max-width: 400px;
+    background-color: #EDEDED;
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+  }
+
+  .input-contain{
+     margin:auto;
+    max-width: 250px;
+    background-color: #EDEDED;
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+  }

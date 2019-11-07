@@ -1,0 +1,21 @@
+#headernav{max-height: 70px;opacity: 1;
+   
+}
+#headernav:hover{background-color: black}
+#headernav div li {
+    padding-left: 12.5px;
+    padding-right:12.5px;
+}
+.ui.basic.segment{
+    padding: 0;
+}
+.nav-item{
+    border-top:2px transparent solid;
+}
+.nav-item:hover{border-bottom:2px skyblue solid}
+#login{
+    position: relative;
+}
+.bg_img{
+    background-image: url('/assets/2.jpg');
+}

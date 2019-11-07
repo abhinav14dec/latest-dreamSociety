@@ -1,0 +1,14 @@
+.form {
+    padding: 20px;
+    border-radius: 20px;
+    width:600px;
+    margin: 0 auto;
+}
+h1{
+    text-align: center;
+    color: white !important;
+}
+
+.error {
+    color: red;
+}
