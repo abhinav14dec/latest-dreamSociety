@@ -102,7 +102,7 @@ class vendorMaster extends Component {
 
     dailyServicesOnChange=(event)=>{
         this.setState({ [event.target.name]: event.target.checked},function(){
-            console.log(this.state.dailyServices1)}
+          }
         )
     }
 
@@ -392,9 +392,7 @@ class vendorMaster extends Component {
         }
     }
     
-    onChangeCountry = (countryId, countryName, selectOption) => {
-        console.log(countryId, countryName, selectOption)
-    
+    onChangeCountry = (countryId, countryName, selectOption) => {    
         this.setState({
             countryName: selectOption.countryName,
             countryId:selectOption.countryId, 
@@ -405,7 +403,6 @@ class vendorMaster extends Component {
     
     stateName = ({stateResult}) => {
         if(stateResult){
-          console.log(stateResult)
            return( 
             stateResult.map((item) =>{ 
                    return(
@@ -419,7 +416,6 @@ class vendorMaster extends Component {
     
     stateName1 = ({stateResult}) => {
         if(stateResult){
-          console.log(stateResult)
            return( 
             stateResult.map((item) =>{ 
                    return(
@@ -432,7 +428,6 @@ class vendorMaster extends Component {
     }
     
     onChangeState = (stateName, stateId, selectOption) => {
-        console.log(stateName, stateId, selectOption)
         this.setState({
             stateName: selectOption.stateName,
             stateId:selectOption.stateId
@@ -473,7 +468,6 @@ class vendorMaster extends Component {
     }
     
     onChangeCity = (cityName, cityId, selectOption) => {
-        console.log(cityName, cityId, selectOption)
         this.setState({
             cityName: selectOption.cityName,
             cityId:selectOption.cityId
@@ -513,7 +507,6 @@ class vendorMaster extends Component {
      }
     
     onChangeLocation = (locationName, locationId, selectOption) => {
-        console.log(locationName, locationId, selectOption)
         this.setState({
             locationName: selectOption.locationName,
             locationId:selectOption.locationId,
@@ -523,17 +516,13 @@ class vendorMaster extends Component {
     }
     
     updatePermanentAddress1 = (location) => {
-        console.log(location)
         this.setState({location})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + location + ', ' +
         this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
     
     
-    countryChange = (currentCountryId, currentCountry, selectOption) => {
-        console.log(currentCountryId, currentCountry, selectOption)
-    
+    countryChange = (currentCountryId, currentCountry, selectOption) => {    
         this.setState({
             currentCountry: selectOption.countryName,
             currentCountryId:selectOption.countryId, 
@@ -544,7 +533,6 @@ class vendorMaster extends Component {
     
     
     stateChange = (currentState, currentStateId, selectOption) => {
-        console.log(currentState, currentStateId, selectOption)
         this.setState({
             currentState: selectOption.stateName,
             currentStateId:selectOption.stateId
@@ -553,7 +541,6 @@ class vendorMaster extends Component {
     }
     
     cityChange = (currentCity, currentCityId, selectOption) => {
-        console.log(currentCity, currentCityId, selectOption)
         this.setState({
             currentCity: selectOption.cityName,
             currentCityId:selectOption.cityId
@@ -562,7 +549,6 @@ class vendorMaster extends Component {
     }
     
     locationChange = (currentLocation, currentLocationId, selectOption) => {
-        console.log(currentLocation, currentLocationId, selectOption)
         this.setState({
             currentLocation: selectOption.locationName,
             currentLocationId:selectOption.locationId,
@@ -572,11 +558,9 @@ class vendorMaster extends Component {
     }
     
     updateCurrentAddress1 = (location) => {
-        console.log(location)
         this.setState({location})
         this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + location + ', ' +
         this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('currentAddress', this.state.currentAddress)
     }
 
     defaultPermanentAddressChange = (e) =>{
@@ -584,9 +568,7 @@ class vendorMaster extends Component {
     }
 
     sameAddress = () => {
-        console.log(this.state)
         if(!!document.getElementById('isChecked').checked){
-            console.log('is checked')
            this.setState({currentAddress: this.state.permanentAddress, currentAddressVisible:true, editCurrent:false})
         }
        else{
@@ -595,7 +577,6 @@ class vendorMaster extends Component {
     }
 
     permanentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -613,7 +594,6 @@ class vendorMaster extends Component {
     }
     
     currentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -627,7 +607,6 @@ class vendorMaster extends Component {
     }
     
     pinChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -641,15 +620,12 @@ class vendorMaster extends Component {
     
     
     updateCurrentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({currentAddress: this.state.currentAddressDefault  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
         this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('currentAddress', this.state.currentAddress)
     }
     
     pinChange1 = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -662,11 +638,9 @@ class vendorMaster extends Component {
     }
     
     updatePermanentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
         this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
 
     OnKeyPresshandlerEmail=(event)=> {
@@ -684,7 +658,7 @@ class vendorMaster extends Component {
         }
     }
 
-    RfID=({ownerRf})=>{console.log(ownerRf)
+    RfID=({ownerRf})=>{
         if(ownerRf && ownerRf.rfids){
             return (
                ownerRf.rfids.map((item)=>{
