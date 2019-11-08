@@ -113,7 +113,6 @@ class AssetsTypeMaster extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log('assetstype', state.AssetsReducer)
     return {
         getAssets: state.AssetsReducer
     }
