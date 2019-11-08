@@ -35,7 +35,6 @@ class EmployeeTypeMaster extends Component{
 
 
 getEmpType({employeeType}){
-    console.log(employeeType,"emptype");
     if(employeeType){
         return(
             employeeType.employeeType.map((item)=>{
@@ -50,7 +49,6 @@ getEmpType({employeeType}){
 }
 
 getEmpWorkType({employeeWorkType}){
-console.log(employeeWorkType,"emp")
 if(employeeWorkType){
     return(
         employeeWorkType.employeeWorkType.map((item)=>{
@@ -101,10 +99,7 @@ const isValid = Object.keys(errors).length === 0
 if (isValid) {
     this.setState({loading:true})
       this.props.AddEmployee(serviceType,employeeTypeId,employeeWorkTypeId).then(()=>this.props.history.push('/superDashboard/displayEmployeeType')).catch((err)=>this.setState({message: err.response.data.message, loading: false}))
-   
-      
-    console.log(this.state.serviceType,this.state.employeeTypeId,this.state.employeeWorkTypeId)
-  }
+     }
   }
   displayEmployee=()=>{
     
@@ -188,7 +183,6 @@ function mapStateToProps(state){
     }
 }
 function mapDispatchToProps(dispatch){
-    console.log(AddEmployee,"addEmp")
 return bindActionCreators({AddEmployee,getEmployeeType,getEmployeeWorkType},dispatch)
 
 }

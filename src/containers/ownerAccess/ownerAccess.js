@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAccessData } from './../../actions/ownerAccessAction';
-import {getMachineDetails,disableMachine} from '../../actions/fingerprint';
+// import {getMachineDetails,disableMachine} from '../../actions/fingerprint';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/ownerDashboard';
-import { Form, Button, FormGroup, Input, Label, Table } from 'reactstrap';
+import { Button,Label, Table } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 
 
