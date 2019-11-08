@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import {getRegisterDetail, userCancelled, complaintFeedback, complaintAllDeleted} from '../../actions/registerComplainAction';
 import UI from '../../components/newUI/tenantDashboard';
 import {Table,Button, Input,FormGroup, Modal, ModalBody, ModalHeader,Label, Row, Col } from 'reactstrap';
@@ -278,7 +277,7 @@ let modalData=<div>
                     <option>Reopen</option>
                 </Input >
              </FormGroup>
-              <div style={{display:this.state.status=='Completed'?'none':'block'}}>         
+              <div style={{display:this.state.status==='Completed'?'none':'block'}}>         
              <FormGroup>
              <Label>Date</Label>
                 <Input type="date" min={this.minDate()} name="date"  onChange={this.onChange}>

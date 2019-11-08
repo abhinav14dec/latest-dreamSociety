@@ -279,7 +279,7 @@ let modalData=<div>
                     <option>Reopen</option>
                 </Input >
              </FormGroup>
-              <div style={{display:this.state.status=='Completed'?'none':'block'}}>         
+              <div style={{display:this.state.status==='Completed'?'none':'block'}}>         
              <FormGroup>
              <Label>Date</Label>
                 <Input type="date" min={this.minDate()} name="date"  onChange={this.onChange}>
