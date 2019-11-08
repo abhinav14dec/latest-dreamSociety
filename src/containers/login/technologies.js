@@ -5,7 +5,6 @@ import './login.css';
 import { connect } from 'react-redux';
 import { login } from '../../actions/loginAction';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Button, Label, } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import UI from '../../components/newUI/loginDashboard';

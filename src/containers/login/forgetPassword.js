@@ -14,7 +14,6 @@ class forgetPassword extends Component{
             message:'',
             message1:'', 
             message2:'',
-            
             errors:{}
         }
     }
@@ -37,16 +36,12 @@ class forgetPassword extends Component{
     }
 
     fetchUser=({message})=>{
-        // console.log('hcvbdhcbdsuchybvdsjc');
-        // console.log(message);
         if( message && this.state.message1===''){
-            console.log('agIN');
             return <div>{message.message}</div>
         }
     }
 
     onChange=(e)=>{
-            console.log("---------onchnage---------");
             this.props.clearMessage();
             this.setState({ [e.target.name]: e.target.value.trim(''),message1:'',errors:''});
     }
