@@ -63,25 +63,25 @@ class BoardMemberDetails extends Component {
             editPermanent: false,
             editCurrent: false,
             userPermanent: false,
-            permanentAddressDefault:'',
-            currentAddressDefault:'',
-            pin1:'',
-            pin:'',
-            currentState:'',
-            currentCountry:'',
-            currentCountryId:'',
-            currentStateId:'',
-            currentCity:'',
-            currentCityId:'',
-            currentState:'',
-            currentStateId:'',
-            currentLocation:'',
-            permanentLocationId:'',
-            readOnlyCountryId:'',
-            readOnlyStateId:'',
-            readOnlyCityId:'',
-            readOnlyLocationId:'',
-            userCurrent:false,
+            permanentAddressDefault: '',
+            currentAddressDefault: '',
+            pin1: '',
+            pin: '',
+            currentState: '',
+            currentCountry: '',
+            currentCountryId: '',
+            currentStateId: '',
+            currentCity: '',
+            currentCityId: '',
+            currentState: '',
+            currentStateId: '',
+            currentLocation: '',
+            permanentLocationId: '',
+            readOnlyCountryId: '',
+            readOnlyStateId: '',
+            readOnlyCityId: '',
+            readOnlyLocationId: '',
+            userCurrent: false,
             viewSocietyMember: false
         }
     }
@@ -90,8 +90,8 @@ class BoardMemberDetails extends Component {
         this.refreshData();
     }
 
-    toggleViewtSocietyMember(){
-        this.setState({viewSocietyMember: !this.state.viewSocietyMember})
+    toggleViewtSocietyMember() {
+        this.setState({ viewSocietyMember: !this.state.viewSocietyMember })
     }
 
     searchOnChange = (e) => {
@@ -99,25 +99,25 @@ class BoardMemberDetails extends Component {
     }
 
     refreshData() {
-        this.props.getSocietyId().then(() => {}).catch(() => this.setState({ loading: false }));
+        this.props.getSocietyId().then(() => { }).catch(() => this.setState({ loading: false }));
         this.props.getMemberDetails().then(() => this.setState({ loading: false })).catch(() => this.setState({ loading: false }));
-        this.props.getMemberDesignation().then(() => {}).catch(() => this.setState({ loading: false }));
-        this.props.getCountry().then(() => {}).catch(() => this.setState({ loading: false }));
-        this.props.getState().then(() => {}).catch(() => this.setState({ loading: false }));
-        this.props.getCity().then(() => {}).catch(() => this.setState({ loading: false }));
-        this.props.getLocation().then(() => {}).catch(() => this.setState({ loading: false }));
+        this.props.getMemberDesignation().then(() => { }).catch(() => this.setState({ loading: false }));
+        this.props.getCountry().then(() => { }).catch(() => this.setState({ loading: false }));
+        this.props.getState().then(() => { }).catch(() => this.setState({ loading: false }));
+        this.props.getCity().then(() => { }).catch(() => this.setState({ loading: false }));
+        this.props.getLocation().then(() => { }).catch(() => this.setState({ loading: false }));
     }
 
     viewMember(firstName, lastName, designationName, gender, currentAddress, permanentAddress,
         contactNumber, email, bankName,
-        accountNumber, panCardNumber, dob, IFSCCode, accountHolderName){
-            this.setState({
-                firstName, lastName, designationName, gender, currentAddress, permanentAddress,
-                contactNumber, email, bankName,
-                accountNumber, panCardNumber, dob, IFSCCode, accountHolderName, viewSocietyMember: !this.state.viewSocietyMember,
-                readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress
-            });
-        }
+        accountNumber, panCardNumber, dob, IFSCCode, accountHolderName) {
+        this.setState({
+            firstName, lastName, designationName, gender, currentAddress, permanentAddress,
+            contactNumber, email, bankName,
+            accountNumber, panCardNumber, dob, IFSCCode, accountHolderName, viewSocietyMember: !this.state.viewSocietyMember,
+            readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress
+        });
+    }
 
     editMember(societyId, societyBoardMemberId, firstName, lastName, designationName, gender, currentAddress, permanentAddress,
         contactNumber, email, bankName,
@@ -131,7 +131,6 @@ class BoardMemberDetails extends Component {
     }
 
     searchFilter(search) {
-        console.log(search)
         return function (x) {
             if (x) {
                 return (x.firstName + ' ' + x.lastName).toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
@@ -187,14 +186,14 @@ class BoardMemberDetails extends Component {
                             <td>{item.email}</td>
                             <td>
                                 <Button color="success" className="mr-2" onClick={this.viewMember.bind(this,
-                                   item.firstName, item.lastName, item.designation_master.designationName,
+                                    item.firstName, item.lastName, item.designation_master.designationName,
                                     item.gender, item.currentAddress,
                                     item.permanentAddress,
                                     item.contactNumber,
                                     item.email, item.bankName, item.accountNumber, item.panCardNumber, item.dob,
-                                    item.IFSCCode,item.accountHolderName
+                                    item.IFSCCode, item.accountHolderName
                                 )} >View</Button>
-                                
+
                             </td>
                             <td>
                                 <Button color="success" className="mr-2" onClick={this.editMember.bind(this,
@@ -204,7 +203,7 @@ class BoardMemberDetails extends Component {
                                     item.permanentAddress,
                                     item.contactNumber,
                                     item.email, item.bankName, item.accountNumber, item.panCardNumber, item.dob,
-                                    item.IFSCCode,item.accountHolderName,
+                                    item.IFSCCode, item.accountHolderName,
                                     item.designation_master.designationId,
                                 )} >Edit</Button>
                                 <Button color="danger" onClick={this.deleteSocietyMember.bind(this, item.societyBoardMemberId)}>Delete</Button>
@@ -257,13 +256,11 @@ class BoardMemberDetails extends Component {
     deleteSelected = ids => e => {
         e.preventDefault()
         this.setState({ loading: true, isDisabled: true })
-        console.log(ids);
         this.props.deleteMultipleSocietyMemberDetail(ids)
             .then(() => this.refreshData())
     }
 
     panChange = (e) => {
-        console.log(this.state.panCardNumber)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -278,10 +275,10 @@ class BoardMemberDetails extends Component {
     toggleEditSocietyMember() {
         this.setState({
             editSocietyMember: !this.state.editSocietyMember, emailServerError: '', userNameServerError: '',
-            contactServerError: '', errors: {}, userPermanent:false,editPermanent:false,countryId:'',
-            stateId:'', cityId:'', locationId:'', permanentAddress: this.state.readOnlyPermanent,
-            editCurrent:false, userCurrent:false, currentCountryId:'', currentStateId:'',currentCityId:'',
-            currentLocationId:'', sameAsPermanent:false
+            contactServerError: '', errors: {}, userPermanent: false, editPermanent: false, countryId: '',
+            stateId: '', cityId: '', locationId: '', permanentAddress: this.state.readOnlyPermanent,
+            editCurrent: false, userCurrent: false, currentCountryId: '', currentStateId: '', currentCityId: '',
+            currentLocationId: '', sameAsPermanent: false
         });
     }
 
@@ -318,199 +315,194 @@ class BoardMemberDetails extends Component {
         }
     }
 
-    countryName = ({countryResult}) => {
-        if(countryResult){
-          
-           return( 
-            countryResult.map((item) =>{
-                   return(
-                    { ...item, label: item.countryName, value: item.countryId }
-                   )
-               })
-           )
-            
+    countryName = ({ countryResult }) => {
+        if (countryResult) {
+
+            return (
+                countryResult.map((item) => {
+                    return (
+                        { ...item, label: item.countryName, value: item.countryId }
+                    )
+                })
+            )
+
         }
     }
-    countryName1 = ({countryResult}) => {
-        if(countryResult){
-          
-           return( 
-            countryResult.map((item) =>{
-                   return(
-                    { ...item, label: item.countryName, value: item.countryId }
-                   )
-               })
-           )
-            
+    countryName1 = ({ countryResult }) => {
+        if (countryResult) {
+
+            return (
+                countryResult.map((item) => {
+                    return (
+                        { ...item, label: item.countryName, value: item.countryId }
+                    )
+                })
+            )
+
         }
     }
 
     onChangeCountry = (countryId, countryName, selectOption) => {
-        console.log(countryId, countryName, selectOption)
-    
+
         this.setState({
             countryName: selectOption.countryName,
-            countryId:selectOption.countryId, 
+            countryId: selectOption.countryId,
         })
-        
+
         this.props.getState(selectOption.countryId)
         this.updateCountryAddress(selectOption.countryName)
     }
 
     updateCountryAddress = (countryName) => {
-        console.log(countryName)
-        this.setState({countryName})
-        this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') + ', ' +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
+        this.setState({ countryName })
+        this.setState({
+            permanentAddress: this.state.permanentAddressDefault + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') + ', ' +
+                this.state.cityName + ', ' + this.state.stateName + ', ' + countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
     }
 
 
-    stateName = ({stateResult}) => {
-        if(stateResult){
-          console.log(stateResult)
-           return( 
-            stateResult.map((item) =>{ 
-                   return(
-                    { ...item, label: item.stateName, value: item.stateId }
-                   )
-               })
-           )
-            
+    stateName = ({ stateResult }) => {
+        if (stateResult) {
+            return (
+                stateResult.map((item) => {
+                    return (
+                        { ...item, label: item.stateName, value: item.stateId }
+                    )
+                })
+            )
+
         }
     }
-    
-    stateName1 = ({stateResult}) => {
-        if(stateResult){
-          console.log(stateResult)
-           return( 
-            stateResult.map((item) =>{ 
-                   return(
-                    { ...item, label: item.stateName, value: item.stateId }
-                   )
-               })
-           )
-            
+
+    stateName1 = ({ stateResult }) => {
+        if (stateResult) {
+            return (
+                stateResult.map((item) => {
+                    return (
+                        { ...item, label: item.stateName, value: item.stateId }
+                    )
+                })
+            )
+
         }
     }
-    
+
     onChangeState = (stateName, stateId, selectOption) => {
-        console.log(stateName, stateId, selectOption)
         this.setState({
             stateName: selectOption.stateName,
-            stateId:selectOption.stateId
+            stateId: selectOption.stateId
         })
         this.props.getCity(selectOption.stateId);
         this.updateStateAddress(selectOption.stateName)
     }
 
     updateStateAddress = (stateName) => {
-        console.log(stateName)
-        this.setState({stateName})
-        this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
+        this.setState({ stateName })
+        this.setState({
+            permanentAddress: this.state.permanentAddressDefault + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
+                this.state.cityName + ', ' + stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
     }
-    
-    cityName=({cityResult})=>{
-       
-        if(cityResult){
-            
-           return( 
-            cityResult.map((item) =>{ 
-                   if(item){
-                    return(
+
+    cityName = ({ cityResult }) => {
+
+        if (cityResult) {
+
+            return (
+                cityResult.map((item) => {
+                    if (item) {
+                        return (
+                            { ...item, label: item.cityName, value: item.cityId }
+                        )
+                    }
+                }
+                )
+            )
+
+        }
+    }
+
+    cityName1 = ({ cityResult }) => {
+
+        if (cityResult) {
+
+            return (
+                cityResult.map((item) => {
+                    return (
                         { ...item, label: item.cityName, value: item.cityId }
-                       )
-                   }
-               }
-               )
-           )
-            
+                    )
+                }
+                )
+            )
+
         }
     }
-    
-    cityName1=({cityResult})=>{
-       
-        if(cityResult){
-            
-           return( 
-            cityResult.map((item) =>{ 
-                   return(
-                    { ...item, label: item.cityName, value: item.cityId }
-                   )
-               }
-               )
-           )
-            
-        }
-    }
-    
+
     onChangeCity = (cityName, cityId, selectOption) => {
-        console.log(cityName, cityId, selectOption)
         this.setState({
             cityName: selectOption.cityName,
-            cityId:selectOption.cityId
+            cityId: selectOption.cityId
         })
         this.props.getLocation(selectOption.cityId)
         this.updateCityAddress(selectOption.cityName)
     }
 
     updateCityAddress = (cityName) => {
-        console.log(cityName)
-        this.setState({cityName})
-        this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-        cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
+        this.setState({ cityName })
+        this.setState({
+            permanentAddress: this.state.permanentAddressDefault + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
+
     }
-    
-    
-    locationName=({locationResult})=>{
-       if(locationResult){
-            
-           return( 
-               locationResult.map((item) =>{ 
-                   return(
-                    { ...item, label: item.locationName, value: item.locationId }
-                   )
-               }
-               )
-           )
-            
-        }
-    }
-    
-    locationName1=({locationResult})=>{
-        if(locationResult){
-             
-            return( 
-                locationResult.map((item) =>{ 
-                    return(
-                     { ...item, label: item.locationName, value: item.locationId }
+
+
+    locationName = ({ locationResult }) => {
+        if (locationResult) {
+
+            return (
+                locationResult.map((item) => {
+                    return (
+                        { ...item, label: item.locationName, value: item.locationId }
                     )
                 }
                 )
             )
-             
-         }
-     }
-    
+
+        }
+    }
+
+    locationName1 = ({ locationResult }) => {
+        if (locationResult) {
+
+            return (
+                locationResult.map((item) => {
+                    return (
+                        { ...item, label: item.locationName, value: item.locationId }
+                    )
+                }
+                )
+            )
+
+        }
+    }
+
     onChangeLocation = (locationName, locationId, selectOption) => {
-        console.log(locationName, locationId, selectOption)
         this.setState({
             locationName: selectOption.locationName,
-            locationId:selectOption.locationId,
-            
+            locationId: selectOption.locationId,
+
         })
         this.updatePermanentAddress1(selectOption.locationName)
     }
 
     updatePermanentAddress1 = (location) => {
-        console.log(location)
-        this.setState({location})
-        this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + location + ', ' +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
+        this.setState({ location })
+        this.setState({
+            permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
+                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
     }
 
     OnKeyPresshandlerPhone(event) {
@@ -546,18 +538,15 @@ class BoardMemberDetails extends Component {
     }
 
     emailChange = (e) => {
-        console.log(this.state.email)
         this.setState({ email: e.target.value, emailServerError: '' })
         if (e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)) {
             this.setState({ [e.target.name]: e.target.value.trim() });
-            console.log(this.state.email)
             this.setState({ emailValidError: '' })
         }
         else { this.setState({ emailValidError: 'Invalid Email.' }) }
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log(this.state.email)
             this.setState({ [e.target.name]: e.target.value.trim(), errors });
         }
         else {
@@ -567,58 +556,58 @@ class BoardMemberDetails extends Component {
     }
 
     loadingInactive = () => {
-        this.setState({ modalLoading: false, editSocietyMember: !this.state.editSocietyMember,userPermanent:false,editPermanent:false,
-            countryId:'',stateId:'', cityId:'', locationId:'',
-            editCurrent:false, userCurrent:false, currentCountryId:'', currentStateId:'',currentCityId:'',
-            currentLocationId:'' })
+        this.setState({
+            modalLoading: false, editSocietyMember: !this.state.editSocietyMember, userPermanent: false, editPermanent: false,
+            countryId: '', stateId: '', cityId: '', locationId: '',
+            editCurrent: false, userCurrent: false, currentCountryId: '', currentStateId: '', currentCityId: '',
+            currentLocationId: ''
+        })
     }
 
     update = (e) => {
-        console.log('hello')
         e.preventDefault();
-        let { societyId, firstName,lastName, designationId,gender, countryId, stateId, cityId,
-            locationId, currentAddress, permanentAddress,pin1,accountHolderName,
-            contactNumber, email, bankName,IFSCCode,
+        let { societyId, firstName, lastName, designationId, gender, countryId, stateId, cityId,
+            locationId, currentAddress, permanentAddress, pin1, accountHolderName,
+            contactNumber, email, bankName, IFSCCode,
             accountNumber, panCardNumber, dob, societyBoardMemberId, pin } = this.state;
         let errors = {};
         if (firstName === '') errors.firstName = `First Name can't be empty.`
-        if(lastName === '') errors.lastName = `Last Name can't be empty.`
-        if(!gender) errors.gender = `Please select gender.`
-        if(IFSCCode === '') errors.IFSCCode=`IFSC code can't be empty.`
-        else if(IFSCCode.length !== 11) errors.IFSCCode=`IFSC code should be of 11 digits.`
+        if (lastName === '') errors.lastName = `Last Name can't be empty.`
+        if (!gender) errors.gender = `Please select gender.`
+        if (IFSCCode === '') errors.IFSCCode = `IFSC code can't be empty.`
+        else if (IFSCCode.length !== 11) errors.IFSCCode = `IFSC code should be of 11 digits.`
         if (currentAddress === '') { errors.currentAddress = `Current Address can't be empty.` }
-        if(!!document.getElementById('isChecked').checked){
-            if(this.state.permanentAddressDefault === '') errors.permanentAddressDefault = `Permanent Address can't be empty.`;
+        if (!!document.getElementById('isChecked').checked) {
+            if (this.state.permanentAddressDefault === '') errors.permanentAddressDefault = `Permanent Address can't be empty.`;
         }
-        if(!!document.getElementById('isCurrentChecked').checked){
-            if(this.state.currentAddressDefault === '') errors.currentAddressDefault = `Current Address can't be empty.`;
+        if (!!document.getElementById('isCurrentChecked').checked) {
+            if (this.state.currentAddressDefault === '') errors.currentAddressDefault = `Current Address can't be empty.`;
         }
         if (permanentAddress === '') { errors.permanentAddress = `Permanent Address can't be empty.` }
         if (contactNumber === '') { errors.contactNumber = `Contact can't be empty.` }
         else if (contactNumber.length !== 10) errors.contactNumber = "Contact length should be of 10."
         if (email === '') { errors.email = `Email can't be empty.` }
         if (bankName === '') { errors.bankName = `Bank Name can't be empty.` }
-        
+
         if (accountHolderName === '') { errors.accountHolderName = `Account Holder Name can't be empty.` }
         if (accountNumber === '') { errors.accountNumber = `Account Number can't be empty.` }
         if (panCardNumber === '') { errors.panCardNumber = `Pan Card Number can't be empty.` }
         else if (panCardNumber.length !== 10) { errors.panCardNumber = `Pan length should be of 10.` }
         if (dob === '') { errors.dob = `Date of birth can't be empty.` };
-        if(!!document.getElementById('isChecked').checked){
-            if(pin1 === '') errors.pin1 = `Pin/Zip code can't be empty.`
-            else if(pin1.length < 5) errors.pin1 = `Pin/Zip code should be of 5 digits atleast.`
+        if (!!document.getElementById('isChecked').checked) {
+            if (pin1 === '') errors.pin1 = `Pin/Zip code can't be empty.`
+            else if (pin1.length < 5) errors.pin1 = `Pin/Zip code should be of 5 digits atleast.`
         }
-        if(!!document.getElementById('isCurrentChecked').checked){
-            if(pin === '') errors.pin = `Pin/Zip code can't be empty.`
-            else if(pin.length < 5) errors.pin = `Pin/Zip code should be of 5 digits atleast.`
+        if (!!document.getElementById('isCurrentChecked').checked) {
+            if (pin === '') errors.pin = `Pin/Zip code can't be empty.`
+            else if (pin.length < 5) errors.pin = `Pin/Zip code should be of 5 digits atleast.`
         }
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0;
         if (isValid && this.state.emailValidError === '') {
-            console.log('hello1')
             this.setState({ modalLoading: true })
 
-            this.props.updateSocietyMemberDetails(societyId, firstName,lastName, designationId,gender,
+            this.props.updateSocietyMemberDetails(societyId, firstName, lastName, designationId, gender,
                 countryId, stateId, cityId,
                 locationId, currentAddress, permanentAddress,
                 contactNumber, email, bankName,
@@ -626,7 +615,7 @@ class BoardMemberDetails extends Component {
                 .then(() => this.loadingInactive())
                 .catch(err => {
                     this.setState({
-                        modalLoading: false,  contactServerError: err.response.data.messageContactErr,
+                        modalLoading: false, contactServerError: err.response.data.messageContactErr,
                         emailServerError: err.response.data.messageEmailErr
                     })
                 })
@@ -651,188 +640,192 @@ class BoardMemberDetails extends Component {
 
     editPermanentAddress = () => {
         if (!!document.getElementById('isChecked').checked) {
-            console.log('is checked')
             //    this.setState({permanentAddress: this.state.currentAddress, permanentAddressVisible:true, editPermanent:false})
-            this.setState({ editPermanent: true, permanentAddress: '', userPermanent: true, countryId:'',stateId:'',
-        cityId:'', locationId:'' })
+            this.setState({
+                editPermanent: true, permanentAddress: '', userPermanent: true, countryId: '', stateId: '',
+                cityId: '', locationId: ''
+            })
         }
         else {
             // this.setState({permanentAddress: '' , permanentAddressVisible:false, editPermanent:true})
-            this.setState({ editPermanent: false, permanentAddress: this.state.readOnlyPermanent, userPermanent: false,
-            countryId:this.state.readOnlyCountryId, stateId:this.state.readOnlyStateId, cityId:this.state.readOnlyCityId,
-        locationId: this.state.readOnlyLocationId })
+            this.setState({
+                editPermanent: false, permanentAddress: this.state.readOnlyPermanent, userPermanent: false,
+                countryId: this.state.readOnlyCountryId, stateId: this.state.readOnlyStateId, cityId: this.state.readOnlyCityId,
+                locationId: this.state.readOnlyLocationId
+            })
         }
     }
 
     permanentAddressChange = (e) => {
-    console.log(this.state)
-    if (!!this.state.errors[e.target.name]) {
-        let errors = Object.assign({}, this.state.errors);
-        delete errors[e.target.name];
-        this.setState({ permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1 , errors });
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({
+                permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
+                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1, errors
+            });
+        }
+        else {
+            this.setState({
+                permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
+                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1
+            })
+        }
+        // if(!!document.getElementById('isChecked1').checked){
+        //     this.setState({currentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
+        //     this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+        // }
     }
-    else {
-        this.setState({permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+
+    pinChange1 = (e) => {
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({ pin1: e.target.value, errors });
+        }
+        else {
+            this.setState({ pin1: e.target.value });
+        }
+        this.updatePermanentAddress(e.target.value)
     }
-    // if(!!document.getElementById('isChecked1').checked){
-    //     this.setState({currentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-    //     this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
-    // }
-}
 
-pinChange1 = (e) => {
-    console.log(this.state)
-    if (!!this.state.errors[e.target.name]) {
-        let errors = Object.assign({}, this.state.errors);
-        delete errors[e.target.name];
-        this.setState({ pin1: e.target.value, errors });
+    updatePermanentAddress = (pin1) => {
+        this.setState({ pin1 })
+        this.setState({
+            permanentAddress: this.state.permanentAddressDefault + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
+                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1
+        })
     }
-    else {
-        this.setState({pin1: e.target.value});
+
+    countryChange = (currentCountryId, currentCountry, selectOption) => {
+        this.setState({
+            currentCountry: selectOption.countryName,
+            currentCountryId: selectOption.countryId,
+        })
+
+        this.props.getState(selectOption.countryId)
+        this.updateCountryCurrent(selectOption.countryName)
     }
-    this.updatePermanentAddress(e.target.value)
-}
 
-updatePermanentAddress = (pin1) => {
-    this.setState({pin1})
-    this.setState({permanentAddress: this.state.permanentAddressDefault  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1})
-}
-
-countryChange = (currentCountryId, currentCountry, selectOption) => {
-    this.setState({
-        currentCountry: selectOption.countryName,
-        currentCountryId:selectOption.countryId, 
-    })
-    
-    this.props.getState(selectOption.countryId)
-    this.updateCountryCurrent(selectOption.countryName)
-}
-
-updateCountryCurrent = (currentCountry) => {
-    console.log(currentCountry)
-    this.setState({currentCountry})
-    this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-    this.state.currentCity + ', ' + this.state.currentState + ', ' + currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-    console.log('currentAddress', this.state.currentAddress)
-}
-
-
-stateChange = (currentState, currentStateId, selectOption) => {
-    console.log(currentState, currentStateId, selectOption)
-    this.setState({
-        currentState: selectOption.stateName,
-        currentStateId:selectOption.stateId
-    })
-    this.props.getCity(selectOption.stateId);
-    this.updateStateCurrent(selectOption.stateName)
-}
-
-updateStateCurrent = (currentState) => {
-    console.log(currentState)
-    this.setState({currentState})
-    this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-    this.state.currentCity + ', ' + currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-    console.log('currentAddress', this.state.currentAddress)
-}
-
-cityChange = (currentCity, currentCityId, selectOption) => {
-    console.log(currentCity, currentCityId, selectOption)
-    this.setState({
-        currentCity: selectOption.cityName,
-        currentCityId:selectOption.cityId
-    })
-    this.props.getLocation(selectOption.cityId)
-    this.updateCityCurrent(selectOption.cityName)
-}
-
-updateCityCurrent = (currentCity) => {
-    console.log(currentCity)
-    this.setState({currentCity})
-    this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-    currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-    console.log('currentAddress', this.state.currentAddress)
-}
-
-locationChange = (currentLocation, currentLocationId, selectOption) => {
-    console.log(currentLocation, currentLocationId, selectOption)
-    this.setState({
-        currentLocation: selectOption.locationName,
-        permanentLocationId:selectOption.locationId,
-        
-    })
-    this.updateCurrentAddress1(selectOption.locationName)
-}
-
-updateCurrentAddress1 = (location) => {
-    console.log(location)
-    this.setState({location})
-    this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + location + ', ' +
-    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-    console.log('currentAddress', this.state.currentAddress)
-}
-
-pinChange = (e) => {
-    console.log(this.state)
-    if (!!this.state.errors[e.target.name]) {
-        let errors = Object.assign({}, this.state.errors);
-        delete errors[e.target.name];
-        this.setState({ [e.target.name]: e.target.value, errors });
+    updateCountryCurrent = (currentCountry) => {
+        this.setState({ currentCountry })
+        this.setState({
+            currentAddress: this.state.currentAddressDefault + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                this.state.currentCity + ', ' + this.state.currentState + ', ' + currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
     }
-    else {
-        this.setState({[e.target.name]: e.target.value});
-        console.log(this.state)
-    }
-    this.updateCurrentAddress(e.target.value)
-}
 
-updateCurrentAddress = (pin) => {
-    console.log(pin)
-    this.setState({pin})
-    this.setState({currentAddress: this.state.currentAddressDefault  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
-    console.log('currentAddress', this.state.currentAddress)
-}
 
-currentAddressChange = (e) => {
-    console.log(this.state)
-    if (!!this.state.errors[e.target.name]) {
-        let errors = Object.assign({}, this.state.errors);
-        delete errors[e.target.name];
-        this.setState({ currentAddressDefault: e.target.value, currentAddress: e.target.value  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin , errors });
+    stateChange = (currentState, currentStateId, selectOption) => {
+        this.setState({
+            currentState: selectOption.stateName,
+            currentStateId: selectOption.stateId
+        })
+        this.props.getCity(selectOption.stateId);
+        this.updateStateCurrent(selectOption.stateName)
     }
-    else {
-        this.setState({currentAddressDefault: e.target.value, currentAddress: e.target.value  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin})
-    }
-}
 
-currentAddressIsChecked = () => {
-    if(!!document.getElementById('isCurrentChecked').checked){
-        this.setState({editCurrent:true, currentAddress:'', userCurrent:true})
+    updateStateCurrent = (currentState) => {
+        this.setState({ currentState })
+        this.setState({
+            currentAddress: this.state.currentAddressDefault + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                this.state.currentCity + ', ' + currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
     }
-    else{
-        this.setState({editCurrent:false, currentAddress: this.state.readOnlyCurrent, userCurrent:false})
-    }
-}
 
-ifscChange = (e) => {
-    if (!!this.state.errors[e.target.name]) {
-        let errors = Object.assign({}, this.state.errors);
-        delete errors[e.target.name];
-        this.setState({ [e.target.name]: e.target.value.toUpperCase().trim(), errors });
+    cityChange = (currentCity, currentCityId, selectOption) => {
+        this.setState({
+            currentCity: selectOption.cityName,
+            currentCityId: selectOption.cityId
+        })
+        this.props.getLocation(selectOption.cityId)
+        this.updateCityCurrent(selectOption.cityName)
     }
-    else {
-        this.setState({[e.target.name]:e.target.value.toUpperCase().trim()});
+
+    updateCityCurrent = (currentCity) => {
+        this.setState({ currentCity })
+        this.setState({
+            currentAddress: this.state.currentAddressDefault + ', ' + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
     }
-    
-}
+
+    locationChange = (currentLocation, currentLocationId, selectOption) => {
+        this.setState({
+            currentLocation: selectOption.locationName,
+            permanentLocationId: selectOption.locationId,
+
+        })
+        this.updateCurrentAddress1(selectOption.locationName)
+    }
+
+    updateCurrentAddress1 = (location) => {
+        this.setState({ location })
+        this.setState({
+            currentAddress: this.state.currentAddressDefault + ', ' + location + ', ' +
+                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+        })
+    }
+
+    pinChange = (e) => {
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({ [e.target.name]: e.target.value, errors });
+        }
+        else {
+            this.setState({ [e.target.name]: e.target.value });
+        }
+        this.updateCurrentAddress(e.target.value)
+    }
+
+    updateCurrentAddress = (pin) => {
+        this.setState({ pin })
+        this.setState({
+            currentAddress: this.state.currentAddressDefault + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin
+        })
+    }
+
+    currentAddressChange = (e) => {
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({
+                currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin, errors
+            });
+        }
+        else {
+            this.setState({
+                currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
+                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin
+            })
+        }
+    }
+
+    currentAddressIsChecked = () => {
+        if (!!document.getElementById('isCurrentChecked').checked) {
+            this.setState({ editCurrent: true, currentAddress: '', userCurrent: true })
+        }
+        else {
+            this.setState({ editCurrent: false, currentAddress: this.state.readOnlyCurrent, userCurrent: false })
+        }
+    }
+
+    ifscChange = (e) => {
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({ [e.target.name]: e.target.value.toUpperCase().trim(), errors });
+        }
+        else {
+            this.setState({ [e.target.name]: e.target.value.toUpperCase().trim() });
+        }
+
+    }
 
     render() {
-        console.log(this.props.societyReducer.countryResult)
         let tableData = <Table className="table table-bordered">
             <thead>
                 <tr>
@@ -954,7 +947,7 @@ ifscChange = (e) => {
                 </Row>
             </FormGroup>
             {this.state.userPermanent ? <div>
-                <h4 style={{textAlign:'center', fontWeight:'600', textDecoration: 'underline'}}>Edit Permanent Address</h4>
+                <h4 style={{ textAlign: 'center', fontWeight: '600', textDecoration: 'underline' }}>Edit Permanent Address</h4>
                 <FormGroup>
                     <Row md={12}>
                         <Col md={3}>
@@ -1012,99 +1005,99 @@ ifscChange = (e) => {
                             onChange={this.onChange}
                             maxLength='250' />
                         {/* {!this.state.permanentAddress ? <span className="error">{this.state.errors.permanentAddress}</span>: ''} */}
-                    </Col>:''}
+                    </Col> : ''}
                     {!this.state.editCurrent ? <Col md={6} style={{ paddingTop: '44px' }}>
                         <span style={{ fontWeight: '600' }}>Do you want to edit current address?</span>
                         <Input type="checkbox" name="isCurrentChecked" id="isCurrentChecked" onChange={this.currentAddressIsChecked} className="ml-3" />
-                    </Col>: 
-                        <Col md={12} style={{ textAlign:'center' }}>
+                    </Col> :
+                        <Col md={12} style={{ textAlign: 'center' }}>
                             <span style={{ fontWeight: '600' }}>Do you want to edit current address?</span>
                             <Input type="checkbox" name="isCurrentChecked" id="isCurrentChecked" onChange={this.currentAddressIsChecked} className="ml-3" />
                         </Col>}
 
-                    </Row>
+                </Row>
             </FormGroup>
-            
-            {this.state.userCurrent ? 
+
+            {this.state.userCurrent ?
                 <div>
-                   <h4 style={{textAlign:'center', fontWeight:'600', textDecoration: 'underline'}}>Edit Current Address</h4>
-                    
+                    <h4 style={{ textAlign: 'center', fontWeight: '600', textDecoration: 'underline' }}>Edit Current Address</h4>
+
                     <FormGroup>
                         <Row md={12}>
                             <Col md={3}>
                                 <Label>Country</Label>
-                                <Select placeholder={<DefaultSelect/>} options={this.countryName1(this.props.societyReducer)} onChange={this.countryChange.bind(this, 'currentCountry', 'currentCountryId')} />
+                                <Select placeholder={<DefaultSelect />} options={this.countryName1(this.props.societyReducer)} onChange={this.countryChange.bind(this, 'currentCountry', 'currentCountryId')} />
                             </Col>
                             <Col md={3}>
                                 <Label>State</Label>
-                                <Select placeholder={<DefaultSelect/>} options={this.stateName1(this.props.societyReducer)} onChange={this.stateChange.bind(this, 'currentState', 'currentStateId')} />
+                                <Select placeholder={<DefaultSelect />} options={this.stateName1(this.props.societyReducer)} onChange={this.stateChange.bind(this, 'currentState', 'currentStateId')} />
                             </Col>
                             <Col md={3}>
                                 <Label>City</Label>
-                                <Select placeholder={<DefaultSelect/>} options={this.cityName1(this.props.societyReducer)} onChange={this.cityChange.bind(this, 'currentCity', 'currentCityId')} />
+                                <Select placeholder={<DefaultSelect />} options={this.cityName1(this.props.societyReducer)} onChange={this.cityChange.bind(this, 'currentCity', 'currentCityId')} />
                             </Col>
                             <Col md={3}>
                                 <Label>Location</Label>
-                                <Select placeholder={<DefaultSelect/>} options={this.locationName1(this.props.societyReducer)} onChange={this.locationChange.bind(this, 'currentLocation', 'currentLocationId')} />
+                                <Select placeholder={<DefaultSelect />} options={this.locationName1(this.props.societyReducer)} onChange={this.locationChange.bind(this, 'currentLocation', 'currentLocationId')} />
                             </Col>
                         </Row>
                     </FormGroup>
-                    
+
                     <FormGroup>
                         <Row md={12}>
                             <Col md={4}>
                                 <Label>Pin/Zip Code</Label>
                                 <Input type="text" onChange={this.pinChange}
-                                maxLength="6" minLength="5" onKeyPress={this.OnKeyPresshandlerPhone}
+                                    maxLength="6" minLength="5" onKeyPress={this.OnKeyPresshandlerPhone}
                                     name="pin" placeholder="Pin/Zip Code" />
                                 <span className="error">{this.state.errors.pin}</span>
                             </Col>
                             <Col md={8}>
                                 <Label>Address</Label>
                                 <Input id="currenttaddr"
-                                type="textarea"
-                                disabled={!(this.state.currentCountryId && this.state.currentStateId && this.state.currentCityId)} 
-                                placeholder="Current Address" 
-                                name="currentAddressDefault" 
-                                onChange={this.currentAddressChange}
-                                maxLength='250' />
-                                {<span className="error">{this.state.errors.currentAddressDefault}</span> }
+                                    type="textarea"
+                                    disabled={!(this.state.currentCountryId && this.state.currentStateId && this.state.currentCityId)}
+                                    placeholder="Current Address"
+                                    name="currentAddressDefault"
+                                    onChange={this.currentAddressChange}
+                                    maxLength='250' />
+                                {<span className="error">{this.state.errors.currentAddressDefault}</span>}
                             </Col>
                         </Row>
                     </FormGroup>
-                </div>:''}
-            <FormGroup style={{margin:'20px auto'}}>
-                <h4 style={{textAlign:'center', fontWeight:'600', marginBottom:'20px'}}>Bank Details</h4>
+                </div> : ''}
+            <FormGroup style={{ margin: '20px auto' }}>
+                <h4 style={{ textAlign: 'center', fontWeight: '600', marginBottom: '20px' }}>Bank Details</h4>
             </FormGroup>
             <FormGroup>
                 <Row md={12}>
                     <Col md={6}>
                         <Label>Bank Name</Label>
                         <Input
-                        placeholder="Bank Name"
-                        type="text"
-                        maxLength="70"
-                        name="bankName"
-                        onChange={this.onChange}
-                        value={this.state.bankName}
-                        onKeyPress={this.bankValidation} />
-                     {<span className="error">{this.state.errors.bankName}</span>}
+                            placeholder="Bank Name"
+                            type="text"
+                            maxLength="70"
+                            name="bankName"
+                            onChange={this.onChange}
+                            value={this.state.bankName}
+                            onKeyPress={this.bankValidation} />
+                        {<span className="error">{this.state.errors.bankName}</span>}
                     </Col>
                     <Col md={6}>
                         <Label>IFSC Code</Label>
                         <Input value={this.state.IFSCCode} onChange={this.ifscChange}
-                        placeholder="IFSC Code"
-                        type="text" 
-                        name="IFSCCode" 
-                        value={this.state.IFSCCode.toUpperCase()}
-                        onKeyPress={(e) => {
-                            const pattern = /^[a-zA-Z0-9]+$/;
-                            let inputChar = String.fromCharCode(e.charCode);
-                            if (!pattern.test(inputChar)) {
-                                e.preventDefault();
-                            }
-                        }}
-                        maxLength="11" />
+                            placeholder="IFSC Code"
+                            type="text"
+                            name="IFSCCode"
+                            value={this.state.IFSCCode.toUpperCase()}
+                            onKeyPress={(e) => {
+                                const pattern = /^[a-zA-Z0-9]+$/;
+                                let inputChar = String.fromCharCode(e.charCode);
+                                if (!pattern.test(inputChar)) {
+                                    e.preventDefault();
+                                }
+                            }}
+                            maxLength="11" />
                         {<span className="error">{this.state.errors.IFSCCode}</span>}
                     </Col>
                 </Row>
@@ -1113,14 +1106,14 @@ ifscChange = (e) => {
                 <Row md={12}>
                     <Col md={6}>
                         <Label>Account Holder Name</Label>
-                            <Input placeholder="Account Holder Name"
+                        <Input placeholder="Account Holder Name"
                             type="text"
                             name="accountHolderName"
-                            maxLength="70" 
+                            maxLength="70"
                             value={this.state.accountHolderName}
                             onChange={this.onChange}
                             onKeyPress={this.OnKeyPressUserhandler} />
-                            {<span className="error">{this.state.errors.accountHolderName}</span>}
+                        {<span className="error">{this.state.errors.accountHolderName}</span>}
                     </Col>
                     <Col md={6}>
                         <Label>Account Number</Label>
@@ -1135,7 +1128,7 @@ ifscChange = (e) => {
                         {<span className="error">{this.state.errors.accountNumber}</span>}
                     </Col>
                 </Row>
-                
+
             </FormGroup>
             <FormGroup>
                 <Row md={12}>
@@ -1159,7 +1152,7 @@ ifscChange = (e) => {
                         {<span className="error">{this.state.errors.panCardNumber}</span>}
                     </Col>
                     <Col md={6}>
-                        
+
                     </Col>
                 </Row>
             </FormGroup>
@@ -1186,7 +1179,7 @@ ifscChange = (e) => {
                     </Col>
                     <Col md={3}>
                         <Label>Last Name</Label>
-                        <Input name="lastName" type="text" value={this.state.lastName}  readOnly
+                        <Input name="lastName" type="text" value={this.state.lastName} readOnly
                             onChange={this.onChange} maxLength='40' />
                     </Col>
                     <Col md={3}>
@@ -1195,7 +1188,7 @@ ifscChange = (e) => {
                     </Col>
                     <Col md={3}>
                         <Label>Designation</Label>
-                        <Input  readOnly name="designationId" type="text" onChange={this.onChange} value={this.state.designationName} />
+                        <Input readOnly name="designationId" type="text" onChange={this.onChange} value={this.state.designationName} />
                     </Col>
                 </Row>
             </FormGroup>
@@ -1237,12 +1230,12 @@ ifscChange = (e) => {
                     </Col>
                     <Col md={6}>
                         <Label>Current Address</Label>
-                        <Input type='textarea' value={this.state.currentAddress} onChange={this.currentAddressChange}  readOnly />
+                        <Input type='textarea' value={this.state.currentAddress} onChange={this.currentAddressChange} readOnly />
                     </Col>
                 </Row>
             </FormGroup>
             <FormGroup>
-                <h4 style={{textAlign:'center', marginTop:'20px', fontWeight:'600'}}>Bank Details</h4>
+                <h4 style={{ textAlign: 'center', marginTop: '20px', fontWeight: '600' }}>Bank Details</h4>
                 <Row md={12}>
                     <Col md={6}>
                         <Label>Bank Name</Label>
@@ -1277,7 +1270,7 @@ ifscChange = (e) => {
                 <Button color="primary" onClick={this.toggleViewtSocietyMember.bind(this)}>Cancel</Button>
             </FormGroup>
         </div>
-            
+
         return (
             <UI onClick={this.logout} change={this.changePassword}>
                 <div className="w3-container w3-margin-top w3-responsive">

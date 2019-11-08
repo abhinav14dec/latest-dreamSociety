@@ -88,7 +88,6 @@ class ViewServices extends Component {
     }
 
     refreshData(purchaseOrderId) {
-        console.log(purchaseOrderId)
         this.props.getPurchaseOrder(purchaseOrderId).then(()=> this.setState({loading:false, modalLoading: false, editVendorModal:false}));
         this.props.getServiceType(purchaseOrderId)
         this.props.getServicesId(purchaseOrderId).then(()=> this.setState({loading:false, modalLoading: false, editVendorModal:false}));
@@ -276,7 +275,6 @@ renderList = ({ getServiceDetails }) => {
             if(ar.length > 0){
                 this.setState({isDisabled: false});
             }
-            console.log(this.state)
     }
 
     unSelectAll = () =>{

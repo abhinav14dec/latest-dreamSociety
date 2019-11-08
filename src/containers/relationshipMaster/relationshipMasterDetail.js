@@ -91,7 +91,7 @@ class RelationshipMasterDetail extends Component {
            
         this.props.updateRelation(relationId, relationName)
             .then(() => this.refreshData())
-            .catch(err=>{ console.log(err.response.data.message)
+            .catch(err=>{ 
                 this.setState({modalLoading:false, message: err.response.data.message, loading:false})
                 })
                 if(this.state.message === ''){
@@ -328,7 +328,6 @@ class RelationshipMasterDetail extends Component {
 
 
 function mapStatToProps(state) {
-     console.log(state)
     return {
         RelationMasterReducer: state.RelationMasterReducer
     }

@@ -29,7 +29,6 @@ class FlatMaster extends Component {
     }
 
     componentDidMount() {
-        console.log(localStorage.getItem('societyId'));
         this.setState({societyId: localStorage.getItem('societyId')})
         // this.props.getSocietyNameDetails().then(()=> this.setState({loading:false}))
         this.props.getSizeTypeDetails().then(()=> this.setState({loading:false}))
@@ -51,7 +50,7 @@ class FlatMaster extends Component {
         if (this.state.coverArea === '') errors.coverArea = "Cant be empty";
         else if (parseInt(this.state.coverArea) > parseInt(this.state.flatSuperArea)) errors.coverArea=
          "Cover Area cannot be greater then Flat Super Area";
-         else if (parseInt(this.state.coverArea) == parseInt(this.state.flatSuperArea)) errors.coverArea=
+         else if (parseInt(this.state.coverArea) === parseInt(this.state.flatSuperArea)) errors.coverArea=
          "Cover Area cannot be equal to Flat Super Area";
         this.setState({ errors });
 
@@ -76,25 +75,19 @@ class FlatMaster extends Component {
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.trim(''), errors });
         } else {
             this.setState({ [e.target.name]: e.target.value.trim('') });
         }
 
-        console.log(this.state)
     }
     // societyName=({ list0 })=> {
-    //     console.log(list0)
     //     if (list0) {
     //         // const name =list0.societyName
-    //         // console.log(name)
 
     //         return (
     //             list0.map((item) => {
                     
-                      
-    //                     console.log(item)
     //             //    this.state.societyName=name
     //                     // <option key{item.societyId} value={item.societyId}>
     //                     //     {item.societyName}

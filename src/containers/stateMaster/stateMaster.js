@@ -13,22 +13,19 @@ class FlatMaster extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             countryId: '',
             stateName: '',
-
             errors: {},
-            message:'',
+            message: '',
             isSubmit: false,
-            loading:true,
-            message:'',
+            loading: true,
             menuVisible: false
         }
 
     }
 
     componentDidMount() {
-        this.props.getCountry().then(()=> this.setState({loading:false}))
+        this.props.getCountry().then(() => this.setState({ loading: false }))
         //    this.props.getSizeTypeDetails()
     }
 
@@ -45,15 +42,15 @@ class FlatMaster extends Component {
         const isValid = Object.keys(errors).length === 0;
 
         if (isValid) {
-            
-            this.setState({loading:true})
-            console.log(this.state);
+
+            this.setState({ loading: true })
             this.props.addStates(this.state)
-            .then(() => this.props.history.push('/superDashboard/statemaster/statemasterdetails'))
-            .catch((err)=>{console.log(err.response.data.message)
-                this.setState({loading:false, message:err.response.data.message})})
-            
-            
+                .then(() => this.props.history.push('/superDashboard/statemaster/statemasterdetails'))
+                .catch((err) => {
+                    this.setState({ loading: false, message: err.response.data.message })
+                })
+
+
             this.setState({
                 countryId: "",
                 countryName: '',
@@ -66,7 +63,7 @@ class FlatMaster extends Component {
 
     }
     onChange = (e) => {
-        this.setState({message: ''});
+        this.setState({ message: '' });
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -75,11 +72,9 @@ class FlatMaster extends Component {
             this.setState({ [e.target.name]: e.target.value.trim('') });
         }
 
-        console.log(this.state)
     }
 
     countryName({ country1 }) {
-        console.log(country1)
         if (country1) {
 
             return (
@@ -98,33 +93,33 @@ class FlatMaster extends Component {
     push = () => {
         this.props.history.push('/superDashboard/statemaster/statemasterdetails')
     }
-    logout=()=>{
+    logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user-type');
-        return this.props.history.replace('/') 
+        return this.props.history.replace('/')
     }
-    onStateChange=(event)=>{
-        this.setState({message: ''});
+    onStateChange = (event) => {
+        this.setState({ message: '' });
         const pattern = /^[a-zA-Z ]+$/;
         let inputChar = String.fromCharCode(event.charCode);
         if (!pattern.test(inputChar)) {
             event.preventDefault();
         }
     }
-    close=()=>{
+    close = () => {
         return this.props.history.replace('/superDashBoard')
     }
 
-    changePassword=()=>{ 
+    changePassword = () => {
         return this.props.history.replace('/superDashboard/changePassword')
-     }
+    }
 
 
 
     render() {
 
-         let form;
-            form=<div>
+        let form;
+        form = <div>
             <FormGroup>
                 <Label>Country Name</Label>
                 <Input
@@ -157,24 +152,24 @@ class FlatMaster extends Component {
                 <Button color="success" type="submit" className="mr-2">Submit</Button>
                 <Button color="danger" onClick={this.push}>Cancel</Button>
             </FormGroup>
-          </div>
+        </div>
 
 
         return (
             <div>
-                
-                <UI onClick={this.logout} change={this.changePassword}>
-                <Form onSubmit={this.submit}>
-                    <div style={{cursor:'pointer'}} className="close" aria-label="Close" onClick={this.close}>
-                        <span aria-hidden="true">&times;</span>
-                    </div>
 
-                    <h3 style={{textAlign:'center', marginBottom: '10px'}}> State Master</h3>
-                    {!this.state.loading ? form : <Spinner /> }
-                </Form>
-                    
+                <UI onClick={this.logout} change={this.changePassword}>
+                    <Form onSubmit={this.submit}>
+                        <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
+                            <span aria-hidden="true">&times;</span>
+                        </div>
+
+                        <h3 style={{ textAlign: 'center', marginBottom: '10px' }}> State Master</h3>
+                        {!this.state.loading ? form : <Spinner />}
+                    </Form>
+
                 </UI>
-               
+
             </div>
         )
 

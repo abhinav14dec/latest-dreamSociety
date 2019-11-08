@@ -69,7 +69,7 @@ class FacilityMaster extends Component{
     }
     
 
-        render(){console.log(this.state)
+        render(){
             let form;
             form=<div>
        

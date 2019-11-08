@@ -11,7 +11,6 @@ import Spinner from '../../../components/spinner/spinner';
 import GoogleDocsViewer from 'react-google-docs-viewer';
 import Select from 'react-select';
 import { getCountry, getState, getCity, getLocation } from '../../../actions/societyMasterAction';
-import { PlaceHolder } from '../../../actionCreators/index';
 import {getRfId} from '../../../actions/rfIdAction';
 
 class DisplayVendorMaster extends Component {
@@ -61,9 +60,6 @@ class DisplayVendorMaster extends Component {
             currentCountryId:'',
             currentStateId:'',
             currentCity:'',
-            currentCityId:'',
-            currentState:'',
-            currentStateId:'',
             currentLocation:'',
             permanentLocationId:'',
             readOnlyCountryId:'',
@@ -90,11 +86,11 @@ class DisplayVendorMaster extends Component {
             }
     }
 
-    searchFilter(search) {
-        return function (x) {
-            return x.firstName.toLowerCase().includes(search.toLowerCase()) || !search;
-        }
-    }
+    // searchFilter(search) {
+    //     return function (x) {
+    //         return x.firstName.toLowerCase().includes(search.toLowerCase()) || !search;
+    //     }
+    // }
 
     searchOnChange = (e) => {
         this.setState({ search: e.target.value })
@@ -351,7 +347,7 @@ class DisplayVendorMaster extends Component {
                         <td>{vendors.rfid_master.rfid}</td>
                         <td><button className="btn btn-light" onClick={this.openModal.bind(this, vendors.documentOne)}>View Document</button></td>
                         <td><button className="btn btn-light" onClick={this.Modal.bind(this, vendors.documentTwo)}>View Document </button></td>
-                        <td><img style={{maxWidth: "100%",height: "auto",width: "auto\9"}} src={PicURN+ vendors.picture}></img></td>
+                        <td><img style={{maxWidth: "100%",height: "auto",width: "auto\9"}} src={PicURN+ vendors.picture} alt="vender"></img></td>
                         <td><button className="btn btn-success mr-2" onClick={this.viewServices.bind(this,vendors.vendorId)}>View Services</button></td>                   
                         <td>
                              <Button color="success" className="mr-2"onClick={this.editUser.bind(this,vendors.vendorId, vendors.firstName,vendors.lastName,vendors.currentAddress,vendors.permanentAddress,vendors.contact,vendors.email,vendors.rfid_master.rfid,vendors.rfid_master.rfidId,vendors.documentOne,vendors.documentTwo, PicURN+vendors.picture)}>Edit</Button> 
@@ -423,13 +419,13 @@ class DisplayVendorMaster extends Component {
         return this.props.history.replace('/superDashBoard')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
+    // OnKeyPressUserhandler(event) {
+    //     const pattern = /[a-zA-Z_ ]/;
+    //     let inputChar = String.fromCharCode(event.charCode);
+    //     if (!pattern.test(inputChar)) {
+    //         event.preventDefault();
+    //     }
+    // }
     
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
@@ -939,7 +935,6 @@ class DisplayVendorMaster extends Component {
                             value={this.state.currentAddress}
                             type="textarea" disabled
                             placeholder="Current Address"
-                            name="readOnlyCurrent"
                             onChange={this.onChange}
                             maxLength='250' />
                         {/* {!this.state.permanentAddress ? <span className="error">{this.state.errors.permanentAddress}</span>: ''} */}
@@ -1050,7 +1045,7 @@ class DisplayVendorMaster extends Component {
                         </FormGroup>
                     <FormGroup>
                     <Label> Profile Picture</Label>
-                        <img id="target" style={{width:"30%", height:"35%"}} src={this.state.picture}/>
+                        <img id="target" style={{width:"30%", height:"35%"}} src={this.state.picture} alt="profile"/>
                         <Input type="file" name="profilePicture" accept="image/*" onChange={this.selectImages} required /> 
                         
                     </FormGroup>
