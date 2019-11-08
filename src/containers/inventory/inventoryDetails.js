@@ -50,15 +50,14 @@ class InventoryDetails extends Component {
     toggles = () => {
         this.setState({ modal: !this.state.modal })
     }
-    componentWillMount() {
-        
+
+    UNSAFE_componentWillMount() {     
         this.props.getAssets()
         this.props.fetchAssets();
         this.props.getInventory()
             .then(() => this.setState({ loading: false }))
     }
     editAssets = () => {
-
         const { assetId, inventoryId,assetTypeId, } = this.state
         let errors = {};
         if (this.state.assetId === '') {

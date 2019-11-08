@@ -9,7 +9,6 @@ import Spinner from '../../../components/spinner/spinner';
 import DefaultSelect from '../../../constants/defaultSelect';
 
 var Id;
-
 class ViewComplaints extends Component {
     constructor() {
         super()
@@ -206,7 +205,7 @@ class ViewComplaints extends Component {
 
                             }} /></td>
                         <td>{index + 1}</td>
-                        <td>{"Flat No- " + item.flat_detail_master.flatNo + " , " + item.flat_detail_master.floor_master.floorName + " floor, " + " " + item.flat_detail_master.tower_master.towerName}</td>
+                        <td>{`Flat No- ${item.flat_detail_master.flatNo},  ${item.flat_detail_master.floor_master.floorName} floor, ${item.flat_detail_master.tower_master.towerName}`}</td>
                         <td>{item.description}</td>
                         <td>{item.user_master.firstName + " " + item.user_master.lastName + " , " + item.user_master.contact}</td>
                         <td style={{ width: '27%' }}>

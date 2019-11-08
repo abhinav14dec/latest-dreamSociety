@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, Button } from 'reactstrap';
+import {Button } from 'reactstrap';
 
 const ButtonComponent = props => {
     return (

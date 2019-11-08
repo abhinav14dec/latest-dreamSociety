@@ -156,8 +156,6 @@ import Chart from './containers/chart/chart';
 import ChangePasswordVendor from './components/changePassword/changePasswordVendor';
 import ViewComplaints from './containers/vendorMangement/viewComplaints/viewComplaints';
 import ViewVendorFeedback from './containers/vendorMangement/viewComplaints/viewVendorFeedback';
-
-import ChangePasswordAdmin from './components/changePassword/changePasswordAdmin';
 import ChangePasswordEmployee from './components/changePassword/changePasswordEmployee';
 import PurchaseOrder from './containers/purchaseOrder/purchaseOrder';
 import PurchaseOrderDetails from './containers/purchaseOrder/purchaseOrderDetails';

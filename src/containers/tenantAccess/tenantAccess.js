@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import {  } from './../../actions/designationMasterAction';
 import UI from '../../components/newUI/tenantDashboard';
-import { Form, Button, FormGroup, Input, Label, Table } from 'reactstrap';
+import { Label, Table } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
-
 
 class TenantAccess extends Component{
     constructor(props){

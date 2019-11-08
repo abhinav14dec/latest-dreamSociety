@@ -200,7 +200,7 @@ class TenantFacility extends Component {
                     <tr key={item.facilityDetailId}>
                         <td ><Input type="checkbox" name="facilities" disabled={this.facilityDisabled(item.facilityDetailId)} className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
                             onChange={(e) => {
-
+                                
                                 const { facilityDetailId } = item
                                 if (!e.target.checked) {
                                     let indexToBeFound;
