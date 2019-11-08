@@ -41,7 +41,6 @@ class flatMasterDetails extends Component {
     }
 
     refreshData=()=>{
-        console.log('data is refreshed')
         this.props.getDetails().then(() => this.setState({loading:false ,modalLoading: false, editUserModal: false}));
         this.props.getCountry().then(() => this.setState({loading:false, modalLoading: false, editUserModal: false}));
         
@@ -75,7 +74,7 @@ class flatMasterDetails extends Component {
         if(isValid && this.state.message === ''){
          
          this.props.updateDetails(stateId,countryId,countryName,stateName).then(() => this.refreshData())
-         .catch((err)=>{console.log(err.response.data.message)
+         .catch((err)=>{
             this.setState({modalLoading:false, message:err.response.data.message})});;
             if(this.state.message === ''){
                 this.setState({editUserModal: true})
@@ -95,14 +94,11 @@ class flatMasterDetails extends Component {
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value, errors });
         } else {
-            console.log('hii');
             this.setState( {[e.target.name]: [e.target.value]});
          }
 
-        console.log(this.state)
     }
 
 
@@ -124,7 +120,6 @@ class flatMasterDetails extends Component {
     //     editUserData.stateName = e.target.value;
 
     //     this.setState({editUserData})
-    //     console.log(this.state.editUserData.stateName)
           
     //   }
       
@@ -133,7 +128,6 @@ class flatMasterDetails extends Component {
     //          let{ editUserData }= this.state
     //          editUserData.countryId = e.target.value
     //          this.setState({editUserData})
-    //          console.log(this.state.editUserData.countryId)
         
     //   }
       
@@ -151,12 +145,10 @@ class flatMasterDetails extends Component {
             // .then(() => this.refreshData())
             .then(() => this.setState({isActive:false}));
             // this.setState({ editUserData: { isActive: false }})
-            // .then(()=>{console.log('ereeere')
             //     this.props.getDetails()})    
     }
 
     fetchDetails=({country3})=> {
-        console.log(country3)
         if(country3){
           
             return country3.sort((item1,item2)=>{
@@ -205,7 +197,6 @@ class flatMasterDetails extends Component {
         }
     }
     fetchDrop({country1}){
-        console.log(country1)
         if(country1){
             
            return( 

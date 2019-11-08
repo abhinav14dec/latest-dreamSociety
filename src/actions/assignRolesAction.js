@@ -44,7 +44,6 @@ export const assignRole=()=>{
  }
 
  export const assignPost=(values)=>{
-     console.log(values)
     const request = axios.post(`${URN}/assignRoles`, values , {headers:authHeader()})
      .then(response => response.data)
   
@@ -57,7 +56,6 @@ export const assignRole=()=>{
  }
 
  export const assignRoleData=()=>{
-     console.log('djhduhcudsu');
     const request = axios.get(`${URN}/rolesAssigned` , {headers:authHeader()})
      .then(response => response.data)
   

@@ -13,7 +13,6 @@ export function getRoles(){
 }
 
 export function showActiveList(values){
-    console.log(values)
     const request = axios.get(`${URN}/user/active/${values}` , {headers:authHeader()})
     .then((response =>response.data))
 
@@ -24,7 +23,6 @@ export function showActiveList(values){
 }
 
 export function deactivateMember(userId,type){
-    console.log(userId,type)
     const request = axios.put(`${URN}/user/deactivate/user`,{userId,type} , {headers:authHeader()})
     .then((response =>response.data))
 
@@ -35,7 +33,6 @@ export function deactivateMember(userId,type){
 }
 
 export function deleteSelectedActiveMembers(ids,type){
-    console.log(ids,type)
     const request = axios.put(`${URN}/user/multiple/deactivate`,{ids,type} , {headers:authHeader()})
     .then((response =>response.data))
 
@@ -48,7 +45,6 @@ export function deleteSelectedActiveMembers(ids,type){
 
 
 export function showDeactiveList(values){
-    console.log(values)
     const request = axios.get(`${URN}/user/deactive/${values}` , {headers:authHeader()})
     .then((response =>response.data))
 
@@ -59,7 +55,6 @@ export function showDeactiveList(values){
 }
 
 export function  activateMember(userId,type){
-    console.log(userId,type)
     const request = axios.put(`${URN}/user/activate`, {userId,type}, {headers:authHeader()})
     .then((response =>response.data))
 
@@ -70,7 +65,6 @@ export function  activateMember(userId,type){
 }
 
 export function deleteSelectedDeactivatedMember(ids,type){
-    console.log(ids,type)
     const request = axios.put(`${URN}/user/multiple/activate`, {ids,type}, {headers:authHeader()})
     .then((response =>response.data))
 
@@ -81,7 +75,6 @@ export function deleteSelectedDeactivatedMember(ids,type){
 }
 
 export function releaseResource(userId,type){
-    console.log(userId,type)
     const request= axios.put(`${URN}/release/resources`,{userId,type},{headers:authHeader()})
     .then((response =>response.data))
     return{

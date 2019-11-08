@@ -37,7 +37,6 @@ class CountryDetails extends Component{
    }
 
      refreshData(){
-        console.log('reaching');
     this.props.getCountry().then(() => this.setState({loading:false, modalLoading: false, editUserModal: false}));
     }  
 
@@ -94,7 +93,7 @@ class CountryDetails extends Component{
         const isValid = Object.keys(errors).length === 0;
         if(isValid && this.state.message === ''){
         this.props.updateCountry(countryId,countryName,code,currency,phoneCode).then(() => this.refreshData())
-        .catch((err)=>{console.log(err.response.data.message)
+        .catch((err)=>{
             this.setState({modalLoading:false, message:err.response.data.message})});
             if(this.state.message === ''){
                 this.setState({editUserModal: true})
@@ -113,14 +112,11 @@ class CountryDetails extends Component{
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value, errors });
         } else {
-            console.log('hii');
             this.setState( {[e.target.name]: [e.target.value]});
          }
 
-        console.log(this.state)
     }
 
     deleteUser(countryId){
@@ -132,13 +128,11 @@ class CountryDetails extends Component{
 }
 
    getCountryDetails({country1}){
-    //    console.log('dcdcdcdc',country1);
        if(country1){
             return country1.sort((item1,item2)=>{
                 var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item,index) =>{
-                //  console.log('shub',item);
                 return (
                     <tr key={item.countryId}>
                      <td>
@@ -270,7 +264,6 @@ class CountryDetails extends Component{
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.toUpperCase().trim(''), errors });
         } else {
        this.setState({code:e.target.value.toUpperCase().trim('')})

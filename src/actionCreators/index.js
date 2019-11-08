@@ -5,9 +5,9 @@ export  const DocURN = 'http://13.235.13.21:8083/';
 export  const UR = 'http://13.235.13.21:8083/';
 
 // export  const URN = 'http://192.168.0.117:8083/api';
-// export  const PicURN = 'http://192.168.0.117:8082/';
-// export  const DocURN = 'http://192.168.0.117:8082/';
-// export  const UR = 'http://192.168.0.117:8082/';
+// export  const PicURN = 'http://192.168.0.117:8083/';
+// export  const DocURN = 'http://192.168.0.117:8083/';
+// export  const UR = 'http://192.168.0.117:8083/';
                    
 
 

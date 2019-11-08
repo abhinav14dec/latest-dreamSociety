@@ -141,6 +141,9 @@ class MonthlyElectricityExpenseDetail extends Component {
                         </tr>
                     );
                 }
+                else {
+                    return '';
+                }
             })
         }
     }
@@ -207,8 +210,6 @@ class MonthlyElectricityExpenseDetail extends Component {
     }
 
     edit = (towerName, floorName, flatNo, lastReading, currentReading, unitConsumed, monthlyCharge, mdi, sanctionedLoad, rate, rent, amount, amountDue, electricityConsumerId, towerId, floorId, flatDetailId) => {
-        console.log(towerName, floorName, flatNo, lastReading, currentReading, unitConsumed, monthlyCharge, mdi, sanctionedLoad, rate, rent, amount, amountDue,
-            electricityConsumerId, towerId, floorId, flatDetailId);
         this.setState({
             towerName, floorName, flatNo, lastReading, currentReading, unitConsumed, monthlyCharges: monthlyCharge, mdi, sanctionedLoad, rate, rent, amount, amountDue,
             electricityConsumerId, towerId, floorId, flatDetailId, editModal: true
@@ -238,7 +239,6 @@ class MonthlyElectricityExpenseDetail extends Component {
     rateChange = (e) => {
         if (e.target.value.match(/^\d*(\.\d{0,2})?$/)) {
             this.setState({ [e.target.name]: e.target.value, errMessage: '', monthlyCharges: '' });
-            console.log(this.state);
         }
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -267,7 +267,6 @@ class MonthlyElectricityExpenseDetail extends Component {
 
     getMonthlyCharges = ({ getCharges }) => {
         if (getCharges && getCharges.monthlyCharges) {
-            console.log(getCharges);
             this.setState({ monthlyCharges: getCharges.monthlyCharges })
         }
     }
@@ -282,9 +281,6 @@ class MonthlyElectricityExpenseDetail extends Component {
             towerId, floorId, flatDetailId, lastReading, currentReading, unitConsumed, lastAmountDue, rate, rent, sanctionedLoad,
             mdi, amountDue, amount, monthlyCharge: monthlyCharges, towerName, floorName, flatNo, electricityConsumerId
         }
-
-        console.log(electricityConsumerId);
-
         let monthlyCharge = data.monthlyCharge;
 
         if (currentReading === '') {
@@ -328,7 +324,6 @@ class MonthlyElectricityExpenseDetail extends Component {
             selectMultiple[i].checked = true;
         }
         this.setState({ ids: ar });
-        console.log("ids-->", this.state.ids)
         if (ar.length > 0) {
             this.setState({ isDisabled: false });
         }
@@ -602,7 +597,6 @@ class MonthlyElectricityExpenseDetail extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         flatDetailMasterReducer: state.flatDetailMasterReducer,
         electricityExpenseReducer: state.electricityExpenseReducer,

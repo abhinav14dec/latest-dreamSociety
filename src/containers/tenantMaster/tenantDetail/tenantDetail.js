@@ -92,7 +92,6 @@ class TenantDetail extends Component {
         this.props.getState();
         this.props.getCity();
         this.props.getLocation();
-        console.log(this.state.societyName)
     }
 
 
@@ -137,7 +136,6 @@ class TenantDetail extends Component {
     }
 
     delete(id){
-        console.log(id)
         this.setState({isDisabled:true, loading:true})
         this.props.deleteTenant(id).then(() => {
             this.refreshData()
@@ -145,7 +143,7 @@ class TenantDetail extends Component {
     }
 
     edit = (picture,firstName,lastName,gender, email, contact, aadhaarNumber, panCardNumber, dob, permanentAddress, towerName, floorName,flatNo,towerId,floorId,flatDetailId, tenantId, rfidId, rfid) =>{
-        console.log(floorName, floorId, rfidId, rfid)
+      
         this.setState({picture,firstName,lastName,gender, email, contact, aadhaarNumber, panCardNumber, dob, permanentAddress, towerName, floorName,flatNo,towerId,floorId,flatDetailId, tenantId, readOnly:permanentAddress,
             rfid, rfidId,defRFID:rfidId,editTenant: true})
     }
@@ -169,9 +167,7 @@ class TenantDetail extends Component {
 
     viewTenantDetail = (picture,firstName,lastName,gender, email, contact, aadhaarNumber, panCardNumber , dob, permanentAddress, correspondenceAddress, towerName, floorName,flatNo,towerId,floorId,flatDetailId, tenantId,
         rfidId,rfid) => {
-        console.log(picture,firstName,lastName,gender, email, contact, aadhaarNumber, panCardNumber, dob, permanentAddress,correspondenceAddress, towerName, floorName,flatNo,towerId,floorId,flatDetailId, tenantId,
-            rfidId,rfid)
-
+        
         this.setState({picture,firstName,lastName,gender, email, contact, aadhaarNumber, panCardNumber, viewData: !this.state.viewData ,
              dob, permanentAddress,correspondenceAddress, towerName, floorName,flatNo,towerId,floorId,flatDetailId, tenantId,rfidId,rfid})
         
@@ -182,7 +178,6 @@ class TenantDetail extends Component {
     }
 
     renderList = ({getTenantDetail}) => {
-        console.log(getTenantDetail)
         if(getTenantDetail && getTenantDetail.tenants){
             return getTenantDetail.tenants.sort((item1,item2)=>{
                 if(item1 && item2){
@@ -191,7 +186,6 @@ class TenantDetail extends Component {
                 }
             }).filter(this.searchFilter(this.state.search && this.state.search)).map((item, index) => {
                 if(item){
-                    console.log(item.permanentAddress)
                     return (
                         <tr key={item.tenantId}>
                             <td><input type="checkbox" name="ids" value={item.tenantId} className="SelectAll"
@@ -272,7 +266,6 @@ class TenantDetail extends Component {
     }
 
     deleteSelected(ids){
-        console.log(ids)
         this.setState({loading:true, isDisabled: true});
         this.props.deleteSelectedTenant(ids)
         
@@ -298,7 +291,6 @@ class TenantDetail extends Component {
         
         const files = event.target.files
         const file = files[0];
-        console.log(this.state)
         let fileName = file ? file.name : '';
         if (files && file) {
           const reader = new FileReader();
@@ -309,10 +301,9 @@ class TenantDetail extends Component {
                 fileName,
                 imageSizeError:''
               })
-              console.log(this.state.picture)
           };
         }
-        console.log(document.querySelector('#real-input'))
+        
         const name = document.querySelector('#real-input').value.split(/\\|\//).pop();
             const truncated = name.length > 20 
               ? name.substr(name.length - 20) 
@@ -345,7 +336,6 @@ class TenantDetail extends Component {
     }
 
     getFloor=({getFlatDetail})=>{
-        console.log("floor",getFlatDetail)
         if(getFlatDetail && getFlatDetail.tower){
             return getFlatDetail.tower.Floors.map((item)=>{
                       
@@ -360,12 +350,11 @@ class TenantDetail extends Component {
         }}
 
         getFlats=({getFlatDetail})=>{
-            console.log('7777777jjjjjj',getFlatDetail)
+           
             if(getFlatDetail){
               return  getFlatDetail.flatDetail.filter((flatRecord)=>{
                     return flatRecord.floorId==this.state.floorId
                 }).map((selectFlat)=>{
-                    console.log('bbbbbbbbbbbbbbbbb',selectFlat)
                     return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                 });
             }
@@ -374,12 +363,6 @@ class TenantDetail extends Component {
               }
         }
 
-    // towerChangeHandler = (e) => {
-    //     console.log(e)
-    //     console.log(this.state)
-    //     this.setState({towerId:e.target.value, flatNo:'', floorId:'', floorName:'', flatDetailId:''})
-    //     this.props.getFlatDetailViaTowerId(this.state.towerId)
-    // }
     towerChangeHandler = (towerId, towerName, selectOption) => {
         document.getElementById('floor').value = null;
         this.setState({correspondenceAddress:'',memberError:''})
@@ -396,20 +379,17 @@ class TenantDetail extends Component {
 
 
     floorChangeHandler=(floorName, floorId,selectOption)=>{
-        console.log(floorName, floorId,selectOption);
         this.setState({
             floorName: selectOption.floorName,
             floorId: selectOption.floorId,
             memberError:''
         })
-        console.log('lllllllll=======',this.state.floorId)
+      
         // this.getFlats(this.props.towerFloor);
     
         }
 
         flatChangeHandler=(flatNo, flatDetailId ,selectOption)=>{
-            console.log(flatNo, flatDetailId ,selectOption)
-            console.log(this.state.flatDetailId)
             this.setState({
                 flatNo: selectOption.flatNo,
                 flatDetailId: selectOption.flatDetailId,
@@ -429,30 +409,6 @@ class TenantDetail extends Component {
         }
     }
 
-    // fetchFlatDetail = ({getFlatDetail}) => {
-    //     console.log(getFlatDetail)
-    //     console.log(this.state.floorId)
-    //     if(getFlatDetail && getFlatDetail.flatDetail){
-    //         console.log(getFlatDetail.flatDetail)
-            
-    //          return getFlatDetail.flatDetail.filter((i) => {
-                
-    //             return this.state.floorId == i.floorId
-    //         }).map((item) => {
-    //             if(item){
-    //                 return (
-    //                     <option value={item.flatDetailId} key={item.flatDetailId} >{item.flatNo}</option>
-    //                 )
-    //             }
-    //         })
-    //     }
-    // }
-
-    // flatChangeHandler = (e) => {
-    //     this.setState({flatDetailId: e.target.value});
-    //     console.log(this.state);
-    //     this.props.getOwnerDetailViaFlatId(e.target.value)
-    // }
 
     refreshData = () => {
         this.setState({societyName: localStorage.getItem('societyName')});
@@ -476,26 +432,24 @@ class TenantDetail extends Component {
         picture, flatDetailId, tenantId, floorId, countryId, stateId, cityId, locationId, pin, rfid, rfidId} = this.state;
         let errors = {};
         if(this.state.firstName === '') {
-            console.log('tenant');
             errors.firstName = `First Name can't be empty.`;}
         if(lastName === '') {
             errors.lastName = `Last Name can't be empty.`
         }
 
-        if(this.state.email === '')  {console.log('email');
+        if(this.state.email === '')  {
             errors.email = `Email can't be empty.`};
-        if(this.state.contact === '') {console.log('contact');
+        if(this.state.contact === '') {
             errors.contact = `Contact can't be empty.`;}
         else if(this.state.contact.length !== 10) {
         errors.contact = `Contact number should be of 10 digit.`;}    
-        if(this.state.aadhaarNumber === '') {console.log('aadhaar');
+        if(this.state.aadhaarNumber === '') {
             errors.aadhaarNumber = `Aadhaar Number can't be empty.`;}
-        else if(this.state.aadhaarNumber.length !== 12) {console.log('aadhaarLimit');
+        else if(this.state.aadhaarNumber.length !== 12) {
             errors.aadhaarNumber = `Aadhaar Number should be of 12 digit.`}
         if(panCardNumber === '') errors.panCardNumber = `Pan number can't be empty.`;
         else if(panCardNumber.length !== 10) errors.panCardNumber = `Pan card should be of 10 digit.`
         if(this.state.dob === '') {
-            console.log('dob');
             errors.dob = `Date of birth can't be empty.`;
         }
         if(!!document.getElementById('isChecked').checked){
@@ -506,23 +460,11 @@ class TenantDetail extends Component {
             if(rfidId === '') errors.rfidId = `Please select RFID.`
         }
         if(this.state.editAddress === '' && !!this.state.editPermanent) errors.editAddress = `Permanent Address can't be empty.`;
-        // if(!this.state.towerId) {
-        //     console.log('1');
-        //     errors.towerId = `Please select tower.`;
-        // }
-        // if(!this.state.flatDetailId) {
-        //     console.log('2');
-        //     errors.flatDetailId=`Please select flat no.`;
-        // }
-        // if(!this.state.floorId) {
-        //     console.log('3');
-        //     errors.floorId=`Please select floor.`
-        // }
+        
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0;
-        console.log(flatDetailId, picture, tenantId)
+    
         if(isValid){
-            console.log(this.state.floorId)
             if(this.state.pin !== ''){
                 this.setState({permanentAddress: this.state.permanentAddress + ' , ' + 
                 'Pin Code: ' + this.state.pin})
@@ -533,7 +475,6 @@ class TenantDetail extends Component {
                  countryId, stateId, cityId, locationId,rfidId)
                 .then(() => this.refreshDataAfterUpdate())
                 .catch((err) => {
-                    console.log(err.response.data)
                     this.setState({messageEmailErr: err.response.data.messageEmailErr, messageContactErr: err.response.data.messageContactErr,
                          modalLoading:false,permanentAddressVisible:true, editPermanent:false, permanentAddress:this.state.readOnly, countryId:'',
                          stateId:'', cityId:'', locationId:''})
@@ -547,7 +488,6 @@ class TenantDetail extends Component {
     }
 
     ifscChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -567,26 +507,15 @@ class TenantDetail extends Component {
     }
 
     emailChange = (e) => {
-        console.log(this.state.email)
-        // this.setState({email:e.target.value, messageEmailErr:''})
-        // if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
-        //     this.setState({[e.target.name]:e.target.value});
-        //     console.log(this.state.email)
-        //     this.setState({emailValidError: ''})
-        // }
-        // else{ this.setState({emailValidError: 'Invalid Email.'})}
-
         this.setState({email:e.target.value, messageEmailErr:''})
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value});
-            console.log(this.state.email)
             this.setState({emailValidError: ''})
         }
         else{ this.setState({emailValidError: 'Invalid Email.'})}
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log(this.state.email)
             this.setState({ [e.target.name]: e.target.value, errors });
         }
         else {
@@ -626,12 +555,8 @@ class TenantDetail extends Component {
     }
 
     sameAddress = () => {
-        console.log(this.state.readOnly)
         if(!!document.getElementById('isChecked').checked){
-            console.log('is checked')
            this.setState({permanentAddress: '', permanentAddressVisible:false, editPermanent:true})
-           
-           
         }
        else{
             this.setState({permanentAddress: this.state.readOnly , permanentAddressVisible:true, editPermanent:false})
@@ -653,8 +578,6 @@ class TenantDetail extends Component {
     }
 
     onChangeCountry = (countryId, countryName, selectOption) => {
-        console.log(countryId, countryName, selectOption)
-        console.log(document.getElementById('state'))
         this.setState({
             countryName: selectOption.countryName,
             countryId:selectOption.countryId, 
@@ -666,16 +589,13 @@ class TenantDetail extends Component {
     }
 
     updatePermanentAddress2 = (countryName) => {
-        console.log(countryName)
         this.setState({countryName})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
         this.state.cityName + ', ' + this.state.stateName + ', ' + countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
    
     stateName = ({stateResult}) => {
         if(stateResult){
-          console.log(stateResult)
            return( 
             stateResult.map((item) =>{ 
                    return(
@@ -688,8 +608,6 @@ class TenantDetail extends Component {
     }
 
     onChangeState = (stateName, stateId, selectOption) => {
-        console.log(stateName, stateId, selectOption)
-        console.log(selectOption)
         this.setState({
             stateName: selectOption.stateName,
             stateId:selectOption.stateId
@@ -699,11 +617,9 @@ class TenantDetail extends Component {
     }
 
     updatePermanentAddress3 = (stateName) => {
-        console.log(stateName)
         this.setState({stateName})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
         this.state.cityName + ', ' + stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
    
     cityName=({cityResult})=>{
@@ -723,7 +639,6 @@ class TenantDetail extends Component {
     }
 
     onChangeCity = (cityName, cityId, selectOption) => {
-        console.log(cityName, cityId, selectOption)
         this.setState({
             cityName: selectOption.cityName,
             cityId:selectOption.cityId
@@ -733,11 +648,9 @@ class TenantDetail extends Component {
     }
 
     updatePermanentAddress3 = (cityName) => {
-        console.log(cityName)
         this.setState({cityName})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
         cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
     
    
@@ -757,7 +670,6 @@ class TenantDetail extends Component {
     }
 
     onChangeLocation = (locationName, locationId, selectOption) => {
-        console.log(locationName, locationId, selectOption)
         this.setState({
             locationName: selectOption.locationName,
             locationId:selectOption.locationId,
@@ -772,12 +684,10 @@ class TenantDetail extends Component {
                 delete errors[e.target.name];
                 this.setState({editAddress:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
                 this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin , errors })
-                console.log(this.state)
             }
             else {
                 this.setState({editAddress:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
                 this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin })
-                console.log(this.state)
             }
     }
 
@@ -806,23 +716,18 @@ class TenantDetail extends Component {
     }
 
     updatePermanentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({permanentAddress: this.state.editAddress  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
         this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
 
     updatePermanentAddress1 = (location) => {
-        console.log(location)
         this.setState({location})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + location + ', ' +
         this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
 
     pinChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -843,7 +748,6 @@ class TenantDetail extends Component {
 
     flatInputs = ({getTenantFlats}) => {
         if(getTenantFlats && getTenantFlats.flats){
-            console.log(getTenantFlats)
             return getTenantFlats.flats.map((item) => {
                 return (
                     <div key={item.flatDetailId}>
@@ -871,7 +775,6 @@ class TenantDetail extends Component {
     }
 
     rfidOptions = ({getRFID}) => {
-        console.log(getRFID)
         if (getRFID && getRFID.rfids) {
             return getRFID.rfids.map((item) => {
                 return (
@@ -895,14 +798,10 @@ class TenantDetail extends Component {
                 console.log(selectOption.value)
             });
         }
-        console.log(this.state)
 }
     editRFID = () => {
         if(!!document.getElementById('isRfidChecked').checked){
-            console.log('is checked')
         this.setState({rfidId: '' , defaultRFID:false, editRFID:true})
-        
-        
         }
     else{
             this.setState({rfidId:this.state.defRFID, defaultRFID:true, editRFID:false})
@@ -1016,11 +915,7 @@ class TenantDetail extends Component {
                                 {this.renderList(this.props.tenantReducer)}
                             </tbody>
                         </Table>
-                        console.log(this.state.readOnly)
-                        
                         let lastIndex = this.state.picture.lastIndexOf('/');
-
-                        console.log(this.state.societyName)
 
         let modalData = <div>
             {/* <FormGroup>
@@ -1271,7 +1166,6 @@ class TenantDetail extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         tenantReducer:state.tenantReducer,
         towerList: state.TowerDetails,

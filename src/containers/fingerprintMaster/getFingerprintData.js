@@ -52,7 +52,7 @@ class FingerPrint extends Component {
         const type= this.state.type
         
         this.setState({loading: true})
-        this.props.getFingerprintData(type).then(() => this.setState({ loading: false, modalLoading:false })).catch(err=>{  console.log(err.response.data.message)
+        this.props.getFingerprintData(type).then(() => this.setState({ loading: false, modalLoading:false })).catch(err=>{ 
             this.setState({message: err.response.data.message, loading: false})
             })
 
@@ -95,7 +95,6 @@ class FingerPrint extends Component {
     onChangeInput = (userId,e) => {
         
         let selected=e.target.value
-        console.log("^^edit ",  e.target.value)
 
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -142,7 +141,7 @@ class FingerPrint extends Component {
             return fingerprintDetails.userData.filter((flatRecord) => {        
                 return flatRecord.userId == userId
             }).map((item) => {
-                return item.flats ? item.flats.map((item) => {  console.log("flats===============", item)
+                return item.flats ? item.flats.map((item) => {  
                     return (
                         <option key={item.flatDetailId} value={item.flatDetailId} >
                             {item.flatNo}
@@ -160,7 +159,7 @@ class FingerPrint extends Component {
             return fingerprintDetails.userData.sort((item1,item2)=>{ 
                 var cmprVal = (item1.firstName && item2.firstName ) ? (item1[this.state.filterName].localeCompare(item2[this.state.filterName])) : ''
              return this.state.sortVal ? cmprVal : -cmprVal;
-            }).filter(this.searchFilter(this.state.search)).map((item, index) => { console.log("================",item)
+            }).filter(this.searchFilter(this.state.search)).map((item, index) => {
                 return (
                     <tr key={item.userId}>
                         <td> {index + 1}</td>
@@ -171,16 +170,7 @@ class FingerPrint extends Component {
                         <td> {item.flats[0]   ? item.flats[0].floor_master.floorName :''}</td>
                      
                         <td>
-                            {/* <DropdownComponent
-                                name="flatDetailId"
-                                type="select"
-                                inputChange={this.onChangeInput}
-                                value={this.state.flatDetailId}
-                            // className="error"
-                            // error={this.state.errors.rate}
-                            ><DefaultSelect />
-                                {this.getDropdownForFlats(this.props.fingerprintReducer,item.userId)}
-                            </DropdownComponent> */}
+                           
                             <Input type="select" defaultValue='no-value' value={item.userId !== this.state.selectedUser ? 'no-value' : this.state.flatDetailId }  name="flatDetailId" onChange={this.onChangeInput.bind(this,item.userId)} >
                                 <DefaultSelect/>
                                 {this.getDropdownForFlats(this.props.fingerprintReducer,item.userId)}
@@ -200,7 +190,6 @@ class FingerPrint extends Component {
 
     activatedChange = async (e)=>{
        let selected=e.target.value;
-       console.log(selected)
       await this.setState({
            type:selected
         })
