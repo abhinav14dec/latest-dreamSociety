@@ -5,15 +5,13 @@ import Spinner from '../../components/spinner/spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import DefaultSelect from '../../constants/defaultSelect'
-import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader, ModalFooter, Label } from 'reactstrap';
+import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader, Label } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 class DisplayEventMaster extends Component {
         state = {
                 editEventData: {
-
                         isActive: false
-
                 },
                 eventId: '',
                 userId: '',
@@ -65,7 +63,6 @@ class DisplayEventMaster extends Component {
         }
 
         editEvent(eventId, eventType, eventName, eventOrganiser, startDate, endDate, userId, userName) {
-                console.log('i m in edit ', eventId, userName, eventOrganiser);
                 this.setState({
                         eventId, eventType, eventName, eventOrganiser, startDate, endDate, userId, userName,
                         editEventModal: !this.state.editEventModal
@@ -85,7 +82,7 @@ class DisplayEventMaster extends Component {
                 if (!this.state.userId) {
                         errors.userId = "Event Organiser cant be empty please Select"
                 }
-               
+
 
                 this.setState({ errors })
                 const isValid = Object.keys(errors).length === 0
@@ -103,7 +100,7 @@ class DisplayEventMaster extends Component {
 
 
                         this.setState({
-                             modalLoading: true
+                                modalLoading: true
                         })
                 }
         }
@@ -133,21 +130,19 @@ class DisplayEventMaster extends Component {
         searchFilter(search) {
                 return function (x) {
                         return x.eventType.toLowerCase().includes(search.toLowerCase()) ||
-                        x.eventName.toLowerCase().includes(search.toLowerCase()) ||
-                        x.organiser.firstName.toLowerCase().includes(search.toLowerCase()) || 
-                        !search;
+                                x.eventName.toLowerCase().includes(search.toLowerCase()) ||
+                                x.organiser.firstName.toLowerCase().includes(search.toLowerCase()) ||
+                                !search;
                 }
         }
         getEvent({ events }) {
-                console.log("events rocks", events);
-
-                if (events &&  events.event) {
+                if (events && events.event) {
                         return (
                                 events.event.map((item) => {
                                         return (
                                                 <option key={item.userId} value={item.userId}>
-              {item.firstName+" "+item.lastName}
-                                                   
+                                                        {item.firstName + " " + item.lastName}
+
                                                 </option>
                                         )
                                 })
@@ -160,7 +155,6 @@ class DisplayEventMaster extends Component {
         }
 
         displayEvent({ getEvent }) {
-                console.log(getEvent );
                 if (getEvent && getEvent.event) {
                         return (
                                 getEvent.event.sort((item1, item2) => {
@@ -194,15 +188,15 @@ class DisplayEventMaster extends Component {
                                                         <td> {index + 1}</td>
                                                         <td>{item.eventType}</td>
                                                         <td>{item.eventName}</td>
-                                           <td>{item.organiser.firstName+" "+item.organiser.lastName}
-          </td>
-                                                 
+                                                        <td>{item.organiser.firstName + " " + item.organiser.lastName}
+                                                        </td>
+
 
 
 
                                                         <td>
 
-                                                                <button className="btn btn-success mr-2" onClick={this.editEvent.bind(this, item.eventId, item.eventType, item.eventName, item.eventOrganiser, item.startDate, item.endDate, item.organiser.userId,item.organiser?item.organiser.userName:'')}> Edit</button>
+                                                                <button className="btn btn-success mr-2" onClick={this.editEvent.bind(this, item.eventId, item.eventType, item.eventName, item.eventOrganiser, item.startDate, item.endDate, item.organiser.userId, item.organiser ? item.organiser.userName : '')}> Edit</button>
 
                                                                 <button className="btn btn-danger" onClick={this.deleteEvent.bind(this, item.eventId)}>Delete</button>
                                                         </td>
@@ -224,10 +218,10 @@ class DisplayEventMaster extends Component {
                 localStorage.removeItem('user-type');
                 return this.props.history.replace('/')
         }
-        changePassword=()=>{ 
+        changePassword = () => {
                 return this.props.history.replace('/superDashboard/changePassword')
-             }
-        
+        }
+
 
         close = () => {
                 return this.props.history.replace('/superDashBoard')
@@ -258,13 +252,15 @@ class DisplayEventMaster extends Component {
                 }
         }
 
-        deleteSelected(ids){
-                this.setState({loading:true,
-                isDisabled:true});
+        deleteSelected(ids) {
+                this.setState({
+                        loading: true,
+                        isDisabled: true
+                });
                 this.props.deleteMultipleEvents(ids)
-                .then(() => this.refreshData())
-                .catch(err => err.response.data.message);
-            }
+                        .then(() => this.refreshData())
+                        .catch(err => err.response.data.message);
+        }
 
 
         render() {
@@ -279,7 +275,7 @@ class DisplayEventMaster extends Component {
         <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
 
                                         <th>Event Organiser</th>
-                                    
+
                                         <th> Actions  </th>
                                 </tr>
                         </thead>
@@ -289,49 +285,49 @@ class DisplayEventMaster extends Component {
 
                         </tbody>
                 </Table>
-let modalData=<div>        
-<FormGroup>
-<Label for="eventType"> Event Type</Label>
-<Input name="eventType" value={this.state.eventType}
-        onChange={this.onChange}
+                let modalData = <div>
+                        <FormGroup>
+                                <Label for="eventType"> Event Type</Label>
+                                <Input name="eventType" value={this.state.eventType}
+                                        onChange={this.onChange}
 
 
-        maxLength={25}
-        onKeyPress={this.OnKeyPresshandler}
+                                        maxLength={25}
+                                        onKeyPress={this.OnKeyPresshandler}
 
-/>
-<span className="error"> {this.state.errors.eventType}</span>
-</FormGroup>
+                                />
+                                <span className="error"> {this.state.errors.eventType}</span>
+                        </FormGroup>
 
-<FormGroup>
-<Label for="eventName"> Event Name</Label>
-<Input name="eventName" value={this.state.eventName} onChange={this.onChange}
-        onKeyPress={this.OnKeyPresshandler}
-        maxLength={25}
-/>
-<span className="error"> {this.state.errors.eventName}</span>
-<span className="error">{this.state.message} </span>
-</FormGroup>
-<FormGroup>
-<Label >Event Organiser</Label>
-<Input type="select" name="eventOrganiser" value={this.state.eventOrganiser} onChange={this.onChange} >
+                        <FormGroup>
+                                <Label for="eventName"> Event Name</Label>
+                                <Input name="eventName" value={this.state.eventName} onChange={this.onChange}
+                                        onKeyPress={this.OnKeyPresshandler}
+                                        maxLength={25}
+                                />
+                                <span className="error"> {this.state.errors.eventName}</span>
+                                <span className="error">{this.state.message} </span>
+                        </FormGroup>
+                        <FormGroup>
+                                <Label >Event Organiser</Label>
+                                <Input type="select" name="eventOrganiser" value={this.state.eventOrganiser} onChange={this.onChange} >
 
-        <option value={this.state.userName}>{this.state.userName}</option>
+                                        <option value={this.state.userName}>{this.state.userName}</option>
 
-        <DefaultSelect />
+                                        <DefaultSelect />
 
-        {this.getEvent(this.props.EventDetails)}
-</Input>
-<span className="error"> {this.state.errors.userId}</span>
-</FormGroup>
-<Button color="primary" className="mr-2" onClick={this.updateEvent}>Save</Button>
-                                                                <Button color="danger" onClick={this.toggleEditEventModal.bind(this)}>Cancel</Button></div>
+                                        {this.getEvent(this.props.EventDetails)}
+                                </Input>
+                                <span className="error"> {this.state.errors.userId}</span>
+                        </FormGroup>
+                        <Button color="primary" className="mr-2" onClick={this.updateEvent}>Save</Button>
+                        <Button color="danger" onClick={this.toggleEditEventModal.bind(this)}>Cancel</Button></div>
                 let deleteSelectedButton = <Button color="danger" className="mb-2" disabled={this.state.isDisabled}
                         onClick={this.deleteSelected.bind(this, this.state.ids)}>Delete Selected</Button>;
                 return (
                         <div>
 
-                                <UI onClick={this.logout}  change={this.changePassword}>
+                                <UI onClick={this.logout} change={this.changePassword}>
 
                                         <div className="w3-container w3-margin-top w3-responsive">
                                                 <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
@@ -346,27 +342,27 @@ let modalData=<div>
                                                         <ModalBody>
 
 
-                                                        {!this.state.modalLoading ? modalData : <Spinner/>}
+                                                                {!this.state.modalLoading ? modalData : <Spinner />}
 
-                                                            
+
 
                                                         </ModalBody>
                                                 </Modal>
                                                 <SearchFilter type="text" value={this.state.search} onChange={this.searchOnChange} />
 
                                                 {deleteSelectedButton}
-                                                <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
-                                id="allSelect"
-                                type="checkbox" onChange={(e) => {
-                                        if(e.target.checked) {
-                                            this.selectAll();
-                                        }
-                                        else if(!e.target.checked){
-                                            this.unSelectAll();
-                                        } 
-                                    }  
-                                }/>
-                            </Label>
+                                                <Label style={{ padding: '10px' }}><b>Select All</b><input className="ml-2"
+                                                        id="allSelect"
+                                                        type="checkbox" onChange={(e) => {
+                                                                if (e.target.checked) {
+                                                                        this.selectAll();
+                                                                }
+                                                                else if (!e.target.checked) {
+                                                                        this.unSelectAll();
+                                                                }
+                                                        }
+                                                        } />
+                                                </Label>
                                                 {!this.state.loading ? tableData : <Spinner />}
 
 

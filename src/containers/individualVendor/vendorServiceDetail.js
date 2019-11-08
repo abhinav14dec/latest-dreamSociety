@@ -5,13 +5,11 @@ import UI from '../../components/newUI/superAdminDashboard';
 
 import DefaultSelect from '../../constants/defaultSelect';
 import Spinner from '../../components/spinner/spinner';
-import SearchFilter from '../../components/searchFilter/searchFilter';
 import { getIndividualVendor, getServiceVendor } from './../../actions/individualVendorAction';
 
 import { getServiceType } from './../../actions/serviceMasterAction';
 import { getRateType } from './../../actions/vendorMasterAction';
-import { Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Table, Label,} from 'reactstrap';
-import _ from 'underscore';
+import { Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Table, Label,} from 'reactstrap';;
 
 let individualVendorId;
 
@@ -161,14 +159,12 @@ updateServices = () => {
                         }       
                     this.setState({ modalLoading: true
                })
-               console.log(serviceId,rateId)
     }   
 }
 
     renderList = ({ getServiceVendor }) => {  
 
         if (getServiceVendor && getServiceVendor.vendor ) {
-            console.log(getServiceVendor)
             let item=getServiceVendor.vendor
              
                    return (
@@ -246,7 +242,6 @@ updateServices = () => {
             if(ar.length > 0){
                 this.setState({isDisabled: false});
             }
-            console.log(this.state)
     }
 
     unSelectAll = () =>{

@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addEventBooking,getMemberEvent, getEventDetails } from '../../actions/personalEventsBookingAction';
+import { addEventBooking, getMemberEvent, getEventDetails } from '../../actions/personalEventsBookingAction';
 
 
 import UI from '../../components/newUI/tenantDashboard';
-import _ from 'underscore';
 import Spinner from '../../components/spinner/spinner';
 import { Form, Button, FormGroup, Input, Label, Row, Col } from 'reactstrap';
 import DefaultSelect from '../../constants/defaultSelect';
-
-
-
-
-
 
 class MemberEventsBookingTenant extends Component {
     constructor(props) {
@@ -82,7 +76,7 @@ class MemberEventsBookingTenant extends Component {
     }
 
 
-    spaceName=({ space }) =>{
+    spaceName = ({ space }) => {
 
         if (space && space.societyMember) {
             return (
@@ -99,59 +93,50 @@ class MemberEventsBookingTenant extends Component {
 
     }
 
-    test=({ space }) =>{
+    test = ({ space }) => {
         if (space && space.societyMember) {
             let a;
             return space.societyMember.filter((event) => {
-                    console.log(this.state.eventSpaceId)
-                    return event.eventSpaceId == this.state.eventSpaceId
-                }).map((data) => {
-                        if (data) {
-                            console.log("items---->", data)
-                            // this.setState({ data: item })
-                            this.setState({ data }, function () {
-                                console.log(this.state.data);
-                           });
-                        }
+                return event.eventSpaceId == this.state.eventSpaceId
+            }).map((data) => {
+                if (data) {
+                    // this.setState({ data: item })
+                    this.setState({ data }, function () {
+                        console.log(this.state.data);
+                    });
+                }
 
-                    })
-            
+            })
+
         }
     }
 
 
-    onChange =async (e) => {
+    onChange = async (e) => {
         e.persist();
         this.setState({ message: '' })
-
-        console.log(this.state.eventSpaceId)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-          await this.setState({ [e.target.name]: e.target.value.trim(''), errors });
+            await this.setState({ [e.target.name]: e.target.value.trim(''), errors });
 
         }
         else {
-         await this.setState({ [e.target.name]: e.target.value.trim('') });
+            await this.setState({ [e.target.name]: e.target.value.trim('') });
 
         }
-        console.log(this.state.eventSpaceId)
         this.test(this.props.PersonalEventBookingReducer);
-     
-        console.log(this.props.PersonalEventBookingReducer)
 
     }
-   
 
 
-   
+
+
     // onChangeSpace = (e) => {
     //     document.getElementById('eventSpaceId').value = 'no-value';
     //     this.setState({
     //         [e.target.name]: e.target.value
     //     })
-    //     console.log(e.target.value)
-    //     console.log(this.state.eventSpaceId)
     // }
 
     OnKeyPresshandlerPhone(event) {
@@ -166,7 +151,7 @@ class MemberEventsBookingTenant extends Component {
         e.preventDefault();
         let errors = {};
 
-        
+
 
 
         if (!this.state.societyMemberEventId) {
@@ -367,8 +352,6 @@ class MemberEventsBookingTenant extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("booking.........", state)
-
     return {
         memberEventsBookingReducer: state.memberEventsBookingReducer,
         societyMemberEventReducer: state.societyMemberEventReducer,
@@ -376,9 +359,6 @@ function mapStateToProps(state) {
         PersonalEventBookingReducer: state.PersonalEventBookingReducer
 
     }
-
-
-
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getMemberEvent, addEventBooking, getEventDetails }, dispatch);
