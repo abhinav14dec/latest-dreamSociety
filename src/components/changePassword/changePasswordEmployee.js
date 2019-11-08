@@ -88,14 +88,17 @@ class ChangePasswordEmployee extends Component{
           errors.confirmPassword="password doesn't match"
         }
         this.setState({errors})
-
-        console.log("submitted-----------------");
         const isValid=Object.keys(errors).length === 0
         if(isValid){
             this.setState({loading:true, user})
           
 
-            this.props.changePassword(this.state,this.state.userId=user)
+            let payload={
+              oldPassword:this.state.oldPassword,
+              newPassword:this.state.newPassword,
+              userId:user
+            }
+            this.props.changePassword(payload)
             .then(()=>this.props.history.push('/employeeDashboard'))
             .catch(err=>{
                 this.setState({message: err.response.data.message, loading: false})
@@ -132,7 +135,7 @@ class ChangePasswordEmployee extends Component{
             formData =<div>
           <FormGroup>
                 <Label>Old Password</Label>
-                <Input  type="password" name="oldPassword"  type={this.state.type} placeholder="old password" onChange={this.passwordOnChange} maxLength={128} minLength={6} ></Input> 
+                <Input name="oldPassword"  type={this.state.type} placeholder="old password" onChange={this.passwordOnChange} maxLength={128} minLength={6} ></Input> 
                 <span className="oldPassword" onClick={this.showHide}>{this.state.type === 'password' ? hide: show}</span>
                 <span className="error">{this.state.errors.oldPassword}</span>
                 <span className="error">{this.state.message}</span>  
@@ -141,14 +144,14 @@ class ChangePasswordEmployee extends Component{
 
             <FormGroup>
                 <Label>New Password</Label>
-                <Input  type="password" name="newPassword"  type={this.state.type1} placeholder="new password" onChange={this.passwordOnChange}  maxLength={128} minLength={6}/>
+                <Input name="newPassword"  type={this.state.type1} placeholder="new password" onChange={this.passwordOnChange}  maxLength={128} minLength={6}/>
                 <span className="newPassword" onClick={this.showHide1}>{this.state.type1 === 'password' ? hide: show}</span>  
                 <span className="error">{this.state.errors.newPassword}</span>          
             </FormGroup>
 
             <FormGroup>
                 <Label>Confirm New Password</Label>
-                <Input  type="password" name="confirmPassword"  type={this.state.type2} placeholder="confirm new password" onChange={this.passwordOnChange}  maxLength={128} minLength={6}/>
+                <Input name="confirmPassword"  type={this.state.type2} placeholder="confirm new password" onChange={this.passwordOnChange}  maxLength={128} minLength={6}/>
                 <span className="confirmPassword" onClick={this.showHide2}>{this.state.type2 === 'password' ? hide: show}</span>
                 <span className="error">{this.state.errors.confirmPassword}</span>            
             </FormGroup>
