@@ -56,15 +56,11 @@ class ViewMachineMaster extends Component {
             this.props.viewMachine().then(() => this.setState({loading:false,modalLoading:false}))
             this.props.getFlats(this.state.tenantId).then(() => this.setState({loading:false}))
              this.props.getMachine()
-            console.log(this.props.viewMachine());
     }
 
     refreshData=()=>{
         this.props.viewTower();
         this.props.viewMachine().then(()=>this.setState({modalLoading:false,modal:false}))
- 
-        
-
     }
 
 
@@ -83,7 +79,7 @@ class ViewMachineMaster extends Component {
     push = () => {
         this.props.history.push('/superDashboard/machineMaster')
     }
-    delete=(machineId)=>{console.log(machineId)
+    delete=(machineId)=>{
         this.setState({loading:true})
         let { isActive } = this.state;
         this.props.deleteMachine(machineId,isActive).then(() => this.refreshData())
@@ -93,7 +89,6 @@ class ViewMachineMaster extends Component {
     }
    
     toggle = (machineId,machineDetailId, machineActualId,towerName,floorName,flatNo,towerId,floorId) => {
-        console.log(machineActualId,towerName,floorName,flatNo,towerId,floorId)
         this.props.getFlatDetailViaTowerId(towerId);
 
         this.setState({
@@ -109,11 +104,8 @@ class ViewMachineMaster extends Component {
 
 
     towerChangeHandler = (e) => {
-        console.log(e)
         // var x = document.getElementById('floor');
-        // console.log(x)
         // x.remove(x)
-        console.log(this.state)
         this.setState({
                 towerId: parseInt(e.target.value),
                 memberError:'',
@@ -127,11 +119,8 @@ class ViewMachineMaster extends Component {
     }
 
     towerChangeHandler1 = (e) => {
-        console.log(e)
         // var x = document.getElementById('floor');
-        // console.log(x)
         // x.remove(x)
-        console.log(this.state)
         this.setState({
                 towerId: parseInt(e.target.value),
                 memberError:'',
@@ -146,7 +135,6 @@ class ViewMachineMaster extends Component {
 
 
     floorChangeHandler=(e)=>{
-        console.log(this.state)
         this.setState({
             floorId: parseInt(e.target.value),
             memberError:'',
@@ -154,14 +142,11 @@ class ViewMachineMaster extends Component {
             flatNo:'',
             message:''
         })
-        console.log('lllllllll=======',this.state.floorId)
         // this.getFlats(this.props.towerFloor);
     
         }
 
         flatChangeHandler=(e)=>{
-            console.log(this.state.flatDetailId)
-            console.log(this.state)
             this.setState({
                 flatDetailId: parseInt(e.target.value),
                 memberError:'',
@@ -184,7 +169,6 @@ class ViewMachineMaster extends Component {
     }
 
     getFloor=({getFlatDetail})=>{
-        console.log("floor",getFlatDetail)
         if(getFlatDetail && getFlatDetail.tower){
             return getFlatDetail.tower.Floors.map((item)=>{
                       
@@ -200,10 +184,8 @@ class ViewMachineMaster extends Component {
         }}
 
         getFlats=({getFlatDetail})=>{
-            console.log('7777777jjjjjj',getFlatDetail)
             if(getFlatDetail &&  getFlatDetail.flatDetail){
               return  getFlatDetail.flatDetail.map((selectFlat)=>{
-                    console.log('bbbbbbbbbbbbbbbbb',selectFlat)
                     // return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                     return <option key={selectFlat.flatDetailId} value={selectFlat.flatDetailId} >{selectFlat.flatNo}</option>
                 });
@@ -230,7 +212,7 @@ class ViewMachineMaster extends Component {
                     let { flatDetailIds,machineDetailId,machineId } = this.state;
            
                     this.props.updateMachine(flatDetailIds,machineDetailId,machineId).then(() => this.refreshData())
-                .catch(err=>{ console.log(err.response.data.message)
+                .catch(err=>{ 
                     this.setState({modalLoading:false,message: err.response.data.message})
                     })
                     if(this.state.message === ''){
@@ -287,13 +269,12 @@ class ViewMachineMaster extends Component {
 
 
         flatList =({machine})=>{
-            console.log(machine);
             if(machine && machine.Machines)
             {
     
                          return machine.Machines.sort((item1,item2) =>{
                             var cmprVal=(item1.machine_detail_master[this.state.filterName].localeCompare(item2.machine_detail_master[this.state.filterName]))
-                            return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{ console.log(item)
+                            return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{ 
                                     
                                     return (
                     
@@ -366,7 +347,6 @@ class ViewMachineMaster extends Component {
         }
     }
     flat =({machine1})=>{
-        console.log(machine1);
         if(machine1)
         {
 
@@ -450,7 +430,6 @@ class ViewMachineMaster extends Component {
             return []
         }}
         floorChangeHandler=(name,selectOption)=>{
-            console.log(selectOption)
             this.setState({
                 [name]: selectOption.value,
                 floorName:selectOption.label
@@ -460,10 +439,8 @@ class ViewMachineMaster extends Component {
         getFlats=({floor})=>{
             if(floor){
               return  floor.flatDetail.filter((flatRecord)=>{
-                  console.log('flatRecord',flatRecord)
                     return flatRecord.floorId===this.state.floorId
                 }).map((selectFlat)=>{
-                    console.log('selectFlat',selectFlat)
                     return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                 });
             }

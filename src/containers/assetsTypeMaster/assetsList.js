@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAssets, updateAssets, removeAssets,deleteMultipleAssets } from '../../actions/assetsAction';
 import { bindActionCreators } from 'redux';
-import { Button, Modal, FormGroup, ModalBody, ModalHeader, ModalFooter, Input, Table, Label } from 'reactstrap';
+import { Button, Modal, FormGroup, ModalBody, ModalHeader,Input, Table, Label } from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter'
 import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';

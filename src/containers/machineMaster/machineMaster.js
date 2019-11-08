@@ -37,7 +37,6 @@ class MachineMaster extends Component {
 
 
     flatList =({machine})=>{
-        console.log(machine);
         if(machine &&  machine.machinesDetail)
         {
 
@@ -115,7 +114,6 @@ changePassword = () => {
             return []
         }}
         floorChangeHandler=(name,selectOption)=>{
-            console.log(selectOption)
             this.setState({
                 [name]: selectOption.value,
                 floorName:selectOption.label
@@ -243,7 +241,6 @@ changePassword = () => {
     }
 }
 function mapStateToProps(state) {
-    console.log(state.FlatOwnerReducer)
     return {
         towerFloor:state.FlatOwnerReducer,
         towerList: state.TowerDetails,

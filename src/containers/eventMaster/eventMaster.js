@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AddEvent, GetEventOrganiser } from '../../actions/eventMasterAction';
 import { bindActionCreators } from 'redux';
-import { Input } from 'reactstrap';
+// import { Input } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import DefaultSelect from '../../constants/defaultSelect'
 import Spinner from '../../components/spinner/spinner';

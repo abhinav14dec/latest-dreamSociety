@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getMachineData, getMachineDetails, disableMachine } from '../../actions/fingerprint';
 import UI from '../../components/newUI/superAdminDashboard';
 import { connect } from 'react-redux';
-import { Table, Col, Row, Form, Button, FormGroup, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Table,Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 
 let flatDetailId;
@@ -18,8 +18,6 @@ class Machine extends Component {
             type: '',
             loading: true,
             modal: false
-
-
         }
     }
 

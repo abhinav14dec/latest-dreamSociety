@@ -73,7 +73,6 @@ class GetElectricityExpense extends Component {
     }
 
     getDropdownForRate = ({ rate }) => {
-        // console.log("dropdown of rate ", rate)
         if (rate && rate.maintenanceType) {
             return rate.maintenanceType.map((item) => {
                 return (
@@ -115,7 +114,6 @@ class GetElectricityExpense extends Component {
             selectMultiple[i].checked = true;
         }
         this.setState({ ids: ar });
-        console.log("ids-->", this.state.ids)
         if (ar.length > 0) {
             this.setState({ isDisabled: false });
         }
@@ -143,12 +141,10 @@ class GetElectricityExpense extends Component {
     onChange = (item, e) => {
         // this.setState({[e.target.name]:e.target.value, lastReading: value});
         var input = document.getElementById(`currentReading` + item);
-        console.log(input.value);
     }
 
     update = () => {
         let { electricityConsumerId, rate, amount, sanctionedLoad, lastReading, lastReadingDate, amountDue } = this.state;
-        console.log(electricityConsumerId, rate, amount, sanctionedLoad, lastReading, lastReadingDate, amountDue)
         let errors = {};
         // if (this.state.sign === '') {
         //     errors.sign = `This can't be empty.`
@@ -182,7 +178,6 @@ class GetElectricityExpense extends Component {
                     this.refreshData()
                     this.setState({ editModal: false, editSign: false, defaultSign: true })
                 }).catch(err => {
-                    console.log(err.response.data.message)
                     this.setState({ modalLoading: false, message: err.response.data.message })
                 })
             this.setState({
@@ -201,7 +196,6 @@ class GetElectricityExpense extends Component {
                 return this.state.sortVal ? cmprVal : -cmprVal;
             })
                 .filter(this.searchFilter(this.state.search)).map((item, index) => {
-                    console.log(item.amountDue)
                     return (
                         <tr key={item.electricityConsumerId}>
                             <td><input type="checkbox" name="ids" className="SelectAll" value={item.electricityConsumerId}
@@ -230,7 +224,7 @@ class GetElectricityExpense extends Component {
                             <td>{item.flat_detail_master.floor_master ? item.flat_detail_master.floor_master.floorName : ''}</td>
                             <td>{item.flat_detail_master ? item.flat_detail_master.flatNo : ''}</td>
                             <td>{item.lastReading}</td>
-                            <td>{item.amountDue == true ? '-' + item.amount : '+' + item.amount}</td>
+                            <td>{item.amountDue === true ? '-' + item.amount : '+' + item.amount}</td>
                             <td>{item.lastReadingDate}</td>
                             <td>{item.rate}</td>
                             <td>{item.sanctionedLoad}</td>
@@ -267,7 +261,6 @@ class GetElectricityExpense extends Component {
     }
 
     onChangeInput = (e) => {
-        console.log("^^edit ", this.state, e.target.value)
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -301,9 +294,7 @@ class GetElectricityExpense extends Component {
     }
 
     sameSign = () => {
-        console.log(this.state.amountDueInput)
         if (!!document.getElementById('isChecked').checked) {
-            console.log('is checked')
             this.setState({ amountDue: '', defaultSign: false, editSign: true })
         }
         else {
@@ -429,7 +420,7 @@ class GetElectricityExpense extends Component {
             <FormGroup>
                 <Row md={12}>
                     {this.state.defaultSign ? <Col md={6}>
-                        <Input type="text" id="permanentaddr" disabled maxLength="500" value={this.state.amountDue == true ? '-' : '+'} name="amountDueInput" onChange={this.onChangeInput} />
+                        <Input type="text" id="permanentaddr" disabled maxLength="500" value={this.state.amountDue === true ? '-' : '+'} name="amountDueInput" onChange={this.onChangeInput} />
                     </Col> : ''}
                     {this.state.defaultSign ? <Col md={6}>
                         <span style={{ fontWeight: 'bold' }}>Do you want to edit?</span><Input type="checkbox" onChange={this.sameSign} name="isChecked" id="isChecked" className="ml-3" />

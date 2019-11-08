@@ -42,7 +42,6 @@ class DisplayEmployeeTypeMaster extends Component {
         this.props.getEmployee().then(() => this.setState({ loading: false,modalLoading:false,editEmployeeModal:false }));
         this.props.getEmployeeType().then(() => this.setState({ loading: false }));
         this.props.getEmployeeWorkType().then(() => this.setState({ loading: false }));
-        console.log("123", this.props.getEmployee())
     }
     toggleEditEmployeeModal() {
         this.setState({
@@ -76,7 +75,6 @@ class DisplayEmployeeTypeMaster extends Component {
        
       } 
     editEmployee(employeeDetailId, employeeTypeId, employeeWorkTypeId, serviceType) {
-        console.log('i m in edit ', employeeTypeId, employeeWorkTypeId, serviceType);
         this.setState({
             editEmployeeData: { employeeDetailId, employeeTypeId, employeeWorkTypeId},serviceType, 
             editEmployeeModal: !this.state.editEmployeeModal
@@ -136,7 +134,6 @@ class DisplayEmployeeTypeMaster extends Component {
 
 
     getEmpType({ employeeType }) {
-        console.log(employeeType, "emptype");
         if (employeeType) {
             return (
                 employeeType.employeeType.map((item) => {
@@ -151,7 +148,6 @@ class DisplayEmployeeTypeMaster extends Component {
     }
 
     getEmpWorkType({ employeeWorkType }) {
-        console.log(employeeWorkType, "emp")
         if (employeeWorkType) {
             return (
                 employeeWorkType.employeeWorkType.map((item) => {
@@ -187,7 +183,6 @@ searchFilter(search) {
 
 
     getEmployee({ getEmployee }) {
-        console.log(getEmployee)
         if (getEmployee && getEmployee.employeeDetail) {
             return (
                 getEmployee.employeeDetail.sort((item1,item2) =>{
