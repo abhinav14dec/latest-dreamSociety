@@ -146,7 +146,7 @@ class FlatOwnerDetails extends Component {
                 stateId,
                 countryId,
                 society:selectOption.label,
-                currentAddress:selectOption.label+','+locationName+','+cityName+','+stateName+' '+','+countryName
+                currentAddress:`${selectOption.label}, ${locationName}, ${cityName}, ${stateName}, ${countryName}`
             }
         }, function () {
         });
@@ -464,7 +464,7 @@ OnKeyPresshandlerEmail=(event)=> {
       onCurrentAddressChangeHandler=(event)=>{
           const {countryName,stateName,cityName,locationName,society,pinCode}=this.state
         this.setState({
-            currentAddress:event.target.value+', '+society+', '+' '+locationName+', '+cityName+','+stateName+','+countryName+' '+pinCode
+            currentAddress:`${event.target.value}, ${society}, ${locationName}, ${cityName}, ${stateName}, ${countryName}, ${pinCode}`
         },function(){
         })
 
@@ -853,7 +853,7 @@ this.setState({totalParking:slots.slots?slots.slots.count:'total slot unavailabl
                             <Label>Upload Profile Pic</Label>                               
                                 <Input accept='image/*' style={{display:'inline-block'}}type="file" name ="profilePic" onChange={this.FileChange} />
                                 <div>
-                                 <img src={this.state.profilePicture} height='100px' width='100px' />
+                                 <img src={this.state.profilePicture} height='100px' width='100px' alt="profilepic"/>
                                  </div>
                             </FormGroup>
                             <FormGroup>
@@ -897,7 +897,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({detailSociety, viewTower, getRelation,getFlatDetails,addFlatOwner,getAllFloor,getCountry,getState,getCity, getLocation,getFlatDetails,getSlots,getRfId}, dispatch)
+    return bindActionCreators({detailSociety, viewTower, getRelation,getFlatDetails,addFlatOwner,getAllFloor,getCountry,getState,getCity, getLocation,getSlots,getRfId}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FlatOwnerDetails);
 

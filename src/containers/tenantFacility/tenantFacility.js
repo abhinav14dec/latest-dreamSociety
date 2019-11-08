@@ -144,18 +144,11 @@ class TenantFacility extends Component {
     close = () => {
         return this.props.history.replace('/tenantDashboard')
     }
-
-
-
     getActivatedData = ({ userFacilty }) => {
-
-
         if (userFacilty && userFacilty.data) {
             if (this.state.arrData === false) {
                 this.getDataUser(userFacilty);
             }
-
-
             return userFacilty.data.facilitiesInUse.map((item) => {
 
                 return (
