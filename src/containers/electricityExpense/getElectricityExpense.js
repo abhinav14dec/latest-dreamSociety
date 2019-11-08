@@ -224,7 +224,7 @@ class GetElectricityExpense extends Component {
                             <td>{item.flat_detail_master.floor_master ? item.flat_detail_master.floor_master.floorName : ''}</td>
                             <td>{item.flat_detail_master ? item.flat_detail_master.flatNo : ''}</td>
                             <td>{item.lastReading}</td>
-                            <td>{item.amountDue == true ? '-' + item.amount : '+' + item.amount}</td>
+                            <td>{item.amountDue === true ? '-' + item.amount : '+' + item.amount}</td>
                             <td>{item.lastReadingDate}</td>
                             <td>{item.rate}</td>
                             <td>{item.sanctionedLoad}</td>
@@ -420,7 +420,7 @@ class GetElectricityExpense extends Component {
             <FormGroup>
                 <Row md={12}>
                     {this.state.defaultSign ? <Col md={6}>
-                        <Input type="text" id="permanentaddr" disabled maxLength="500" value={this.state.amountDue == true ? '-' : '+'} name="amountDueInput" onChange={this.onChangeInput} />
+                        <Input type="text" id="permanentaddr" disabled maxLength="500" value={this.state.amountDue === true ? '-' : '+'} name="amountDueInput" onChange={this.onChangeInput} />
                     </Col> : ''}
                     {this.state.defaultSign ? <Col md={6}>
                         <span style={{ fontWeight: 'bold' }}>Do you want to edit?</span><Input type="checkbox" onChange={this.sameSign} name="isChecked" id="isChecked" className="ml-3" />

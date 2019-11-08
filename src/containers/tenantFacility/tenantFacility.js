@@ -8,10 +8,6 @@ import Spinner from '../../components/spinner/spinner';
 import DefaultSelect from '../../constants/defaultSelect';
 import $ from 'jquery';
 import moment from 'moment';
-
-
-
-
 class TenantFacility extends Component {
     constructor(props) {
         super(props);
@@ -138,44 +134,31 @@ class TenantFacility extends Component {
     }
 
     getDataUser = (userFacilty) => {
-
         this.setState({ arrData: true })
-        userFacilty.data.facilitiesInUse.map((item) => {
+         userFacilty.data.facilitiesInUse.map(item => {
             let facilityDetailId = item.facilityDetailId;
             let endDate = item.endDate
-            this.state.facilitiesUser.push({ facilityDetailId, endDate, isActive: true })
+             return this.state.facilitiesUser.push({ facilityDetailId, endDate, isActive: true })
         })
     }
-
-    
     close = () => {
         return this.props.history.replace('/tenantDashboard')
     }
-
-
-
     getActivatedData = ({ userFacilty }) => {
-
-
         if (userFacilty && userFacilty.data) {
             if (this.state.arrData === false) {
                 this.getDataUser(userFacilty);
             }
-
-
             return userFacilty.data.facilitiesInUse.map((item) => {
 
                 return (
 
                     <tr key={item.facilityDetailId} >
-                        <td scope="row" ><Input type="checkbox" name="facilitiesUser" defaultChecked className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
+                        <td  ><Input type="checkbox" name="facilitiesUser" defaultChecked className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
                             onChange={(e) => {
-
-                                const { facilityDetailId, endDate } = item
-
-
+                                const { facilityDetailId } = item
                                 if (!e.target.checked) {
-                                    this.state.facilitiesUser.map((item, index) => {
+                                    this.state.facilitiesUser.map((item) => {
                                         if (item.facilityDetailId === facilityDetailId) {
                                             item.isActive = false;
                                         }
@@ -212,12 +195,10 @@ class TenantFacility extends Component {
 
     getUserData = ({ getFacilityUser }) => {
         if (getFacilityUser && getFacilityUser.data) {
-
             return getFacilityUser.data.facilitiesNotInUse.map((item) => {
-
                 return (
                     <tr key={item.facilityDetailId}>
-                        <td scope="row" ><Input type="checkbox" name="facilities" disabled={this.facilityDisabled(item.facilityDetailId)} className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
+                        <td ><Input type="checkbox" name="facilities" disabled={this.facilityDisabled(item.facilityDetailId)} className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
                             onChange={(e) => {
 
                                 const { facilityDetailId } = item
