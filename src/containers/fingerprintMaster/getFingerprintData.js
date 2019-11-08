@@ -136,10 +136,9 @@ class FingerPrint extends Component {
     }
 
     getDropdownForFlats = ({ fingerprintDetails},userId) => {
-        let data;
         if (fingerprintDetails && fingerprintDetails.userData) {
             return fingerprintDetails.userData.filter((flatRecord) => {        
-                return flatRecord.userId == userId
+                return flatRecord.userId === userId
             }).map((item) => {
                 return item.flats ? item.flats.map((item) => {  
                     return (
