@@ -4,7 +4,6 @@ import { authHeader } from "../../helper/authHeader";
 import { URN } from '../../actionCreators/index';
 
 import CanvasJSReact from '../../components/canvasjs.react';
-import FlatLineChart from './flatlinechart';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class InventoryLineChart extends Component {
@@ -30,13 +29,10 @@ class InventoryLineChart extends Component {
 // viewData = new Object();
   
 	getData = (data) => {
-		
-			let arr = [];
 			data.inventory.map(inventory => {
 				this.state.viewData.push(inventory.count);
 				this.state.displayData.push(inventory.avgRate);
 				this.state.assetTypeData.push(inventory.asset_type_master.assetType)
-				
 				for (let i = 0; i < data.inventory.length; i++) {
 					this.setState({inventoryLength:data.inventory.length})
 				

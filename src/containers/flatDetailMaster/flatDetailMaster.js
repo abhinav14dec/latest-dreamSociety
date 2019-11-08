@@ -67,7 +67,7 @@ class flatDetailMaster extends Component{
     }
 
     OnKeyPresshandlerPhone(event) {
-        const pattern = /^[0-9, a-zA-Z  -]$/;
+        const pattern = /^[0-9, a-zA-Z-]$/;
         let inputChar = String.fromCharCode(event.charCode);
         if (!pattern.test(inputChar)) {
             event.preventDefault();

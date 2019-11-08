@@ -86,7 +86,7 @@ class MemberEventsBookingTenant extends Component {
 
     }
 
-    test=({ space }) =>{
+    test = ({ space }) => {
         if (space && space.societyMember) {
             return space.societyMember.filter((event) => {
                     return event.eventSpaceId === this.state.eventSpaceId
@@ -102,23 +102,22 @@ class MemberEventsBookingTenant extends Component {
     }
 
 
-    onChange =async (e) => {
+    onChange = async (e) => {
         e.persist();
         this.setState({ message: '' })
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-          await this.setState({ [e.target.name]: e.target.value.trim(''), errors });
+            await this.setState({ [e.target.name]: e.target.value.trim(''), errors });
 
         }
         else {
-         await this.setState({ [e.target.name]: e.target.value.trim('') });
+            await this.setState({ [e.target.name]: e.target.value.trim('') });
 
         }
         this.test(this.props.PersonalEventBookingReducer);
 
     }
-   
 
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
@@ -132,7 +131,7 @@ class MemberEventsBookingTenant extends Component {
         e.preventDefault();
         let errors = {};
 
-        
+
 
 
         if (!this.state.societyMemberEventId) {
@@ -340,9 +339,6 @@ function mapStateToProps(state) {
         PersonalEventBookingReducer: state.PersonalEventBookingReducer
 
     }
-
-
-
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getMemberEvent, addEventBooking, getEventDetails }, dispatch);

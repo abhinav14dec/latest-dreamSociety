@@ -152,14 +152,12 @@ updateServices = () => {
                         }       
                     this.setState({ modalLoading: true
                })
-               console.log(serviceId,rateId)
     }   
 }
 
     renderList = ({ getServiceVendor }) => {  
 
         if (getServiceVendor && getServiceVendor.vendor ) {
-            console.log(getServiceVendor)
             let item=getServiceVendor.vendor
              
                    return (
@@ -230,7 +228,6 @@ updateServices = () => {
             if(ar.length > 0){
                 this.setState({isDisabled: false});
             }
-            console.log(this.state)
     }
 
     unSelectAll = () =>{

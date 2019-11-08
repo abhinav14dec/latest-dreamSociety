@@ -3,8 +3,6 @@ import axios from 'axios';
 import { authHeader } from "../../helper/authHeader";
 import {URN} from '../../actionCreators/index';
 import CanvasJSReact from '../../components/canvasjs.react';
-
-
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class FlatPieChart extends Component {
 	state={
