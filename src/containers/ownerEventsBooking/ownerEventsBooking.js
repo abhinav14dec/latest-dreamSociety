@@ -69,7 +69,7 @@ class MemberEventsBooking extends Component {
     getFlatData = ({ floorDetails }) => {
         if (floorDetails && floorDetails.flatDetail) {
             return floorDetails.flatDetail.filter((flatRecord) => {
-                return flatRecord.floorId == this.state.floorId
+                return flatRecord.floorId === this.state.floorId
             }).map((items) => {
                 return (
                     <option key={items.flatDetailId} value={items.flatDetailId}>
@@ -100,19 +100,13 @@ class MemberEventsBooking extends Component {
 
     test=({ space }) =>{
         if (space && space.societyMember) {
-            let a;
             return space.societyMember.filter((event) => {
-                    console.log(this.state.eventSpaceId)
-                    return event.eventSpaceId == this.state.eventSpaceId
+                    return event.eventSpaceId === this.state.eventSpaceId
                 }).map((data) => {
                         if (data) {
-                            console.log("items---->", data)
-                            // this.setState({ data: item })
-                            this.setState({ data }, function () {
-                                console.log(this.state.data);
-                           });
+                            this.setState({ data });
                         }
-
+                        return null;
                     })
             
         }
@@ -122,8 +116,6 @@ class MemberEventsBooking extends Component {
     onChange =async (e) => {
         e.persist();
         this.setState({ message: '' })
-
-        console.log(this.state.eventSpaceId)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -134,10 +126,7 @@ class MemberEventsBooking extends Component {
          await this.setState({ [e.target.name]: e.target.value.trim('') });
 
         }
-        console.log(this.state.eventSpaceId)
         this.test(this.props.PersonalEventBookingReducer);
-     
-        console.log(this.props.PersonalEventBookingReducer)
 
     }
    
@@ -355,8 +344,6 @@ class MemberEventsBooking extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("booking.........", state)
-
     return {
         memberEventsBookingReducer: state.memberEventsBookingReducer,
         societyMemberEventReducer: state.societyMemberEventReducer,
