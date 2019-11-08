@@ -11,7 +11,7 @@ import SearchFilter from '../../components/searchFilter/searchFilter';
 class DisplayEventMaster extends Component {
         state = {
                 editEventData: {
-                        isActive: false
+                   isActive: false
                 },
                 eventId: '',
                 userId: '',
@@ -89,16 +89,12 @@ class DisplayEventMaster extends Component {
                 if (isValid) {
                         this.props.updateEvent(eventId, eventType, eventName, eventOrganiser, startDate, endDate, userId).then(() => { this.refreshData() }).catch(err => this.setState({ modalLoading: false, message: err.response.data.message }))
 
-
-
                         if (this.state.message === '') {
                                 this.setState({ editEventModal: true })
                         }
                         else {
                                 this.setState({ editEventModal: false })
                         }
-
-
                         this.setState({
                                 modalLoading: true
                         })
@@ -115,15 +111,9 @@ class DisplayEventMaster extends Component {
         }
         deleteEvent(eventId) {
                 this.setState({ loading: true })
-
                 let { isActive } = this.state.editEventData;
-
-
                 this.props.deleteEvent(eventId, isActive).then(() => { this.refreshData() })
                 this.setState({ editEventData: { isActive: false } })
-
-
-
         }
 
 
@@ -136,7 +126,8 @@ class DisplayEventMaster extends Component {
                 }
         }
         getEvent({ events }) {
-                if (events && events.event) {
+
+                if (events &&  events.event) {
                         return (
                                 events.event.map((item) => {
                                         return (

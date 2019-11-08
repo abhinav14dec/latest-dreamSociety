@@ -2,22 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UI from '../../components/newUI/superAdminDashboard';
-
 import DefaultSelect from '../../constants/defaultSelect';
 import Spinner from '../../components/spinner/spinner';
 import { getIndividualVendor, getServiceVendor } from './../../actions/individualVendorAction';
-
 import { getServiceType } from './../../actions/serviceMasterAction';
 import { getRateType } from './../../actions/vendorMasterAction';
-import { Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Table, Label,} from 'reactstrap';;
+import { Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Table, Label,} from 'reactstrap';
+
 
 let individualVendorId;
-
-
 class VendorServiceDetail extends Component {
-
-
-
     state = {
             filterName:"serviceName",
             vendorServiceId:'',         
@@ -32,7 +26,6 @@ class VendorServiceDetail extends Component {
             loading:true,
             search: '',
             modalIsOpen: false,
-            search: '', 
             ids:[],
             isDisabled:true,    
             errors:{},
@@ -222,14 +215,7 @@ updateServices = () => {
         return this.props.history.replace('/superDashboard/changePassword')
     }
     
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-
+   
     
     selectAll = () => {
         let selectMultiple = document.getElementsByClassName('SelectAll');
@@ -264,13 +250,7 @@ updateServices = () => {
         return this.props.history.replace('/superDashBoard')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
+ 
     
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;

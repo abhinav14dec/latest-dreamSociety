@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addEventBooking, getMemberEvent, getEventDetails } from '../../actions/personalEventsBookingAction';
-
-
+import { addEventBooking,getMemberEvent, getEventDetails } from '../../actions/personalEventsBookingAction';
 import UI from '../../components/newUI/tenantDashboard';
 import Spinner from '../../components/spinner/spinner';
 import { Form, Button, FormGroup, Input, Label, Row, Col } from 'reactstrap';
 import DefaultSelect from '../../constants/defaultSelect';
+
+
 
 class MemberEventsBookingTenant extends Component {
     constructor(props) {
@@ -29,21 +29,15 @@ class MemberEventsBookingTenant extends Component {
         }
     }
 
-
     componentDidMount = () => {
         this.refreshData()
     }
-
-
 
     refreshData = () => {
         this.props.getMemberEvent().then(() => this.setState({ loading: false }));
         this.props.getEventDetails().then(() => this.setState({ loading: false }));
 
     }
-
-
-
 
     eventType({ eventsResult }) {
         if (eventsResult && eventsResult.event) {
@@ -64,7 +58,7 @@ class MemberEventsBookingTenant extends Component {
     getFlatData = ({ floorDetails }) => {
         if (floorDetails && floorDetails.flatDetail) {
             return floorDetails.flatDetail.filter((flatRecord) => {
-                return flatRecord.floorId == this.state.floorId
+                return flatRecord.floorId === this.state.floorId
             }).map((items) => {
                 return (
                     <option key={items.flatDetailId} value={items.flatDetailId}>
@@ -76,8 +70,7 @@ class MemberEventsBookingTenant extends Component {
     }
 
 
-    spaceName = ({ space }) => {
-
+    spaceName=({ space }) =>{
         if (space && space.societyMember) {
             return (
                 space.societyMember.map((item) => {
@@ -95,19 +88,16 @@ class MemberEventsBookingTenant extends Component {
 
     test = ({ space }) => {
         if (space && space.societyMember) {
-            let a;
             return space.societyMember.filter((event) => {
-                return event.eventSpaceId == this.state.eventSpaceId
-            }).map((data) => {
-                if (data) {
-                    // this.setState({ data: item })
-                    this.setState({ data }, function () {
-                        console.log(this.state.data);
-                    });
-                }
+                    return event.eventSpaceId === this.state.eventSpaceId
+                }).map((data) => {
+                        if(data) {
+                            this.setState({ data }, function () {
+                                console.log(this.state.data);
+                           });
+                        }
 
-            })
-
+                    }) 
         }
     }
 
@@ -128,16 +118,6 @@ class MemberEventsBookingTenant extends Component {
         this.test(this.props.PersonalEventBookingReducer);
 
     }
-
-
-
-
-    // onChangeSpace = (e) => {
-    //     document.getElementById('eventSpaceId').value = 'no-value';
-    //     this.setState({
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
 
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
