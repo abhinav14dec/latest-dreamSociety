@@ -676,7 +676,7 @@ this.setState({totalParking:slots.slots?slots.slots.count:'total slot unavailabl
                         <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                             <span aria-hidden="true">&times;</span>
                         </div>
-                        <div style={{ 'display': this.state.step == 1 ? 'block' : 'none' }}>
+                        <div style={{ 'display': this.state.step === 1 ? 'block' : 'none' }}>
                             <h3>Flat Owner Details</h3>
                             <FormGroup>
                                 <Label>First Name</Label>
@@ -846,27 +846,7 @@ this.setState({totalParking:slots.slots?slots.slots.count:'total slot unavailabl
                                 <Label>Number of Member</Label>
                                 <Input placeholder="number of member" type='text' onKeyPress={this.OnKeyPresshandlerPhone} name="familyMember" onChange={this.userMemberHandler} />
                             </FormGroup>
-                            {/* <div style={{ 'display': this.state.step == 1 ? 'block' : 'none' }}>
-                            <div>Other Flats</div>
-                            <FormGroup>
-                            <Label>Tower</Label>
-                                <Select options={this.getTower(this.props.towerList)}
-                                    onChange={this.towerChangeHandler1.bind(this, 'towerId1')}
-                                    placeholder={PlaceHolder} />
-                                <Label>Floor</Label>
-                                <Select options={this.getFloor(this.props.towerFloor)} 
-                                placeholder={PlaceHolder}
-                                name="floorId1"
-                                onChange={this.floorChangeHandler1.bind(this,'floorId1')}
-                                />
-                               <Label>Flat Number</Label>
-                                <Select options={this.getFlats(this.props.towerFloor)}
-                                    placeholder={PlaceHolder} 
-                                    name="flatDetailIds"
-                                  onChange={this.flatChangeHandler1.bind(this,'flatDetailIds')}
-                                    />
-                            </FormGroup>
-                            </div>   */}
+                           
                             {userDatas}
                  
                             <FormGroup>
@@ -885,11 +865,11 @@ this.setState({totalParking:slots.slots?slots.slots.count:'total slot unavailabl
                         </div>
                         <div>
                         <Link to='/superDashBoard/flatOwnerList'>
-                <Button color="danger" className="mr-2" style={{ display: this.state.step == 1 ? 'inline-block' : 'none', marginLeft: '20px'}} >Cancel</Button>
+                <Button color="danger" className="mr-2" style={{ display: this.state.step === 1 ? 'inline-block' : 'none', marginLeft: '20px'}} >Cancel</Button>
                               </Link>
-                            <Button className="mr-2" color="danger" type="button" id="prevBtn" style={{ display: this.state.step == 1 ? 'none' : 'inline-block' }} disabled={this.state.step == 1} onClick={() => { this.setState({ step: this.state.step - 1 }) }}>Previous</Button>
-                            <Button type="button" color="primary" id="nextBtn" style={{ display: this.state.step == 2 ? 'none' : 'inline-block' }} disabled={this.state.step == 3} onClick={this.nextPrev}>Next</Button>
-                            <Button type="submit" color="success" style={{ display: this.state.step == 2 ? 'inline-block' : 'none' }}>Submit</Button>
+                            <Button className="mr-2" color="danger" type="button" id="prevBtn" style={{ display: this.state.step === 1 ? 'none' : 'inline-block' }} disabled={this.state.step === 1} onClick={() => { this.setState({ step: this.state.step - 1 }) }}>Previous</Button>
+                            <Button type="button" color="primary" id="nextBtn" style={{ display: this.state.step === 2 ? 'none' : 'inline-block' }} disabled={this.state.step === 3} onClick={this.nextPrev}>Next</Button>
+                            <Button type="submit" color="success" style={{ display: this.state.step === 2 ? 'inline-block' : 'none' }}>Submit</Button>
 
                         </div>
                     </Form>
