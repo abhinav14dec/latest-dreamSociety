@@ -81,7 +81,6 @@ onSubmit = (e) => {
             commonArea:''
         })   
         }      
-    console.log("commonArea",commonArea)
 }
 
 logout=()=>{

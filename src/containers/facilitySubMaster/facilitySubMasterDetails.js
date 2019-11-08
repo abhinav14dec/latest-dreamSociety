@@ -59,7 +59,6 @@ class FacilitySubMasterDetails extends Component {
     onChange = (e) => {
 
         let selected = e.target.value
-        console.log(selected, "facilityName===========")
 
         this.setState({ message: '' })
         if (!!this.state.errors[e.target.name]) {
@@ -83,7 +82,6 @@ class FacilitySubMasterDetails extends Component {
 
 
     deleteFacilityName = (facilityDetailId) => {
-        console.log(facilityDetailId)
         let { isActive } = this.state
         this.setState({ loading: true })
         this.props.deleteFacilityRate(facilityDetailId, isActive)
@@ -168,7 +166,6 @@ class FacilitySubMasterDetails extends Component {
             this.props.updateSubFacilty(facilityDetailId, facilityId, monthlyRate, unitRate)
                 .then(() => this.refreshData())
                 .catch(err => {
-                    console.log(err.response.data.message)
                     this.setState({ modalLoading: false, message: err.response.data.message })
                 })
             if (this.state.message === '') {
@@ -188,15 +185,10 @@ class FacilitySubMasterDetails extends Component {
 
     renderFacility = ({ getSubFacility }) => {
         if (getSubFacility && getSubFacility.facilities) {
-            console.log(getSubFacility.facilities)
             return getSubFacility.facilities.sort((item1, item2) => {
-                console.log(item1)
                 var cmprVal = (item1.facilities_master[this.state.filterName].localeCompare(item2.facilities_master[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item, index) => {
-                console.log(item)
-                console.log(item)
-
                 return (
                     <tr key={item.facilityDetailId} >
                         <td><input type="checkbox" name="ids" className="SelectAll" value={item.facilityDetailId}
@@ -258,7 +250,6 @@ class FacilitySubMasterDetails extends Component {
 
     getFacilityData = ({ getFacility }) => {
         if (getFacility && getFacility.facilities) {
-            console.log("facility==========", getFacility)
             return getFacility.facilities.map((item) => {
                 return (
                     <option key={item.facilityId} value={item.facilityId}>

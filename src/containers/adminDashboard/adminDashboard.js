@@ -6,7 +6,6 @@ import UI from '../../components/newUI/adminDashboard';
 
 class AdminDashboard extends Component {
     logout=()=>{
-        console.log('hiiii')
         this.props.userLogout();   
       }
       changePassword=()=>{

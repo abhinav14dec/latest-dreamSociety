@@ -23,7 +23,6 @@ class InventoryPieChart extends Component {
 	componentDidMount() {
 		axios.get(`${URN}/inventory`, { headers: authHeader() })
 			.then(res => {
-				console.log(res.data);
 				this.getData(res.data)
 			})
 	}
@@ -33,13 +32,11 @@ class InventoryPieChart extends Component {
 		// 	data.inventory.map((item)=>{
 
 		// 	{item.count}
-		// 	console.log(item.count);
 		// 	this.setState({count:item.count})
 
 		// })
 			let arr = [];
 			data.inventory.map(inventory => {
-				console.log("count-->",inventory.count)
 				this.state.viewData.push(inventory.count);
 				this.state.displayData.push(inventory.avgRate);
 				this.state.assetTypeData.push(inventory.asset_type_master.assetType)
@@ -47,7 +44,6 @@ class InventoryPieChart extends Component {
 				for (let i = 0; i < data.inventory.length; i++) {
 					this.setState({inventoryLength:data.inventory.length})
 				
-					// console.log(  	this.state.inventoryLength)
 				   this.setState({['count'+i] : this.state.viewData[i] }) 
 				   this.setState({['avgRate'+i] : this.state.displayData[i] }) 	
 				   this.setState({['assetType'+i]:this.state.assetTypeData[i]})
@@ -55,7 +51,6 @@ class InventoryPieChart extends Component {
                    
 				   this.state.view[i]= 	{label:"  Asset  Count",name: this.state.displayData[i],assetType:this.state.assetTypeData[i], y:this.state.viewData[i]}
 				//    this.setState({viewData:this.state.viewData[i]})
-					console.log("inside for  ==>",this.state.viewData[i],this.state.displayData[i])
 				
 				
 				}
@@ -70,26 +65,22 @@ class InventoryPieChart extends Component {
 			// }),
 			assetType: data.inventory.assetType
 		})
-		console.log(this.state.count);
 
 	}
 	// displayData = () => {
 	// 	var value;
-	// 	console.log(this.state)
 	// 	for (let i = 0; i < this.state.inventoryLength; i++) {
 	// 		value = {
 	// 			y: this.state['count' + i], label: 'count'
 	// 		}
 	// 		this.state.viewData.push(value)
 	// 	}
-	// 	console.log(this.state.viewData)
 	// 	return this.state.viewData
 	// }
 	render() {
 
     
 		
-		console.log(this.state.count)
 		const options = {
 			// exportEnabled: true,
 

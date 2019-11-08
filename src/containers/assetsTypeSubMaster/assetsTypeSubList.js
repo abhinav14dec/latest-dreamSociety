@@ -44,7 +44,6 @@ class AssetsTypeSubList extends Component {
     }
 
     toggle = (assetTypeId, assetId,assets,assetType, description) => {
-console.log(assetTypeId, assetId,assets,assetType, description)
         this.setState({
             assetId,
             assetTypeId,
@@ -55,7 +54,6 @@ console.log(assetTypeId, assetId,assets,assetType, description)
             search: '',
             modal: !this.state.modal
         })
-        console.log(this.state.assets)
     }
     toggles = () => {
         this.setState({ modal: !this.state.modal })
@@ -68,7 +66,6 @@ console.log(assetTypeId, assetId,assets,assetType, description)
 
     editAssetsSubType = () => {
         const {assetId,assetTypeId, assetType, description } = this.state
-        console.log(assetTypeId, assetType, description )
         let errors = {};
         if(this.state.assetType===''){
             errors.assetType="Assets type can't be empty"
@@ -324,7 +321,6 @@ console.log(assetTypeId, assetId,assets,assetType, description)
 
 
 function mapStatToProps(state) {
-    console.log('dflkjdklfjkkkkkkkkkk',state.AssetsTypeReducer)
     return {
         ListOfAssets: state.AssetsTypeReducer,
         assetsName: state.AssetsReducer
