@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormGroup,  Input, Label } from 'reactstrap';
 
 import DefaultSelect from '../../constants/defaultSelect';

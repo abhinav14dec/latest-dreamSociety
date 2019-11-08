@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { authHeader } from "../../helper/authHeader";
 import { URN } from '../../actionCreators/index';
-import InventoryLineChart from './inventoryLineChart';
 import CanvasJSReact from '../../components/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -35,8 +34,7 @@ class InventoryPieChart extends Component {
 		// 	this.setState({count:item.count})
 
 		// })
-			let arr = [];
-			data.inventory.map(inventory => {
+			 data.inventory.map(inventory => {
 				this.state.viewData.push(inventory.count);
 				this.state.displayData.push(inventory.avgRate);
 				this.state.assetTypeData.push(inventory.asset_type_master.assetType)

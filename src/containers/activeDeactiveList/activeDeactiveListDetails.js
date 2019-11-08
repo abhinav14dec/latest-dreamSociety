@@ -7,6 +7,7 @@ import Spinner from '../../components/spinner/spinner';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 
+let type1;
 class ShowActiveListDetails extends Component{
 
     constructor(props){
@@ -134,13 +135,12 @@ class ShowActiveListDetails extends Component{
 }
 
      fetchRoles=({roles1})=>{
-
          if(roles1){
             return roles1.users.sort((item1,item2)=>{
                 var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item,index) =>{
-                this.state.type1=item.type
+                type1=item.type
                 
                 return (
                     <tr key={item.userId}>
@@ -251,9 +251,9 @@ class ShowActiveListDetails extends Component{
                     ar.push(parseInt(selectMultiple[i].value));
                     selectMultiple[i].checked = true;
             }
-            this.setState({ids: ar,type:this.state.type1});
+            this.setState({ids: ar,type:type1});
             if(ar.length > 0){
-                this.setState({isDisabled: false,type:this.state.type1});
+                this.setState({isDisabled: false,type:type1});
             }
     }
 

@@ -111,7 +111,7 @@ class userDetails extends Component {
     updateUser = (e) => {
             this.setState({message: '', emailServerError:'', userNameServerError:'', contactServerError:''})
             e.preventDefault();
-            let { userId, roleName, firstName, lastName, userName, email,towerName, floor, contact,towerId } = this.state;
+            let { userId, roleName, firstName, lastName, userName, email,towerName,contact,towerId } = this.state;
             let errors = {};
             if(!this.state.towerName){
                 errors.towerName = "Tower can't be empty. Please select."
@@ -133,7 +133,6 @@ class userDetails extends Component {
                     this.refreshDataAfterUpdate()
                 })
                 .catch(err => { 
-                    console.log(err.response.data);
                     this.setState({emailServerError: err.response.data.messageEmailErr, userNameServerError:err.response.data.messageUsernameErr,
                     contactServerError: err.response.data.messageContactErr, modalLoading: false})})
                 this.setState({
@@ -146,7 +145,6 @@ class userDetails extends Component {
         this.setState({
              userId, roleName, firstName, lastName, userName, email,towerId, contact , towerName, editUserModal: !this.state.editUserModal
         });
-        console.log(towerName);
     }
 
     deleteUser(userId) {
@@ -176,7 +174,6 @@ class userDetails extends Component {
 
     fetchTowers({tower}) {
         if(tower){
-            console.log(tower)
             return (
                 tower.tower.map((item) => {
                     if(item){
@@ -194,17 +191,14 @@ class userDetails extends Component {
 
     fetchUsers({ user }) {
         if(user) {
-            console.log(user)
             let currentRole;
             return user.sort((item1,item2)=>{
                 if(item1 && item2){
-                    console.log(item1, item2)
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
                 }
             }).filter(this.searchFilter(this.state.search)).map((item, index) => {
                 if(item && item.tower_master){
-                    console.log(item.tower_master.towerName)
                     let currentTower = item.tower_master.towerName;
                     let currentTowerId = item.towerId
                     return (
@@ -264,17 +258,14 @@ class userDetails extends Component {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
             this.setState({ [e.target.name]: e.target.value.trim(), errors });
-            console.log(this.state);
         }
         else {
             this.setState({ [e.target.name]: e.target.value.trim() });
-            console.log(this.state);
         }
     }
 
     fetchRoles({ userRole }) {
         if(userRole) {
-            console.log(userRole)
             return (
                userRole.map((item) => {
                     return (
@@ -337,11 +328,9 @@ class userDetails extends Component {
     }
 
     emailChange = (e) => {
-        console.log(this.state.email)
         this.setState({email:e.target.value, emailServerError:''})
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value});
-            console.log(this.state.email)
             this.setState({emailValidError: ''})
         }
         else{ this.setState({emailValidError: 'Invalid Email.'})}
