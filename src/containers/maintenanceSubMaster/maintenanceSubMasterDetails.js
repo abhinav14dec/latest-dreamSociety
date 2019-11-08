@@ -283,7 +283,6 @@ class MaintenanceSubMasterDetails extends Component{
     }
 
     render(){
-        console.log(this.props)
         let tableData = <Table className="table table-bordered">
         <thead>
             <tr>

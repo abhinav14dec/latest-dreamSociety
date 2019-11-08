@@ -43,7 +43,6 @@ export function getPageDetails(activePage){
 }
 
 export function noOfCount(countPerPage,activePage){
-    let data = {flat:[]};
     const request= axios.get(`http://192.168.1.103:5000/api/flat/test/?page=${activePage}&&limit=${countPerPage}`,{headers:authHeader()})
     
     return{

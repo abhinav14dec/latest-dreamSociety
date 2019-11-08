@@ -144,8 +144,6 @@ class FlatOwnerList extends Component {
     }
 
     toggle = (ownerId,profilePic, firstName,lastName, dob, gender, contact, email,Aadhaar,permanentAddress,rfidId,rfid) => {
-        console.log('jkdfjkdlfjdkljk')
-        console.log(ownerId,profilePic, firstName,lastName, dob, gender, contact, email,Aadhaar,permanentAddress,rfidId,rfid)
         this.setState({
             ownerId,
             profilePic,
@@ -878,8 +876,6 @@ class FlatOwnerList extends Component {
     }
 }
 function mapStateToProps(state) {
-
-    console.log(state)
     return {
         societyName: state.societyReducer,
         Owner: state.FlatOwnerReducer,
