@@ -302,7 +302,7 @@ class FlatOwnerDetails extends Component {
 
     }
     userMemberHandler = (e) => {
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             this.setState({
                 familyMember: e.target.value
             });
@@ -331,29 +331,29 @@ OnKeyPresshandlerEmail=(event)=> {
 }
     onSubmit=(e)=>{
         e.preventDefault();
-        const {          
-            number,
-            firstName,
-            lastName,
-            DOB,
-            email,
-            towerId,
-            flatDetailIds,
-            familyMember,
-            profilePicture,
-            societyName,
-            permanentAddress,
-            countryName,
-            stateName,
-            cityName,
-            countryId,
-            stateId,
-            cityId,
-            locationId,
-            locationName,
-            member,
-            fileName,
-            ownerGender,Aadhaar,floorId,rfidId} = this.state
+        // const {          
+        //     number,
+        //     firstName,
+        //     lastName,
+        //     DOB,
+        //     email,
+        //     towerId,
+        //     flatDetailIds,
+        //     familyMember,
+        //     profilePicture,
+        //     societyName,
+        //     permanentAddress,
+        //     countryName,
+        //     stateName,
+        //     cityName,
+        //     countryId,
+        //     stateId,
+        //     cityId,
+        //     locationId,
+        //     locationName,
+        //     member,
+        //     fileName,
+        //     ownerGender,Aadhaar,floorId,rfidId} = this.state
             const d = new FormData()
             d.append('profilePicture',this.state.profilePicture)
             let data;        

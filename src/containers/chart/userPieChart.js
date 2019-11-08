@@ -21,7 +21,6 @@ class UserPieChart extends Component {
 	componentDidMount() {
         axios.get(`${URN}/user/count/list`,{headers:authHeader()})
           .then(res => {
-			console.log(res.data);
 			this.getData(res.data)
 		  })
 		}

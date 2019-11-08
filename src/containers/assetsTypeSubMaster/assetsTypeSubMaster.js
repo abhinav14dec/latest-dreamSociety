@@ -53,7 +53,6 @@ class AssetsTypeSubMaster extends Component {
             this.props.addAssetsSubType(assetsSubType, description, assetId)
             .then(() => this.props.history.push('/superDashBoard/assetsTypeSubMaster'))
         }
-       console.log(this.state)
     }
 
     getAssetsName = ({ AssetsList }) => {
@@ -140,7 +139,6 @@ class AssetsTypeSubMaster extends Component {
     }
 }
 function mapStateToProps(state) {
-    console.log('state',state.AssetsReducer)
     return {
         assetsName: state.AssetsReducer
     }

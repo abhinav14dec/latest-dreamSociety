@@ -23,14 +23,9 @@ class DisplayEmployeeMaster2 extends Component {
         this.state = {
             editEmployeeData: {
                 employeeId: '',
-
-
                 startDate: '',
                 endDate: '',
-
                 selectedDocumentUrl: null,
-
-
                 modal: false,
                 modalIsOpen: false,
                 isActive: false
@@ -150,7 +145,6 @@ class DisplayEmployeeMaster2 extends Component {
         this.setState({
             documentOne
         })
-        console.log(documentOne, "ads")
         this.setState({ modalIsOpen: true });
 
     }
@@ -259,7 +253,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     updateEmployee = (employeeId) => {
-        console.log('abc', this.state.employeeDetailId)
         let errors = {};
 
         if (!this.state.firstName) {
@@ -357,7 +350,6 @@ class DisplayEmployeeMaster2 extends Component {
 
 
     countryChange = (currentCountryId, currentCountry, selectOption) => {
-        console.log(currentCountryId, currentCountry, selectOption)
 
         this.setState({
             currentCountry: selectOption.countryName,
@@ -369,7 +361,6 @@ class DisplayEmployeeMaster2 extends Component {
 
 
     stateChange = (currentState, currentStateId, selectOption) => {
-        console.log(currentState, currentStateId, selectOption)
         this.setState({
             currentState: selectOption.stateName,
             currentStateId: selectOption.stateId
@@ -378,7 +369,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     cityChange = (currentCity, currentCityId, selectOption) => {
-        console.log(currentCity, currentCityId, selectOption)
         this.setState({
             currentCity: selectOption.cityName,
             currentCityId: selectOption.cityId
@@ -387,7 +377,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     locationChange = (currentLocation, currentLocationId, selectOption) => {
-        console.log(currentLocation, currentLocationId, selectOption)
         this.setState({
             currentLocation: selectOption.locationName,
             permanentLocationId: selectOption.locationId,
@@ -397,17 +386,14 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     updateCurrentAddress1 = (location) => {
-        console.log(location)
         this.setState({ location })
         this.setState({
             currentAddress: this.state.currentAddressDefault + ', ' + location + ', ' +
                 this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
         })
-        console.log('currentAddress', this.state.currentAddress)
     }
 
     pinChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -415,23 +401,19 @@ class DisplayEmployeeMaster2 extends Component {
         }
         else {
             this.setState({ [e.target.name]: e.target.value });
-            console.log(this.state)
         }
         this.updateCurrentAddress(e.target.value)
     }
 
     updateCurrentAddress = (pin) => {
-        console.log(pin)
         this.setState({ pin })
         this.setState({
             currentAddress: this.state.currentAddressDefault + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
                 this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin
         })
-        console.log('currentAddress', this.state.currentAddress)
     }
 
     currentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -467,19 +449,16 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     emailChange = (e) => {
-        console.log(this.state.email)
         this.setState({ errors: { email: '' } })
         this.setState({ email: e.target.value, emailServerError: '' })
         if (e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)) {
             this.setState({ [e.target.name]: e.target.value.trim() });
-            console.log(this.state.email)
             this.setState({ emailValidError: '' })
         }
         else { this.setState({ emailValidError: 'Invalid Email.' }) }
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log(this.state.email)
             this.setState({ [e.target.name]: e.target.value.trim(), errors });
         }
         else {
@@ -494,7 +473,6 @@ class DisplayEmployeeMaster2 extends Component {
         this.props.history.push('/superDashBoard/displayEmployee');
     }
     getEmployee({ getEmployee }) {
-        console.log(getEmployee, "1223");
         if (getEmployee) {
             return (
                 getEmployee.data.employee.sort((item1, item2) => {
@@ -559,7 +537,6 @@ class DisplayEmployeeMaster2 extends Component {
 
 
     getService = ({ getEmployee }) => {
-        console.log("abc", getEmployee)
         if (getEmployee) {
             return getEmployee.employeeDetail.map((item) => {
                 return (
@@ -624,7 +601,6 @@ class DisplayEmployeeMaster2 extends Component {
 
 
     onChangeCountry = (countryId, countryName, selectOption) => {
-        console.log(countryId, countryName, selectOption)
 
         this.setState({
             countryName: selectOption.countryName,
@@ -636,7 +612,6 @@ class DisplayEmployeeMaster2 extends Component {
 
 
     onChangeState = (stateName, stateId, selectOption) => {
-        console.log(stateName, stateId, selectOption)
         this.setState({
             stateName: selectOption.stateName,
             stateId: selectOption.stateId
@@ -645,7 +620,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     onChangeCity = (cityName, cityId, selectOption) => {
-        console.log(cityName, cityId, selectOption)
         this.setState({
             cityName: selectOption.cityName,
             cityId: selectOption.cityId
@@ -654,7 +628,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     onChangeLocation = (locationName, locationId, selectOption) => {
-        console.log(locationName, locationId, selectOption)
         this.setState({
             locationName: selectOption.locationName,
             locationId: selectOption.locationId,
@@ -664,13 +637,11 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     updatePermanentAddress1 = (location) => {
-        console.log(location)
         this.setState({ location })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
                 this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
         })
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
 
 
@@ -721,7 +692,6 @@ class DisplayEmployeeMaster2 extends Component {
 
     stateName1 = ({ stateResult }) => {
         if (stateResult) {
-            console.log(stateResult)
             return (
                 stateResult.map((item) => {
                     return (
@@ -766,7 +736,6 @@ class DisplayEmployeeMaster2 extends Component {
 
     editPermanentAddress = () => {
         if (!!document.getElementById('isChecked').checked) {
-            console.log('is checked')
             //    this.setState({permanentAddress: this.state.currentAddress, permanentAddressVisible:true, editPermanent:false})
             this.setState({
                 editPermanent: true, permanentAddress: '', userPermanent: true, countryId: '', stateId: '',
@@ -784,7 +753,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     pinChange1 = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -797,13 +765,11 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     updatePermanentAddress = (pin1) => {
-        console.log(pin1)
         this.setState({ pin1 })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
                 this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1
         })
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
 
     countryName = ({ countryResult }) => {
@@ -822,7 +788,6 @@ class DisplayEmployeeMaster2 extends Component {
 
     stateName = ({ stateResult }) => {
         if (stateResult) {
-            console.log(stateResult)
             return (
                 stateResult.map((item) => {
                     return (
@@ -866,7 +831,6 @@ class DisplayEmployeeMaster2 extends Component {
     }
 
     permanentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];

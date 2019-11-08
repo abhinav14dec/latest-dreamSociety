@@ -63,10 +63,8 @@ class FacilitySubMaster extends Component {
 
     monthlyRateChange = (e) => {
         let selected =e.target.value
-        console.log(selected,"monthlyrate===========")
       
         if(!!document.getElementById('isCheckedMonthly').checked){
-            console.log('is checked')
            this.setState({monthlyRate: this.state.monthlyRate, monthlyRateType:true,rateType:false})
         }
        else{
@@ -76,9 +74,7 @@ class FacilitySubMaster extends Component {
 
     rateChange = (e) => {
         let selected =e.target.value
-        console.log(selected,"rate===========")
         if(!!document.getElementById('isCheckedRate').checked){
-            console.log('is checked')
            this.setState({unitRate: this.state.unitRate, rateType:true, monthlyRateType:false})
         }
        else{
@@ -88,7 +84,6 @@ class FacilitySubMaster extends Component {
 
     onChange = (e) => {
         let selected =e.target.value
-        console.log(selected,"facilityId===========")
         
         this.setState({facilityId: selected, message: '' })
         if (!!this.state.errors[e.target.name]) {
@@ -103,9 +98,7 @@ class FacilitySubMaster extends Component {
 
     onRateChange=(e)=>{
     
-        //    console.log("=====================", e.target.value)
             if (e.target.value.match(/^\d*(\.\d{0,2})?$/)){
-                console.log("=====================", e.target.value)
                 this.setState({[e.target.name]:e.target.value});
                 
             }}
@@ -123,7 +116,6 @@ class FacilitySubMaster extends Component {
                 const isValid = Object.keys(errors).length === 0
                 if (isValid) {
                     this.setState({ loading: true })
-                     console.log(this.state)
                     this.props.postFacilitySubMaster(facilityId, monthlyRate, unitRate,monthlyRateType,rateType)
                         .then(() => this.props.history.push('/superDashboard/facilitySubMasterDetails'))
                         .catch(err => {
@@ -134,7 +126,6 @@ class FacilitySubMaster extends Component {
 
             getFacilityData=({getFacility})=>{
                 if(getFacility && getFacility.facilities){
-                     console.log("facility==========",getFacility )  
                      return getFacility.facilities.map((item)=>{
                          return (
                             <option key={item.facilityId} value={item.facilityId}>
@@ -218,7 +209,6 @@ class FacilitySubMaster extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state,"facilityReducer===========")
     return {
         facilityReducer: state.facilityReducer,
         FacilitySubMasterReducer:state.FacilitySubMasterReducer
