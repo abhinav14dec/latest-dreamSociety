@@ -51,7 +51,7 @@ handleChange = (event) => {
 }
 
 
-onSubmit = (e) => {console.log(commonAreaId,machineDetailId,machines)
+onSubmit = (e) => {
     e.preventDefault();
     const {commonAreaId,machineDetailId,machines} = this.state
     
@@ -80,7 +80,6 @@ onSubmit = (e) => {console.log(commonAreaId,machineDetailId,machines)
             machineActualId:''
         })   
         }      
-    console.log(commonAreaId,machineDetailId)
 }
 
 getCommonArea= ({ getAreas }) => {
@@ -96,10 +95,9 @@ getCommonArea= ({ getAreas }) => {
 
 } 
 
-getMachine= ({getMachines}) => {console.log(getMachines)
+getMachine= ({getMachines}) => {
     if(getMachines && getMachines.machines){
       return getMachines.machines.map((item)=>{  
-          console.log(item.machineDetailId)
          return (   {...item,label:item.machineActualId,value:item.machineDetailId}          
         )
     })
@@ -125,7 +123,6 @@ changePassword=()=>{
 }
 
 machineChangeHandler=(name,selectOption)=>{
-    console.log(selectOption)
     this.setState({
         [name]: selectOption.map((item)=>{return item.machineDetailId}),
         machines:selectOption.map((item)=>{return {machineDetailId:item.machineDetailId}})

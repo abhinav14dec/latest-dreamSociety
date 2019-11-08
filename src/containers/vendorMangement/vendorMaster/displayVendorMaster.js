@@ -11,7 +11,6 @@ import Spinner from '../../../components/spinner/spinner';
 import GoogleDocsViewer from 'react-google-docs-viewer';
 import Select from 'react-select';
 import { getCountry, getState, getCity, getLocation } from '../../../actions/societyMasterAction';
-import { PlaceHolder } from '../../../actionCreators/index';
 import {getRfId} from '../../../actions/rfIdAction';
 
 class DisplayVendorMaster extends Component {
@@ -61,9 +60,6 @@ class DisplayVendorMaster extends Component {
             currentCountryId:'',
             currentStateId:'',
             currentCity:'',
-            currentCityId:'',
-            currentState:'',
-            currentStateId:'',
             currentLocation:'',
             permanentLocationId:'',
             readOnlyCountryId:'',
@@ -90,11 +86,11 @@ class DisplayVendorMaster extends Component {
             }
     }
 
-    searchFilter(search) {
-        return function (x) {
-            return x.firstName.toLowerCase().includes(search.toLowerCase()) || !search;
-        }
-    }
+    // searchFilter(search) {
+    //     return function (x) {
+    //         return x.firstName.toLowerCase().includes(search.toLowerCase()) || !search;
+    //     }
+    // }
 
     searchOnChange = (e) => {
         this.setState({ search: e.target.value })
@@ -304,12 +300,10 @@ class DisplayVendorMaster extends Component {
         this.setState({ modalLoading: true
         })
         }
-        console.log(this.state.rfid);
-        console.log(this.state.rfidId);
    }
 
 
-    renderList = ({ vendors }) => {console.log(vendors)
+    renderList = ({ vendors }) => {
  
         if (vendors && vendors.vendor ) {
             return vendors.vendor.sort((item1,item2)=>{
@@ -351,7 +345,7 @@ class DisplayVendorMaster extends Component {
                         <td>{vendors.rfid_master.rfid}</td>
                         <td><button className="btn btn-light" onClick={this.openModal.bind(this, vendors.documentOne)}>View Document</button></td>
                         <td><button className="btn btn-light" onClick={this.Modal.bind(this, vendors.documentTwo)}>View Document </button></td>
-                        <td><img style={{maxWidth: "100%",height: "auto",width: "auto\9"}} src={PicURN+ vendors.picture}></img></td>
+                        <td><img style={{maxWidth: "100%",height: "auto",width: "auto\9"}} src={PicURN+ vendors.picture} alt="vender"></img></td>
                         <td><button className="btn btn-success mr-2" onClick={this.viewServices.bind(this,vendors.vendorId)}>View Services</button></td>                   
                         <td>
                              <Button color="success" className="mr-2"onClick={this.editUser.bind(this,vendors.vendorId, vendors.firstName,vendors.lastName,vendors.currentAddress,vendors.permanentAddress,vendors.contact,vendors.email,vendors.rfid_master.rfid,vendors.rfid_master.rfidId,vendors.documentOne,vendors.documentTwo, PicURN+vendors.picture)}>Edit</Button> 
@@ -395,7 +389,6 @@ class DisplayVendorMaster extends Component {
             if(ar.length > 0){
                 this.setState({isDisabled: false});
             }
-            console.log(this.state)
     }
 
     unSelectAll = () =>{
@@ -423,13 +416,13 @@ class DisplayVendorMaster extends Component {
         return this.props.history.replace('/superDashBoard')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
+    // OnKeyPressUserhandler(event) {
+    //     const pattern = /[a-zA-Z_ ]/;
+    //     let inputChar = String.fromCharCode(event.charCode);
+    //     if (!pattern.test(inputChar)) {
+    //         event.preventDefault();
+    //     }
+    // }
     
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
@@ -474,7 +467,6 @@ class DisplayVendorMaster extends Component {
         }
     
         onChangeCountry = (countryId, countryName, selectOption) => {
-            console.log(countryId, countryName, selectOption)
         
             this.setState({
                 countryName: selectOption.countryName,
@@ -487,7 +479,6 @@ class DisplayVendorMaster extends Component {
     
         stateName = ({stateResult}) => {
             if(stateResult){
-              console.log(stateResult)
                return( 
                 stateResult.map((item) =>{ 
                        return(
@@ -501,7 +492,6 @@ class DisplayVendorMaster extends Component {
         
         stateName1 = ({stateResult}) => {
             if(stateResult){
-              console.log(stateResult)
                return( 
                 stateResult.map((item) =>{ 
                        return(
@@ -514,7 +504,6 @@ class DisplayVendorMaster extends Component {
         }
         
         onChangeState = (stateName, stateId, selectOption) => {
-            console.log(stateName, stateId, selectOption)
             this.setState({
                 stateName: selectOption.stateName,
                 stateId:selectOption.stateId
@@ -555,7 +544,6 @@ class DisplayVendorMaster extends Component {
         }
         
         onChangeCity = (cityName, cityId, selectOption) => {
-            console.log(cityName, cityId, selectOption)
             this.setState({
                 cityName: selectOption.cityName,
                 cityId:selectOption.cityId
@@ -595,7 +583,6 @@ class DisplayVendorMaster extends Component {
          }
         
         onChangeLocation = (locationName, locationId, selectOption) => {
-            console.log(locationName, locationId, selectOption)
             this.setState({
                 locationName: selectOption.locationName,
                 locationId:selectOption.locationId,
@@ -605,11 +592,9 @@ class DisplayVendorMaster extends Component {
         }
     
         updatePermanentAddress1 = (location) => {
-            console.log(location)
             this.setState({location})
             this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + location + ', ' +
             this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-            console.log('updatePermanentAddress', this.state.permanentAddress)
         }
 
         editPermanentAddress = () => {
@@ -640,7 +625,6 @@ class DisplayVendorMaster extends Component {
     }
     
     pinChange1 = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -659,7 +643,6 @@ class DisplayVendorMaster extends Component {
     }
     
     countryChange = (currentCountryId, currentCountry, selectOption) => {
-        console.log(currentCountryId, currentCountry, selectOption)
     
         this.setState({
             currentCountry: selectOption.countryName,
@@ -671,7 +654,6 @@ class DisplayVendorMaster extends Component {
     
     
     stateChange = (currentState, currentStateId, selectOption) => {
-        console.log(currentState, currentStateId, selectOption)
         this.setState({
             currentState: selectOption.stateName,
             currentStateId:selectOption.stateId
@@ -680,7 +662,6 @@ class DisplayVendorMaster extends Component {
     }
     
     cityChange = (currentCity, currentCityId, selectOption) => {
-        console.log(currentCity, currentCityId, selectOption)
         this.setState({
             currentCity: selectOption.cityName,
             currentCityId:selectOption.cityId
@@ -689,7 +670,6 @@ class DisplayVendorMaster extends Component {
     }
     
     locationChange = (currentLocation, currentLocationId, selectOption) => {
-        console.log(currentLocation, currentLocationId, selectOption)
         this.setState({
             currentLocation: selectOption.locationName,
             permanentLocationId:selectOption.locationId,
@@ -699,15 +679,12 @@ class DisplayVendorMaster extends Component {
     }
     
     updateCurrentAddress1 = (location) => {
-        console.log(location)
         this.setState({location})
         this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + location + ', ' +
         this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('currentAddress', this.state.currentAddress)
     }
     
     pinChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -715,7 +692,6 @@ class DisplayVendorMaster extends Component {
         }
         else {
             this.setState({[e.target.name]: e.target.value});
-            console.log(this.state)
         }
         this.updateCurrentAddress(e.target.value)
     }
@@ -737,15 +713,12 @@ class DisplayVendorMaster extends Component {
     }
 
     updateCurrentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({currentAddress: this.state.currentAddressDefault  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
         this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('currentAddress', this.state.currentAddress)
     }
     
     currentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -766,7 +739,7 @@ class DisplayVendorMaster extends Component {
         }
     }
 
-    RfID=({ownerRf})=>{console.log(ownerRf)
+    RfID=({ownerRf})=>{
         if(ownerRf && ownerRf.rfids){
             return (
                ownerRf.rfids.map((item)=>{
@@ -939,7 +912,6 @@ class DisplayVendorMaster extends Component {
                             value={this.state.currentAddress}
                             type="textarea" disabled
                             placeholder="Current Address"
-                            name="readOnlyCurrent"
                             onChange={this.onChange}
                             maxLength='250' />
                         {/* {!this.state.permanentAddress ? <span className="error">{this.state.errors.permanentAddress}</span>: ''} */}
@@ -1050,7 +1022,7 @@ class DisplayVendorMaster extends Component {
                         </FormGroup>
                     <FormGroup>
                     <Label> Profile Picture</Label>
-                        <img id="target" style={{width:"30%", height:"35%"}} src={this.state.picture}/>
+                        <img id="target" style={{width:"30%", height:"35%"}} src={this.state.picture} alt="profile"/>
                         <Input type="file" name="profilePicture" accept="image/*" onChange={this.selectImages} required /> 
                         
                     </FormGroup>

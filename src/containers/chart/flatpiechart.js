@@ -4,10 +4,7 @@ import { authHeader } from "../../helper/authHeader";
 import {URN} from '../../actionCreators/index';
 
 import CanvasJSReact from '../../components/canvasjs.react';
-import FlatLineChart from './flatlinechart';
-
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
 class FlatPieChart extends Component {
 	state={
 		flat:'',
@@ -17,7 +14,6 @@ class FlatPieChart extends Component {
 	componentDidMount() {
         axios.get(`${URN}/flats/count`,{headers:authHeader()})
           .then(res => {
-			console.log(res.data);
 			this.getData(res.data)
 		  })
 		}

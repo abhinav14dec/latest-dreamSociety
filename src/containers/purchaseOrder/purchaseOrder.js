@@ -125,7 +125,6 @@ class PurchaseOrder extends Component {
     getAsset = ({ getAssetsType }) => {
         
         if (getAssetsType && getAssetsType.assetsType) {
-            console.log(getAssetsType)
             return getAssetsType.assetsType.map((item) => {
                     return (
                         <option value={item.asset_master.assetName} key={item.asset_master.assetId} >
@@ -149,7 +148,6 @@ class PurchaseOrder extends Component {
 
     getAssetType = ({ assetTypeData }) => { 
         if (assetTypeData && assetTypeData.assetsType ) {
-            console.log(assetTypeData)
             return (
                 assetTypeData.assetsType.map((item) => {
                     return (
@@ -172,7 +170,6 @@ class PurchaseOrder extends Component {
         })
 
         let selected=selectOption.target.value
-        console.log(selected)
 
         if (!!this.state.errors[selectOption.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -185,12 +182,11 @@ class PurchaseOrder extends Component {
        
        
 
-        var data = _.find(this.props.ListOfAssets.getAssetsType.assetsType,function(obj){ console.log(obj)
+        var data = _.find(this.props.ListOfAssets.getAssetsType.assetsType,function(obj){
             return obj.asset_master.assetName === selected
             })
         
             if(data && data.asset_master){
-                console.log(data.asset_master)
                 this.props.assetTypeId(data.asset_master.assetId)
             }
 
@@ -395,8 +391,7 @@ class PurchaseOrder extends Component {
              }
              this.state.purchaseOrderServiceArray.push(service)
          }
-            console.log(this.state.purchaseOrderAssetsArray)
-            console.log(vendorId,expDate,purchaseOrderAssetsArray,purchaseOrderServiceArray)
+           
             if(isValid && this.state.message === '') {
                    this.props.addPurchaseOrder(vendorId,expDate,purchaseOrderAssetsArray,purchaseOrderServiceArray)
                    .then(()=>this.props.history.push('/superDashboard/purchaseOrderDetails'))
@@ -582,7 +577,6 @@ class PurchaseOrder extends Component {
     }
 }
 function mapStateToProps(state){
-    console.log(state.AssetsTypeReducer)
     return{
         purchase: state.PurchaseOrder,
         ListOfAssets: state.AssetsTypeReducer,

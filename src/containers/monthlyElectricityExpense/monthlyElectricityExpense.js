@@ -39,7 +39,6 @@ class MonthlyElectricityExpense extends Component {
 
     componentDidMount() {
         this.props.getTowerName().then(() => this.setState({loading:false}));
-        console.log(this.props.getTowerName)
     }
 
     logout = () => {
@@ -67,12 +66,10 @@ class MonthlyElectricityExpense extends Component {
         else {
             this.setState({ [e.target.name]: e.target.value.trim(),errMessage:'' })
         }
-        console.log(this.state.towerId);
         this.props.getfloorsOfTowers(e.target.value)
     }
 
     getDropdownForTower = ({ name }) => {
-        console.log("tower ?", name)
         if (name) {
             return name.map((item) => {
                 return (
@@ -85,9 +82,7 @@ class MonthlyElectricityExpense extends Component {
     }
 
     getFloorData = ({ floorDetails }) => {
-        console.log(floorDetails)
         if (floorDetails && floorDetails.tower && floorDetails.tower.Floors) {
-            console.log(floorDetails)
             return floorDetails.tower.Floors.map((items) => {
                 return (
                     <option key={items.floorId} value={items.floorId}>
@@ -98,11 +93,7 @@ class MonthlyElectricityExpense extends Component {
         }
     }
 
-    // componentDidUpdate(){
-    //     if(getExpenseDetail){
-    //         console.log(this.props.monthlyElectricityExpenseReducer.getExpenseDetail)
-    //     }
-    // }
+   
 
     startDateChange = (e) => {
         var start = document.getElementById('start');
@@ -140,13 +131,9 @@ class MonthlyElectricityExpense extends Component {
     }
 
     getFlatData = ({ floorDetails }) => {
-        console.log(floorDetails)
         if (floorDetails && floorDetails.flatDetail) {
-            console.log(floorDetails)
             return floorDetails.flatDetail.filter((flatRecord) => {
-                console.log("***flatREcord ", flatRecord.floorId)
-                console.log("***flatREcord ", this.state.floorId)
-                return flatRecord.floorId == this.state.floorId
+                return flatRecord.floorId === this.state.floorId
             }).map((items) => {
                 return (
                     <option key={items.flatDetailId} value={items.flatDetailId}>
@@ -197,7 +184,6 @@ class MonthlyElectricityExpense extends Component {
     rateChange = (e) => {
         if (e.target.value.match(/^\d*(\.\d{0,2})?$/)) {
             this.setState({ [e.target.name]: e.target.value,errMessage:'', monthlyCharges:''});
-            console.log(this.state);
         }
         if(!!this.state.errors[e.target.name]){
             let errors = Object.assign({}, this.state.errors);
@@ -229,7 +215,6 @@ class MonthlyElectricityExpense extends Component {
     submit = (e) => {
         e.preventDefault();
         let errors = {};
-        console.log(this.state);
         let { towerId, floorId, flatDetailId, lastReading, currentReading, unitConsumed, lastAmountDue, rate, rent, sanctionedLoad,
             mdi,amountDue, amount, monthlyCharges,electricityConsumerId } = this.state;
         if(!towerId) errors.towerId = `Select tower.`;
@@ -261,29 +246,13 @@ class MonthlyElectricityExpense extends Component {
 
     getAllDetail({getExpenseDetail}){
         if(getExpenseDetail && getExpenseDetail.electricityConsumer){
-            console.log(getExpenseDetail)
             let data = getExpenseDetail.electricityConsumer;
-            console.log(data);
             this.setState({sanctionedLoad:data.sanctionedLoad, lastReading:data.lastReading, amount:data.amount, amountDue:data.amountDue,
             rate:data.rate})
         }
     }
 
-    // componentDidUpdate(){
-    //     if(this.props.monthlyElectricityExpenseReducer.getExpenseDetail && this.props.monthlyElectricityExpenseReducer.getExpenseDetail.electricityConsumer){
-    //         console.log(this.props.monthlyElectricityExpenseReducer.getExpenseDetail)
-    //         let data = this.props.monthlyElectricityExpenseReducer.getExpenseDetail.electricityConsumer;
-    //         console.log(data);
-    //         let { electricityConsumerId, amount, amountDue, lastReading } = data;
-    //     }
-    // }
-
-    getAllExpenseDetail = (getExpenseDetail) => {
-        console.log(getExpenseDetail)
-        if(getExpenseDetail){
-            console.log(getExpenseDetail)
-        }
-    }
+   
 
     calcCharges = (e) => {
         e.preventDefault();
@@ -303,7 +272,6 @@ class MonthlyElectricityExpense extends Component {
 
     getMonthlyCharges = ({getCharges}) => {
         if(getCharges && getCharges.monthlyCharges){
-            console.log(getCharges);
             this.setState({monthlyCharges:getCharges.monthlyCharges})
         }
     }
@@ -391,7 +359,7 @@ class MonthlyElectricityExpense extends Component {
                             readOnly
                             type="text" name="lastAmountDue"
                             maxLength="10" onChange={this.rateChange}
-                            value={(amountDue == true ? '-' : amountDue == false ? '+':'') + amount}
+                            value={(amountDue === true ? '-' : amountDue === false ? '+':'') + amount}
                             />
                     </Col>
                     <Col md={3}>
@@ -496,8 +464,7 @@ class MonthlyElectricityExpense extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    console.log(state)
+function mapStateToProps(state){
     return {
         flatDetailMasterReducer: state.flatDetailMasterReducer,
         electricityExpenseReducer: state.electricityExpenseReducer,

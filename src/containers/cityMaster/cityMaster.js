@@ -56,7 +56,6 @@ class CityMaster extends Component {
         var country = _.find(this.props.cityMasterReducer.countryResult,function(obj){
             return obj.countryName === selected
             })
-        console.log(country,"===========")
             this.props.getState(country.countryId).then(() => this.setState({countryId: country.countryId,
                 countryName: country.countryName, stateName:'', stateId:''}))
 

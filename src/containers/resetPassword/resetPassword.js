@@ -35,7 +35,6 @@ class resetPassword1 extends Component{
         const isValid = Object.keys(errors).length === 0;
         if (isValid) {
           
-          console.log(url)
           let { newPassword } = this.state
           this.props.resetPassword({newPassword, url})
           
@@ -58,14 +57,11 @@ class resetPassword1 extends Component{
       }
       
       fetchMessage=({message})=>{
-        // console.log('hcvbdhcbdsuchybvdsjc');
-        console.log(message);
         if( message ){
-            console.log('agIN');
             return <div>{message.message}</div>
         }
     }
-    
+  
 
     onChange=(e)=>{
 
@@ -108,7 +104,7 @@ class resetPassword1 extends Component{
                 <Form onSubmit={this.submit}>
                   <FormGroup>
                       <Label>Enter New Password</Label>
-                    <Input type="password"
+                    <Input
                         name="newPassword"
                         type={this.state.type}
                         maxLength='40'
@@ -121,7 +117,7 @@ class resetPassword1 extends Component{
 
                   <FormGroup>
                       <Label>Confirm Password</Label>
-                    <Input type="password"
+                    <Input
                         name="confirmPassword"
                         maxLength='40'
                         onChange={this.onChange1}

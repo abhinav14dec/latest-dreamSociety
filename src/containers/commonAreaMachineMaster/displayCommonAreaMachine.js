@@ -83,7 +83,6 @@ changePassword=()=>{
 }
 
 edit (commonAreaDetailId,commonAreaId,commonArea,machine) {
-    console.log(commonAreaDetailId,commonAreaId,commonArea,machine);
     this.setState({
         machines:machine
       })
@@ -120,7 +119,6 @@ updateAreas() {
                 }       
             this.setState({ modalLoading: true
        })       
-       console.log(commonAreaId)
     }
     
 
@@ -172,7 +170,6 @@ unSelectAll = () =>{
 
 
 machineChangeHandler=(name,selectOption)=>{
-    console.log(selectOption)
     this.setState({
         [name]: selectOption.map((item)=>{return item.machineDetailId}),
         machines:selectOption.map((item)=>{return {machineDetailId:item.machineDetailId}})
@@ -213,13 +210,12 @@ logout=()=>{
 }
 
 
-renderList = ({ getMachineAreas }) => { console.log(getMachineAreas)
+renderList = ({ getMachineAreas }) => { 
     if (getMachineAreas && getMachineAreas.commonAreaDetail) {
         return getMachineAreas.commonAreaDetail.sort((item1,item2)=>{
             var cmprVal = (item1.common_area_master[this.state.filterName].localeCompare(item2.common_area_master[this.state.filterName]))
             return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item,index)=>{
-                console.log(item.Machine)
             return (
             <tr key={item.commonAreaDetailId}>
               <td><input type="checkbox" name="ids" className="SelectAll" value={item.commonAreaDetailId}

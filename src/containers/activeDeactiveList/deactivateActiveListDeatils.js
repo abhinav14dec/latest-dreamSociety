@@ -39,10 +39,8 @@ class ShowDeactiveListDetails extends Component{
        this.refreshData()
    }
 
-     refreshData(){
-        console.log('reaching');
+     refreshData(){;
         const url=window.location.href.slice(window.location.href.lastIndexOf('/')+1);
-        console.log(url);
     this.props.showDeactiveList(url).then(() => this.setState({loading:false, modalLoading: false, editUserModal: false}));
     }  
 
@@ -100,7 +98,7 @@ class ShowDeactiveListDetails extends Component{
         const isValid = Object.keys(errors).length === 0;
         if(isValid && this.state.message === ''){
         this.props.updateCountry(countryId,countryName,code,currency,phoneCode).then(() => this.refreshData())
-        .catch((err)=>{console.log(err.response.data.message)
+        .catch((err)=>{
             this.setState({modalLoading:false, message:err.response.data.message})});
             if(this.state.message === ''){
                 this.setState({editUserModal: true})
@@ -119,24 +117,19 @@ class ShowDeactiveListDetails extends Component{
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value, errors });
         } else {
-            console.log('hii');
             this.setState( {[e.target.name]: [e.target.value]});
          }
 
-        console.log(this.state)
     }
     userDeactivate(userId,type){
-        console.log(userId,type)
         this.setState({loading:true});
         this.props.releaseResource(userId,type).then(() => this.refreshData())
         .then(() => this.setState({isActive: false}))
 
     }
     deleteUser(userId,type){
-        console.log(userId,type)
         this.setState({loading:true});
         // let { isActive } = this.state
         this.props.activateMember(userId,type).then(() => this.refreshData())
@@ -145,15 +138,12 @@ class ShowDeactiveListDetails extends Component{
 }
 
      fetchRoles=({roles2})=>{
-         console.log(roles2);
-
          if(roles2 && roles2.users){
             return roles2.users.sort((item1,item2)=>{
                 var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item,index) =>{
-                this.state.type1=item.type
-                //  console.log('shub',item);
+                this.state.type1=item.type;
                 return (
                     <tr key={item.userId}>
                      <td>
@@ -287,7 +277,6 @@ class ShowDeactiveListDetails extends Component{
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.toUpperCase().trim(''), errors });
         } else {
        this.setState({code:e.target.value.toUpperCase().trim('')})

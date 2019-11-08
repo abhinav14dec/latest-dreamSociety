@@ -53,7 +53,6 @@ class AssetsTypeSubMaster extends Component {
             this.props.addAssetsSubType(assetsSubType, description, assetId)
             .then(() => this.props.history.push('/superDashBoard/assetsTypeSubMaster'))
         }
-       console.log(this.state)
     }
 
     getAssetsName = ({ AssetsList }) => {
@@ -109,7 +108,7 @@ class AssetsTypeSubMaster extends Component {
 
                 <div>
                     <Label>Description</Label>
-                    <textarea type="text" style={{ 'textTransform': 'capitalize' , 'height':'100px' }} maxLength={3000} id="Description" placeholder="Enter Description..." onChange={this.onChangeHandler} className="form-control" onChange={this.onChangeHandler} name='description' />
+                    <textarea type="text" style={{ 'textTransform': 'capitalize' , 'height':'100px' }} maxLength={3000} id="Description" placeholder="Enter Description..." onChange={this.onChangeHandler} className="form-control" name='description' />
                     <span className="error">{this.state.errors.description}</span>
                 </div>
                 <div>
@@ -140,7 +139,6 @@ class AssetsTypeSubMaster extends Component {
     }
 }
 function mapStateToProps(state) {
-    console.log('state',state.AssetsReducer)
     return {
         assetsName: state.AssetsReducer
     }

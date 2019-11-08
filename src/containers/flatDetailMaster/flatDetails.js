@@ -164,7 +164,7 @@ constructor(props){
     }
 
     getDropDown2 = ({ name }) => {
-        if (name) {
+        if(name){
             return name.map((item) => {
                 return (
                     <option key={item.towerId} value={item.towerId}>
@@ -172,13 +172,11 @@ constructor(props){
                     </option>
                 )
             })
-        }
+        } else return '';
     }
 
-    getFloorData = ({ floorDetails }) => {
-          
+    getFloorData = ({ floorDetails }) => {      
         if (floorDetails) {
-            console.log(floorDetails)
             return floorDetails.tower.Floors.map((items) => {
               
                 return (
@@ -352,7 +350,6 @@ constructor(props){
 
     }
     getSlot=({parkingSlot})=>{
-        console.log(parkingSlot)
         if(parkingSlot){
             return parkingSlot.slot.map((items)=>{
                 return (

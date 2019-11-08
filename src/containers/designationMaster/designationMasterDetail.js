@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 import { Table, Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Label } from 'reactstrap';
-import _ from 'underscore';
 import Spinner from '../../components/spinner/spinner';
 
 
@@ -95,7 +94,6 @@ class DesignationMasterDetail extends Component {
             this.props.updateDesignation(designationId, designationName)
                 .then(() => this.refreshData())
                 .catch(err => {
-                    console.log(err.response.data.message)
                     this.setState({ modalLoading: false, message: err.response.data.message })
                 })
             if (this.state.message === '') {
@@ -151,7 +149,6 @@ class DesignationMasterDetail extends Component {
             selectMultiple[i].checked = true;
         }
         this.setState({ ids: ar });
-        console.log(this.state.ids,"selectAll==========")
         if (ar.length > 0) {
             this.setState({ isDisabled: false });
         }
@@ -166,7 +163,6 @@ class DesignationMasterDetail extends Component {
         }
 
         this.setState({ ids: [...allIds] });
-        console.log(this.state.ids,"unSelectAll==========")
         if (allIds.length === 0) {
             this.setState({ isDisabled: true });
         }
@@ -181,7 +177,6 @@ class DesignationMasterDetail extends Component {
                 var cmprVal = (item1.designationName && item2.designationName) ? (item1[this.state.filterName].localeCompare(item2[this.state.filterName])) : ''
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item, index) => {
-                console.log(item)
 
                 return (
                     <tr key={item.designationId} >
@@ -343,7 +338,6 @@ class DesignationMasterDetail extends Component {
 
 
 function mapStatToProps(state) {
-    console.log(state)
     return {
         DesignationMasterReducer: state.DesignationMasterReducer
     }
