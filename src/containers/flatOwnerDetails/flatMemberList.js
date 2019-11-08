@@ -146,7 +146,7 @@ class FlatMemberList extends Component {
                                 else {
                                     this.setState({ ids: [...this.state.ids, memberId] })
                                     if (this.state.ids.length >= 0) {
-                                        this.setState({ isDisabled: false })
+                                        this.setState({isDisabled:false })
                                     }
                                 }
                             }} /></td>
@@ -289,8 +289,6 @@ class FlatMemberList extends Component {
         return this.props.history.replace('/superDashboard/changePassword')
       }
       flatChangeHandler=(flatNo, flatDetailId ,selectOption)=>{
-        console.log(flatNo, flatDetailId ,selectOption)
-        console.log(this.state.flatDetailId)
         this.setState({
             flatNo: selectOption.flatNo,
             flatDetailId: selectOption.flatDetailId,
@@ -303,7 +301,6 @@ class FlatMemberList extends Component {
     }
 
     flatInputs=({flats})=>{
-        console.log(flats)
         if (flats) {
             return flats.flats.flat_detail_masters.map((item) => {
                 return (

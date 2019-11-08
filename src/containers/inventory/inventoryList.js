@@ -42,7 +42,7 @@ class InventoryList extends Component {
     searchFilter(search) {
     
         return function (x) {
-      console.log(x)
+      
             return (
                 
                  x.asset_master.assetName.toLowerCase().includes(search.toLowerCase()) ||
@@ -105,7 +105,6 @@ class InventoryList extends Component {
         }
     }
     toggle = (inventoryId, assetName, assetType,dateOfPurchase,ratePerInventory, serialNumber,assetId,assetTypeId) => {
-        console.log(assetId)
         this.setState({
             inventoryId,
             assetName,
@@ -205,7 +204,7 @@ class InventoryList extends Component {
         return d.toISOString().split('T')[0];
     }
     onChangeHandler = (event) => {
-       console.log(event.target.value)
+       
         this.setState({message: ''})
         if (!!this.state.errors[event.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -226,7 +225,7 @@ class InventoryList extends Component {
             ratePerInventory,
             assetId,
             assetTypeId, } = this.state
-            console.log('assetName',assetId,"assetTypeId",assetTypeId )
+        
         let errors = {};
         if(this.state.assetId===''){
             errors.assetId="Asset Id can't be empty"
