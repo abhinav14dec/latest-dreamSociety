@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { authHeader } from "../../helper/authHeader";
 import {URN} from '../../actionCreators/index';
-import UserLineChart from './userLineChart'
 import CanvasJSReact from '../../components/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 

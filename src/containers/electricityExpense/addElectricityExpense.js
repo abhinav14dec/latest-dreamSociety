@@ -148,7 +148,6 @@ class AddElectricityExpense extends Component {
     submit = (e) => {
         e.preventDefault();
         let { towerId, floorId, flatDetailId, lastReading, amount, sign, rate, lastReadingDate, sanctionedLoad, amountDue } = this.state;
-        console.log("flat in submit", this.state.towerId)
         let errors = {};
         if (this.state.towerId === '') {
             errors.towerId = `Tower can't be empty.`;

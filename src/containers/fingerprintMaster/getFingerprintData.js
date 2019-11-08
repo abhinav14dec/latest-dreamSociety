@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import UI from '../../components/newUI/superAdminDashboard';
 import { getFingerprintData,getMachineData } from '../../actions/fingerprint';
 import { connect } from 'react-redux';
-import { Table, Row, Col, FormGroup, Input, Button, Label } from 'reactstrap';
+import { Table, Input, Button, Label } from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter';
-import DropdownComponent from '../../components/reusableComponents/dropdown';
+// import DropdownComponent from '../../components/reusableComponents/dropdown';
 import DefaultSelect from '../../constants/defaultSelect';
-import styles from '../../components/newUI/common.css';
+// import styles from '../../components/newUI/common.css';
 import Spinner from '../../components/spinner/spinner';
 
 
