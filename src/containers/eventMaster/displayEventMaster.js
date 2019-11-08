@@ -5,15 +5,13 @@ import Spinner from '../../components/spinner/spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import DefaultSelect from '../../constants/defaultSelect'
-import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader, ModalFooter, Label } from 'reactstrap';
+import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader, Label } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 class DisplayEventMaster extends Component {
         state = {
                 editEventData: {
-
-                        isActive: false
-
+                   isActive: false
                 },
                 eventId: '',
                 userId: '',
@@ -65,7 +63,6 @@ class DisplayEventMaster extends Component {
         }
 
         editEvent(eventId, eventType, eventName, eventOrganiser, startDate, endDate, userId, userName) {
-                console.log('i m in edit ', eventId, userName, eventOrganiser);
                 this.setState({
                         eventId, eventType, eventName, eventOrganiser, startDate, endDate, userId, userName,
                         editEventModal: !this.state.editEventModal
@@ -92,16 +89,12 @@ class DisplayEventMaster extends Component {
                 if (isValid) {
                         this.props.updateEvent(eventId, eventType, eventName, eventOrganiser, startDate, endDate, userId).then(() => { this.refreshData() }).catch(err => this.setState({ modalLoading: false, message: err.response.data.message }))
 
-
-
                         if (this.state.message === '') {
                                 this.setState({ editEventModal: true })
                         }
                         else {
                                 this.setState({ editEventModal: false })
                         }
-
-
                         this.setState({
                              modalLoading: true
                         })
@@ -118,15 +111,9 @@ class DisplayEventMaster extends Component {
         }
         deleteEvent(eventId) {
                 this.setState({ loading: true })
-
                 let { isActive } = this.state.editEventData;
-
-
                 this.props.deleteEvent(eventId, isActive).then(() => { this.refreshData() })
                 this.setState({ editEventData: { isActive: false } })
-
-
-
         }
 
 
@@ -139,7 +126,6 @@ class DisplayEventMaster extends Component {
                 }
         }
         getEvent({ events }) {
-                console.log("events rocks", events);
 
                 if (events &&  events.event) {
                         return (
@@ -160,7 +146,6 @@ class DisplayEventMaster extends Component {
         }
 
         displayEvent({ getEvent }) {
-                console.log(getEvent );
                 if (getEvent && getEvent.event) {
                         return (
                                 getEvent.event.sort((item1, item2) => {

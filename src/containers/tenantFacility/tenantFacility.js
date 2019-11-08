@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { addUserFacility, getUserFacility, notInFacility, updateUserFacility} from '../../actions/userFacilityAction';
 import { bindActionCreators } from 'redux';
-
 import UI from '../../components/newUI/tenantDashboard';
 import { Table, Button, FormGroup, Input, Label} from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
@@ -17,7 +15,6 @@ import moment from 'moment';
 class TenantFacility extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             loading: true,
             selected: '',
@@ -144,10 +141,7 @@ class TenantFacility extends Component {
 
         this.setState({ arrData: true })
         userFacilty.data.facilitiesInUse.map((item) => {
-
-
             let facilityDetailId = item.facilityDetailId;
-
             let endDate = item.endDate
             this.state.facilitiesUser.push({ facilityDetailId, endDate, isActive: true })
         })
@@ -181,7 +175,6 @@ class TenantFacility extends Component {
 
 
                                 if (!e.target.checked) {
-                                    let indexToBeFound;
                                     this.state.facilitiesUser.map((item, index) => {
                                         if (item.facilityDetailId === facilityDetailId) {
                                             item.isActive = false;
@@ -228,17 +221,13 @@ class TenantFacility extends Component {
                             onChange={(e) => {
 
                                 const { facilityDetailId } = item
-
-
-
                                 if (!e.target.checked) {
                                     let indexToBeFound;
                                     this.state.facilities.map((item, index) => {
-                                        if (item.facilityDetailId === facilityDetailId) {
+                                        if(item.facilityDetailId === facilityDetailId) {
                                             indexToBeFound = index;
                                         }
                                     })
-
                                     this.state.facilities.splice(indexToBeFound, 1)
 
 

@@ -108,7 +108,7 @@ class AssetsTypeSubMaster extends Component {
 
                 <div>
                     <Label>Description</Label>
-                    <textarea type="text" style={{ 'textTransform': 'capitalize' , 'height':'100px' }} maxLength={3000} id="Description" placeholder="Enter Description..." onChange={this.onChangeHandler} className="form-control" onChange={this.onChangeHandler} name='description' />
+                    <textarea type="text" style={{ 'textTransform': 'capitalize' , 'height':'100px' }} maxLength={3000} id="Description" placeholder="Enter Description..." onChange={this.onChangeHandler} className="form-control" name='description' />
                     <span className="error">{this.state.errors.description}</span>
                 </div>
                 <div>
