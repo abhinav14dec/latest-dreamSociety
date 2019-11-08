@@ -8,7 +8,6 @@ import {
   FormGroup,
   ModalBody,
   ModalHeader,
-  ModalFooter,
   Label
 } from "reactstrap";
 import { bindActionCreators } from "redux";
@@ -49,15 +48,13 @@ class DisplayEmployeeTypeMaster extends Component {
   }
 
   refreshData() {
-    this.props
-      .getEmployee()
-      .then(() =>
-        this.setState({
-          loading: false,
-          modalLoading: false,
-          editEmployeeModal: false
-        })
-      );
+    this.props.getEmployee().then(() =>
+      this.setState({
+        loading: false,
+        modalLoading: false,
+        editEmployeeModal: false
+      })
+    );
     this.props.getEmployeeType().then(() => this.setState({ loading: false }));
     this.props
       .getEmployeeWorkType()
