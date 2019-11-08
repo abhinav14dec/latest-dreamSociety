@@ -128,7 +128,7 @@ class TenantMemberDetail extends Component {
     fetchMemberDetails = ({getMemberDetail}) => {
         console.log(getMemberDetail)
         if(getMemberDetail && getMemberDetail.members){
-            return getMemberDetail.members.sort((item1,item2)=>{
+            return (getMemberDetail.members.sort((item1,item2)=>{
                 if(item1 && item2){
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
@@ -177,7 +177,7 @@ class TenantMemberDetail extends Component {
                     )
                  }
             })
-        }
+            )}
     }
 
     deleteMemberSelected(id){

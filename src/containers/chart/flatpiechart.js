@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { authHeader } from "../../helper/authHeader";
 import {URN} from '../../actionCreators/index';
-
 import CanvasJSReact from '../../components/canvasjs.react';
-import FlatLineChart from './flatlinechart';
+
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
 class FlatPieChart extends Component {
 	state={
 		flat:'',
