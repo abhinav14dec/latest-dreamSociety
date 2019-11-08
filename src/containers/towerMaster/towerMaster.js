@@ -67,16 +67,13 @@ class TowerMaster extends Component {
         let errors = {};
         const { towerName,floorId,floors} = this.state
   
-        console.log('floorId',floorId)
         if(this.state.towerName===''){
             errors.towerName = "Tower Name can't be empty. Please select."
         }
         else if(!this.state.floorId.length){
-            console.log('this.state.floorId',this.state.floorId)
             errors.floorId="No. Of Floor can't be empty"
         }
         
-       console.log('==============',floorId)
         this.setState({ errors });
 
         const isValid = Object.keys(errors).length === 0
@@ -84,7 +81,6 @@ class TowerMaster extends Component {
         // const isValid = this.validate();
         if (isValid) {
             this.setState({loading: true})
-        console.log(this.state)
           
                 this.props.AddTower(towerName,floorId,floors).then(()=> this.props.history.push('/superDashboard/display-tower')
             
@@ -105,7 +101,6 @@ class TowerMaster extends Component {
     return this.props.history.replace('/superDashBoard')
 }
 getFloor=({floorDetails})=>{
-    console.log('getFloor',floorDetails)
     if(floorDetails && floorDetails.floor){
         return floorDetails.floor.map((item)=>{
             return (
@@ -115,8 +110,7 @@ getFloor=({floorDetails})=>{
    }
 }
 floorChangeHandler=(name,selectOption)=>{
-    console.log('selectOption',selectOption)
-    console.log('event')
+    
 //    const data=selectOption.map((item)=>{return item.floorId})
 //    this.state.floors.push(data)
     this.setState({
@@ -124,9 +118,7 @@ floorChangeHandler=(name,selectOption)=>{
         floors:selectOption.map((item)=>{return {floorId:item.floorId}}),
         errors:''
     })
-    console.log('jkldfjdsklfjdklfjdklfj',this.state.floorId)
     // const data={floorId:this.state.floorId}
-    // console.log(data)
     // this.state.floors.push(data)
      
 }
@@ -192,7 +184,6 @@ changePassword=()=>{
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         Tower: state.TowerDetails,
         floor:state.FloorReducer

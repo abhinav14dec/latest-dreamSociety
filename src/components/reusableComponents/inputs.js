@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, Input, Button, Label } from 'reactstrap';
+import { FormGroup, Input, Label } from 'reactstrap';
 
 const InputField = props => {
     return (

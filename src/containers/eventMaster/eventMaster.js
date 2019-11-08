@@ -91,7 +91,6 @@ class EventMaster extends Component {
 
   getEvent({ events }) {
     if (events) {
-      console.log(events)
       return (
         events.event.map((item) => {
           return (
@@ -213,7 +212,6 @@ changePassword=()=>{
 
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     EventDetails: state.EventDetails
   }

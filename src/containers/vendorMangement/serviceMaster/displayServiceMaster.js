@@ -53,7 +53,7 @@ class DisplayServices extends Component {
         this.props.getServiceDetail().then(()=> this.setState({loading:false}));
     }   
 
-    deleteService(serviceId){console.log(serviceId)
+    deleteService(serviceId){
         this.setState({loading:true})
         let {isActive } =this.state;  
         this.props.deleteService(serviceId,isActive)

@@ -150,7 +150,6 @@ changePassword=()=>{
 }
 
 function mapStateToProps(state) {
-    console.log('shub', state);
     return {
         size: state.SizeDetails
     }

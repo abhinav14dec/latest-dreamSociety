@@ -35,7 +35,6 @@ class ParkingMaster extends Component {
         if (parking) {
             
             return parking.slot.sort((item1,item2)=>{
-                console.log(item1, item2)
                 var cmprVal = (item1.parking_master[this.state.filterName].localeCompare(item2.parking_master[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item, index) => {

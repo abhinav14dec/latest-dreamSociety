@@ -238,8 +238,6 @@ updateEvents(){
                 }       
             this.setState({ modalLoading: true})
 }
-console.log("breakfast",breakfast,"lunch",lunch,"eveningSnacks",eveningSnacks,"dinner",dinner,"dJ",dJ,"drinks",drinks)
-
 }
 
 
@@ -484,7 +482,6 @@ render() {
 }
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         societyEventBookingReducer: state.societyEventBookingReducer,
         EventDetails: state.EventDetails

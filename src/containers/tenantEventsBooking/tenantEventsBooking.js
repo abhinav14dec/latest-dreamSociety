@@ -93,7 +93,6 @@ class MemberEventsBookingTenant extends Component {
                 }).map((data) => {
                         if(data) {
                             this.setState({ data }, function () {
-                                console.log(this.state.data);
                            });
                         }
 

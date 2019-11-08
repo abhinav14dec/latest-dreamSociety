@@ -12,7 +12,6 @@ export default class AccountVarification extends Component {
   }
 
   submit=()=>{
-    console.log(this.state.otp)
     const data={
       otp:this.state.otp
     }
@@ -22,7 +21,6 @@ export default class AccountVarification extends Component {
        message:response.data.message,
        otpVerified:response.data.otpVerified
      })
-     console.log(response.data.message)
      if(response.data.otpVerified){
       //  return this.props.history.push('/')
      }

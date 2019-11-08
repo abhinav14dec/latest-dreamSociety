@@ -106,7 +106,6 @@ this.props.history.push('/superDashboard/displayPerson')
 
 
 getRole({roles}){
-    console.log(roles,'sdfasfsdf')
     if(roles){
         return(
             roles.map((item)=>{
@@ -121,7 +120,6 @@ getRole({roles}){
 
 
 Tower({get}){
-    console.log('abcd',get)
     if(get){
         return(
   get.map((item)=>{
@@ -219,7 +217,6 @@ form1 = <form onSubmit={this.submit}>
 
 
 function mapStateToProps(state){
-    console.log(state)
 return{
     personDetails :state.personDetails
 }

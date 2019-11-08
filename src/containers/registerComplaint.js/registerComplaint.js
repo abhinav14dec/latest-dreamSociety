@@ -58,7 +58,6 @@ class RegisterComplaintTenant extends Component{
 
     service({item}){
         if(item){
-            console.log(item,"details============")
            return( 
             item.map((item) =>{ 
                    return(
@@ -127,7 +126,6 @@ class RegisterComplaintTenant extends Component{
         }
    
         this.setState({ errors });
-        console.log("submited===========================", this.state);
 
         const isValid = Object.keys(errors).length === 0;
 
@@ -154,7 +152,6 @@ class RegisterComplaintTenant extends Component{
     }
 
     changePassword=()=>{ 
-        console.log("password")
         return this.props.history.replace('/tenantDashboard/changePasswordTenant')
     }
 
@@ -163,7 +160,6 @@ class RegisterComplaintTenant extends Component{
     }
 
     onChange = (e) => {
-        console.log(e.target.value)
         this.setState({message:'' })
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -294,7 +290,6 @@ class RegisterComplaintTenant extends Component{
 }
 
 function mapStateToProps(state) {
-          console.log(state)
     return {
   
         registerComplaintReducer : state.registerComplaintReducer

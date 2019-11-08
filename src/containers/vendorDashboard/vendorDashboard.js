@@ -25,7 +25,6 @@ import VendorCharts from '../vendorMangement/vendorCharts/vendorCharts';
   }
 
   changePassword=()=>{
-       console.log("password");   
       return this.props.history.replace('/vendorDashboard/changePasswordVendor')
     }
 
