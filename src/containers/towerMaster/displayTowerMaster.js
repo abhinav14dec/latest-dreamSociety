@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { viewTower,updateTower,deleteTower,deleteMultipleTower } from '../../actions/towerMasterAction';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Table,Button, Modal, FormGroup, ModalBody, ModalHeader, ModalFooter, Input, Label } from 'reactstrap';
+import {Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Label } from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter'
 import UI from '../../components/newUI/superAdminDashboard';
 import './tower.css'
@@ -60,8 +60,6 @@ class DisplayTowerMaster extends Component {
 
     this.setState({loading:true});
   let {isActive} =this.state;
-  console.log("isActive",isActive);
-
      this.props.deleteTower(towerId,isActive).then(()=>this.refreshData())
         this.setState({isActive:false})
 
@@ -71,10 +69,7 @@ class DisplayTowerMaster extends Component {
  
   onChange=(e)=> {
    this.setState({message:''})
-   console.log("e",e.target.name);
-   
-   console.log(!!this.state.errors[e.target.name])
-    if (!!this.state.errors[e.target.name]) {
+       if (!!this.state.errors[e.target.name]) {
       let errors = Object.assign({}, this.state.errors);
       delete errors[e.target.name];
       this.setState({ [e.target.name]: e.target.value, errors });
@@ -122,7 +117,6 @@ class DisplayTowerMaster extends Component {
 
 
   editTower(id, towerId, towerName,floor) {
-    console.log('efews', id, towerId, towerName,floor);
     this.setState({
       floors:floor
     })
@@ -130,7 +124,6 @@ const selectedFloor=floor.map(item=>item.floorId)
     this.setState({
       id, towerId, towerName,selectedFloor, editTowerModal: !this.state.editTowerModal
     })
-    console.log('kjdkfjdkfjdkfjdkf',this.state.selectedFloor)
   }
   searchFilter(search){
     return function(x){
@@ -251,7 +244,6 @@ selectAll = () => {
           }
       }
       getFloor=({floorDetails})=>{
-        console.log('getFloor',floorDetails)
         if(floorDetails && floorDetails.floor){
             return floorDetails.floor.map((item)=>{
                 return (
@@ -266,17 +258,13 @@ selectAll = () => {
    }
 
     floorChangeHandler=(name,selectOption)=>{
-        console.log('selectOption',selectOption)
-        console.log('event')
     //    const data=selectOption.map((item)=>{return item.floorId})
     //    this.state.floors.push(data)
         this.setState({
             [name]: selectOption.map((item)=>{return item.floorId}),
             floors:selectOption.map((item)=>{return {floorId:item.floorId}})
         })
-        console.log('jkldfjdsklfjdklfjdklfj',this.state)
         // const data={floorId:this.state.floorId}
-        // console.log(data)
         // this.state.floors.push(data)
          
     }
@@ -392,7 +380,6 @@ selectAll = () => {
 }
 
 function mapStateToProps(state) {
-console.log(state.TowerDetails)
   return {
     TowerDetails: state.TowerDetails,
     floor:state.FloorReducer

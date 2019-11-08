@@ -75,7 +75,7 @@ class ViewTenantDetail extends Component {
                             </Col>
                             <Col md={4}>
                                 <div style={{border: '1px solid black', textAlign:'center'}}>
-                                    <img src={this.state.picture} readOnly height='100px' width='100px' />
+                                    <img src={this.state.picture} alt="" readOnly height='100px' width='100px' />
                                 </div>
                             </Col>
                             

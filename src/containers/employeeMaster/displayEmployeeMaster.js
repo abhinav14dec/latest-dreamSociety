@@ -676,8 +676,8 @@ class DisplayEmployeeMaster extends Component {
     updatePermanentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+            permanentAddress: `${this.state.permanentAddressDefault}, ${location} ,
+            ${this.state.cityName},  ${this.state.stateName},  ${this.state.countryName} , Pin/Zip Code: ${this.state.pin}`
         })
     }
 
