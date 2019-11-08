@@ -23,14 +23,9 @@ class DisplayEmployeeMaster2 extends Component {
         this.state = {
             editEmployeeData: {
                 employeeId: '',
-
-
                 startDate: '',
                 endDate: '',
-
                 selectedDocumentUrl: null,
-
-
                 modal: false,
                 modalIsOpen: false,
                 isActive: false
