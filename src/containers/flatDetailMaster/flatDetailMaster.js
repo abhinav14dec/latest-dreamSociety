@@ -108,10 +108,8 @@ class flatDetailMaster extends Component{
         }
         this.setState({errors});
         const isValid=Object.keys(errors).length === 0;
-        console.log('this.state',this.state)
         if(isValid){
             this.setState({loading:true});
-           console.log('addflatDetails',this.state)
             this.props.addFlatDetails(this.state)
             .then(()=>this.props.history.push('/superDashboard/flatDetails'))
             .catch(err=>{
@@ -217,12 +215,10 @@ class flatDetailMaster extends Component{
 
     }
     getSlot=({parkingSlot})=>{
-        console.log(parkingSlot)
         // this.setState({
         //     slotNumbers:parkingSlot.slotNumbers
         // })
         if(parkingSlot){
-            console.log(parkingSlot.slotNumbers)
       
             return parkingSlot.slot.map((items)=>{
                 return (
@@ -233,7 +229,6 @@ class flatDetailMaster extends Component{
 
     }
     slotChangeHandler=(name,selectOption)=>{
-        console.log(selectOption)
         this.setState({
             [name]: selectOption.map((item)=>{return item.slotId}),
             parkingDetails:selectOption.map((item)=>{return {

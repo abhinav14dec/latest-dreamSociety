@@ -120,7 +120,7 @@ class CityMasterDetail extends Component {
 
             this.props.updateCity(cityId, countryId, stateId, cityName)
                 .then(() => this.refreshData())
-                .catch(err=>{ console.log(err.response.data.message)
+                .catch(err=>{ 
                     this.setState({modalLoading: false,message: err.response.data.message, loading: false})
                     })
                     if (this.state.message === '') {
