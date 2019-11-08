@@ -615,7 +615,7 @@ currentAddressChange = (e) => {
     }
     else {
         this.setState({currentAddressDefault: e.target.value,  currentAddress: e.target.value  + (this.state.currentLocation ? (', '  + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ',  ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' +  this.state.pin})
+        `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, 'Pin/Zip code: ${this.state.pin}`})
     }
 }
 
@@ -637,7 +637,7 @@ updateCurrentAddress = (pin) => {
    
     this.setState({pin})
     this.setState({currentAddress: this.state.currentAddressDefault   + (this.state.currentLocation ? (', ' + this.state.currentLocation +  ', ') : ', ') +
-    this.state.currentCity + ', ' + this.state.currentState + ', ' +  this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
+    `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, 'Pin/Zip Code: ${pin}`})
    
 }
 
@@ -657,18 +657,8 @@ pinChange1 = (e) => {
 updatePermanentAddress = (pin) => {
     this.setState({pin})
     this.setState({permanentAddress:  this.state.permanentAddressDefault  + (this.state.locationName ? (', '  + this.state.locationName + ', ') : ', ') +
-    this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
+    `${this.state.cityName} , ${this.state.stateName}, ${this.state.countryName} , 'Pin/Zip Code: ${pin}`})
 }
-
-
-    OnKeyPressNumber(event) {
-        const pattern = /^[0-9]$/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-   
 
     logout = () => {
         localStorage.removeItem('token');
@@ -692,9 +682,6 @@ updatePermanentAddress = (pin) => {
 }
 
 render(){
-
-
-{/* <Spinner/> */}
 let formData=
 <div>
 

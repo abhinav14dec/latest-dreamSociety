@@ -239,7 +239,7 @@ class RFIdDetails extends Component {
                             </ModalBody>
                         </Modal>
                     </div>
-               </UI> 
+               </UI>
             </div>
         );
     }
