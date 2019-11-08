@@ -103,7 +103,6 @@ class slotList extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.flatDetailMasterReducer.slots)
     return {
         flatDetailMasterReducer: state.flatDetailMasterReducer
     }

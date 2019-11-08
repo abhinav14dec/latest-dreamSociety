@@ -38,12 +38,10 @@ class Country extends Component {
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.trim(''), errors });
         } else {
             this.setState({ [e.target.name]: e.target.value.trim('') });
         }
-        console.log(this.state.code)
 
 
     }
@@ -58,7 +56,6 @@ class Country extends Component {
 
     submit = (e) => {
         e.preventDefault();
-        //   console.log(this.state);
         let errors = {};
 
         if (this.state.countryName === '') errors.countryName = "Cant be empty";
@@ -79,7 +76,7 @@ class Country extends Component {
             this.setState({ loading: true })
             this.props.AddCountry({ ...this.state })
             .then(() => this.props.history.push('/superDashboard/countrymaster/countrymasterdetails'))
-            .catch((err)=>{console.log(err.response.data.message)
+            .catch((err)=>{
                 this.setState({loading:false, message:err.response.data.message})})
 
             this.setState({
@@ -93,7 +90,6 @@ class Country extends Component {
     }
 
     countryDetails = () => {
-        console.log('jioi');
         this.props.history.push('/superDashboard/countrymaster/countrymasterdetails');
     }
 
@@ -135,7 +131,6 @@ class Country extends Component {
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.toUpperCase().trim(''), errors });
         } else {
         this.setState({code:e.target.value.toUpperCase().trim('')});
