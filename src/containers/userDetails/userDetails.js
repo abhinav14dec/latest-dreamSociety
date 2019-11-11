@@ -182,7 +182,7 @@ class userDetails extends Component {
                                 {item.towerName}
                             </option>
                         )
-                    }
+                    } else return null;
                 })
             )
         }

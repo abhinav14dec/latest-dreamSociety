@@ -7,9 +7,9 @@ import { PrivateRoute } from './components/privateRoute/privateRoute';
 import Login from './containers/login/login';
 import Parking from './containers/parking/parking';
 // import QR from './containers/QR/QR Code';
-import UserDetails from './containers/userDetails/userDetails';
+// import UserDetails from './containers/userDetails/userDetails';
 import Demo from './containers/demo';
-import Registration from './containers/userRegistration/userRegistration';
+// import Registration from './containers/userRegistration/userRegistration';
 import AdminDashboard from './containers/adminDashboard/adminDashboard';
 import OwnerDashboard from './containers/ownerDashboard/ownerDashboard';
 import SuperDashboard from './containers/superDashboard/superDashboard';
@@ -215,8 +215,8 @@ class App extends Component {
             <VendorPrivateRoute path='/vendorDashboard' exact component={VendorDashboard} />
             <EmployeePrivateRoute path='/employeeDashboard' exact component={EmployeeDashboard}/>
             <PrivateRoute path='/superDashboard/videoStreaming' component={VideoStreaming} />
-            <PrivateRoute path='/superDashboard/registration' component={Registration} />
-            <PrivateRoute path='/superDashboard/user_details' component={UserDetails} />
+            {/* <PrivateRoute path='/superDashboard/registration' component={Registration} /> */}
+            {/* <PrivateRoute path='/superDashboard/user_details' component={UserDetails} /> */}
             <PrivateRoute path='/superDashboard/parking_master' component={ParkingMaster} />
             <PrivateRoute path='/superDashboard/display-tower' component={DisplayTowerMaster} />
             <PrivateRoute path='/superDashboard/display-size' component={DisplaySizeMaster} />
