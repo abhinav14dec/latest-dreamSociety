@@ -519,7 +519,7 @@ class IndividualVendor extends Component{
     updatePermanentAddress = (pin) => {
         this.setState({pin})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin}` })
     }
 
     changeVendor=(event)=>{
