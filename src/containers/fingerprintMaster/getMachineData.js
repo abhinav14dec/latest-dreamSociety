@@ -42,7 +42,6 @@ class Machine extends Component {
 
     machineResult = (userId) => {
         this.setState({ loading: true, message: '' })
-        var tokendata = localStorage.getItem('token')
         this.props.getMachineDetails(this.state.userId)
             .then((res) => {
                 this.setState({ message: res.payload.message, userId, loading: false })

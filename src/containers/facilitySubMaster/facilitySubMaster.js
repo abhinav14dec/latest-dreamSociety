@@ -52,8 +52,6 @@ class FacilitySubMaster extends Component {
     }
 
     monthlyRateChange = (e) => {
-        let selected = e.target.value
-
         if (!!document.getElementById('isCheckedMonthly').checked) {
             this.setState({ monthlyRate: this.state.monthlyRate, monthlyRateType: true, rateType: false })
         }
@@ -63,7 +61,6 @@ class FacilitySubMaster extends Component {
     }
 
     rateChange = (e) => {
-        let selected = e.target.value
         if (!!document.getElementById('isCheckedRate').checked) {
             this.setState({ unitRate: this.state.unitRate, rateType: true, monthlyRateType: false })
         }

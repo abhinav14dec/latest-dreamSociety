@@ -29,7 +29,6 @@ class DisplayVendorServices extends Component {
             loading:true,
             search: '',
             modalIsOpen: false,
-            search: '', 
             ids:[],
             isDisabled:true,    
             errors:{},
@@ -218,13 +217,6 @@ updateServices = () => {
         return this.props.history.replace('/superDashboard/changePassword')
     }
     
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
 
     
     selectAll = () => {
@@ -260,14 +252,6 @@ updateServices = () => {
         return this.props.history.replace('/superDashBoard')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-    
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
         let inputChar = String.fromCharCode(event.charCode);

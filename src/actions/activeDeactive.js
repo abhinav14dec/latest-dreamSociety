@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { authHeader } from '../helper/authHeader';
-import{URN,DEACTIVATE_MEMBER,GET_DEACTIVE_LIST,GET_ROLES1,DEACTIVATE_MULTIPLE_MEMBER,DELETE_MULTIPLE_MEMBER1, DELETE_SELECTED_USERS,GET_ACTIVE_LIST,RELEASE_RESOURCE} from '../actionCreators/index';
+import{URN,DEACTIVATE_MEMBER,GET_DEACTIVE_LIST,GET_ROLES1,DEACTIVATE_MULTIPLE_MEMBER,DELETE_MULTIPLE_MEMBER1,GET_ACTIVE_LIST,RELEASE_RESOURCE} from '../actionCreators/index';
 
 export function getRoles(){
     const request = axios.get(`${URN}/user/role/activate`, {headers:authHeader()})
