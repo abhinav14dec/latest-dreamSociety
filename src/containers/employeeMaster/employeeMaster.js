@@ -481,7 +481,7 @@ updatePermanentAddress1 = (location) => {
 }
 
 
-countryChange = (currentCountryId, currentCountry, selectOption) => {
+countryChange = (selectOption) => {
 
     this.setState({
         currentCountry: selectOption.countryName,
