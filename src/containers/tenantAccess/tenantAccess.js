@@ -21,7 +21,6 @@ class TenantAccess extends Component{
 
     activatedChange = async (e)=>{
         let selected=e.target.value;
-        console.log(selected)
        await this.setState({
             type:selected
          })
@@ -126,7 +125,6 @@ let radioData=<div>
 }
 
 function mapStatToProps(state) {
-     console.log(state)
     return {
 
     

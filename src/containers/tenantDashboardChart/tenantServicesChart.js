@@ -17,7 +17,6 @@ class TenantServicesChart extends Component {
 // 	componentDidMount() {
 //         axios.get(`${URN}/flats/count`,{headers:authHeader()})
 //           .then(res => {
-// 			console.log(res.data);
 // 			this.getData(res.data)
 // 		  })
 // 		}

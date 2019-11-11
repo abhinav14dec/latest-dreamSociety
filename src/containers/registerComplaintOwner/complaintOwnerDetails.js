@@ -51,7 +51,7 @@ class ComplaintOwnerDetails extends Component{
     }
 
     searchFilter = (search) => {
-        return function (x) { console.log(x)
+        return function (x) { 
             return x.service_master.serviceName.toLowerCase().includes(search.toLowerCase())  
               ||!search;
         }
@@ -64,7 +64,6 @@ class ComplaintOwnerDetails extends Component{
     }
 
     changePassword=()=>{ 
-        console.log("password")
         return this.props.history.replace('/ownerDashboard/changePasswordOwner')
     }
 
@@ -119,7 +118,7 @@ class ComplaintOwnerDetails extends Component{
        return getComplaints.complaints.sort((item1,item2)=>{
         var cmprVal =  (item1.service_master[this.state.filterName].localeCompare(item2.service_master[this.state.filterName])) 
         return this.state.sortVal ? cmprVal : -cmprVal;
-        }).filter(this.searchFilter(this.state.search)).map((item, index) => {  console.log(item)
+        }).filter(this.searchFilter(this.state.search)).map((item, index) => {  
            
                 return (
                     <tr key={item.complaintId}  >
@@ -188,7 +187,6 @@ class ComplaintOwnerDetails extends Component{
     }
 
     onChange = (e) => {
-        console.log(e.target.value)
         this.setState({message:'' })
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -206,7 +204,6 @@ class ComplaintOwnerDetails extends Component{
     }
 
     ratingChanged = (rating) => {
-       console.log(rating)
        this.setState({rating})
        
       }
@@ -216,8 +213,6 @@ class ComplaintOwnerDetails extends Component{
          
         
         const { complaintId, date, slotTime1,slotTime2,slotTime3, rating, status, feedback, vendorId } = this.state
-        console.log(complaintId, date, slotTime1,slotTime2,slotTime3, rating, status, feedback, vendorId);
-
         let errors = {};
 
         // if (this.state.rating === '') { errors.rating = " rating can't be empty" }

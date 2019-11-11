@@ -128,7 +128,6 @@ class SocietyMemberEvent extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("========", state)
     return {
         societyMemberEventReducer: state.societyMemberEventReducer
     }

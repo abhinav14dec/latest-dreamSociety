@@ -71,7 +71,6 @@ class AddFloor extends Component {
             this.props.history.push('/superDashboard/getFloor')
         })
         .catch(error=>{
-            console.log(error.response.data);
             this.setState({message:error.response.data.message,loading:false});
         })
     }

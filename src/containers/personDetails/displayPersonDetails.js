@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DefaultSelect from '../../constants/defaultSelect'
 
-import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader, ModalFooter, Label } from 'reactstrap';
+import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader,Label } from 'reactstrap';
 import { viewPerson, getFlat, getTower, getRoles, updatePerson, deletePerson, deleteMultiplePerson } from '../../actions/personDetailsMasterAction';
 import SearchFilter from '../../components/searchFilter/searchFilter'
 import UI from '../../components/newUI/superAdminDashboard';
@@ -87,7 +87,6 @@ class displayPersonDetails extends Component {
 
 
         getRole({ roles }) {
-                console.log(roles, 'sdfasfsdf')
                 if (roles) {
                         return (
                                 roles.map((item) => {
@@ -113,7 +112,6 @@ class displayPersonDetails extends Component {
                 })
         }
         editPerson(userId, userName, roleName, email, towerId, id, roles, flatDetailId) {
-                console.log('i m in edit ', userName, email, towerId, id, roles);
                 this.setState({
                         userId, userName, email, towerId, id,  roleName, flatDetailId,
                         editPersonModal: !this.state.editPersonModal
@@ -149,7 +147,6 @@ class displayPersonDetails extends Component {
 
                         this.setState({modalLoading:true})
                         this.props.updatePerson(userId, userName, email, towerId, roleName).then(() =>  this.refreshData()).catch(err => {
-                                console.log(err.response)
                                 this.setState({
                                         modalLoading: false,
                                         emailMessage: err.response.data.messageEmailErr, usernameMessage: err.response.data.messageUsernameErr
@@ -198,7 +195,6 @@ class displayPersonDetails extends Component {
         }
 
         getTower({ get }) {
-                console.log('abcd', get)
                 if (get) {
                         return (
                                 get.map((item) => {
@@ -211,18 +207,13 @@ class displayPersonDetails extends Component {
                 }
         }
         person({ person1 }) {
-                console.log(person1);
-
                 if (person1) {
-                        console.log("xyz", person1)
                         let currentRole;
                         return (
                                 person1.sort((item1, item2) => {
                                         var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                                         return this.state.sortVal ? cmprVal : -cmprVal
                                 }).filter(this.searchFilter(this.state.search)).map((item, index) => {
-                                        console.log(item.roles, "ancdd")
-
                                         return (
                                                 <tr key={item.userId}>
                                                 <td><input type="checkbox" name="ids" className="SelectAll" value={item.userId}
@@ -453,8 +444,6 @@ class displayPersonDetails extends Component {
 
 
 function mapStateToProps(state) {
-
-        console.log(state, "state")
         return {
                 personDetails: state.personDetails,
                 role: state.role

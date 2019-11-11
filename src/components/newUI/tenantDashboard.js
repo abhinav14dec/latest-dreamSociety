@@ -37,7 +37,6 @@ class Demo extends Component {
     // }
 
     // changePassword=()=>{ 
-    //     console.log("password")
     //     return this.props.history.replace('/tenantDashboard/changePasswordTenant')
     // }
 

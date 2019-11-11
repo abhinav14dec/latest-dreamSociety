@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UI from '../../components/newUI/tenantDashboard';
 import _ from 'underscore';
-import Spinner from '../../components/spinner/spinner'
 import { Form, Button, FormGroup, Input, Label, Col, Row } from 'reactstrap';
 import DefaultSelect from './../../constants/defaultSelect';
 import { OnKeyPressUserhandler, numberValidation } from '../../validation/validation';
@@ -50,7 +49,6 @@ class GuestInvitation extends Component {
     }
 
     changePassword=()=>{ 
-        console.log("password")
         return this.props.history.replace('/tenantDashboard/changePasswordTenant')
     }
 
@@ -89,23 +87,19 @@ class GuestInvitation extends Component {
 
         
         this.setState({ errors });
-        console.log("submited===========================", this.state);
 
         const isValid = Object.keys(errors).length === 0;
 
         if(isValid){
                     // this.setState({loading:true})
                     const {fullName,contactNo,address,purpose,eventName,noOfPerson}=this.state
-                    console.log(fullName,contactNo,address,purpose,eventName,noOfPerson)
                     // this.props.postRegister(this.state)
                     // .then((msg)=>{ msg;
-                    //     console.log(msg)
                     //     this.setState({message : msg.payload.message, loading: false 
                     //     })
                     //     this.toggle()
                     // })
                     // .catch(err=>{err;
-                    //     console.log(err);
                     //     this.setState({message : err.response.data.message, loading: false})
                     // })
                 

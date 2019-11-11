@@ -345,7 +345,6 @@ class SocietyMangement extends Component {
 
 
     render() {
-        // console.clear();
         let form;
         if(!this.state.loading && this.props.societyReducer.countryResult && this.props.societyReducer.stateResult && this.props.societyReducer.cityResult && this.props.societyReducer.locationResult && this.state.errors){
             form= <div>

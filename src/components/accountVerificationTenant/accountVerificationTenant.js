@@ -12,7 +12,6 @@ export default class AccountVerificationTenant extends Component {
   }
 
   submit=()=>{
-    console.log(this.state.otp)
     const data={
       otp:this.state.otp
     }

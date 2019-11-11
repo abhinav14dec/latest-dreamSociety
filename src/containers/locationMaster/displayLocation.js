@@ -112,7 +112,6 @@ onChangeCountry= (event)=>{
 }
 
 toggle = (locationId, countryId,stateId,cityId, countryName, stateName, cityName, locationName) => {
-console.log("edit",locationId,locationName);
     this.setState({
         locationId,
         countryId,
@@ -163,7 +162,7 @@ toggleModal = () => {
 }
 
 renderList=({details})=>{
-    if(details){console.log(details)
+    if(details){
         return details.sort((item1,item2)=>{
             var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
             return this.state.sortVal ? cmprVal : -cmprVal;
@@ -295,7 +294,6 @@ updateLocation = () => {
         this.setState({ modalLoading: true
     })
         }
-        console.log("update",locationId,locationName);
 }
 
 push=()=>{

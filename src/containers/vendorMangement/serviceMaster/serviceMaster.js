@@ -178,7 +178,6 @@ class ServiceMaster extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         serviceMasterReducer: state.serviceMasterReducer,
         displayServiceMasterReducer:state.displayServiceMasterReducer

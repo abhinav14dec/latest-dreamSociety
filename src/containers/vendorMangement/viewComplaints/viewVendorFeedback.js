@@ -61,11 +61,10 @@ componentWillMount(){
 
 
 
-      renderList = ({feedbackResult}) => {  console.log(feedbackResult)
+      renderList = ({feedbackResult}) => {  
     
         if (feedbackResult && feedbackResult.feedback) {
             const item=feedbackResult.feedback
-            console.log(item)
                 return (
                     
                     <tr key={item.feedbackId}>
@@ -154,7 +153,7 @@ componentWillMount(){
     }
 }
 
-function mapStateToProps(state) {console.log(state);
+function mapStateToProps(state) {
 
     return {
         viewComplaintsReducer:state.viewComplaintsReducer
