@@ -15,8 +15,6 @@ import { PlaceHolder } from '../../actionCreators/index';
 
 class EmployeeMaster extends Component{
 
-
-
     state={
         loading:true,
         countryId1:'',
@@ -69,7 +67,6 @@ class EmployeeMaster extends Component{
             currentStateId:'',
             currentCity:'',
             currentCityId:'',
-            currentState:'',
             currentLocation:'',
             permanentLocationId:'',
             currentAddressVisible:false,
@@ -82,9 +79,6 @@ class EmployeeMaster extends Component{
             pinCode:'',
             pinCode1:'',
             defaultCurrentAddress:'',
-            emailServerError:'',
-            userNameServerError:'',
-            contactServerError:'',
             rfidId:'',
 
     }
@@ -480,12 +474,12 @@ onChangeLocation = (locationName, locationId, selectOption) => {
 
 updatePermanentAddress1 = (location) => {
     this.setState({location})
-    this.setState({permanentAddress:  this.state.permanentAddressDefault  + ', ' + location + ', ' +
-    this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+    this.setState({permanentAddress:  `${this.state.permanentAddressDefault}, ${location}, 
+    ${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
 }
 
 
-countryChange = (currentCountryId, currentCountry, selectOption) => {
+countryChange = (selectOption) => {
 
     this.setState({
         currentCountry: selectOption.countryName,
@@ -523,8 +517,8 @@ locationChange = (currentLocation, currentLocationId, selectOption) => {
 
 updateCurrentAddress1 = (location) => {
     this.setState({location})
-    this.setState({currentAddress: this.state.currentAddressDefault   + ', ' + location + ', ' +
-    this.state.currentCity + ', ' + this.state.currentState + ', ' +  this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+    this.setState({currentAddress: `${this.state.currentAddressDefault}, ${location},  ${this.state.currentCity}, ${this.state.currentState},
+     ${this.state.currentCountry}, Pin/Zip Code: ${this.state.pin}`})
 }
 
  close=()=>{
@@ -581,15 +575,15 @@ permanentAddressChange = (e) => {
         let errors = Object.assign({}, this.state.errors);
         delete errors[e.target.name];
         this.setState({ permanentAddressDefault: e.target.value,  permanentAddress: e.target.value  + (this.state.locationName ? (', ' +  this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1 ,  errors });
+        `${this.state.cityName}, ${this.state.stateName} , ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`,  errors });
     }
     else {
         this.setState({permanentAddressDefault: e.target.value,  permanentAddress: e.target.value  + (this.state.locationName ? (', ' +  this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+        `${this.state.cityName}, ${this.state.stateName} , ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`})
     }
     if(!!document.getElementById('isChecked').checked){
         this.setState({currentAddress: e.target.value +  (this.state.locationName ? (', ' + this.state.locationName + ', ') :  ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+        `${this.state.cityName}, ${this.state.stateName} , ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`})
     }
 }
 
@@ -599,7 +593,7 @@ currentAddressChange = (e) => {
         let errors = Object.assign({}, this.state.errors);
         delete errors[e.target.name];
         this.setState({ currentAddressDefault: e.target.value,  currentAddress: e.target.value  + (this.state.currentLocation ? (', '  + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ',  ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' +  this.state.pin , errors });
+        `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`, errors });
     }
     else {
         this.setState({currentAddressDefault: e.target.value,  currentAddress: e.target.value  + (this.state.currentLocation ? (', '  + this.state.currentLocation + ', ') : ', ') +

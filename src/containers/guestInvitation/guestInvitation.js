@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UI from '../../components/newUI/tenantDashboard';
-import _ from 'underscore';
 import { Form, Button, FormGroup, Input, Label, Col, Row } from 'reactstrap';
 import DefaultSelect from './../../constants/defaultSelect';
 import { OnKeyPressUserhandler, numberValidation } from '../../validation/validation';

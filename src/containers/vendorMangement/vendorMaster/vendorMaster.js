@@ -59,8 +59,6 @@ class vendorMaster extends Component {
             currentStateId:'',
             currentCity:'',
             currentCityId:'',
-            currentState:'',
-            currentStateId:'',
             currentLocation:'',
             permanentLocationId:'',
             currentAddressVisible:false,
@@ -517,12 +515,12 @@ class vendorMaster extends Component {
     
     updatePermanentAddress1 = (location) => {
         this.setState({location})
-        this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + location + ', ' +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        this.setState({permanentAddress: `${this.state.permanentAddressDefault}, ${location}, 
+       ${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
     }
     
     
-    countryChange = (currentCountryId, currentCountry, selectOption) => {    
+    countryChange = (selectOption) => {    
         this.setState({
             currentCountry: selectOption.countryName,
             currentCountryId:selectOption.countryId, 
@@ -559,8 +557,8 @@ class vendorMaster extends Component {
     
     updateCurrentAddress1 = (location) => {
         this.setState({location})
-        this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + location + ', ' +
-        this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        this.setState({currentAddress: `${this.state.currentAddressDefault}, ${location}, 
+        ${this.state.currentCity}, ${this.state.currentState},  ${this.state.currentCountry}, Pin/Zip Code: ${this.state.pin}`})
     }
 
     defaultPermanentAddressChange = (e) =>{
@@ -581,15 +579,15 @@ class vendorMaster extends Component {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
             this.setState({ permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-            this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1 , errors });
+            `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}` , errors });
         }
         else {
             this.setState({permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-            this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+            `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`})
         }
         if(!!document.getElementById('isChecked').checked){
             this.setState({currentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-            this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+            `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`})
         }
     }
     
@@ -598,11 +596,11 @@ class vendorMaster extends Component {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
             this.setState({ currentAddressDefault: e.target.value, currentAddress: e.target.value  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-            this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin , errors });
+            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}` , errors });
         }
         else {
             this.setState({currentAddressDefault: e.target.value, currentAddress: e.target.value  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-            this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin})
+            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`})
         }
     }
     
@@ -622,7 +620,7 @@ class vendorMaster extends Component {
     updateCurrentAddress = (pin) => {
         this.setState({pin})
         this.setState({currentAddress: this.state.currentAddressDefault  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
+        `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`})
     }
     
     pinChange1 = (e) => {
@@ -640,7 +638,7 @@ class vendorMaster extends Component {
     updatePermanentAddress = (pin) => {
         this.setState({pin})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin}`})
     }
 
     OnKeyPresshandlerEmail=(event)=> {
