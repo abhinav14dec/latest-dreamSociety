@@ -41,7 +41,6 @@ export function fetchAssets() {
 }
 
 export function updateAssetsSub(id, assets,assetName, description) {
-    console.log(assets)
     const data = {
         assetId:assets,
         assetTypeId: id,
@@ -73,7 +72,6 @@ export function removeAssetsSub(id) {
 }
 
 export function deleteMultiple(ids){
-    console.log(ids)
     const request=axios.put(`${URN}/assetsType/delete/deleteSelected`,{ids},{ headers: authHeader() })
     .then(response=>response.data)
     .catch(error=>error)

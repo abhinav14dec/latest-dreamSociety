@@ -60,8 +60,6 @@ class IndividualVendor extends Component{
             currentStateId:'',
             currentCity:'',
             currentCityId:'',
-            currentState:'',
-            currentStateId:'',
             currentLocation:'',
             permanentLocationId:'',
             currentAddressVisible:false,
