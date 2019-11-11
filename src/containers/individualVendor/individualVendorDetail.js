@@ -61,8 +61,6 @@ class IndividualVendorDetail extends Component {
         currentStateId: '',
         currentCity: '',
         currentCityId: '',
-        currentState: '',
-        currentStateId: '',
         currentLocation: '',
         permanentLocationId: '',
         readOnlyCountryId: '',
@@ -104,11 +102,7 @@ class IndividualVendorDetail extends Component {
         }
     }
 
-    searchFilter(search) {
-        return function (x) {
-            return x.firstName.toLowerCase().includes(search.toLowerCase()) || !search;
-        }
-    }
+
 
     searchOnChange = (e) => {
         this.setState({ search: e.target.value })
@@ -439,15 +433,6 @@ class IndividualVendorDetail extends Component {
         return this.props.history.replace('/superDashboard/changePassword')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-
-
     selectAll = () => {
         let selectMultiple = document.getElementsByClassName('SelectAll');
         let ar = [];
@@ -665,7 +650,7 @@ class IndividualVendorDetail extends Component {
         this.setState({ location })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+                `${this.state.cityName}, ${this.state.stateName} , ${this.state.countryName} , Pin/Zip Code:  ${this.state.pin}`
         })
     }
 
@@ -693,13 +678,13 @@ class IndividualVendorDetail extends Component {
             delete errors[e.target.name];
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1, errors
+                    `${this.state.cityName} , ${this.state.stateName}, ${this.state.countryName} , Pin/Zip code:  ${this.state.pin1}`, errors
             });
         }
         else {
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1
+                   `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code:  ${this.state.pin1}`
             })
         }
         // if(!!document.getElementById('isChecked1').checked){
@@ -724,7 +709,7 @@ class IndividualVendorDetail extends Component {
         this.setState({ pin })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin
+               `${this.state.cityName},  ${this.state.stateName} ,  ${this.state.countryName} ,  Pin/Zip Code:  ${pin}`
         })
     }
 
@@ -767,7 +752,7 @@ class IndividualVendorDetail extends Component {
         this.setState({ location })
         this.setState({
             currentAddress: this.state.currentAddressDefault + ', ' + location + ', ' +
-                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${this.state.pin}`
         })
     }
 
@@ -803,7 +788,7 @@ class IndividualVendorDetail extends Component {
         this.setState({ pin })
         this.setState({
             currentAddress: this.state.currentAddressDefault + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin
+            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${pin}`
         })
     }
 
@@ -813,13 +798,13 @@ class IndividualVendorDetail extends Component {
             delete errors[e.target.name];
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin, errors
+                `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`, errors
             });
         }
         else {
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin
+                   `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`
             })
         }
     }
@@ -981,7 +966,6 @@ class IndividualVendorDetail extends Component {
                             value={this.state.currentAddress}
                             type="textarea" disabled
                             placeholder="Current Address"
-                            name="readOnlyCurrent"
                             onChange={this.onChange}
                             maxLength='250' />
                     </Col> : ''}
@@ -1197,7 +1181,7 @@ class IndividualVendorDetail extends Component {
             </FormGroup>
             <FormGroup>
                 <Label> Profile Picture</Label>
-                <img id="target" style={{ width: "30%", height: "35%" }} src={this.state.profilePicture} />
+                <img id="target" alt="Profile Pic" style={{ width: "30%", height: "35%" }} src={this.state.profilePicture} />
                 <Input type="file" name="profilePicture" accept="image/*" onChange={this.FileChange1} required />
 
             </FormGroup>
