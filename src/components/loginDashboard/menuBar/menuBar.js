@@ -13,8 +13,7 @@ class MenuBar extends Component {
                                 <Link className="nav-link" to="/superDashboard">Home<span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Galler
-                                y</Link>
+                                <Link className="nav-link" to="#">Gallery</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="#">About Us</Link>
