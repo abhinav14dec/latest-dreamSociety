@@ -78,6 +78,9 @@ class TenantFlatsDetail extends Component{
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
                 }
+                else {
+                    return null
+                }
             }).map((item, index) => {
                 return (
                     <tr key={item.flatDetailId}>
