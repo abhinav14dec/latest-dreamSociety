@@ -75,7 +75,7 @@ this.setState({[e.target.name]:e.target.value});
 submit=(e)=>{
  e.preventDefault()
  let errors={};
- let {userName,email,towerId,flatDetailId,roles,  familyMember}= this.state 
+ let {userName,email,towerId,roles}= this.state 
  if(!this.state.userName){
     errors.userName = "  Username can't be empty. Please select."
 }
