@@ -28,12 +28,6 @@ class InventoryPieChart extends Component {
 // viewData = new Object();
   
 	getData = (data) => {
-		// 	data.inventory.map((item)=>{
-
-		// 	{item.count}
-		// 	this.setState({count:item.count})
-
-		// })
 			 data.inventory.map(inventory => {
 				this.state.viewData.push(inventory.count);
 				this.state.displayData.push(inventory.avgRate);
