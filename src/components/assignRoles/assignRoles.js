@@ -127,7 +127,7 @@ class AssignRoles extends Component {
                                 {item.roleName}
                             </option>
                         )
-                    }
+                    }else return null;
                 })
             )
 

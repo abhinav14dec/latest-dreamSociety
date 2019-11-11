@@ -518,7 +518,7 @@ class AddTenant extends Component{
             updatePermanentAddress4 = (countryName) => {
                 this.setState({countryName})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+                `${this.state.cityName}, ${this.state.stateName}, ${countryName}, Pin/Zip Code: ${this.state.pin}`})
             }
            
             stateName = ({stateResult}) => {
@@ -547,7 +547,7 @@ class AddTenant extends Component{
             updatePermanentAddress3 = (stateName) => {
                 this.setState({stateName})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+                `${this.state.cityName}, ${stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
             }
            
             cityName=({cityResult})=>{
@@ -579,13 +579,12 @@ class AddTenant extends Component{
             updatePermanentAddress2 = (cityName) => {
                 this.setState({cityName})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ')  +
-                cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+                `${cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
             }
             
            
             locationName=({locationResult})=>{
                if(locationResult){
-                    
                    return( 
                        locationResult.map((item) =>{ 
                            return(
@@ -610,7 +609,7 @@ class AddTenant extends Component{
             updatePermanentAddress1 = (location) => {
                 this.setState({location})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + location + ', ' +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code:  ${this.state.pin}`})
             }
 
     
