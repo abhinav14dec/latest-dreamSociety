@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 
 import UI from '../../components/newUI/ownerDashboard';
 import { Table, Button, FormGroup, Input, Label} from 'reactstrap';
-import _ from 'underscore';
 import Spinner from '../../components/spinner/spinner';
 import DefaultSelect from '../../constants/defaultSelect';
 // import { stat } from 'fs';
@@ -151,7 +150,7 @@ class OwnerFacility extends Component {
             let facilityDetailId = item.facilityDetailId;
 
             let endDate = item.endDate
-            this.state.facilitiesUser.push({ facilityDetailId, endDate, isActive: true })
+            return this.state.facilitiesUser.push({ facilityDetailId, endDate, isActive: true })
         })
     }
 
@@ -176,32 +175,33 @@ class OwnerFacility extends Component {
                 return (
 
                     <tr key={item.facilityDetailId} >
-                        <td scope="row" ><Input type="checkbox" name="facilitiesUser" defaultChecked className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
+                        <th scope="row" ><Input type="checkbox" name="facilitiesUser" defaultChecked className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
                             onChange={(e) => {
 
-                                const { facilityDetailId, endDate } = item
+                                const { facilityDetailId } = item
 
 
                                 if (!e.target.checked) {
-                                    let indexToBeFound;
                                     this.state.facilitiesUser.map((item, index) => {
                                         if (item.facilityDetailId === facilityDetailId) {
-                                            item.isActive = false;
-                                        }
+                                            return item.isActive = false;
+                                        } else 
+                                        return null;
                                     })
                                 }
                                 else {
 
                                     this.state.facilitiesUser.map((item, index) => {
                                         if (item.facilityDetailId === facilityDetailId) {
-                                            item.isActive = true;
-                                        }
+                                            return item.isActive = true;
+                                        }else
+                                        return null;
                                     })
                                 }
 
                             }
                             }
-                        ></Input></td>
+                        ></Input></th>
                        
                         <td>{item.facilities_details_master.facilities_master.facilityName}</td>
                         <td>{item.facilities_details_master.monthlyRate ? item.facilities_details_master.monthlyRate + " Per Monthly Rate" : item.facilities_details_master.unitRate + " Per Unit Rate"}</td>
@@ -226,7 +226,7 @@ class OwnerFacility extends Component {
 
                 return (
                     <tr key={item.facilityDetailId}>
-                        <td scope="row" ><Input type="checkbox" name="facilities" disabled={this.facilityDisabled(item.facilityDetailId)} className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
+                        <th scope="row" ><Input type="checkbox" name="facilities" disabled={this.facilityDisabled(item.facilityDetailId)} className="SelectAll" value={this.state.facilityDetailId} style={{ marginLeft: '1px' }}
                             onChange={(e) => {
 
                                 const { facilityDetailId } = item
@@ -237,9 +237,13 @@ class OwnerFacility extends Component {
                                     let indexToBeFound;
                                     this.state.facilities.map((item, index) => {
                                         if (item.facilityDetailId === facilityDetailId) {
-                                            indexToBeFound = index;
+                                           return indexToBeFound = index;
                                         }
-                                    })
+                                        else return null
+                                    }
+                                   
+                                    
+                                    )
 
                                     this.state.facilities.splice(indexToBeFound, 1)
 
@@ -253,7 +257,7 @@ class OwnerFacility extends Component {
                                 this.facilityDisabled(facilityDetailId)
                             }
                             }
-                        ></Input></td>
+                        ></Input></th>
                         <td>{item.facilities_master.facilityName}</td>
                         <td>{item.monthlyRate ? item.monthlyRate + " Per Monthly Rate" : item.unitRate + " Per Unit Rate"}</td>
                         <td> <Input type="select" defaultValue='no-value' name="duration" onChange={this.onChangeHandler.bind(this, item.facilityDetailId)} disabled>

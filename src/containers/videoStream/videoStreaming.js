@@ -21,7 +21,7 @@ class Video extends Component {
             .then(res => {
                 const videos = [];
                 res.payload.videoData[0].Video.map(item => {
-                    videos.push(item);
+                    return videos.push(item);
                 })
                 
                 this.setState({ videos: videos })

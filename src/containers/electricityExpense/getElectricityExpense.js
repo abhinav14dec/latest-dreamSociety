@@ -160,10 +160,6 @@ class GetElectricityExpense extends Component {
     this.props.history.push("/superDashboard/electricityExpenseMaster");
   };
 
-  onChange = (item, e) => {
-    // this.setState({[e.target.name]:e.target.value, lastReading: value});
-    var input = document.getElementById(`currentReading` + item);
-  };
 
   update = () => {
     let {
