@@ -12,7 +12,7 @@ export function fetchBasement(){
 
 export function createParking(props){
     const request = axios.post(`${URN}/slot`, props,  {headers:authHeader()})
-    .then(response => console.log(response.data));
+    .then(response => response.data);
     return {
         type: CREATE_PARKING,
         payload: request

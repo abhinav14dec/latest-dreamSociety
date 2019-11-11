@@ -30,7 +30,6 @@ export  function viewMachine(){
 }
 
 export function updateMachine( flatDetailId,machineDetailId,machineId){
-    console.log(flatDetailId,machineDetailId,machineId);
     const request =axios.put(`${URN}/machine/`+machineId,{flatDetailId,machineDetailId},{headers:authHeader()})
     return{
         type:UPDATE_MACHINE,
@@ -38,7 +37,7 @@ export function updateMachine( flatDetailId,machineDetailId,machineId){
     }
 }
 
-export function deleteMachine(machineId,isActive){console.log("action",machineId)
+export function deleteMachine(machineId,isActive){
     const request = axios.put(`${URN}/machine/delete/` +machineId,{ isActive }, {headers:authHeader()})
     return{
         type:DELETE_MACHINE,

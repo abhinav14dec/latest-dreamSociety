@@ -302,7 +302,7 @@ class AddTenant extends Component{
 
     nextPrev = (e) => {
         let errors = {};
-        const {firstName, lastName, dob, gender,permanentAddressUser, panCardNumber, contact, email, correspondenceAddress, aadhaarNumber, permanentAddress} = this.state;
+        const {firstName, lastName, dob, gender,permanentAddressUser, panCardNumber, contact, email, aadhaarNumber} = this.state;
         if(this.state.step === 1){
             if(firstName === '') errors.firstName = `First Name can't be empty.`;
             if(lastName === '') errors.lastName = `Last Name can't be empty.`;
@@ -632,11 +632,11 @@ class AddTenant extends Component{
                     let errors = Object.assign({}, this.state.errors);
                     delete errors[e.target.name];
                     this.setState({permanentAddressUser:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin , errors, message:'' })
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin}` , errors, message:'' })
                 }
                 else {
                     this.setState({permanentAddressUser:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin, message:'' })
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, 'Pin/Zip code: ${this.state.pin}`, message:'' })
                 }
         }
             
@@ -661,7 +661,7 @@ class AddTenant extends Component{
     updatePermanentAddress = (pin) => {
         this.setState({pin})
         this.setState({permanentAddress: this.state.permanentAddressUser  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin}`})
     }
 
     rfidOptions = ({getRFID}) => {

@@ -6,9 +6,8 @@ import{URN,GET_OWNER_DETAIL_VIA_FLATID,GET_FLAT_DETAIL_VIA_TOWERID,UPDATE_TENANT
     GET_RFID,CHECK_EMAIL,CHECK_CONTACT} from '../actionCreators/index';
 
 export function addTenantDetail(values){
-    console.log(values)
     const request = axios.post(`${URN}/tenant`, values, {headers: authHeader()})
-    .then((response) => console.log(response.data))
+    .then((response) => response.data)
 
     return {
         type: ADD_TENANT_DETAIL,
@@ -17,7 +16,6 @@ export function addTenantDetail(values){
 }
 
 export function getFlatDetailViaTowerId(towerId){
-    console.log(towerId)
     const request = axios.get(`${URN}/tower/towerFloor/${towerId}`, {headers: authHeader()})
     .then((response) => response.data)
 
@@ -28,7 +26,6 @@ export function getFlatDetailViaTowerId(towerId){
 }
 
 export function getOwnerDetailViaFlatId(flatDetailId){
-    console.log(flatDetailId)
     const request = axios.get(`${URN}/owner/getFlatDetail/${flatDetailId}`, {headers: authHeader()})
     .then((response) => response.data)
 
@@ -77,9 +74,6 @@ export function deleteSelectedTenant(ids){
 export function updateTenantDetail(firstName,lastName, gender, email, contact, aadhaarNumber, panCardNumber, bankName, IFSCCode,
     accountNumber,accountHolderName, dob, permanentAddress, fileName, towerName, flatNo, towerId, floorId, picture, flatDetailId, tenantId,
     countryId, stateId, cityId, locationId,rfidId){
-        console.log(firstName,lastName, gender, email, contact, aadhaarNumber, panCardNumber, bankName, IFSCCode,
-            accountNumber,accountHolderName, dob, permanentAddress, fileName, towerName, flatNo, towerId, floorId, picture, flatDetailId, tenantId,
-            countryId, stateId, cityId, locationId,rfidId)
         
         const request = axios.put(`${URN}/tenant/` + tenantId, {firstName,lastName, gender, email, contact, aadhaarNumber, panCardNumber, bankName, IFSCCode,
             accountNumber,accountHolderName, dob, permanentAddress, fileName, towerName, flatNo, towerId, floorId, picture, flatDetailId, tenantId,
@@ -139,7 +133,6 @@ export function editTenantMember(firstName, lastName, memberDob, gender, email, 
 }
 
 export function addNewTenantDetail(values){
-    console.log(values)
     const request = axios.post(`${URN}/tenant/members`, values, {headers: authHeader()})
     .then((response) => response.data)
 
@@ -150,9 +143,8 @@ export function addNewTenantDetail(values){
 }
 
 export function addNewFlatForTenant(values){
-    console.log(values)
     const request = axios.post(`${URN}/tenant/addFlat`, values,  {headers: authHeader()})
-    .then((response) => console.log(response.data))
+    .then((response) =>response.data)
 
     return {
         type: ADD_NEW_Flat,
@@ -161,7 +153,6 @@ export function addNewFlatForTenant(values){
 }
 
 export function getFlats(tenantId){
-    console.log(tenantId)
     const request = axios.get(`${URN}/tenant/getFlats/${tenantId}`,  {headers: authHeader()})
     .then((response) => response.data)
     return {
@@ -171,7 +162,6 @@ export function getFlats(tenantId){
 }
 
 export function editFlats(tenantId, flatDetailId, previousFlatDetailId){
-    console.log(tenantId, flatDetailId, previousFlatDetailId)
     const request = axios.put(`${URN}/tenant/editFlat`, {tenantId, flatDetailId, previousFlatDetailId},  {headers: authHeader()})
     .then((response) => response.data)
     return {

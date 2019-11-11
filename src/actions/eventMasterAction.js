@@ -4,7 +4,6 @@ import {URN,GET_EVENT,ADD_EVENT, GET_EVENT_ORGANISER, DELETE_EVENT,UPDATE_EVENT,
 
 
 export function ViewEvent(){
-    console.log('byrr');
     const request = axios.get(`${URN}/event`,{headers:authHeader()})
     .then(response=> response.data)
     return{
@@ -45,7 +44,6 @@ export function ViewEvent(){
                 }
     }
     export function updateEvent( eventId, eventType, eventName, eventOrganiser, userId ){
-   console.log( eventId, eventType, eventName, eventOrganiser, userId );
         const request =
         axios.put(`${URN}/event/`+eventId,{ userId, eventType, eventName, eventOrganiser },{headers:authHeader()}).then((response)=>{
 
@@ -58,8 +56,6 @@ export function ViewEvent(){
     }
 
     export function deleteMultipleEvents(ids){
-        console.log('deleteMultipleEvents',ids);
-        
         const request = axios.put(`${URN}/event/delete/deleteSelected`,{ids},{ headers: authHeader() })
         .then(response=>response.data)
         return{

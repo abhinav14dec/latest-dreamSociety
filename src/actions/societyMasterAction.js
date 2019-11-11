@@ -104,7 +104,6 @@ export const deleteSociety=(societyId)=>{
  }
 
  export const deleteSelectSociety=(ids)=>{
-    console.log(ids)
     const request = axios.put(`${URN}/society/delete/deleteSelected`,{ids}, {headers:authHeader()})
      .then(response => response.data)
  

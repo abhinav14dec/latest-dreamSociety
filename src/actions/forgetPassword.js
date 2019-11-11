@@ -3,7 +3,6 @@
 //    import { authHeader } from '../helper/authHeader';
 
     export function matchUser(values){
-        console.log('action',values);
        const request = axios.get(`${URN}/forgotPassword/` + values )
        .then(response => response.data)
         // .then(getCountry());

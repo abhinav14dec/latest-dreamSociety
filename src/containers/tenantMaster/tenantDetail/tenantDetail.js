@@ -363,7 +363,7 @@ class TenantDetail extends Component {
               }
         }
 
-    towerChangeHandler = (towerId, towerName, selectOption) => {
+    towerChangeHandler = ( selectOption) => {
         document.getElementById('floor').value = null;
         this.setState({correspondenceAddress:'',memberError:''})
         this.setState(function (prevState, props) {

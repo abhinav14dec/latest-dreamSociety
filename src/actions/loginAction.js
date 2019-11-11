@@ -16,7 +16,6 @@ export function login(username, password) {
     }
 }
 export function userLogout() {
-    console.log('logout function')
     // remove user from local storage to log user out
     localStorage.removeItem('token');
     localStorage.removeItem('user-type');

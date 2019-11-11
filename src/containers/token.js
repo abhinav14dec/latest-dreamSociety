@@ -15,12 +15,11 @@ import { giveToken  } from '../actions/token';
     componentDidMount(){
         const url=window.location.href.split('?')[1];
         localStorage.setItem('url', url)
-        console.log("fhcbdhbdhc",url);
         this.props.giveToken(url)
-        .then((response)=>{
+        .then(()=>{
           this.props.history.push('/submitotp?'+ url)
         })
-        .catch(err=>console.log(err));
+        .catch(err=>(err));
 
     }
 
