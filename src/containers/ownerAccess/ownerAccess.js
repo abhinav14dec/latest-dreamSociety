@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAccessData } from './../../actions/ownerAccessAction';
-import {getMachineDetails,disableMachine} from '../../actions/fingerprint';
+// import {getMachineDetails,disableMachine} from '../../actions/fingerprint';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/ownerDashboard';
-import { Form, Button, FormGroup, Input, Label, Table } from 'reactstrap';
+import { Button,Label, Table } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 
 
@@ -37,7 +37,6 @@ class OwnerAccess extends Component{
     activatedChange = async (e)=>{
         
         let selected=e.target.value;
-        console.log(selected);
        await this.setState({
             type:selected
          })
@@ -47,7 +46,6 @@ class OwnerAccess extends Component{
      }
 
      machineResult=(userId)=>{
-        console.log(userId)
     //     this.setState({ loading:true,message:''})
     //     this.props.getMachineDetails(userId)
     //     .then((res)=>{this.setState({message:res.payload.message,userId,loading: false})
@@ -56,7 +54,6 @@ class OwnerAccess extends Component{
     }
 
     disableResult=(userId)=>{
-        console.log(userId)
     //     this.setState({loading:true,message:'',})
     //     this.props.disableMachine(userId)
     //     .then((res)=>{this.setState({message:res.payload.message,userId,loading: false})
@@ -70,7 +67,7 @@ class OwnerAccess extends Component{
     }
 
     searchFilter = (search) => {
-        return function (x) { console.log(x)
+        return function (x) { 
             return x.user.firstName.toLowerCase().includes(search.toLowerCase())  ||
               x.user.contact.toLowerCase().includes(search.toLowerCase()) ||
              x.user.email.toLowerCase().includes(search.toLowerCase())  ||
@@ -84,7 +81,6 @@ class OwnerAccess extends Component{
      
     getOwnerResult=({ownerAccess})=>{
         if(ownerAccess){
-            console.log(ownerAccess);
          return ownerAccess.sort((item1,item2)=>{ 
             var cmprVal = (item1.user.firstName && item2.user.firstName ) ? (item1[this.state.filterName].localeCompare(item2[this.state.filterName])) : ''
          return this.state.sortVal ? cmprVal : -cmprVal;
@@ -197,7 +193,6 @@ let radioData=<div>
 }
 
 function mapStatToProps(state) {
-     console.log(state)
     return {
         ownerAccessReducer: state.ownerAccessReducer
     

@@ -15,27 +15,23 @@ import { giveToken  } from '../actions/token';
     componentDidMount(){
         const url=window.location.href.split('?')[1];
         localStorage.setItem('url', url)
-        console.log("fhcbdhbdhc",url);
         this.props.giveToken(url)
-        .then((response)=>{
+        .then(()=>{
           this.props.history.push('/submitotp?'+ url)
         })
-        .catch(err=>console.log(err));
+        .catch(err=>(err));
 
     }
 
     // submit=(e)=>{
     //     e.preventDefault();
-    //     console.log(this.state.otp);
     //     const url=window.location.href.split('?')[1]
     //      let {otp} = this.state
     //     axios.post(`${URN}/otpVerify`,{url,otp})
     //     .then((response)=>{
-    //       console.log(response.data)
     //       localStorage.setItem('url', url)
     //       this.props.history.push('/resetpassword')
     //     })
-    //     .catch(err=>console.log(err.response.data.messageErr));
   
 
     // }

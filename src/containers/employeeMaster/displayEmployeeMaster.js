@@ -12,7 +12,6 @@ import Spinner from '../../components/spinner/spinner'
 import UI from '../../components/newUI/superAdminDashboard'
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import DefaultSelect from '../../constants/defaultSelect'
-import _ from 'underscore';
 import './employeeMaster.css'
 import GoogleDocsViewer from 'react-google-docs-viewer';
 import {getRfId} from '../../actions/rfIdAction';
@@ -676,8 +675,8 @@ class DisplayEmployeeMaster extends Component {
     updatePermanentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+            permanentAddress: `${this.state.permanentAddressDefault}, ${location} ,
+            ${this.state.cityName},  ${this.state.stateName},  ${this.state.countryName} , Pin/Zip Code: ${this.state.pin}`
         })
     }
 

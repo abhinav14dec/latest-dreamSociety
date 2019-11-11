@@ -41,7 +41,6 @@ class EventSpaceMaster extends Component {
 
     submit = (e) => {
         e.preventDefault();
-        console.log(this.state)
         let errors = {};
        
         if (this.state.spaceName === '') errors.spaceName = "Cant be empty";
@@ -66,12 +65,11 @@ class EventSpaceMaster extends Component {
         this.setState({ errors });
 
         const isValid = Object.keys(errors).length === 0;
-            console.log(this.state);
         if (isValid) {
             this.setState({ loading: true })
             this.props.AddEventDetails({ ...this.state })
             .then(() => this.props.history.push('/superDashboard/eventSpaceMaster/eventSpaceMasterDetails'))
-            .catch((err)=>{console.log(err.response.data.message)
+            .catch((err)=>{
                 this.setState({loading:false, message:err.response.data.message})});
             this.setState({
                 spaceName: '',
@@ -92,16 +90,13 @@ class EventSpaceMaster extends Component {
         if (!this.state.errors[e.target.value]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log('no errors');
             this.setState({ [e.target.name]: e.target.value.trim(''), errors });
         } else {
             this.setState({ [e.target.name]: e.target.value.trim('') });
         }
 
-        console.log(this.state)
     }
     // societyName({ list0 }) {
-    //     console.log(list0)
     //     if (list0) {
 
     //         return (

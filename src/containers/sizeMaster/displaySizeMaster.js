@@ -110,7 +110,6 @@ else {
 
 
   editSize(id, sizeId, sizeType) {
-    console.log('ghrehj');
 
     this.setState({
            id, sizeId, sizeType , editSizeModal: !this.state.editSizeModal
@@ -136,7 +135,6 @@ else {
 }
 
   TowerMasterDetails({ getSize }) {
-    console.log("getSize ", getSize);
     if (getSize) {
 
 

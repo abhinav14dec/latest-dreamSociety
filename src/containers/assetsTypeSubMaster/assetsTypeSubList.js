@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAssets, updateAssetsSub, removeAssetsSub,deleteMultiple } from '../../actions/assetsSubAction';
 import { bindActionCreators } from 'redux';
-import { Button, Modal, FormGroup, Table, ModalBody, ModalHeader, ModalFooter, Input, Label } from 'reactstrap';
+import { Button, Modal, FormGroup, Table, ModalBody, ModalHeader, Input, Label } from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter'
 import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';
@@ -16,7 +16,6 @@ class AssetsTypeSubList extends Component {
             assetId:'',
             filterName: "assetType",
             pageData: [],
-            activePage: 0,
             assetTypeId: '',
             assetType: '',
             description: '',
@@ -24,7 +23,6 @@ class AssetsTypeSubList extends Component {
             menuVisible: false,
             search: '',
             pageCount: 1,
-            activePage: 1,
             loading: true,
             errors: {},
             ids: [],
@@ -119,7 +117,6 @@ class AssetsTypeSubList extends Component {
                 let cmpValue=(item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                 return this.state.sortVal?cmpValue: -cmpValue;
             }).filter(this.searchFilter(this.state.search)).map((item,index) => {
-                {
                     return (
                         <tr key={item.assetTypeId}>
                          <td><input type="checkbox" name="ids" value={item.assetTypeId} className="SelectAll"
@@ -154,7 +151,6 @@ class AssetsTypeSubList extends Component {
                             </td>
                         </tr>
                     )
-                }
             })
         }
 

@@ -103,7 +103,6 @@ class MemberEventsBookingDetail extends Component {
         e.preventDefault();
       
         const {societyMemberEventBookingId, societyMemberEventId,startDate,endDate,numberOfGuestExpected, eventSpaceId } = this.state
-        console.log(societyMemberEventBookingId, societyMemberEventId,startDate,endDate,numberOfGuestExpected, eventSpaceId);
       
         let errors = {};
        

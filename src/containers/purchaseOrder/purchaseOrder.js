@@ -112,16 +112,7 @@ class PurchaseOrder extends Component {
         }
         this.setState({errors:{}})
     }
-    // getAsset=({getAssetsType})=>{
-    //     if(getAssetsType && getAssetsType.assetsType){
-    //         return (
-    //           getAssetsType.assetsType.map((item)=>{
-    //                 return ({...item, label:item.asset_master.assetName ,value:item.asset_master.assetId})
-    //             })
-    //         )
-    //     }
-    // }
-
+ 
     getAsset = ({ getAssetsType }) => {
         
         if (getAssetsType && getAssetsType.assetsType) {
@@ -343,7 +334,7 @@ class PurchaseOrder extends Component {
     onSubmit=(e)=>{
         e.preventDefault();
         this.setState({purchaseOrderAssetsArray:[], purchaseOrderServiceArray:[]})
-        const {vendorId,vendorAddress,vendorContact,expDate,startDate,endDate,purchaseOrderAssetsArray,purchaseOrderServiceArray}=this.state
+        const {vendorId,expDate,purchaseOrderAssetsArray,purchaseOrderServiceArray}=this.state
          
         let errors = {};
 

@@ -94,12 +94,10 @@ class Registration extends Component {
 
     emailChange = (e) => {
         if(e.target.value !== ''){
-            this.state.errors.email ='';
+            this.state.errors.email ='' ;
         }
-        console.log(this.state.email)
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value});
-            console.log(this.state.email)
             this.setState({emailValidError: ''})
         }
         else{ this.setState({emailValidError: 'Invalid Email.'})}
@@ -142,7 +140,6 @@ class Registration extends Component {
                     
             )
             .catch(err => {
-                console.log(err.response.data);
                 this.setState({emailServerError: err.response.data.messageEmailErr, userNameServerError:err.response.data.messageUsernameErr,
                     contactServerError: err.response.data.messageContactErr, loading: false})
             });
@@ -150,7 +147,6 @@ class Registration extends Component {
     }
 
     onChange(e) {
-        console.log(this.state)
             this.setState({
                 emailServerError:'',
                 userNameServerError:'',
@@ -247,7 +243,6 @@ class Registration extends Component {
                 towerValue={this.state.towerId}
                 towerChange={this.onChange}
                 towerError={this.state.errors.towerId}
-                contactError={this.state.errors.contact}
                 contactKeyPress={this.OnKeyPresshandlerPhone}
                 passwordInputName="password"
                 passwordValue={this.state.password}
@@ -261,8 +256,6 @@ class Registration extends Component {
                 emailServerValidationError={this.state.emailServerError}
                 userNameServerValidationError={this.state.userNameServerError}
                 contactServerValidationError={this.state.contactServerError}
-                
-                emailKeyPress={this.emailValid}
                 InValidEmailFormatError={this.state.emailValidError}
                 />
         
@@ -288,7 +281,6 @@ class Registration extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         userDetail: state.userDetail,
         TowerDetails: state.TowerDetails

@@ -35,7 +35,7 @@ export function updateInventory( inventoryId,
     ratePerInventory,
     assetId,
     assetTypeId, ) {
-    console.log(inventoryId,dateOfPurchase,ratePerInventory,assetId,assetTypeId,serialNumber )
+    
     const data = {
         inventoryId:inventoryId,
         dateOfPurchase:dateOfPurchase,
@@ -77,7 +77,6 @@ export function multipleDelete(ids) {
 }
 
 export function getInventoryList (id){
-    console.log('mmmmmmmmmmmmm',id)
     const request = axios.get(`${URN}/inventory/${id}`, { headers: authHeader() })
     .then(response=>response.data)
     .catch(error=>error)

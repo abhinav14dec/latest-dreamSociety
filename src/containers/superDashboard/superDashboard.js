@@ -23,7 +23,6 @@ import Chart from '../../containers/chart/chart';
   }
 
   logout=()=>{
-    console.log('hiiii')
     this.props.userLogout();   
   }
 

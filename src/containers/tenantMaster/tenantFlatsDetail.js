@@ -41,7 +41,6 @@ class TenantFlatsDetail extends Component{
             });
         }
         else this.setState({loading:false})
-        console.log(id)
         this.props.viewTower()
     }
 
@@ -64,7 +63,6 @@ class TenantFlatsDetail extends Component{
     }
 
     addFlats(tenantId){
-        console.log(tenantId)
         this.setState({addFlat: true,tenantId})
     }
 
@@ -75,34 +73,38 @@ class TenantFlatsDetail extends Component{
 
     flatInputs = ({getTenantFlats}) => {
         if(getTenantFlats && getTenantFlats.flats){
-            console.log(getTenantFlats)
             return getTenantFlats.flats.sort((item1,item2)=>{
                 if(item1 && item2){
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
                 }
+                else {
+                    return null
+                }
             }).map((item, index) => {
-                return (
-                    <tr key={item.flatDetailId}>
-                        <td>{index + 1}</td>
-                        <td>{item.tower_master.towerName}</td>
-                        <td>{item.floor_master.floorName}</td>
-                        <td>{item.flatNo}</td>
-                        <td>
-                            <Button color="success" className="mr-2" onClick={this.edit.bind(this,item.tower_master.towerName,item.floor_master.floorName, item.flatNo,item.tower_master.towerId,
-                             item.floor_master.floorId,
-                                item.flatDetailId)}>Edit</Button>
-                            <Button color="danger" onClick={this.delete.bind(this, this.state.tenantId, item.flatDetailId)}>Delete</Button>
-                        </td>
-                    </tr>
-                )
+                if(item){
+                    return (
+                        <tr key={item.flatDetailId}>
+                            <td>{index + 1}</td>
+                            <td>{item.tower_master.towerName}</td>
+                            <td>{item.floor_master.floorName}</td>
+                            <td>{item.flatNo}</td>
+                            <td>
+                                <Button color="success" className="mr-2" onClick={this.edit.bind(this,item.tower_master.towerName,item.floor_master.floorName, item.flatNo,item.tower_master.towerId,
+                                 item.floor_master.floorId,
+                                    item.flatDetailId)}>Edit</Button>
+                                <Button color="danger" onClick={this.delete.bind(this, this.state.tenantId, item.flatDetailId)}>Delete</Button>
+                            </td>
+                        </tr>
+                    )  
+                }
+                else return null;
             })
         }
     }
 
     delete = (tenantId, flatDetailId) => {
         this.setState({loading:true})
-        console.log(tenantId, flatDetailId)
         let values = {
             tenantId,
             flatDetailId
@@ -120,17 +122,13 @@ class TenantFlatsDetail extends Component{
     }
 
     edit = (towerName, floorName, flatNo, towerId, floorId,flatDetailId) => {
-        console.log(towerName, floorName, flatNo, towerId, floorId,flatDetailId)
         this.props.getFlatDetailViaTowerId(towerId)
         this.setState({towerName, floorName, flatNo, towerId, floorId,flatDetailId,previousFlatDetailId:flatDetailId, editFlat:true})
     }
 
     towerChangeHandler = (e) => {
-        console.log(e)
         // var x = document.getElementById('floor');
-        // console.log(x)
         // x.remove(x)
-        console.log(this.state)
         this.setState({
                 towerId: parseInt(e.target.value),
                 memberError:'',
@@ -144,11 +142,8 @@ class TenantFlatsDetail extends Component{
     }
 
     towerChangeHandler1 = (e) => {
-        console.log(e)
         // var x = document.getElementById('floor');
-        // console.log(x)
         // x.remove(x)
-        console.log(this.state)
         this.setState({
                 towerId: parseInt(e.target.value),
                 memberError:'',
@@ -163,7 +158,6 @@ class TenantFlatsDetail extends Component{
 
 
     floorChangeHandler=(e)=>{
-        console.log(this.state)
         this.setState({
             floorId: parseInt(e.target.value),
             memberError:'',
@@ -171,14 +165,11 @@ class TenantFlatsDetail extends Component{
             flatNo:'',
             message:''
         })
-        console.log('lllllllll=======',this.state.floorId)
         // this.getFlats(this.props.towerFloor);
     
         }
 
         flatChangeHandler=(e)=>{
-            console.log(this.state.flatDetailId)
-            console.log(this.state)
             this.setState({
                 flatDetailId: parseInt(e.target.value),
                 memberError:'',
@@ -201,7 +192,6 @@ class TenantFlatsDetail extends Component{
     }
 
     getFloor=({getFlatDetail})=>{
-        console.log("floor",getFlatDetail)
         if(getFlatDetail && getFlatDetail.tower){
             return getFlatDetail.tower.Floors.map((item)=>{
                       
@@ -217,12 +207,10 @@ class TenantFlatsDetail extends Component{
         }}
 
         getFlats=({getFlatDetail})=>{
-            console.log('7777777jjjjjj',getFlatDetail)
             if(getFlatDetail && getFlatDetail.flatDetail){
               return  getFlatDetail.flatDetail.filter((flatRecord)=>{
-                return flatRecord.floorId==this.state.floorId
+                return flatRecord.floorId===this.state.floorId
             }).map((selectFlat)=>{
-                    console.log('bbbbbbbbbbbbbbbbb',selectFlat)
                     // return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                     return <option key={selectFlat.flatDetailId} value={selectFlat.flatDetailId} >{selectFlat.flatNo}</option>
                 });
@@ -241,7 +229,6 @@ class TenantFlatsDetail extends Component{
             const isValid = Object.keys(errors).length === 0;
             if(isValid){
                 this.setState({addFlatLoading: true})
-                console.log(tenantId, flatDetailId)
                 let data = {
                     tenantId, flatDetailId
                 }
@@ -271,7 +258,6 @@ class TenantFlatsDetail extends Component{
             if(isValid){
                 this.setState({editFlatLoad:true})
                 let { tenantId, flatDetailId, previousFlatDetailId } = this.state;
-                console.log(tenantId, flatDetailId, previousFlatDetailId )
                 this.props.editFlats(parseInt(tenantId), flatDetailId, previousFlatDetailId).then(() => this.refreshUpdated())
                 .catch(err => {
                     this.setState({editFlatLoad:false, message: err.response.data.message})
@@ -391,7 +377,7 @@ let flatModal = <div>
                         <h3>Tenant Flats Detail</h3>
                         <div>
                             <Button color="primary" onClick={this.route} className="mr-2">View Tenant Detail</Button>
-                            <Button color="primary" onClick={this.addFlats.bind(this, this.state.tenantId)} color="primary">Add Flats</Button>
+                            <Button color="primary" onClick={this.addFlats.bind(this, this.state.tenantId)} >Add Flats</Button>
                         </div>
                     </div>
                     <Modal isOpen={this.state.addFlat} toggle={this.toggleFlat.bind(this)}>
@@ -415,7 +401,6 @@ let flatModal = <div>
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         tenantReducer:state.tenantReducer,
         towerList: state.TowerDetails

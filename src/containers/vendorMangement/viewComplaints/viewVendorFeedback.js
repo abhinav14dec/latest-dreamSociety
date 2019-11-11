@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { getComplaints,rejectComplaint,acceptComplaint,sendConfirmations,complaintCompleted,deleteSelectedComplaints,getFeedback} from '../../../actions/viewComplaintsAction';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Label, Table} from 'reactstrap';
+import { Table} from 'reactstrap';
 import UI from '../../../components/newUI/superAdminDashboard';
 import Spinner from '../../../components/spinner/spinner';
-import DefaultSelect from '../../../constants/defaultSelect';
 
 var Id;
 class ViewVendorFeedback extends Component {
@@ -62,11 +61,10 @@ componentWillMount(){
 
 
 
-      renderList = ({feedbackResult}) => {  console.log(feedbackResult)
+      renderList = ({feedbackResult}) => {  
     
         if (feedbackResult && feedbackResult.feedback) {
             const item=feedbackResult.feedback
-            console.log(item)
                 return (
                     
                     <tr key={item.feedbackId}>
@@ -155,7 +153,7 @@ componentWillMount(){
     }
 }
 
-function mapStateToProps(state) {console.log(state);
+function mapStateToProps(state) {
 
     return {
         viewComplaintsReducer:state.viewComplaintsReducer

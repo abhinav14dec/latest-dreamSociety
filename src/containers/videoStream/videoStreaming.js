@@ -19,13 +19,11 @@ class Video extends Component {
     componentDidMount() {
         this.props.videoStream()
             .then(res => {
-                console.log(res.payload.videoData[0].Video);
                 const videos = [];
                 res.payload.videoData[0].Video.map(item => {
-                    videos.push(item);
+                    return videos.push(item);
                 })
                 
-                console.log(videos);
                 this.setState({ videos: videos })
             })
     }
@@ -58,9 +56,7 @@ class Video extends Component {
                 <UI onClick={this.logout} change={this.changePassword}>
                     <div className="row">
                         {this.state.videos.map(item => {
-                            console.log(item);
                             let urn = `${URN}/live/video/${item.videoId}`;
-                            console.log(urn);
                             return (<div className="col-lg-4 col-md-6 col-sm"><div><Label className="mt-5">{item.videoName}</Label></div><div><video width="300px" height="240px" controls><source src={urn} type="video/mp4" /></video></div></div>)
                         })}
                     </div>

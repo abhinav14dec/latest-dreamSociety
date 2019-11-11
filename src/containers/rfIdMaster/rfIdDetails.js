@@ -152,7 +152,7 @@ class RFIdDetails extends Component {
         this.setState({ modal: !this.state.modal })
     }
     editRFID=()=>{
-        const { rfid,rfidId} = this.state
+        const {rfid} = this.state
         let errors = {};
         if(rfid===''){
             errors.rfid="Rf Id can't be empty"
@@ -239,7 +239,7 @@ class RFIdDetails extends Component {
                             </ModalBody>
                         </Modal>
                     </div>
-               </UI> 
+               </UI>
             </div>
         );
     }

@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 
 export const AdminPrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props =>  (localStorage.getItem('token') && localStorage.getItem('role')=="ADMIN"
+    <Route {...rest} render={props =>  (localStorage.getItem('token') && localStorage.getItem('role')==="ADMIN"
             ? <Component {...props} />
             : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
     )

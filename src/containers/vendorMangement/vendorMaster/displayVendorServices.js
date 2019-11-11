@@ -29,7 +29,6 @@ class DisplayVendorServices extends Component {
             loading:true,
             search: '',
             modalIsOpen: false,
-            search: '', 
             ids:[],
             isDisabled:true,    
             errors:{},
@@ -156,14 +155,12 @@ updateServices = () => {
                         }       
                     this.setState({ modalLoading: true
                })
-               console.log(vendorId,"vendorId",vendorServiceId,rate,"rate")
     }   
 }
 
     renderList = ({ vendors }) => {  
 
         if (vendors && vendors.vendor[0]) {
-            console.log(vendors.vendor[0])
             return   vendors.vendor[0].vendor_services.sort((item1,item2)=>{
                 var cmprVal = (item1.service_master[this.state.filterName].localeCompare(item2.service_master[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
@@ -220,13 +217,6 @@ updateServices = () => {
         return this.props.history.replace('/superDashboard/changePassword')
     }
     
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
 
     
     selectAll = () => {
@@ -240,7 +230,6 @@ updateServices = () => {
             if(ar.length > 0){
                 this.setState({isDisabled: false});
             }
-            console.log(this.state)
     }
 
     unSelectAll = () =>{
@@ -263,14 +252,6 @@ updateServices = () => {
         return this.props.history.replace('/superDashBoard')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-    
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
         let inputChar = String.fromCharCode(event.charCode);

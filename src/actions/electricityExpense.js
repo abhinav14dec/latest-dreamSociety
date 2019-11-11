@@ -3,7 +3,6 @@ import axios from 'axios';
 import { URN, UPDATE_ELECTRICITY_EXPENSE, DELETE_SELECTED_ELECTRICITY_EXPENSE, DELETE_ELECTRICITY_EXPENSE, GET_FLOOR_OF_TOWER, GET_ELECTRICITY_EXPENSE, GET_RATE_FOR_ELECTRICITY, ADD_ELECTRICITY_EXPENSE } from '../actionCreators/index';
 
 export function getfloorsOfTowers(towerId) {
-    console.log("towerId", towerId);
     const request = axios.get(`${URN}/towerFloor/${towerId}`, { headers: authHeader() })
         .then(response => response.data)
         .catch(error => error)
@@ -14,7 +13,6 @@ export function getfloorsOfTowers(towerId) {
 }
 
 export function addElectricityExpense(values) {
-    console.log(values);
     const request = axios.post(`${URN}/electricityConsumer`, values, { headers: authHeader() })
 
     return {
@@ -58,7 +56,6 @@ export const deleteElectricityExpense = (electricityConsumerId) => {
 }
 
 export function deleteSelectedElectricityExpense(ids) {
-    console.log("ids in axios==>",ids);
     const request = axios.put(`${URN}/electricityConsumer/delete/deleteSelected`, { ids }, { headers: authHeader() })
         .then(response => response.data)
         .then(error => error)

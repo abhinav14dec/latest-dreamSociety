@@ -10,22 +10,16 @@ export default class submitOT extends Component {
         otp:''
     }
 
-    
-
     submit=(e)=>{
         e.preventDefault();
-        console.log(this.state.otp);
-        console.log(window.location.href.split('?')[1])
         const url=window.location.href.split('?')[1]
-        console.log(url);
          let {otp} = this.state
         axios.post(`${URN}/otpVerify`,{url,otp})
         .then((response)=>{
-          console.log(response.data)
           // localStorage.setItem('url', url1)
           this.props.history.push('/resetpassword?'+ url)
         })
-        .catch(err=>console.log(err.response.data.messageErr));
+        .catch(err=>err.response.data.messageErr);
   
 
     }

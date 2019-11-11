@@ -3,7 +3,7 @@ import {URN,RESET_PASSWORD,CLEAR_MESSAGE} from '../actionCreators/index';
 //    import { authHeader } from '../helper/authHeader';
 
  export function resetPassword(values){
-     console.log('action',values);
+     
     const request = axios.post(`${URN}/resetPassword/`, {values} )
     .then(response => response.data)
    
@@ -17,7 +17,6 @@ import {URN,RESET_PASSWORD,CLEAR_MESSAGE} from '../actionCreators/index';
  }
 
  export function clearMessage(){
-    //     console.log('action',values);
     //    const request = axios.get(`${URN}/forgotPassword/` + values )
     //    .then(response => response.data)
     //     // .then(getCountry());

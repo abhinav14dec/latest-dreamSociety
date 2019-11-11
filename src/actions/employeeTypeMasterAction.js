@@ -5,10 +5,8 @@ import {URN,ADD_EMPLOYEE,GET_EMPLOYEE_TYPE,GET_EMPLOYEE,GET_EMPLOYEE_WORK_TYPE,U
 
 
 export function  AddEmployee(serviceType,employeeTypeId,employeeWorkTypeId){
-    console.log("hede");
     const request =axios.post(`${URN}/employeeDetail`,{serviceType,employeeTypeId,employeeWorkTypeId},{headers:authHeader()})
     .then()
-    console.log(request,"drfde")
 return{
     type:ADD_EMPLOYEE,
     payload:request
@@ -37,7 +35,6 @@ export  function getEmployeeType(){
 }
 
 export  function getEmployeeWorkType(){
-    console.log('hi');
     const request =axios.get(`${URN}/employeeWorkType`,{headers:authHeader()})
     .then(res=>res.data)
     return{

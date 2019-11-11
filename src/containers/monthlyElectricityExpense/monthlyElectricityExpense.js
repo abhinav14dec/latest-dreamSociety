@@ -282,8 +282,8 @@ class MonthlyElectricityExpense extends Component {
     }
 
     render(){
-        let { towerId, floorId, flatDetailId, lastReading, currentReading, unitConsumed, lastAmountDue, rate, rent, sanctionedLoad,
-        mdi,amountDue, amount, monthlyCharges,startDate, endDate, errors } = this.state;
+        let { towerId, floorId, flatDetailId, lastReading, currentReading, unitConsumed, rate, rent, sanctionedLoad,
+        mdi,amountDue, amount, monthlyCharges, errors } = this.state;
         let form;
         form = <div>
             <FormGroup>

@@ -224,9 +224,7 @@ class IndividualVendor extends Component{
     }
 
     onRateChange=(e)=>{
-    //    console.log("=====================", e.target.value)
         if (e.target.value.match(/^\d*(\.\d{0,2})?$/)){
-            console.log("=====================", e.target.value)
             this.setState({[e.target.name]:e.target.value});
             
         }}
@@ -272,9 +270,7 @@ class IndividualVendor extends Component{
         }
     }
     
-    onChangeCountry = (countryId, countryName, selectOption) => {
-        console.log(countryId, countryName, selectOption)
-    
+    onChangeCountry = (countryId, countryName, selectOption) => {    
         this.setState({
             countryName: selectOption.countryName,
             countryId:selectOption.countryId, 
@@ -285,7 +281,6 @@ class IndividualVendor extends Component{
     
     stateName = ({stateResult}) => {
         if(stateResult){
-          console.log(stateResult)
            return( 
             stateResult.map((item) =>{ 
                    return(
@@ -299,7 +294,6 @@ class IndividualVendor extends Component{
     
     stateName1 = ({stateResult}) => {
         if(stateResult){
-          console.log(stateResult)
            return( 
             stateResult.map((item) =>{ 
                    return(
@@ -312,7 +306,6 @@ class IndividualVendor extends Component{
     }
     
     onChangeState = (stateName, stateId, selectOption) => {
-        console.log(stateName, stateId, selectOption)
         this.setState({
             stateName: selectOption.stateName,
             stateId:selectOption.stateId
@@ -353,7 +346,6 @@ class IndividualVendor extends Component{
     }
     
     onChangeCity = (cityName, cityId, selectOption) => {
-        console.log(cityName, cityId, selectOption)
         this.setState({
             cityName: selectOption.cityName,
             cityId:selectOption.cityId
@@ -393,7 +385,6 @@ class IndividualVendor extends Component{
      }
     
     onChangeLocation = (locationName, locationId, selectOption) => {
-        console.log(locationName, locationId, selectOption)
         this.setState({
             locationName: selectOption.locationName,
             locationId:selectOption.locationId,
@@ -403,16 +394,13 @@ class IndividualVendor extends Component{
     }
     
     updatePermanentAddress1 = (location) => {
-        console.log(location)
         this.setState({location})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + location + ', ' +
         this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
     
     
     countryChange = (currentCountryId, currentCountry, selectOption) => {
-        console.log(currentCountryId, currentCountry, selectOption)
     
         this.setState({
             currentCountry: selectOption.countryName,
@@ -424,7 +412,6 @@ class IndividualVendor extends Component{
     
     
     stateChange = (currentState, currentStateId, selectOption) => {
-        console.log(currentState, currentStateId, selectOption)
         this.setState({
             currentState: selectOption.stateName,
             currentStateId:selectOption.stateId
@@ -433,7 +420,6 @@ class IndividualVendor extends Component{
     }
     
     cityChange = (currentCity, currentCityId, selectOption) => {
-        console.log(currentCity, currentCityId, selectOption)
         this.setState({
             currentCity: selectOption.cityName,
             currentCityId:selectOption.cityId
@@ -442,7 +428,6 @@ class IndividualVendor extends Component{
     }
     
     locationChange = (currentLocation, currentLocationId, selectOption) => {
-        console.log(currentLocation, currentLocationId, selectOption)
         this.setState({
             currentLocation: selectOption.locationName,
             currentLocationId:selectOption.locationId,
@@ -452,11 +437,9 @@ class IndividualVendor extends Component{
     }
     
     updateCurrentAddress1 = (location) => {
-        console.log(location)
         this.setState({location})
         this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + location + ', ' +
         this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-        console.log('currentAddress', this.state.currentAddress)
     }
 
     defaultPermanentAddressChange = (e) =>{
@@ -464,9 +447,7 @@ class IndividualVendor extends Component{
     }
 
     sameAddress = () => {
-        console.log(this.state)
         if(!!document.getElementById('isChecked').checked){
-            console.log('is checked')
            this.setState({currentAddress: this.state.permanentAddress, currentAddressVisible:true, editCurrent:false})
         }
        else{
@@ -475,7 +456,6 @@ class IndividualVendor extends Component{
     }
 
     permanentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -493,7 +473,6 @@ class IndividualVendor extends Component{
     }
     
     currentAddressChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -507,7 +486,6 @@ class IndividualVendor extends Component{
     }
     
     pinChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -521,15 +499,12 @@ class IndividualVendor extends Component{
     
     
     updateCurrentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({currentAddress: this.state.currentAddressDefault  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
         this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('currentAddress', this.state.currentAddress)
     }
     
     pinChange1 = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -542,17 +517,14 @@ class IndividualVendor extends Component{
     }
     
     updatePermanentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
         this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
     }
 
     changeVendor=(event)=>{
        
         this.setState({ [event.target.name]: event.target.checked}, function(){
-            console.log(this.state.dailyRoutine)
         })
         
     }
@@ -574,9 +546,7 @@ class IndividualVendor extends Component{
     }
 
     rateTypeDetail({rate}){
-        if(rate){
-            console.log(rate)
-          
+        if(rate){          
            return( 
             rate.rate.map((item) =>{ 
                    return(
@@ -688,11 +658,10 @@ class IndividualVendor extends Component{
         
         const isValid= Object.keys(errors).length === 0;
 
-        console.log("submitted-----------------", this.state);
              if(isValid){
                 
                 this.props.addVendor(this.state).then(()=>this.props.history.push('/superDashboard/individualVendorDetail'))
-                .catch((err)=>{ console.log(err.response.data)
+                .catch((err)=>{ 
                     this.setState({message: err.response.data.message,messageContactErr:err.response.data.messageContactErr,messageEmailErr:err.response.data.messageEmailErr ,loading: false})
                 
                 }) 
@@ -1034,7 +1003,6 @@ class IndividualVendor extends Component{
 }
 
 function mapStateToProps(state) {
-   console.log(state)
  return {
     IndividualVendorReducer: state.IndividualVendorReducer,
     societyReducer : state.societyReducer,

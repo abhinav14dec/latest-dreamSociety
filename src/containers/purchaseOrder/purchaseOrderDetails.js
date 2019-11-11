@@ -51,8 +51,6 @@ class PurchaseOrderDetails extends Component {
             vendorId: '',
             expDateOfDelievery: '',
             message:'',
-            numberOfAssets:'',
-            numberOfServices:'',
             data:{
                 purchaseOrderType:'',
                 purchaseOrderSubType:'',

@@ -85,7 +85,6 @@ class GetFloorDetail extends Component {
             this.props.updateFloor(floorId, floorName)
                 .then(() => this.refreshData())
                 .catch(err => {
-                    console.log(err.response.data.message)
                     this.setState({ modalLoading: false, message: err.response.data.message })
                 })
             if (this.state.message === '') {

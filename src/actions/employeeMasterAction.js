@@ -1,4 +1,4 @@
-import {URN,ADD_EMP,GET_EMP,UPDATE_EMP,DELETE_EMP,GET_LOCATION_DETAIL,UPDATE_EMPLOYEE,DELETE_MULTIPLE_EMPLOYEE} from '../actionCreators/index'
+import {URN,ADD_EMP,GET_EMP,DELETE_EMP,GET_LOCATION_DETAIL,UPDATE_EMPLOYEE,DELETE_MULTIPLE_EMPLOYEE} from '../actionCreators/index'
 import axios from 'axios';
 import { authHeader } from '../helper/authHeader';
 
@@ -10,7 +10,6 @@ export function AddEmployee(data){
         }
       }
 const request= axios.post(`${URN}/employee`,data,{headers:authHeader(),config})
-  console.log(data,"1232423")
 return{
     type:ADD_EMP,
     payload:request

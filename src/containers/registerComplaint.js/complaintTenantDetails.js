@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import {getRegisterDetail, userCancelled, complaintFeedback, complaintAllDeleted} from '../../actions/registerComplainAction';
 import UI from '../../components/newUI/tenantDashboard';
 import {Table,Button, Input,FormGroup, Modal, ModalBody, ModalHeader,Label, Row, Col } from 'reactstrap';
@@ -51,7 +50,7 @@ class ComplaintTenantDetails extends Component{
     }
 
     searchFilter = (search) => {
-        return function (x) { console.log(x)
+        return function (x) { 
             return x.service_master.serviceName.toLowerCase().includes(search.toLowerCase())  
               ||!search;
         }
@@ -64,7 +63,6 @@ class ComplaintTenantDetails extends Component{
     }
 
     changePassword=()=>{ 
-        console.log("password")
         return this.props.history.replace('/tenantDashboard/changePasswordTenant')
     }
 
@@ -119,7 +117,7 @@ class ComplaintTenantDetails extends Component{
        return getComplaints.complaints.sort((item1,item2)=>{
         var cmprVal =  (item1.service_master[this.state.filterName].localeCompare(item2.service_master[this.state.filterName])) 
         return this.state.sortVal ? cmprVal : -cmprVal;
-        }).filter(this.searchFilter(this.state.search)).map((item, index) => {  console.log(item)
+        }).filter(this.searchFilter(this.state.search)).map((item, index) => {  
            
                 return (
                     <tr key={item.complaintId}  >
@@ -188,7 +186,6 @@ class ComplaintTenantDetails extends Component{
     }
 
     onChange = (e) => {
-        console.log(e.target.value)
         this.setState({message:'' })
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -206,7 +203,6 @@ class ComplaintTenantDetails extends Component{
     }
 
     ratingChanged = (rating) => {
-       console.log(rating)
        this.setState({rating})
        
       }
@@ -216,7 +212,6 @@ class ComplaintTenantDetails extends Component{
          
         
         const { complaintId, date, slotTime1,slotTime2,slotTime3, rating, status, feedback, vendorId } = this.state
-        console.log(complaintId, date, slotTime1,slotTime2,slotTime3, rating, status, feedback, vendorId);
 
         let errors = {};
 
@@ -278,7 +273,7 @@ let modalData=<div>
                     <option>Reopen</option>
                 </Input >
              </FormGroup>
-              <div style={{display:this.state.status=='Completed'?'none':'block'}}>         
+              <div style={{display:this.state.status==='Completed'?'none':'block'}}>         
              <FormGroup>
              <Label>Date</Label>
                 <Input type="date" min={this.minDate()} name="date"  onChange={this.onChange}>

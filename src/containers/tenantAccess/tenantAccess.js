@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import {  } from './../../actions/designationMasterAction';
 import UI from '../../components/newUI/tenantDashboard';
-import { Form, Button, FormGroup, Input, Label, Table } from 'reactstrap';
+import { Label, Table } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
-
 
 class TenantAccess extends Component{
     constructor(props){
@@ -22,7 +21,6 @@ class TenantAccess extends Component{
 
     activatedChange = async (e)=>{
         let selected=e.target.value;
-        console.log(selected)
        await this.setState({
             type:selected
          })
@@ -127,7 +125,6 @@ let radioData=<div>
 }
 
 function mapStatToProps(state) {
-     console.log(state)
     return {
 
     

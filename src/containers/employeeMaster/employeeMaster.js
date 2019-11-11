@@ -32,12 +32,8 @@ class EmployeeMaster extends Component{
         locationName:'',
         locationId1:'',
         countryId2:'',
-        countryName: '',
         stateId2: '',
-        stateName:'',
         cityId2: '',
-        cityName:'',
-        locationName:'',
         locationId2:'',
         address:'',
         documentOne:null,
@@ -201,7 +197,6 @@ FileChange=(event)=>{
 
 
     submit=(event)=> {
-        console.log(this.state.employeeDetailId)
         event.preventDefault();
         let errors ={};
         // const {  countryId,stateId,cityId,locationId,documentOne,documentTwo,profilePicture,firstName,middleName,lastName,startDate,endDate,CTC }=  this.state
@@ -290,7 +285,6 @@ FileChange=(event)=>{
         data.append('contact',this.state.contact)
         data.append('rfidId',this.state.rfidId)
         data.append('employeeDetailId',this.state.employeeDetailId)
-        // console.log(data);
 
          this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  {
             this.setState({emailServerError:  err.response.data.messageEmailErr,
@@ -312,19 +306,16 @@ FileChange=(event)=>{
     }
     
     emailChange = (e) => {
-        console.log(this.state.email)
         this.setState({errors:{email: ''}})
         this.setState({email:e.target.value, emailServerError:''})
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value.trim()});
-            console.log(this.state.email)
             this.setState({emailValidError: ''})
         }
         else{ this.setState({emailValidError: 'Invalid Email.'})}
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log(this.state.email)
             this.setState({ [e.target.name]: e.target.value.trim(), errors });
         }
         else {
@@ -334,7 +325,6 @@ FileChange=(event)=>{
     }
 
     getService=({getEmployee})=>{
- console.log("abc",getEmployee)
  if(getEmployee && getEmployee.employeeDetail){
      return getEmployee.employeeDetail.map((item)=>{
    return(
@@ -374,7 +364,6 @@ countryName1 = ({countryResult}) => {
 }
 
 onChangeCountry = (countryId, countryName, selectOption) => {
-    console.log(countryId, countryName, selectOption)
 
     this.setState({
         countryName: selectOption.countryName,
@@ -386,7 +375,6 @@ onChangeCountry = (countryId, countryName, selectOption) => {
 
 stateName = ({stateResult}) => {
     if(stateResult){
-      console.log(stateResult)
        return(
         stateResult.map((item) =>{
                return(
@@ -400,7 +388,6 @@ stateName = ({stateResult}) => {
 
 stateName1 = ({stateResult}) => {
     if(stateResult){
-      console.log(stateResult)
        return(
         stateResult.map((item) =>{
                return(
@@ -413,7 +400,6 @@ stateName1 = ({stateResult}) => {
 }
 
 onChangeState = (stateName, stateId, selectOption) => {
-    console.log(stateName, stateId, selectOption)
     this.setState({
         stateName: selectOption.stateName,
         stateId:selectOption.stateId
@@ -453,7 +439,6 @@ cityName1=({cityResult})=>{
 }
 
 onChangeCity = (cityName, cityId, selectOption) => {
-    console.log(cityName, cityId, selectOption)
     this.setState({
         cityName: selectOption.cityName,
         cityId:selectOption.cityId
@@ -493,7 +478,6 @@ locationName1=({locationResult})=>{
  }
 
 onChangeLocation = (locationName, locationId, selectOption) => {
-    console.log(locationName, locationId, selectOption)
     this.setState({
         locationName: selectOption.locationName,
         locationId:selectOption.locationId,
@@ -503,16 +487,13 @@ onChangeLocation = (locationName, locationId, selectOption) => {
 }
 
 updatePermanentAddress1 = (location) => {
-    console.log(location)
     this.setState({location})
     this.setState({permanentAddress:  this.state.permanentAddressDefault  + ', ' + location + ', ' +
     this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-    console.log('updatePermanentAddress', this.state.permanentAddress)
 }
 
 
 countryChange = (currentCountryId, currentCountry, selectOption) => {
-    console.log(currentCountryId, currentCountry, selectOption)
 
     this.setState({
         currentCountry: selectOption.countryName,
@@ -524,7 +505,6 @@ countryChange = (currentCountryId, currentCountry, selectOption) => {
 
 
 stateChange = (currentState, currentStateId, selectOption) => {
-    console.log(currentState, currentStateId, selectOption)
     this.setState({
         currentState: selectOption.stateName,
         currentStateId:selectOption.stateId
@@ -533,7 +513,6 @@ stateChange = (currentState, currentStateId, selectOption) => {
 }
 
 cityChange = (currentCity, currentCityId, selectOption) => {
-    console.log(currentCity, currentCityId, selectOption)
     this.setState({
         currentCity: selectOption.cityName,
         currentCityId:selectOption.cityId
@@ -542,7 +521,6 @@ cityChange = (currentCity, currentCityId, selectOption) => {
 }
 
 locationChange = (currentLocation, currentLocationId, selectOption) => {
-    console.log(currentLocation, currentLocationId, selectOption)
     this.setState({
         currentLocation: selectOption.locationName,
         currentLocationId:selectOption.locationId,
@@ -552,11 +530,9 @@ locationChange = (currentLocation, currentLocationId, selectOption) => {
 }
 
 updateCurrentAddress1 = (location) => {
-    console.log(location)
     this.setState({location})
     this.setState({currentAddress: this.state.currentAddressDefault   + ', ' + location + ', ' +
     this.state.currentCity + ', ' + this.state.currentState + ', ' +  this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-    console.log('currentAddress', this.state.currentAddress)
 }
 
  close=()=>{
@@ -587,7 +563,6 @@ onChange = (e) => {
 }
 
 fetchDesignation = ({designation}) => {
-    console.log(designation)
     if(designation &&  designation.designation){
        return designation.designation.map((item) => {
             return (
@@ -601,7 +576,6 @@ fetchDesignation = ({designation}) => {
 sameAddress = () => {
    
     if(!!document.getElementById('isChecked').checked){
-        console.log('is checked')
        this.setState({currentAddress: this.state.permanentAddress,  currentAddressVisible:true, editCurrent:false})
     }
    else{
@@ -637,7 +611,7 @@ currentAddressChange = (e) => {
     }
     else {
         this.setState({currentAddressDefault: e.target.value,  currentAddress: e.target.value  + (this.state.currentLocation ? (', '  + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ',  ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' +  this.state.pin})
+        `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, 'Pin/Zip code: ${this.state.pin}`})
     }
 }
 
@@ -659,7 +633,7 @@ updateCurrentAddress = (pin) => {
    
     this.setState({pin})
     this.setState({currentAddress: this.state.currentAddressDefault   + (this.state.currentLocation ? (', ' + this.state.currentLocation +  ', ') : ', ') +
-    this.state.currentCity + ', ' + this.state.currentState + ', ' +  this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
+    `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, 'Pin/Zip Code: ${pin}`})
    
 }
 
@@ -677,22 +651,10 @@ pinChange1 = (e) => {
 }
 
 updatePermanentAddress = (pin) => {
-    console.log(pin)
     this.setState({pin})
     this.setState({permanentAddress:  this.state.permanentAddressDefault  + (this.state.locationName ? (', '  + this.state.locationName + ', ') : ', ') +
-    this.state.cityName + ', ' + this.state.stateName + ', ' +  this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
-    console.log('updatePermanentAddress', this.state.permanentAddress)
+    `${this.state.cityName} , ${this.state.stateName}, ${this.state.countryName} , 'Pin/Zip Code: ${pin}`})
 }
-
-
-    OnKeyPressNumber(event) {
-        const pattern = /^[0-9]$/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-   
 
     logout = () => {
         localStorage.removeItem('token');
@@ -716,9 +678,6 @@ updatePermanentAddress = (pin) => {
 }
 
 render(){
-
-
-{/* <Spinner/> */}
 let formData=
 <div>
 
@@ -974,7 +933,6 @@ let formData=
 }
 
 function mapStateToProps(state){
-    console.log("location", state)
  return {
      empDetails:state.empDetails,
      locationMasterReducer : state.locationMasterReducer,

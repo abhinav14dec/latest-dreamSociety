@@ -31,7 +31,7 @@ export function getFlatDetails(){
 
 
 export function addFlatDetails( values){
-    console.log("result", values)
+    
      const request = axios.post(`${URN}/flatDetail` , values , {headers:authHeader()})
       .then(response => response.data)
    
@@ -43,7 +43,7 @@ export function addFlatDetails( values){
   
   }
 
-export function deleteSelectedFlat(ids){console.log(ids)
+export function deleteSelectedFlat(ids){
 const request= axios.put(`${URN}/flatDetail/delete/deleteSelected`,{ids},{headers:authHeader()})
 .then((response) => response.data)
 
@@ -84,7 +84,7 @@ export function fetchParking (){
 }
 
 export function getSlotId (parkingId,flatId){
-    console.log(parkingId)
+    
     const request = axios.get(`${URN}/slot/${parkingId}/${flatId}`,{headers:authHeader()})
     .then(response=>response.data)
     return {
@@ -94,7 +94,6 @@ export function getSlotId (parkingId,flatId){
 }
 
 export function getSlots (id){
-    console.log(id)
     const request = axios.get(`${URN}/flatDetail/${id}`,{headers:authHeader()})
     .then(response=>response.data)
     return {
@@ -103,7 +102,7 @@ export function getSlots (id){
     }
 }
 
-export function deleteFlat(flatDetailId,isActive){console.log(flatDetailId,"deleteAction")
+export function deleteFlat(flatDetailId,isActive){
     const request = axios.put(`${URN}/flatDetail/delete/`+flatDetailId,{isActive}, {headers:authHeader()})
      .then()     
      return{

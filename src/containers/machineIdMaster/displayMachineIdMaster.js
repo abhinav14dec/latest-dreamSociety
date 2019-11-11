@@ -26,7 +26,6 @@ class DisplayMachineIdMaster extends Component {
         machineDetailId:'',
         machineActualId:'',
         machineId:'',
-        message:'',
        
     }
 
@@ -74,9 +73,7 @@ class DisplayMachineIdMaster extends Component {
         this.setState({ isActive: false  })
     }
    
-    toggle = (machineDetailId,machineActualId) => {
-        console.log(machineActualId,)
-       
+    toggle = (machineDetailId,machineActualId) => {       
         this.setState({
             machineDetailId,machineActualId,
             modal: !this.state.modal
@@ -104,7 +101,7 @@ class DisplayMachineIdMaster extends Component {
                     
                     this.props.updateMachine(machineActualId,machineDetailId).then(() => this.refreshData())
     
-                .catch(err=>{ console.log(err.response.data.message)
+                .catch(err=>{ 
                     this.setState({modalLoading:false,message: err.response.data.message})
                     })
                     if(this.state.message === ''){
@@ -160,13 +157,10 @@ class DisplayMachineIdMaster extends Component {
 
 
         flatList =({machine})=>{
-            console.log(machine);
-            if(machine)
-            {
-    
-                         return machine.machinesDetail.sort((item1,item2) =>{
+            if(machine && machine.machinesDetail){
+                     return machine.machinesDetail.sort((item1,item2) =>{
                             var cmprVal=(item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
-                            return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{
+                            return this.state.sortVal ? cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{
                                     
                                     return (
                     
@@ -336,13 +330,9 @@ class DisplayMachineIdMaster extends Component {
  }
  
  
-function mapStateToProps(state) {
-    console.log(state.MachineIdDetails);
-    
+function mapStateToProps(state) {    
     return {
         MachineIdDetails: state.MachineIdDetails,
-        
-
     }
 }
 

@@ -81,7 +81,7 @@ class Inventory extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const {assetId,assetSubTypeId,numberOfInventory,ratePerInventory,serialNo,dateOfPurchase,autoGenerate, serialNumbers } = this.state
+        const {assetId,assetSubTypeId,numberOfInventory,ratePerInventory,dateOfPurchase,autoGenerate, serialNumbers } = this.state
         let errors = {};
         if(assetId===''){
             errors.assetId="Assets Name can't be empty"

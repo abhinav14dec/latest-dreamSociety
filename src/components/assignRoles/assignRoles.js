@@ -42,9 +42,7 @@ class AssignRoles extends Component {
     }
 
     onChange = (e) => {
-        this.setState({ message: '' })
-        let selected = e.target.value
-    
+        this.setState({ message: '' })    
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -129,7 +127,7 @@ class AssignRoles extends Component {
                                 {item.roleName}
                             </option>
                         )
-                    }
+                    }else return null;
                 })
             )
 

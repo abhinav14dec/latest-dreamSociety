@@ -90,7 +90,7 @@ class MaintenanceMasterDetail extends Component {
            
         this.props.updateMaintenance(maintenanceId, category)
             .then(() => this.refreshData())
-            .catch(err=>{ console.log(err.response.data.message)
+            .catch(err=>{
                 this.setState({modalLoading:false,message: err.response.data.message})
                 })
                 if(this.state.message === ''){

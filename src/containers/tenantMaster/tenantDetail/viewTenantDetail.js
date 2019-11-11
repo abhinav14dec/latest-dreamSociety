@@ -9,16 +9,13 @@ class ViewTenantDetail extends Component {
     }
     componentDidMount(){
         const data = JSON.parse(localStorage.getItem('tenantDetails'));
-        console.log(...data)
         this.setState(...data)
-        console.log(this.state)
     }
 
     imgChange = (event) => {
         
         const files = event.target.files
         const file = files[0];
-        console.log(this.state)
         let fileName = file ? file.name : '';
         if (files && file) {
           const reader = new FileReader();
@@ -28,10 +25,8 @@ class ViewTenantDetail extends Component {
                 picture :  reader.result,
                 fileName
               })
-              console.log(this.state.picture)
           };
         }
-        console.log(document.querySelector('#real-input'))
         const name = document.querySelector('#real-input').value.split(/\\|\//).pop();
             const truncated = name.length > 20 
               ? name.substr(name.length - 20) 
@@ -61,9 +56,7 @@ class ViewTenantDetail extends Component {
     close = () => {
         return this.props.history.replace('/superDashBoard');
     }
-
     render(){
-        console.log(this.state)
         return(
             <UI onClick={this.logout} change={this.changePassword}>
                 <Form>
@@ -82,7 +75,7 @@ class ViewTenantDetail extends Component {
                             </Col>
                             <Col md={4}>
                                 <div style={{border: '1px solid black', textAlign:'center'}}>
-                                    <img src={this.state.picture} readOnly height='100px' width='100px' />
+                                    <img src={this.state.picture} alt="" readOnly height='100px' width='100px' />
                                 </div>
                             </Col>
                             

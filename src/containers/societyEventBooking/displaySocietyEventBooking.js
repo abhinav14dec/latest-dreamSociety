@@ -1,7 +1,7 @@
 import  React, {Component} from 'react';  
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Form,Table, Row, Col,Button,  Modal, FormGroup, ModalBody, ModalHeader, Label, Input} from 'reactstrap';
+import {Table, Row, Col,Button,  Modal, FormGroup, ModalBody, ModalHeader, Label, Input} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import {getSocietyEvents,updateSocietyEvents,deleteEvents,deleteSelectedEvent} from '../../actions/societyEventBooking';
 import Spinner from '../../components/spinner/spinner';
@@ -238,8 +238,6 @@ updateEvents(){
                 }       
             this.setState({ modalLoading: true})
 }
-console.log("breakfast",breakfast,"lunch",lunch,"eveningSnacks",eveningSnacks,"dinner",dinner,"dJ",dJ,"drinks",drinks)
-
 }
 
 
@@ -484,7 +482,6 @@ render() {
 }
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         societyEventBookingReducer: state.societyEventBookingReducer,
         EventDetails: state.EventDetails

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Input} from 'reactstrap';
-import SearchFilter from '../../components/searchFilter/searchFilter';
+import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import {getOwnerFlats,deleteOwnerFlats,getAllFloor,editOwnerFlat} from '../../actions/flatOwnerAction';
 import { Label } from 'semantic-ui-react';
-import DefaultSelect from './../../constants/defaultSelect';
 import { viewTower } from '../../actions/towerMasterAction';
 import Spinner from '../../components/spinner/spinner';
 import {getFlatDetails} from '../../actions/flatDetailMasterAction';

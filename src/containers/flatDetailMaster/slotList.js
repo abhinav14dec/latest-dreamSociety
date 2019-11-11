@@ -3,7 +3,7 @@ import UI from '../../components/newUI/superAdminDashboard';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {getSlots } from '../../actions/flatDetailMasterAction';
-import {Table,Button } from 'reactstrap';
+import {Table } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 var id;
 class slotList extends Component {
@@ -54,9 +54,7 @@ class slotList extends Component {
                         <td style={{ textAlign: "center" }}>{item.flat_detail_master ? item.flat_detail_master.tower_master.towerName : ''}</td>
                         <td style={{ textAlign: "center" }}>{item.parking_master ? item.parking_master.parkingName : ''}</td>
                         <td style={{ textAlign: "center", width: '10px' }}>{item.slot_master?item.slot_master.slots:''}</td>
-                        {/* <td> 
-                             <Button color="danger" onClick={this.delete.bind(this, item.slotId)}>Delete</Button>
-                        </td> */}
+                       
                     </tr>
                 )
             })

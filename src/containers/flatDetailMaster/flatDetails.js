@@ -230,7 +230,6 @@ constructor(props){
                     <tr key={item.flat_detail_master.flatDetailId}>
                         <td><input type="checkbox" name="ids" className="SelectAll" value={item.flat_detail_master.flatDetailId}
                             onChange={(e) => {
-                                const { flatDetailId } = item
                                 if (!e.target.checked) {
                                     document.getElementById('allSelect').checked = false;
                                     let indexOfId = this.state.ids.indexOf(item.flat_detail_master.flatDetailId);
@@ -271,7 +270,7 @@ constructor(props){
 
 
     OnKeyPresshandlerPhone(event) {
-        const pattern = /^[0-9 , a-zA-Z  -]$/;
+        const pattern = /^[0-9,a-zA-Z -]$/;
         let inputChar = String.fromCharCode(event.charCode);
         if (!pattern.test(inputChar)) {
             event.preventDefault();

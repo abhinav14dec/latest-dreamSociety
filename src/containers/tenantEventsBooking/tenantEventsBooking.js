@@ -2,16 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addEventBooking,getMemberEvent, getEventDetails } from '../../actions/personalEventsBookingAction';
-
-
 import UI from '../../components/newUI/tenantDashboard';
-import _ from 'underscore';
 import Spinner from '../../components/spinner/spinner';
 import { Form, Button, FormGroup, Input, Label, Row, Col } from 'reactstrap';
 import DefaultSelect from '../../constants/defaultSelect';
-
-
-
 
 
 
@@ -35,21 +29,15 @@ class MemberEventsBookingTenant extends Component {
         }
     }
 
-
     componentDidMount = () => {
         this.refreshData()
     }
-
-
 
     refreshData = () => {
         this.props.getMemberEvent().then(() => this.setState({ loading: false }));
         this.props.getEventDetails().then(() => this.setState({ loading: false }));
 
     }
-
-
-
 
     eventType({ eventsResult }) {
         if (eventsResult && eventsResult.event) {
@@ -70,7 +58,7 @@ class MemberEventsBookingTenant extends Component {
     getFlatData = ({ floorDetails }) => {
         if (floorDetails && floorDetails.flatDetail) {
             return floorDetails.flatDetail.filter((flatRecord) => {
-                return flatRecord.floorId == this.state.floorId
+                return flatRecord.floorId === this.state.floorId
             }).map((items) => {
                 return (
                     <option key={items.flatDetailId} value={items.flatDetailId}>
@@ -83,7 +71,6 @@ class MemberEventsBookingTenant extends Component {
 
 
     spaceName=({ space }) =>{
-
         if (space && space.societyMember) {
             return (
                 space.societyMember.map((item) => {
@@ -99,60 +86,38 @@ class MemberEventsBookingTenant extends Component {
 
     }
 
-    test=({ space }) =>{
+    test = ({ space }) => {
         if (space && space.societyMember) {
-            let a;
             return space.societyMember.filter((event) => {
-                    console.log(this.state.eventSpaceId)
-                    return event.eventSpaceId == this.state.eventSpaceId
+                    return event.eventSpaceId === this.state.eventSpaceId
                 }).map((data) => {
-                        if (data) {
-                            console.log("items---->", data)
-                            // this.setState({ data: item })
+                        if(data) {
                             this.setState({ data }, function () {
-                                console.log(this.state.data);
                            });
                         }
+                        return null
 
-                    })
-            
+                    }) 
         }
     }
 
 
-    onChange =async (e) => {
+    onChange = async (e) => {
         e.persist();
         this.setState({ message: '' })
-
-        console.log(this.state.eventSpaceId)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-          await this.setState({ [e.target.name]: e.target.value.trim(''), errors });
+            await this.setState({ [e.target.name]: e.target.value.trim(''), errors });
 
         }
         else {
-         await this.setState({ [e.target.name]: e.target.value.trim('') });
+            await this.setState({ [e.target.name]: e.target.value.trim('') });
 
         }
-        console.log(this.state.eventSpaceId)
         this.test(this.props.PersonalEventBookingReducer);
-     
-        console.log(this.props.PersonalEventBookingReducer)
 
     }
-   
-
-
-   
-    // onChangeSpace = (e) => {
-    //     document.getElementById('eventSpaceId').value = 'no-value';
-    //     this.setState({
-    //         [e.target.name]: e.target.value
-    //     })
-    //     console.log(e.target.value)
-    //     console.log(this.state.eventSpaceId)
-    // }
 
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
@@ -166,7 +131,7 @@ class MemberEventsBookingTenant extends Component {
         e.preventDefault();
         let errors = {};
 
-        
+
 
 
         if (!this.state.societyMemberEventId) {
@@ -367,8 +332,6 @@ class MemberEventsBookingTenant extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("booking.........", state)
-
     return {
         memberEventsBookingReducer: state.memberEventsBookingReducer,
         societyMemberEventReducer: state.societyMemberEventReducer,
@@ -376,9 +339,6 @@ function mapStateToProps(state) {
         PersonalEventBookingReducer: state.PersonalEventBookingReducer
 
     }
-
-
-
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ getMemberEvent, addEventBooking, getEventDetails }, dispatch);

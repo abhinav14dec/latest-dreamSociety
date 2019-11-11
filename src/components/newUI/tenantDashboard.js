@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Menu, Icon, Sidebar } from 'semantic-ui-react';
+import { Menu, Icon} from 'semantic-ui-react';
 import $ from 'jquery';
 import './common.css';
 import ReactDOM from 'react-dom';
@@ -37,7 +37,6 @@ class Demo extends Component {
     // }
 
     // changePassword=()=>{ 
-    //     console.log("password")
     //     return this.props.history.replace('/tenantDashboard/changePasswordTenant')
     // }
 

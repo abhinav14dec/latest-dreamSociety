@@ -46,7 +46,6 @@ class AddTenant extends Component{
             towerId:'',
             towerName:'',
             fileName: '',
-            flatNo: '',
             imageSizeError:'',
             errors:{},
             loading: false,
@@ -89,16 +88,13 @@ class AddTenant extends Component{
         this.props.getLocation();
         this.props.rfid();
         let societyId = localStorage.getItem('societyId')
-        console.log(societyId);
         this.setState({societyId})
-        console.log(this.state.societyId)
         this.setState({societyId: localStorage.getItem('societyId')})
         this.setState({societyName: localStorage.getItem('societyName')})
         this.setState({societyCountry: localStorage.getItem('countryName')})
         this.setState({societyState: localStorage.getItem('stateName')})
         this.setState({societyCity: localStorage.getItem('cityName')})
         this.setState({societyLocation: localStorage.getItem('locationName')})
-        console.log(this.state.societyId) 
     }
 
     
@@ -115,8 +111,6 @@ class AddTenant extends Component{
     
 
     onChange = (e) => {
-        
-        console.log(this.state);
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -128,7 +122,6 @@ class AddTenant extends Component{
     }
 
     correspondenceAddressChange = (e) => {
-        console.log(this.state);
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -183,9 +176,7 @@ class AddTenant extends Component{
     }
 
     getSociety = ({detail_Society}) => {
-        console.log(detail_Society)
         if (detail_Society) {
-            console.log(detail_Society)
             return detail_Society.map((item1) => {
                 return (
                     { ...item1, label: item1.societyName, value: item1.societyId }
@@ -197,8 +188,6 @@ class AddTenant extends Component{
     }
 
     societyChangeHandler = (selectOption) => {
-        console.log(this.state)
-        console.log(selectOption)
         let societyId = selectOption.societyId;
 
         this.setState(function (prevState, props) {
@@ -216,7 +205,6 @@ class AddTenant extends Component{
 
 
     getRelationList = ({ relationResult }) => {
-        console.log(this.state)
         if (relationResult && relationResult.relation) {
             return relationResult.relation.map((item) => {
                 return (
@@ -229,7 +217,7 @@ class AddTenant extends Component{
     }
 
     userMemberHandler = (e) => {
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             this.setState({
                 noOfMembers: e.target.value,
                 errors:{},
@@ -239,15 +227,13 @@ class AddTenant extends Component{
     }
 
     memberDetailChange = (e) => {
-        this.setState({[e.target.name]:e.target.value,errors:'',message:''})
-        console.log(this.state)  
+        this.setState({[e.target.name]:e.target.value,errors:'',message:''})  
     }
 
     contactChange = (e) => {
         this.setState({[e.target.name]:e.target.value,errors:'',message:'',validChangeContactErr:''})
-        console.log(this.state);
         this.props.validOnChangeContact(e.target.value)
-        .then(res => console.log(res.data))
+        .then(res => res.data)
         .catch(err => {
             if(err.response.data.message){
                 this.setState({validChangeContactErr: err.response.data.message});
@@ -257,19 +243,11 @@ class AddTenant extends Component{
 
     onSubmit = (e) => {
         this.setState({loading: true})
-        console.log(this.state.societyId)
         e.preventDefault()
         let { firstName,lastName, dob, gender, email, contact, profilePicture, aadhaarNumber, permanentAddress, correspondenceAddress, bankName, 
             accountHolderName, accountNumber, panCardNumber, IFSCCode, noOfMembers, flatDetailId, 
             societyName, member, fileName, societyId, towerName, towerId, floorId, countryId, stateId, cityId, locationId, rfidId } = this.state;
-        console.log(this.state)
-        
-        
-        
-        
-        console.log(firstName,lastName, dob, gender,aadhaarNumber, email, contact, profilePicture, correspondenceAddress, permanentAddress, bankName, 
-            accountHolderName, accountNumber, panCardNumber, IFSCCode, noOfMembers, flatDetailId, 
-            societyName, societyId, member, towerName, fileName, towerId, floorId, countryId, stateId, cityId, locationId, rfidId );
+  
 
         const data1 = {firstName,lastName, dob, gender,aadhaarNumber, email, contact, profilePicture, correspondenceAddress, permanentAddress, bankName, 
             accountHolderName, accountNumber, panCardNumber, IFSCCode, noOfMembers, flatDetailId, societyName, societyId, member, towerName, fileName, towerId, floorId, countryId, stateId, cityId, locationId,
@@ -299,13 +277,11 @@ class AddTenant extends Component{
             }, function () {
                 console.log(selectOption.value)
             });
-            console.log(this.state)
     }
 
     imageChangeHandler = (event) => {
         const files = event.target.files
         const file = files[0];
-        console.log(file)
         let fileName = file.name;
         if (files && file) {
           const reader = new FileReader();
@@ -317,7 +293,6 @@ class AddTenant extends Component{
                 imageSizeError:'',
                 message:''
               })
-              console.log(this.state.profilePicture)
           };
         }
         else {
@@ -327,7 +302,7 @@ class AddTenant extends Component{
 
     nextPrev = (e) => {
         let errors = {};
-        const {firstName, lastName, dob, gender,permanentAddressUser, panCardNumber, contact, email, correspondenceAddress, aadhaarNumber, permanentAddress} = this.state;
+        const {firstName, lastName, dob, gender,permanentAddressUser, panCardNumber, contact, email, aadhaarNumber} = this.state;
         if(this.state.step === 1){
             if(firstName === '') errors.firstName = `First Name can't be empty.`;
             if(lastName === '') errors.lastName = `Last Name can't be empty.`;
@@ -362,7 +337,7 @@ class AddTenant extends Component{
                 }
                 
                }
-                console.log(this.state.member)
+           
                 data = {
                     firstName: this.state['firstName'+i],
                     lastName: this.state['lastName'+i],
@@ -408,25 +383,22 @@ class AddTenant extends Component{
     }
 
     emailChange = (e) => {
-        console.log(this.state)
         this.setState({[e.target.name]:e.target.value, messageEmailErr:'',emailChangeErr:''})
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value,message:''});
-            console.log(this.state)
             this.setState({emailValidError: '',message:''})
         }
         else{ this.setState({emailValidError: 'Invalid Email.'})}
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
-            console.log(this.state.email)
             this.setState({ [e.target.name]: e.target.value, errors,message:'' });
         }
         else {
             this.setState({[e.target.name]:e.target.value,message:''});
         } 
         this.props.validOnChangeEmail(e.target.value)
-        .then(res => console.log(res))
+        .then(res => (res))
         .catch(err => {
             if(err.response.data.message){
                 this.setState({emailChangeErr: err.response.data.message})
@@ -442,7 +414,6 @@ class AddTenant extends Component{
     
 
     getFloor=({getFlatDetail})=>{
-        console.log("floor",getFlatDetail)
         if(getFlatDetail && getFlatDetail.tower){
             return getFlatDetail.tower.Floors.map((item)=>{
                       
@@ -457,12 +428,10 @@ class AddTenant extends Component{
         }}
 
         getFlats=({getFlatDetail})=>{
-            console.log('7777777jjjjjj',getFlatDetail)
             if(getFlatDetail && getFlatDetail.flatDetail){
               return  getFlatDetail.flatDetail.filter((flatRecord)=>{
-                    return flatRecord.floorId==this.state.floorId
+                    return flatRecord.floorId===this.state.floorId
                 }).map((selectFlat)=>{
-                    console.log('bbbbbbbbbbbbbbbbb',selectFlat)
                     return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                 });
             }
@@ -475,10 +444,9 @@ class AddTenant extends Component{
 
         
 
-        towerChangeHandler = (towerId, towerName, selectOption) => {
-            console.log(towerId, towerName, selectOption)
+        towerChangeHandler = (selectOption) => {
             this.setState({correspondenceAddress:''})
-            this.setState(function (prevState, props) {
+            this.setState(function () {
                 return {
                     towerId: selectOption.towerId,
                     towerName: selectOption.towerName,
@@ -492,8 +460,7 @@ class AddTenant extends Component{
         }
 
     
-        floorChangeHandler=(floorName, floorId,selectOption)=>{
-            console.log(floorName, floorId,selectOption);
+        floorChangeHandler=(selectOption)=>{
             this.setState({
                 floorName: selectOption.floorName,
                 floorId: selectOption.floorId,
@@ -501,14 +468,10 @@ class AddTenant extends Component{
                 correspondenceAddress: 'Floor : ' + selectOption.floorName + ' , ' + this.state.correspondenceAddress
                 
             })
-            console.log('lllllllll=======',this.state.floorId)
-            // this.getFlats(this.props.towerFloor);
-        
+            
             }
 
-            flatChangeHandler=(flatNo, flatDetailId ,selectOption)=>{
-                console.log(flatNo, flatDetailId ,selectOption)
-                console.log(this.state.flatDetailId)
+            flatChangeHandler=(selectOption)=>{
                 this.setState({
                     flatNo: selectOption.flatNo,
                     flatDetailId: selectOption.flatDetailId,
@@ -521,13 +484,11 @@ class AddTenant extends Component{
             }
 
             flatChangeHandler1=(name ,selectOption)=>{
-                console.log(name ,selectOption)
                 this.setState({
                     [name]: selectOption.value,
                     message:''
                 })
                 this.props.getFlatDetailViaTowerId(selectOption.towerId);
-                console.log(this.state)
             }
 
             countryName = ({countryResult}) => {
@@ -544,29 +505,24 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeCountry = (countryId, countryName, selectOption) => {
-                console.log(countryId, countryName, selectOption)
+            onChangeCountry = (selectOption) => {
                 this.setState({
                     countryName: selectOption.countryName,
                     countryId:selectOption.countryId,
                     message:''
                 })
-                
                 this.props.getState(selectOption.countryId)
                 this.updatePermanentAddress4(selectOption.countryName)
             }
 
             updatePermanentAddress4 = (countryName) => {
-                console.log(countryName)
                 this.setState({countryName})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-                console.log('updatePermanentAddress', this.state.permanentAddress)
+                `${this.state.cityName}, ${this.state.stateName}, ${countryName}, Pin/Zip Code: ${this.state.pin}`})
             }
            
             stateName = ({stateResult}) => {
                 if(stateResult){
-                  console.log(stateResult)
                    return( 
                     stateResult.map((item) =>{ 
                            return(
@@ -578,8 +534,7 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeState = (stateName, stateId, selectOption) => {
-                console.log(stateName, stateId, selectOption)
+            onChangeState = (selectOption) => {
                 this.setState({
                     stateName: selectOption.stateName,
                     stateId:selectOption.stateId,
@@ -590,11 +545,9 @@ class AddTenant extends Component{
             }
 
             updatePermanentAddress3 = (stateName) => {
-                console.log(stateName)
                 this.setState({stateName})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-                console.log('updatePermanentAddress', this.state.permanentAddress)
+                `${this.state.cityName}, ${stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
             }
            
             cityName=({cityResult})=>{
@@ -613,8 +566,7 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeCity = (cityName, cityId, selectOption) => {
-                console.log(cityName, cityId, selectOption)
+            onChangeCity = (selectOption) => {
                 this.setState({
                     cityName: selectOption.cityName,
                     cityId:selectOption.cityId,
@@ -625,17 +577,14 @@ class AddTenant extends Component{
             }
 
             updatePermanentAddress2 = (cityName) => {
-                console.log(cityName)
                 this.setState({cityName})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ')  +
-                cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-                console.log('updatePermanentAddress', this.state.permanentAddress)
+                `${cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
             }
             
            
             locationName=({locationResult})=>{
                if(locationResult){
-                    
                    return( 
                        locationResult.map((item) =>{ 
                            return(
@@ -648,8 +597,7 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeLocation = (locationName, locationId, selectOption) => {
-                console.log(locationName, locationId, selectOption)
+            onChangeLocation = (selectOption) => {
                 this.setState({
                     locationName: selectOption.locationName,
                     locationId:selectOption.locationId,
@@ -659,17 +607,14 @@ class AddTenant extends Component{
             }
 
             updatePermanentAddress1 = (location) => {
-                console.log(location)
                 this.setState({location})
                 this.setState({permanentAddress: this.state.permanentAddressUser  + ', ' + location + ', ' +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
-                console.log('updatePermanentAddress', this.state.permanentAddress)
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code:  ${this.state.pin}`})
             }
 
     
             sameAddress = (e) => {
                 if(!!document.getElementById('isChecked').checked){
-                    console.log('is checked')
                    this.setState({permanentAddress: this.state.correspondenceAddress.trim(), defaultPermanent:true,
                 permanentAddrDefault:false})
                    
@@ -686,13 +631,11 @@ class AddTenant extends Component{
                     let errors = Object.assign({}, this.state.errors);
                     delete errors[e.target.name];
                     this.setState({permanentAddressUser:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin , errors, message:'' })
-                    console.log(this.state)
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin}` , errors, message:'' })
                 }
                 else {
                     this.setState({permanentAddressUser:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin, message:'' })
-                    console.log(this.state)
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, 'Pin/Zip code: ${this.state.pin}`, message:'' })
                 }
         }
             
@@ -703,7 +646,6 @@ class AddTenant extends Component{
     
 
     pinChange = (e) => {
-        console.log(this.state)
         if (!!this.state.errors[e.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
@@ -716,15 +658,12 @@ class AddTenant extends Component{
     }
 
     updatePermanentAddress = (pin) => {
-        console.log(pin)
         this.setState({pin})
         this.setState({permanentAddress: this.state.permanentAddressUser  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
-        console.log('updatePermanentAddress', this.state.permanentAddress)
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin}`})
     }
 
     rfidOptions = ({getRFID}) => {
-        console.log(getRFID)
         if (getRFID && getRFID.rfids) {
             return getRFID.rfids.map((item) => {
                 return (
@@ -748,46 +687,10 @@ class AddTenant extends Component{
                 console.log(selectOption.value)
             });
         }
-        console.log(this.state)
 }
 
-    render(){
-        console.log(this.state.societyCountry)
-        
+    render(){        
         let userDatas = [];
-
-        // let flatData = [];
-
-        // for (let i = 0; i < 4; i++) {
-            
-        //     flatData.push(<FormGroup key={i}>
-        //         <Row form md={12}>
-        //             <Col md={4}>
-        //                 <Label>Tower</Label>
-        //                 <Select onChange={this.towerChangeHandler1.bind(this, 'towerId' + i )} placeholder={<DefaultSelect/>} name="towerId"
-        //                 options={this.getTower(this.props.towerList)} />
-        //             </Col >
-        //             <Col md={4}>
-        //                 <Label>Floor</Label>
-        //                 <Select options={this.getFloor(this.props.tenantReducer)}
-        //                     placeholder={<DefaultSelect/>}
-        //                     name="floorId"
-        //                     onChange={this.floorChangeHandler1.bind(this,'optionalFloorId')}
-        //                     />
-        //             </Col>
-        //             <Col md={4}>
-        //                 <Label>Flat Number</Label>
-        //                 <Select options={this.getFlats1(this.props.tenantReducer)} name="flatDetailId"
-        //                     onChange={this.flatChangeHandler1.bind(this, 'flatDetailId' + i)}
-        //                     placeholder={<DefaultSelect/>}
-        //                     />
-        //             </Col >
-        //         </Row>
-        //     </FormGroup>
-
-        //     );
-        // }
-        
         for (let i = 0; i < this.state.noOfMembers; i++) {
             
             userDatas.push(<FormGroup key={i}>
@@ -855,7 +758,7 @@ class AddTenant extends Component{
                     <Label htmlFor="Gender3" style={{paddingRight:'35px',paddingLeft:'20px'}}>Other</Label>
                     <span><Input type="radio" onKeyPress={OnKeyPressUserhandler} value="Other"
                                 name = {`memberName${i}`} onChange={this.memberDetailChange} 
-                                className="input"  value="Other"/></span>
+                                className="input"/></span>
                 </Col>
                 <FormGroup>
                     <Row md={12}>
@@ -878,7 +781,7 @@ class AddTenant extends Component{
         }
 
         let formData = <div>
-            <div style={{ 'display': this.state.step == 1 ? 'block' : 'none' }}>
+            <div style={{ 'display': this.state.step === 1 ? 'block' : 'none' }}>
                         <h3>Tenant Details</h3>
                         <FormGroup>
                             <Label>First Name</Label>
@@ -897,7 +800,7 @@ class AddTenant extends Component{
                         <FormGroup>
                             <Label>Date of Birth</Label>
                             <Input type="date" onChange={this.onChange} name="dob"
-                             max={maxDate()} name="dob" />
+                             max={maxDate()} />
                              {<span className="error">{this.state.errors.dob}</span>}
                         </FormGroup>
                         <FormGroup>
@@ -954,48 +857,8 @@ class AddTenant extends Component{
                              {<span className="error">{this.state.errors.panCardNumber}</span>}
                         </FormGroup>
                     </div>
-                    {/* <div style={{ 'display': this.state.step == 2 ? 'block' : 'none' }}>
-                        <h3>Bank Details</h3>
-                        <FormGroup>
-                                <Label>Bank Name</Label>
-                                <Input placeholder="Bank Name" onChange={this.onChange}
-                                onKeyPress={this.bankValidation}
-                                maxLength="100"
-                                 type="text" name="bankName" />
-                                 {<span className="error">{this.state.errors.bankName}</span>}
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Account Holder Name</Label>
-                            <Input placeholder="Holder Name" onChange={this.onChange}
-                            onKeyPress={OnKeyPressUserhandler} maxLength="80"
-                             type="text" name='accountHolderName' />
-                             {<span className="error">{this.state.errors.accountHolderName}</span>}
-                        </FormGroup>
-                        <FormGroup >
-                            <Label>Account Number</Label>
-                            <Input onKeyPress={numberValidation} onChange={this.onChange}
-                             placeholder="Account Number"
-                             type="text" className="quantity" name='accountNumber' maxLength='18'/>
-                             {<span className="error">{this.state.errors.accountNumber}</span>}
-                        </FormGroup>
-                        
-                        <FormGroup>
-                            <Label>IFSC Code</Label>
-                            <Input placeholder="IFSC code" onChange={this.ifscChange}
-                            maxLength="11"
-                            value={this.state.IFSCCode.toUpperCase()}
-                            onKeyPress={(e) => {
-                                const pattern = /^[a-zA-Z0-9]+$/;
-                                let inputChar = String.fromCharCode(e.charCode);
-                                if (!pattern.test(inputChar)) {
-                                    e.preventDefault();
-                                }
-                            }}
-                             type='text' name="IFSCCode" />
-                             {<span className="error">{this.state.errors.IFSCCode}</span>}
-                        </FormGroup>
-                    </div> */}
-                    <div style={{ 'display': this.state.step == 2 ? 'block' : 'none' }}>
+            
+                    <div style={{ 'display': this.state.step === 2 ? 'block' : 'none' }}>
                         <h3>Tenant Member Details</h3>
                         <div style={{textAlign:'right'}}><span className="error">{this.state.errors.memberError}</span></div>
                         <div style={{textAlign:'right'}}><span className="error">{this.state.errors.memberContactError}</span></div>
@@ -1011,7 +874,7 @@ class AddTenant extends Component{
                         
                         {userDatas}
                     </div>
-                    <div style={{ 'display': this.state.step == 3 ? 'block' : 'none' }}>
+                    <div style={{ 'display': this.state.step === 3 ? 'block' : 'none' }}>
                         <h3>Corresponding Address</h3>
                         <FormGroup>
                             <Label>Tower</Label>
@@ -1118,7 +981,7 @@ class AddTenant extends Component{
                             {!this.state.flatDetailId ? <span className="error">{this.state.errors.flatDetailId}</span> : ''}
                         </FormGroup> */}
                     </div>
-                    <div style={{ 'display': this.state.step == 4 ? 'block' : 'none' }}>
+                    <div style={{ 'display': this.state.step === 4 ? 'block' : 'none' }}>
                         <h3>Upload Your Image</h3>
                         <FormGroup>
                             <Label>Image</Label>
@@ -1139,9 +1002,9 @@ class AddTenant extends Component{
                         {this.state.messageContactErr ? <span className="error">{this.state.messageContactErr}</span>:''}
                     </div>
                     <div>
-                        <Button color="primary" className="mr-2" id="prevBtn" style={{ display: this.state.step == 1 ? 'none' : 'inline-block' }} disabled={this.state.step == 1} onClick={() => { this.setState({ step: this.state.step - 1 }) }}>Previous</Button>
-                        <Button color="primary"className="mr-2" id="nextBtn" style={{ display: this.state.step == 4 ? 'none' : 'inline-block' }} disabled={this.state.step == 4} onClick={this.nextPrev}>Next</Button>
-                        <Button color="success" className="mr-2" style={{ display: this.state.step == 4 ? 'inline-block' : 'none' }}>Submit</Button>
+                        <Button color="primary" className="mr-2" id="prevBtn" style={{ display: this.state.step === 1 ? 'none' : 'inline-block' }} disabled={this.state.step === 1} onClick={() => { this.setState({ step: this.state.step - 1 }) }}>Previous</Button>
+                        <Button color="primary"className="mr-2" id="nextBtn" style={{ display: this.state.step === 4 ? 'none' : 'inline-block' }} disabled={this.state.step === 4} onClick={this.nextPrev}>Next</Button>
+                        <Button color="success" className="mr-2" style={{ display: this.state.step === 4 ? 'inline-block' : 'none' }}>Submit</Button>
                         <Button color="danger" onClick={this.routeToDetail}>Cancel</Button>
                     </div>
         </div>
@@ -1160,7 +1023,6 @@ class AddTenant extends Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         societyReducer: state.societyReducer,
         towerList: state.TowerDetails,
@@ -1173,4 +1035,4 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {detailSociety, viewTower, getRelation,getFlatDetailViaTowerId,rfid,
-    getOwnerDetailViaFlatId, getFlatDetailViaTowerId, addTenantDetail, getCountry,getState,getCity, getLocation,validOnChangeEmail,validOnChangeContact})(AddTenant);
+    getOwnerDetailViaFlatId, addTenantDetail, getCountry,getState,getCity, getLocation,validOnChangeEmail,validOnChangeContact})(AddTenant);
