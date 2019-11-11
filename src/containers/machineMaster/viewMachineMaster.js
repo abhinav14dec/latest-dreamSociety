@@ -599,7 +599,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({viewTower,getAllFloor,viewMachine,deleteMachine,deleteMultipleMachine, updateMachine,
+    return bindActionCreators({getAllFloor,viewMachine,deleteMachine,deleteMultipleMachine, updateMachine,
         getFlats, addNewFlatForTenant, 
         getFlatDetailViaTowerId, viewTower, editFlats,
         deleteFlat,getMachine}, dispatch)

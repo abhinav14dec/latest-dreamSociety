@@ -348,7 +348,7 @@ class TenantDetail extends Component {
            
             if(getFlatDetail){
               return  getFlatDetail.flatDetail.filter((flatRecord)=>{
-                    return flatRecord.floorId==this.state.floorId
+                    return flatRecord.floorId===this.state.floorId
                 }).map((selectFlat)=>{
                     return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                 });
