@@ -649,8 +649,8 @@ class IndividualVendorDetail extends Component {
     updatePermanentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
-                `${this.state.cityName}, ${this.state.stateName} , ${this.state.countryName} , Pin/Zip Code:  ${this.state.pin}`
+            permanentAddress: `${this.state.permanentAddressDefault} , ${location} ,
+                ${this.state.cityName}, ${this.state.stateName} , ${this.state.countryName} , Pin/Zip Code:  ${this.state.pin}`
         })
     }
 
@@ -751,8 +751,8 @@ class IndividualVendorDetail extends Component {
     updateCurrentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            currentAddress: this.state.currentAddressDefault + ', ' + location + ', ' +
-            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${this.state.pin}`
+            currentAddress: `${this.state.currentAddressDefault} , ${location} ,
+            ${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${this.state.pin}`
         })
     }
 
