@@ -23,7 +23,6 @@ class GuestInvitation extends Component {
             address: '',
             purpose: '',
             eventName: '',
-            contactNo: '',
             noOfPerson:''
 
         }
@@ -92,7 +91,6 @@ class GuestInvitation extends Component {
 
         if(isValid){
                     // this.setState({loading:true})
-                    const {fullName,contactNo,address,purpose,eventName,noOfPerson}=this.state
                     // this.props.postRegister(this.state)
                     // .then((msg)=>{ msg;
                     //     this.setState({message : msg.payload.message, loading: false 
