@@ -150,7 +150,7 @@ import {AdminPrivateRoute} from './components/adminPrivateRoute/adminPrivateRout
 import {EmployeePrivateRoute} from './components/employeePrivateRoute/employeePrivateRoute';
 import  FlatPieChart from './containers/chart/flatpiechart';
 import FlatLineChart from './containers/chart/flatlinechart';
-import InventoryLineChart from './containers/chart/inventoryLineChart';
+// import InventoryLineChart from './containers/chart/inventoryLineChart';
 import InventoryPieChart from './containers/chart/inventoryPieChart';
 import Chart from './containers/chart/chart';
 import ChangePasswordVendor from './components/changePassword/changePasswordVendor';
@@ -343,7 +343,7 @@ class App extends Component {
             <TenantPrivateRoute path='/tenantDashboard/complaintTenantDetails' component={ComplaintTenantDetails}/>
             <PrivateRoute  path ='/superDashboard/flatPieChart' component ={FlatPieChart}/>
             <PrivateRoute path='/superDashboard/flatLineChart' component={FlatLineChart}/>
-            <PrivateRoute path='/superDashboard/inventoryLineChart' component={InventoryLineChart}/>
+            {/* <PrivateRoute path='/superDashboard/inventoryLineChart' component={InventoryLineChart}/> */}
             <PrivateRoute path='/superDashboard/inventoryPieChart' component={InventoryPieChart}/>
             <PrivateRoute path ='/superDashboard/charts' component ={Chart}/>
             <AdminPrivateRoute path='/adminDashboard/changePasswordAdmin' component={ChangePasswordOwner} />
@@ -358,7 +358,6 @@ class App extends Component {
             <TenantPrivateRoute path='/tenantDashboard/complaintTenantDetails' component={ComplaintTenantDetails} />
             <PrivateRoute path='/superDashboard/flatPieChart' component={FlatPieChart} />
             <PrivateRoute path='/superDashboard/flatLineChart' component={FlatLineChart} />
-            <PrivateRoute path='/superDashboard/inventoryLineChart' component={InventoryLineChart} />
             <PrivateRoute path='/superDashboard/inventoryPieChart' component={InventoryPieChart} />
             <PrivateRoute path='/superDashboard/charts' component={Chart} />
             <PrivateRoute path='/superDashboard/purchaseOrder' component={PurchaseOrder} />

@@ -29,7 +29,8 @@ class InventoryLineChart extends Component {
 // viewData = new Object();
   
 	getData = (data) => {
-		data.inventory.map(inventory => {
+			 data.inventory.map(inventory => {
+				 if(inventory){
 					this.state.viewData.push(inventory.count);
 					this.state.displayData.push(inventory.avgRate);
 					this.state.assetTypeData.push(inventory.asset_type_master.assetType)
@@ -41,9 +42,15 @@ class InventoryLineChart extends Component {
 					   this.setState({['assetType'+i]:this.state.assetTypeData[i]})
 					   
 					   this.state.view[i]= 	{label:" Asset Count",name: this.state.displayData[i],assetType:this.state.assetTypeData[i], y:this.state.viewData[i]}
-								
+					//    this.setState({viewData:this.state.viewData[i]})
+					
+					
 					};
+					return '';
+				 } else return null
+				
 			
+
 		})
 			
 		

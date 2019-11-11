@@ -21,18 +21,23 @@ class Technologies extends Component {
 
     componentDidMount() {
         $('.iconBgSquare').map((index,item)=>{
-            $(item).hover(() => {
-                $(item).addClass("transform");
-                setTimeout(() => {
-                    this.setState({ backside: index });
-                }, 1000);
-            }, () => {
-                $(item).removeClass("transform");
-                setTimeout(() => {
-                    this.setState({ backside: '' });
-                }, 1000);
-            }) 
-        })
+            if(item){
+                $(item).hover(() => {
+                    $(item).addClass("transform");
+                    setTimeout(() => {
+                        this.setState({ backside: index });
+                    }, 1000);
+                }, () => {
+                    $(item).removeClass("transform");
+                    setTimeout(() => {
+                        this.setState({ backside: '' });
+                    }, 1000);
+                })
+                return '';
+            } else return null            
+        }
+        
+        )
     }
 
     toggleEditUserModal() {
