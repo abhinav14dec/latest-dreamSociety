@@ -15,8 +15,6 @@ import { PlaceHolder } from '../../actionCreators/index';
 
 class EmployeeMaster extends Component{
 
-
-
     state={
         loading:true,
         countryId1:'',
@@ -481,7 +479,7 @@ updatePermanentAddress1 = (location) => {
 }
 
 
-countryChange = (currentCountryId, currentCountry, selectOption) => {
+countryChange = (selectOption) => {
 
     this.setState({
         currentCountry: selectOption.countryName,
