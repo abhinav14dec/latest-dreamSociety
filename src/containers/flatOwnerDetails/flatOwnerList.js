@@ -594,11 +594,11 @@ class FlatOwnerList extends Component {
                 let errors = Object.assign({}, this.state.errors);
                 delete errors[e.target.name];
                 this.setState({ permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1 , errors });
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName} Pin/Zip code: ${this.state.pin1}` , errors });
             }
             else {
                 this.setState({permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + '  ' + this.state.pin1})
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, ${this.state.pin1}`})
             }
         }
         pinChange1 = (e) => {
@@ -713,7 +713,7 @@ class FlatOwnerList extends Component {
                             <Label>Upload Profile Pic</Label>                               
                                 <Input accept='image/*' style={{display:'inline-block'}} type="file" name ="profilePic" onChange={this.FileChange} />
                                 <div>
-                                 <img src={this.state.profilePic} height='100px' width='100px' />
+                                 <img src={this.state.profilePic} height='100px' width='100px' alt="profilepic"/>
                                  </div>
                             </FormGroup>
                                 <FormGroup>
