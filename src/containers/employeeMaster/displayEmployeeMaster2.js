@@ -35,10 +35,7 @@ class DisplayEmployeeMaster2 extends Component {
             loading: true,
             search: '',
             countryId: '',
-            countryName: '',
-            stateName: '',
             stateId: '',
-            cityName: '',
             cityId: '',
             locationName: '',
             locationId: '',
@@ -47,14 +44,12 @@ class DisplayEmployeeMaster2 extends Component {
             lastName: '',
             salary: '',
             contact: '',
-            email: '',
             ids: [],
             isDisabled: true,
             documentOne: '',
             countryName: '',
             stateName: '',
             cityName: '',
-            locationName: '',
             currentAddress: '',
             panCardNumber: '',
             permanentAddress: '',
@@ -72,14 +67,12 @@ class DisplayEmployeeMaster2 extends Component {
             currentAddressDefault: '',
             pin1: '',
             pin: '',
-            currentState: '',
             currentCountry: '',
             currentCountryId: '',
             currentStateId: '',
             currentCity: '',
             currentCityId: '',
             currentState: '',
-            currentStateId: '',
             currentLocation: '',
             permanentLocationId: '',
             readOnlyCountryId: '',
@@ -87,7 +80,6 @@ class DisplayEmployeeMaster2 extends Component {
             readOnlyCityId: '',
             readOnlyLocationId: '',
             userCurrent: false,
-            contact: '',
             email: '',
             employeeDetailId: '',
             emailServerError: '',
@@ -387,8 +379,8 @@ class DisplayEmployeeMaster2 extends Component {
     updateCurrentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            currentAddress: this.state.currentAddressDefault + ', ' + location + ', ' +
-                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+            currentAddress: `${this.state.currentAddressDefault},  ${location}, 
+                ${this.state.currentCity},  ${this.state.currentState},  ${this.state.currentCountry},  Pin/Zip Code: ${this.state.pin}`
         })
     }
 
@@ -408,7 +400,7 @@ class DisplayEmployeeMaster2 extends Component {
         this.setState({ pin })
         this.setState({
             currentAddress: this.state.currentAddressDefault + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin
+                `${this.state.currentCity}, ${this.state.currentState},  ${this.state.currentCountry}, Pin/Zip Code: ${pin}`
         })
     }
 
@@ -418,13 +410,13 @@ class DisplayEmployeeMaster2 extends Component {
             delete errors[e.target.name];
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin, errors
+                    `${this.state.currentCity},  ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`, errors
             });
         }
         else {
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin
+                    `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${this.state.pin}`
             })
         }
     }
@@ -638,8 +630,8 @@ class DisplayEmployeeMaster2 extends Component {
     updatePermanentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            permanentAddress: this.state.permanentAddressDefault + ', ' + location + ', ' +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin
+            permanentAddress: `${this.state.permanentAddressDefault}, ${location},
+                ${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`
         })
     }
 
@@ -767,7 +759,7 @@ class DisplayEmployeeMaster2 extends Component {
         this.setState({ pin1 })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1
+                `${this.state.cityName}, ${this.state.stateName }, ${this.state.countryName}, Pin/Zip Code: ${pin1}`
         })
     }
 
@@ -835,13 +827,13 @@ class DisplayEmployeeMaster2 extends Component {
             delete errors[e.target.name];
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1, errors
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`, errors
             });
         }
         else {
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`
             })
         }
         // if(!!document.getElementById('isChecked1').checked){
@@ -890,7 +882,7 @@ class DisplayEmployeeMaster2 extends Component {
                     </Col>
                     <Col md={4}>
                         <div style={{ textAlign: 'center' }}>
-                            <img id="target" src={this.state.picture} height='100px' width='100px' />
+                            <img id="target" src={this.state.picture} height='100px' width='100px' alt="profilePic" />
                         </div>
                     </Col>
 
@@ -1037,7 +1029,7 @@ class DisplayEmployeeMaster2 extends Component {
                             value={this.state.currentAddress}
                             type="textarea" disabled
                             placeholder="Current Address"
-                            name="readOnlyCurrent"
+                            // name="readOnlyCurrent"
                             onChange={this.onChange}
                             maxLength='250' />
                         {/* {!this.state.permanentAddress ? <span className="error">{this.state.errors.permanentAddress}</span>: ''} */}
