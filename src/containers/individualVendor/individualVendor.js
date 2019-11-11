@@ -151,7 +151,7 @@ class IndividualVendor extends Component{
     emailChange = (e) => {
    
         this.setState({email:e.target.value, messageEmailErr:''})
-        if(e.target.value.match(/^([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
+        if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value});
             
             this.setState({emailValidError: ''})
