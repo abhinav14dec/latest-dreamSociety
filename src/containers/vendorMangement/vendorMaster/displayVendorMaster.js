@@ -416,13 +416,6 @@ class DisplayVendorMaster extends Component {
         return this.props.history.replace('/superDashBoard')
     }
 
-    // OnKeyPressUserhandler(event) {
-    //     const pattern = /[a-zA-Z_ ]/;
-    //     let inputChar = String.fromCharCode(event.charCode);
-    //     if (!pattern.test(inputChar)) {
-    //         event.preventDefault();
-    //     }
-    // }
     
     OnKeyPresshandlerPhone(event) {
         const pattern = /^[0-9]$/;
@@ -466,7 +459,7 @@ class DisplayVendorMaster extends Component {
             }
         }
     
-        onChangeCountry = (countryId, countryName, selectOption) => {
+        onChangeCountry = (selectOption) => {
         
             this.setState({
                 countryName: selectOption.countryName,
@@ -503,7 +496,7 @@ class DisplayVendorMaster extends Component {
             }
         }
         
-        onChangeState = (stateName, stateId, selectOption) => {
+        onChangeState = (selectOption) => {
             this.setState({
                 stateName: selectOption.stateName,
                 stateId:selectOption.stateId
@@ -543,7 +536,7 @@ class DisplayVendorMaster extends Component {
             }
         }
         
-        onChangeCity = (cityName, cityId, selectOption) => {
+        onChangeCity = (selectOption) => {
             this.setState({
                 cityName: selectOption.cityName,
                 cityId:selectOption.cityId
@@ -582,7 +575,7 @@ class DisplayVendorMaster extends Component {
              }
          }
         
-        onChangeLocation = (locationName, locationId, selectOption) => {
+        onChangeLocation = ( selectOption) => {
             this.setState({
                 locationName: selectOption.locationName,
                 locationId:selectOption.locationId,
@@ -593,8 +586,8 @@ class DisplayVendorMaster extends Component {
     
         updatePermanentAddress1 = (location) => {
             this.setState({location})
-            this.setState({permanentAddress: this.state.permanentAddressDefault  + ', ' + location + ', ' +
-            this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+            this.setState({permanentAddress: `${this.state.permanentAddressDefault}, ${location}, 
+            ${this.state.cityName},  ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code:  ${this.state.pin}`})
         }
 
         editPermanentAddress = () => {
@@ -615,11 +608,11 @@ class DisplayVendorMaster extends Component {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
             this.setState({ permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-            this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1 , errors });
+            `${this.state.cityName} ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin1}`, errors });
         }
         else {
             this.setState({permanentAddressDefault: e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-            this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1})
+            `${this.state.cityName} ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin1}`})
         }
       
     }
@@ -639,10 +632,10 @@ class DisplayVendorMaster extends Component {
     updatePermanentAddress = (pin1) => {
         this.setState({pin1})
         this.setState({permanentAddress: this.state.permanentAddressDefault  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1})
+        `${this.state.cityName} ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin1}`})
     }
     
-    countryChange = (currentCountryId, currentCountry, selectOption) => {
+    countryChange = (selectOption) => {
     
         this.setState({
             currentCountry: selectOption.countryName,
@@ -653,7 +646,7 @@ class DisplayVendorMaster extends Component {
     }
     
     
-    stateChange = (currentState, currentStateId, selectOption) => {
+    stateChange = (selectOption) => {
         this.setState({
             currentState: selectOption.stateName,
             currentStateId:selectOption.stateId
@@ -661,7 +654,7 @@ class DisplayVendorMaster extends Component {
         this.props.getCity(selectOption.stateId);
     }
     
-    cityChange = (currentCity, currentCityId, selectOption) => {
+    cityChange = (selectOption) => {
         this.setState({
             currentCity: selectOption.cityName,
             currentCityId:selectOption.cityId
@@ -669,7 +662,7 @@ class DisplayVendorMaster extends Component {
         this.props.getLocation(selectOption.cityId)
     }
     
-    locationChange = (currentLocation, currentLocationId, selectOption) => {
+    locationChange = (selectOption) => {
         this.setState({
             currentLocation: selectOption.locationName,
             permanentLocationId:selectOption.locationId,
@@ -680,8 +673,8 @@ class DisplayVendorMaster extends Component {
     
     updateCurrentAddress1 = (location) => {
         this.setState({location})
-        this.setState({currentAddress: this.state.currentAddressDefault  + ', ' + location + ', ' +
-        this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        this.setState({currentAddress: `${this.state.currentAddressDefault}, ${location},
+        ${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip Code: ${this.state.pin}`})
     }
     
     pinChange = (e) => {
@@ -715,7 +708,7 @@ class DisplayVendorMaster extends Component {
     updateCurrentAddress = (pin) => {
         this.setState({pin})
         this.setState({currentAddress: this.state.currentAddressDefault  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin})
+        `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${pin}`})
     }
     
     currentAddressChange = (e) => {
@@ -723,11 +716,11 @@ class DisplayVendorMaster extends Component {
             let errors = Object.assign({}, this.state.errors);
             delete errors[e.target.name];
             this.setState({ currentAddressDefault: e.target.value, currentAddress: e.target.value  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-            this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin , errors });
+            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${this.state.pin}` , errors });
         }
         else {
             this.setState({currentAddressDefault: e.target.value, currentAddress: e.target.value  + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-            this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin})
+            `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code:  ${this.state.pin}`})
         }
     }
     currentAddressIsChecked = () => {
