@@ -71,8 +71,6 @@ class Technologies extends Component {
                         localStorage.setItem('locationName', loginData.payload.data.society.location_master.locationName)
                         localStorage.setItem('userId', loginData.payload.data.user.userId)
                         localStorage.setItem('role', loginData.payload.data.user.roles[0].roleName)
-                        console.log(loginData.payload.data.user.roles[0].roleName)
-                        console.log(loginData.payload.data.society.country_master.countryName)
                         switch (loginData.payload.data.user.roles[0].roleName) {
                             case 'SUPER ADMIN':
                                 return this.props.history.push('/superDashboard');

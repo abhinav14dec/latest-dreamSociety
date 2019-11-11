@@ -79,20 +79,23 @@ class TenantFlatsDetail extends Component{
                     return this.state.sortVal ? cmprVal : -cmprVal;
                 }
             }).map((item, index) => {
-                return (
-                    <tr key={item.flatDetailId}>
-                        <td>{index + 1}</td>
-                        <td>{item.tower_master.towerName}</td>
-                        <td>{item.floor_master.floorName}</td>
-                        <td>{item.flatNo}</td>
-                        <td>
-                            <Button color="success" className="mr-2" onClick={this.edit.bind(this,item.tower_master.towerName,item.floor_master.floorName, item.flatNo,item.tower_master.towerId,
-                             item.floor_master.floorId,
-                                item.flatDetailId)}>Edit</Button>
-                            <Button color="danger" onClick={this.delete.bind(this, this.state.tenantId, item.flatDetailId)}>Delete</Button>
-                        </td>
-                    </tr>
-                )
+                if(item){
+                    return (
+                        <tr key={item.flatDetailId}>
+                            <td>{index + 1}</td>
+                            <td>{item.tower_master.towerName}</td>
+                            <td>{item.floor_master.floorName}</td>
+                            <td>{item.flatNo}</td>
+                            <td>
+                                <Button color="success" className="mr-2" onClick={this.edit.bind(this,item.tower_master.towerName,item.floor_master.floorName, item.flatNo,item.tower_master.towerId,
+                                 item.floor_master.floorId,
+                                    item.flatDetailId)}>Edit</Button>
+                                <Button color="danger" onClick={this.delete.bind(this, this.state.tenantId, item.flatDetailId)}>Delete</Button>
+                            </td>
+                        </tr>
+                    )  
+                }
+                else return null;
             })
         }
     }

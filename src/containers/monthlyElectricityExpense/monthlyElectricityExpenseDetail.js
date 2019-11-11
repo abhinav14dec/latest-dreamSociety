@@ -197,7 +197,7 @@ class MonthlyElectricityExpenseDetail extends Component {
                             </td>
                         </tr>
                     );
-                }
+                }else return null;
             })
         }
     }

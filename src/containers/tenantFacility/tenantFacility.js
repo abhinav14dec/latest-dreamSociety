@@ -160,16 +160,16 @@ class TenantFacility extends Component {
                                 if (!e.target.checked) {
                                     this.state.facilitiesUser.map((item) => {
                                         if (item.facilityDetailId === facilityDetailId) {
-                                            item.isActive = false;
-                                        }
+                                           return  item.isActive = false;
+                                        }else return null;
                                     })
                                 }
                                 else {
 
                                     this.state.facilitiesUser.map((item, index) => {
                                         if (item.facilityDetailId === facilityDetailId) {
-                                            item.isActive = true;
-                                        }
+                                            return item.isActive = true;
+                                        }else return null;
                                     })
                                 }
 
@@ -206,8 +206,8 @@ class TenantFacility extends Component {
                                     let indexToBeFound;
                                     this.state.facilities.map((item, index) => {
                                         if(item.facilityDetailId === facilityDetailId) {
-                                            indexToBeFound = index;
-                                        }
+                                           return indexToBeFound = index;
+                                        }else return null;
                                     })
                                     this.state.facilities.splice(indexToBeFound, 1)
 

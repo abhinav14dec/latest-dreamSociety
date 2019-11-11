@@ -11,10 +11,6 @@ import './event.css';
 
 
 class EventMaster extends Component {
-  constructor(props) {
-    super(props)
-
-  }
 
   state = {
     eventType: '',

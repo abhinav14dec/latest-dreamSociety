@@ -163,7 +163,6 @@ class EmployeeTypeMaster extends Component {
                 onKeyPress={this.OnKeyPresshandler}
                 maxLength="20"
                 onChange={this.onChange}
-                onKeyPress={this.OnKeyPresshandler}
               />
               <span className="error">{this.state.errors.serviceType}</span>
               <span className="error">{this.state.message}</span>

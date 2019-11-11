@@ -140,7 +140,7 @@ class GetElectricityExpense extends Component {
 
     onChange = (item, e) => {
         // this.setState({[e.target.name]:e.target.value, lastReading: value});
-        var input = document.getElementById(`currentReading` + item);
+         document.getElementById(`currentReading` + item);
     }
 
     update = () => {
