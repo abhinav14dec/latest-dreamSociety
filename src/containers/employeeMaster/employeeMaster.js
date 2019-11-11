@@ -15,8 +15,6 @@ import { PlaceHolder } from '../../actionCreators/index';
 
 class EmployeeMaster extends Component{
 
-
-
     state={
         loading:true,
         countryId1:'',
