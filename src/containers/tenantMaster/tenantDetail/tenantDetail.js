@@ -43,7 +43,6 @@ class TenantDetail extends Component {
             flatDetailId:'',
             towerId:'',
             picture:'',
-            flatDetailId:'',
             loading:true,
             messageEmailErr:'',
             errors:{},
@@ -265,7 +264,6 @@ class TenantDetail extends Component {
     deleteSelected(ids){
         this.setState({loading:true, isDisabled: true});
         this.props.deleteSelectedTenant(ids)
-        
         .then(() => this.refreshData())
         .catch(err => err);
     }
@@ -363,7 +361,7 @@ class TenantDetail extends Component {
     towerChangeHandler = ( selectOption) => {
         document.getElementById('floor').value = null;
         this.setState({correspondenceAddress:'',memberError:''})
-        this.setState(function (prevState, props) {
+        this.setState(function () {
             return {
                 towerId: selectOption.towerId,
                 towerName: selectOption.towerName
@@ -386,7 +384,7 @@ class TenantDetail extends Component {
     
         }
 
-        flatChangeHandler=(flatNo, flatDetailId ,selectOption)=>{
+        flatChangeHandler=(selectOption)=>{
             this.setState({
                 flatNo: selectOption.flatNo,
                 flatDetailId: selectOption.flatDetailId,
@@ -426,7 +424,7 @@ class TenantDetail extends Component {
         
         let {firstName,lastName, gender, email, contact, aadhaarNumber, panCardNumber, bankName, IFSCCode,
             accountHolderName ,accountNumber ,dob, permanentAddress, fileName, towerName, flatNo, towerId,
-        picture, flatDetailId, tenantId, floorId, countryId, stateId, cityId, locationId, pin, rfid, rfidId} = this.state;
+        picture, flatDetailId, tenantId, floorId, countryId, stateId, cityId, locationId, pin, rfidId} = this.state;
         let errors = {};
         if(this.state.firstName === '') {
             errors.firstName = `First Name can't be empty.`;}
@@ -574,7 +572,7 @@ class TenantDetail extends Component {
         }
     }
 
-    onChangeCountry = (countryId, countryName, selectOption) => {
+    onChangeCountry = (selectOption) => {
         this.setState({
             countryName: selectOption.countryName,
             countryId:selectOption.countryId, 
@@ -588,7 +586,7 @@ class TenantDetail extends Component {
     updatePermanentAddress2 = (countryName) => {
         this.setState({countryName})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code:  ${this.state.pin}`})
     }
    
     stateName = ({stateResult}) => {
@@ -604,7 +602,7 @@ class TenantDetail extends Component {
         }
     }
 
-    onChangeState = (stateName, stateId, selectOption) => {
+    onChangeState = (selectOption) => {
         this.setState({
             stateName: selectOption.stateName,
             stateId:selectOption.stateId
@@ -616,7 +614,8 @@ class TenantDetail extends Component {
     updatePermanentAddress3 = (stateName) => {
         this.setState({stateName})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code:  ${this.state.pin}`})
+
     }
    
     cityName=({cityResult})=>{
@@ -647,7 +646,7 @@ class TenantDetail extends Component {
     updatePermanentAddress3 = (cityName) => {
         this.setState({cityName})
         this.setState({permanentAddress: this.state.editAddress  + ', ' + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code:  ${this.state.pin}`})
     }
     
    
@@ -680,11 +679,11 @@ class TenantDetail extends Component {
                 let errors = Object.assign({}, this.state.errors);
                 delete errors[e.target.name];
                 this.setState({editAddress:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin , errors })
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code:  ${this.state.pin}` , errors })
             }
             else {
                 this.setState({editAddress:e.target.value, permanentAddress: e.target.value  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin })
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code:  ${this.state.pin}` })
             }
     }
 
@@ -715,13 +714,13 @@ class TenantDetail extends Component {
     updatePermanentAddress = (pin) => {
         this.setState({pin})
         this.setState({permanentAddress: this.state.editAddress  + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin})
+        `${this.state.cityName} , ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin}`})
     }
 
     updatePermanentAddress1 = (location) => {
         this.setState({location})
-        this.setState({permanentAddress: this.state.editAddress  + ', ' + location + ', ' +
-        this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + this.state.pin})
+        this.setState({permanentAddress: `${this.state.editAddress}, ${location},
+        ${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${this.state.pin}`})
     }
 
     pinChange = (e) => {
@@ -817,7 +816,7 @@ class TenantDetail extends Component {
         let viewTenantData = <div>
             <FormGroup>
                     <div style={{border: '1px solid black', textAlign:'center', width:'200px', height:'200px', margin:'0 auto'}}>
-                        <img src={this.state.picture} height='200px' width='200px' />
+                        <img src={this.state.picture} height='200px' width='200px' alt="pic"/>
                     </div>
             </FormGroup>
            <FormGroup>
@@ -912,7 +911,7 @@ class TenantDetail extends Component {
                                 {this.renderList(this.props.tenantReducer)}
                             </tbody>
                         </Table>
-                        let lastIndex = this.state.picture.lastIndexOf('/');
+                        // let lastIndex = this.state.picture.lastIndexOf('/');
 
         let modalData = <div>
             {/* <FormGroup>
@@ -930,7 +929,7 @@ class TenantDetail extends Component {
                     </Col>
                     <Col md={4}>
                         <div style={{border: '1px solid black', textAlign:'center'}}>
-                            <img src={this.state.picture} height='100px' width='100px' />
+                            <img src={this.state.picture} height='100px' width='100px' alt="pic"/>
                         </div>
                     </Col>
                     
@@ -1120,7 +1119,7 @@ class TenantDetail extends Component {
                     </div>
                     <div className="top-details">
                         <h3>Tenant Details</h3>
-                        <Button color="primary" onClick={this.route} color="primary">Add Tenant</Button>
+                        <Button color="primary" onClick={this.route}>Add Tenant</Button>
                     </div>
                     <SearchFilter type="text" value={this.state.search}
                                 onChange={this.searchOnChange} />
