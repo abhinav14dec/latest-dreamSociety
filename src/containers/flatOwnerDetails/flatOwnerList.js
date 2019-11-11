@@ -713,11 +713,7 @@ class FlatOwnerList extends Component {
                             <Label>Upload Profile Pic</Label>                               
                                 <Input accept='image/*' style={{display:'inline-block'}} type="file" name ="profilePic" onChange={this.FileChange} />
                                 <div>
-<<<<<<< HEAD
                                  <img src={this.state.profilePic} height='100px' width='100px' alt="profilepic"/>
-=======
-                                 <img src={this.state.profilePic} height='100px' width='100px' alt="profile pic" />
->>>>>>> f03bfc46e16120a7edc289d72dc04ef81a4ae43f
                                  </div>
                             </FormGroup>
                                 <FormGroup>
