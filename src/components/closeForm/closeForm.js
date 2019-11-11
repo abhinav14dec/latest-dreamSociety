@@ -6,7 +6,6 @@ class CloseForm extends Component {
         super(props)
     }
     close = () => {
-        console.log('close form')
         return this.props.history.push('/superDashBoard');
     }
 

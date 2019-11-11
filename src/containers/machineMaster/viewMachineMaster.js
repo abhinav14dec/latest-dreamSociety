@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Input,Label} from 'reactstrap';
+import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Label} from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 import {getAllFloor} from '../../actions/flatOwnerAction';

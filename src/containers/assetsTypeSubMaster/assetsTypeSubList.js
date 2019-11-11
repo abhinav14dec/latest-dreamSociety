@@ -23,7 +23,6 @@ class AssetsTypeSubList extends Component {
             menuVisible: false,
             search: '',
             pageCount: 1,
-            activePage: 1,
             loading: true,
             errors: {},
             ids: [],
@@ -118,7 +117,6 @@ class AssetsTypeSubList extends Component {
                 let cmpValue=(item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                 return this.state.sortVal?cmpValue: -cmpValue;
             }).filter(this.searchFilter(this.state.search)).map((item,index) => {
-                
                     return (
                         <tr key={item.assetTypeId}>
                          <td><input type="checkbox" name="ids" value={item.assetTypeId} className="SelectAll"
@@ -153,7 +151,6 @@ class AssetsTypeSubList extends Component {
                             </td>
                         </tr>
                     )
-                
             })
         }
 

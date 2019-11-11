@@ -23,6 +23,7 @@ class Video extends Component {
                 res.payload.videoData[0].Video.map(item => {
                     return videos.push(item);
                 })
+                
                 this.setState({ videos: videos })
             })
     }

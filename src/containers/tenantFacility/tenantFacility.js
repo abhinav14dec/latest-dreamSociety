@@ -126,7 +126,6 @@ class TenantFacility extends Component {
 
     inUseSubmit = (facilitiesUser) => {
         this.setState({ loading: true })
-
         this.props.updateUserFacility(facilitiesUser).then(() => {
             this.refreshData();
         })
@@ -270,8 +269,7 @@ class TenantFacility extends Component {
                 checked={this.state.type === 'all' ? true : false}
             />{' '}All</Label> */}
         </div>
-          let table= <div>
-            {this.state.type === 'deactivated' ?<div> <Table className="table table-bordered">
+          let table= this.state.type === 'deactivated' ? <Table className="table table-bordered">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -279,7 +277,6 @@ class TenantFacility extends Component {
                             <th>Rate/Type</th>
                             <th>Duration</th>
                         </tr>
-
                     </thead>
 
                     <tbody>
@@ -289,7 +286,7 @@ class TenantFacility extends Component {
                     <td><Button color="success" onClick={this.submitFacilityData.bind(this, this.state.facilities)}>Submit</Button></td>
                     </FormGroup>
 
-                </Table> </div> : <div> <Table className="table table-bordered">
+                </Table> :  <Table className="table table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -306,10 +303,10 @@ class TenantFacility extends Component {
                         </tbody>
 
                         <FormGroup>
-                        <td><Button color="success" onClick={this.inUseSubmit.bind(this, this.state.facilitiesUser)}>Submit</Button></td>
+                          <Button color="success" onClick={this.inUseSubmit.bind(this, this.state.facilitiesUser)}>Submit</Button>
                         </FormGroup>
-                    </Table></div>}
-                    </div>
+                    </Table>
+                    
         
 
         return (

@@ -26,16 +26,13 @@ import { giveToken  } from '../actions/token';
 
     // submit=(e)=>{
     //     e.preventDefault();
-    //     console.log(this.state.otp);
     //     const url=window.location.href.split('?')[1]
     //      let {otp} = this.state
     //     axios.post(`${URN}/otpVerify`,{url,otp})
     //     .then((response)=>{
-    //       console.log(response.data)
     //       localStorage.setItem('url', url)
     //       this.props.history.push('/resetpassword')
     //     })
-    //     .catch(err=>console.log(err.response.data.messageErr));
   
 
     // }

@@ -103,7 +103,6 @@ class TennatMemberEventsBookingDetail extends Component {
         e.preventDefault();
       
         const {societyMemberEventBookingId, societyMemberEventId,startDate,endDate,numberOfGuestExpected, eventSpaceId } = this.state
-        console.log(societyMemberEventBookingId, societyMemberEventId,startDate,endDate,numberOfGuestExpected, eventSpaceId);
       
         let errors = {};
        
@@ -215,7 +214,6 @@ class TennatMemberEventsBookingDetail extends Component {
     fetchEventName=({ eventsResult })=> {
      
         if (eventsResult && eventsResult.event) {
-            console.log(eventsResult)
             return (
                 eventsResult.event.map((item) => {
                     return (
@@ -250,7 +248,6 @@ class TennatMemberEventsBookingDetail extends Component {
 
     renderBookingEvent = ({ memberEventsResult }) => {
         if (memberEventsResult && memberEventsResult.events){
-            console.log(memberEventsResult )
             return memberEventsResult.events.sort((item1,item2)=>{ 
                 var cmprVal = (item1.society_member_event_master && item2.society_member_event_master) ? (item1.society_member_event_master[this.state.filterName].localeCompare(item2.society_member_event_master[this.state.filterName])) : ''
                 return this.state.sortVal ? cmprVal : -cmprVal;

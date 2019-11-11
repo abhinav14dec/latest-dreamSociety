@@ -12,7 +12,6 @@ import Spinner from '../../components/spinner/spinner'
 import UI from '../../components/newUI/superAdminDashboard'
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import DefaultSelect from '../../constants/defaultSelect'
-import _ from 'underscore';
 import './employeeMaster.css'
 import GoogleDocsViewer from 'react-google-docs-viewer';
 import {getRfId} from '../../actions/rfIdAction';

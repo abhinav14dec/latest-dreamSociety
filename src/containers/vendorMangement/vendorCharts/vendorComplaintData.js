@@ -22,7 +22,6 @@ class VendorComplaintData extends Component {
 	componentDidMount() {
         axios.get(`${URN}/vendorChart`,{headers:authHeader()})
           .then(res => {
-			console.log(res.data);
 			this.getData(res.data)
 		  })
 		}

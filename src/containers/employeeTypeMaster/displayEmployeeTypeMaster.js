@@ -1,12 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader, Label } from 'reactstrap';
-import { bindActionCreators } from 'redux';
-import { getEmployee, getEmployeeType, getEmployeeWorkType, updateEmployee, deleteEmployee, deleteMultipleEmployee } from '../../actions/employeeTypeMasterAction';
-import UI from '../../components/newUI/superAdminDashboard';
-import Spinner from '../../components/spinner/spinner';
-import DefaultSelect from '../../constants/defaultSelect'
-import SearchFilter from '../../components/searchFilter/searchFilter';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  Table,
+  Input,
+  Button,
+  Modal,
+  FormGroup,
+  ModalBody,
+  ModalHeader,
+  Label
+} from "reactstrap";
+import { bindActionCreators } from "redux";
+import {
+  getEmployee,
+  getEmployeeType,
+  getEmployeeWorkType,
+  updateEmployee,
+  deleteEmployee,
+  deleteMultipleEmployee
+} from "../../actions/employeeTypeMasterAction";
+import UI from "../../components/newUI/superAdminDashboard";
+import Spinner from "../../components/spinner/spinner";
+import DefaultSelect from "../../constants/defaultSelect";
+import SearchFilter from "../../components/searchFilter/searchFilter";
 class DisplayEmployeeTypeMaster extends Component {
   state = {
     editEmployeeData: {
@@ -32,15 +48,13 @@ class DisplayEmployeeTypeMaster extends Component {
   }
 
   refreshData() {
-    this.props
-      .getEmployee()
-      .then(() =>
-        this.setState({
-          loading: false,
-          modalLoading: false,
-          editEmployeeModal: false
-        })
-      );
+    this.props.getEmployee().then(() =>
+      this.setState({
+        loading: false,
+        modalLoading: false,
+        editEmployeeModal: false
+      })
+    );
     this.props.getEmployeeType().then(() => this.setState({ loading: false }));
     this.props
       .getEmployeeWorkType()

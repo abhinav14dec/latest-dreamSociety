@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { authHeader } from "../../helper/authHeader";
-import {URN} from '../../actionCreators/index';
-
 import CanvasJSReact from '../../components/canvasjs.react';
 
 
@@ -19,7 +15,6 @@ class ServiceDetailsChart extends Component {
 // 	componentDidMount() {
 //         axios.get(`${URN}/flats/count`,{headers:authHeader()})
 //           .then(res => {
-// 			console.log(res.data);
 // 			this.getData(res.data)
 // 		  })
 // 		}

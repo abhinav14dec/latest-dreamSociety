@@ -38,8 +38,6 @@ export const  getMemberEvent=()=>{
  
     const request = axios.get(`${URN}/eventSpaceMaster/tenantOrOwner`,{headers:authHeader()})
     .then(response => response.data)
-    .then(console.log(request));
-   
     return{
 
          type:PERSONAL_EVENT_SPACE_DETAILS,

@@ -26,7 +26,6 @@ class DisplayMachineIdMaster extends Component {
         machineDetailId:'',
         machineActualId:'',
         machineId:'',
-        message:'',
        
     }
 

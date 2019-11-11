@@ -22,7 +22,6 @@ class TenantComplaintPieChart extends Component {
 	componentDidMount() {
         axios.get(`${URN}/chart`,{headers:authHeader()})
           .then(res => {
-			console.log(res.data);
 			this.getData(res.data)
 		  })
 		}

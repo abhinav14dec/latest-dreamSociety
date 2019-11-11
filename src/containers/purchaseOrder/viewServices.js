@@ -255,15 +255,6 @@ renderList = ({ getServiceDetails }) => {
         return this.props.history.replace('/superDashboard/changePassword')
     }
     
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-
-    
     selectAll = () => {
         let selectMultiple = document.getElementsByClassName('SelectAll');
         let ar =[];
@@ -299,22 +290,7 @@ renderList = ({ getServiceDetails }) => {
         return this.props.history.replace('/superDashBoard')
     }
 
-    OnKeyPressUserhandler(event) {
-        const pattern = /[a-zA-Z_ ]/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-    
-    OnKeyPresshandlerPhone(event) {
-        const pattern = /^[0-9]$/;
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-
+ 
     
     onRateChange=(e)=>{
         var amount=e.target.value*this.state.quantity;
