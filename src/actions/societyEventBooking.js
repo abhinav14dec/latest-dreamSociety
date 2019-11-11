@@ -37,7 +37,6 @@ export function updateSocietyEvents(societyEventBookId,eventId,eventName,organis
 }
 
 export function deleteEvents(societyEventBookId,isActive){
-  console.log(societyEventBookId)
     const request = axios.put(`${URN}/deleteEventBooking/`+societyEventBookId,{isActive}, {headers:authHeader()})
      .then()     
      return{

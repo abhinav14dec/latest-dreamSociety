@@ -19,7 +19,7 @@ export default class submitOT extends Component {
           // localStorage.setItem('url', url1)
           this.props.history.push('/resetpassword?'+ url)
         })
-        .catch(err=>console.log(err.response.data.messageErr));
+        .catch(err=>err.response.data.messageErr);
   
 
     }

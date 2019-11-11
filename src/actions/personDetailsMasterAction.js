@@ -49,10 +49,8 @@ export function addPerson( userName,email,towerId,roles){
          }
      }
      export function viewPerson(){
-         
         const request = axios.get(`${URN}/person`,{headers:authHeader()})
         .then(response=>response.data)
-        console.log(request,"res");
         return{
             type:GET_PERSON,
             payload:request
@@ -71,7 +69,7 @@ export function addPerson( userName,email,towerId,roles){
 
     export function updatePerson( userId,userName,email,towerId,roleName){
        
-       console.log('shubhu',userId,userName,email)
+       
         const request=axios.put(`${URN}/user/` +userId, { userId,userName,email,towerId,roleName},
         { headers: authHeader() }).then((response)=>{
 

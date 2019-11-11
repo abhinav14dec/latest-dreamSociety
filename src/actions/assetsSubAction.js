@@ -41,6 +41,7 @@ export function fetchAssets() {
 }
 
 export function updateAssetsSub(id, assets,assetName, description) {
+ 
     const data = {
         assetId:assets,
         assetTypeId: id,

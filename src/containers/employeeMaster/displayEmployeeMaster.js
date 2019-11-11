@@ -796,7 +796,7 @@ class DisplayEmployeeMaster extends Component {
         this.setState({ pin1 })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin1}`
         })
     }
 
@@ -864,13 +864,13 @@ class DisplayEmployeeMaster extends Component {
             delete errors[e.target.name];
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1, errors
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`, errors
             });
         }
         else {
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`
             })
         }
 
@@ -894,7 +894,7 @@ class DisplayEmployeeMaster extends Component {
         let employeeData = <div>
             <FormGroup>
                 <div style={{ border: '1px solid black', textAlign: 'center', width: '100px', height: '100px', margin: '0 auto' }}>
-                    <img src={this.state.picture} height='100px' width='100px' />
+                    <img src={this.state.picture} height='100px' width='100px' alt="profile pic"/>
                 </div>
             </FormGroup>
             <FormGroup>
@@ -1024,7 +1024,7 @@ class DisplayEmployeeMaster extends Component {
                     </Col>
                     <Col md={4}>
                         <div style={{ textAlign: 'center' }}>
-                            <img id="target" src={this.state.picture} height='100px' width='100px' />
+                            <img id="target" src={this.state.picture} height='100px' width='100px' alt="profile pic" />
                         </div>
                     </Col>
 

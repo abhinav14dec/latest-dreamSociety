@@ -95,6 +95,7 @@ class MemberEventsBookingTenant extends Component {
                             this.setState({ data }, function () {
                            });
                         }
+                        return null
 
                     }) 
         }

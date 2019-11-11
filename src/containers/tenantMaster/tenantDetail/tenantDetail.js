@@ -257,10 +257,7 @@ class TenantDetail extends Component {
     }
 
     viewFlats(tenantId){
-        // this.setState({viewFlatLoading:true})
-        // this.props.getFlats(tenantId)
-        // .then(() => this.setState({viewFlatLoading:false}))
-        // this.setState({viewFlatDetail: true})
+    
         localStorage.setItem('tenantId1', tenantId);
         this.props.history.push('/superDashBoard/tenantFlatsDetail');
     }
@@ -363,7 +360,7 @@ class TenantDetail extends Component {
               }
         }
 
-    towerChangeHandler = (towerId, towerName, selectOption) => {
+    towerChangeHandler = ( selectOption) => {
         document.getElementById('floor').value = null;
         this.setState({correspondenceAddress:'',memberError:''})
         this.setState(function (prevState, props) {
@@ -378,7 +375,7 @@ class TenantDetail extends Component {
     }
 
 
-    floorChangeHandler=(floorName, floorId,selectOption)=>{
+    floorChangeHandler=(selectOption)=>{
         this.setState({
             floorName: selectOption.floorName,
             floorId: selectOption.floorId,
@@ -789,7 +786,7 @@ class TenantDetail extends Component {
     rfidChange = (name,selectOption) => {
         
         if(name && selectOption){
-            this.setState(function (prevState, props) {
+            this.setState(function () {
                 return {
                     [name]: selectOption.value,
                     errors:''

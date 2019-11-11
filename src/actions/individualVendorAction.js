@@ -4,10 +4,7 @@ import { authHeader } from '../helper/authHeader';
 
 
 
-export const addVendor=(values)=>{
-   
-    console.log(values)
-   
+export const addVendor=(values)=>{   
     const request = axios.post(`${URN}/individualVendor` ,values , {headers:authHeader()})
      .then(response => response.data)
   
@@ -35,7 +32,6 @@ export const addVendor=(values)=>{
  }
 
  export const getServiceVendor=(id)=>{
-   console.log(id)
     const request = axios.get(`${URN}/individualVendor/${id}` , {headers:authHeader()})
      .then(response => response.data)
   
@@ -81,7 +77,6 @@ export const addVendor=(values)=>{
 
 
  export const updateIndividualVendor=(individualVendorId, firstName, lastName, currentAddress, permanentAddress, contact, email, documentOne, documentTwo, rate, profilePicture, countryId, stateId, cityId, locationId, serviceId, rateId, startTime, endTime, startTime1, endTime1, startTime2, endTime2,rfidId, fileName1,fileName2,fileName3)=>{
-    console.log(individualVendorId, firstName, lastName, currentAddress, permanentAddress, contact, email, documentOne, documentTwo, rate, profilePicture, countryId, stateId, cityId, locationId, serviceId, rateId, startTime, endTime, startTime1, endTime1, startTime2, endTime2,rfidId, fileName1,fileName2,fileName3)
     
     const request = axios.put(`${URN}/individualVendor/`+ individualVendorId ,{ firstName, lastName, currentAddress, permanentAddress, contact, email, documentOne, documentTwo, rate, profilePicture, countryId, stateId, cityId, locationId, serviceId, rateId, startTime, endTime, startTime1, endTime1, startTime2, endTime2,rfidId, fileName1,fileName2,fileName3}, {headers:authHeader()})
      .then(response => response.data)

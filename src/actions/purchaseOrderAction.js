@@ -3,7 +3,7 @@ import { authHeader } from '../helper/authHeader';
 import {URN,ADD_PURCHASE_ORDER,GET_PURCHASE_ORDER,GET_PDF,DELETE_PURCHASE_ORDER,MULTIPLE_DELETE_PURCHASE_ORDER,ASSET_TYPE_ID,UPDATE_PURCHASE,GET_ASSETS_ID,UPDATE_ASSETS_PURCHASE,GET_SERVICES_ID,UPDATE_SERVICE_PURCHASE,DELETE_PURCHASE_DETAILS,DELETE_ALL_DETAILS} from '../actionCreators/index';
 
 export function addPurchaseOrder(vendorId,expDate,purchaseOrderAssetsArray,purchaseOrderServiceArray) {
-    console.log(vendorId,expDate,purchaseOrderAssetsArray,purchaseOrderServiceArray)
+    
     const data={issuedBy:"Arihant Society",vendorId,expectedDateOfDelievery:expDate,purchaseOrderAssetsArray,purchaseOrderServiceArray}
     const request = axios.post(`${URN}/purchaseOrder`,data, { headers: authHeader() })
         .then(response => response.data)
@@ -22,7 +22,7 @@ export function getPurchaseOrder(){
     }
 }
  export function pdf(purchaseOrderId){
-     console.log(purchaseOrderId)
+    
      const request= axios.get(`${URN}/downloadPdfClient/${purchaseOrderId}`,{ headers: authHeader() })
      return{
          type:GET_PDF,
@@ -30,7 +30,7 @@ export function getPurchaseOrder(){
      }
  }
  export function removePurchaseOrder(purchaseOrderId){
-     console.log(purchaseOrderId)
+
      const request = axios.put(`${URN}/deletePurchaseOrder/${purchaseOrderId}`,{ headers: authHeader() })
      return{
          type:DELETE_PURCHASE_ORDER,
@@ -39,7 +39,6 @@ export function getPurchaseOrder(){
      
  }
  export function deleteMultiple(ids){
-     console.log(ids)
      const request=axios.put(`${URN}/deletePurchaseOrders`,{ids},{headers:authHeader()})
      return{
          type:MULTIPLE_DELETE_PURCHASE_ORDER,
@@ -61,7 +60,7 @@ export function getPurchaseOrder(){
 
 export const updatePurchaseOrderData=(purchaseOrderId, issuedBy, vendorId,expDateOfDelievery)=>{
   
-    console.log(purchaseOrderId, issuedBy, vendorId,expDateOfDelievery)
+
     const request = axios.put(`${URN}/updatePurchaseOrder/`+ purchaseOrderId ,{ issuedBy, vendorId,expDateOfDelievery}, {headers:authHeader()})
      .then(response => response.data)
     
@@ -77,7 +76,6 @@ export const updatePurchaseOrderData=(purchaseOrderId, issuedBy, vendorId,expDat
  }
 
  export const getAssetsId=(id)=>{
-    console.log(id)
      const request = axios.get(`${URN}/getAssets/${id}` , {headers:authHeader()})
       .then(response => response.data)
    
@@ -92,7 +90,7 @@ export const updatePurchaseOrderData=(purchaseOrderId, issuedBy, vendorId,expDat
 
   export const updateAssetsDetails=(purchaseOrderId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount,purchaseOrderDetailId)=>{
   
-     console.log(purchaseOrderId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount,purchaseOrderDetailId)
+    //  console.log(purchaseOrderId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount,purchaseOrderDetailId)
     const request = axios.put(`${URN}/updatePurchaseOrderDetails/`+ purchaseOrderDetailId ,{purchaseOrderDetailId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount}, {headers:authHeader()})
      .then(response => response.data)
     
@@ -108,7 +106,7 @@ export const updatePurchaseOrderData=(purchaseOrderId, issuedBy, vendorId,expDat
  }
 
  export const getServicesId=(id)=>{
-    console.log(id)
+    
      const request = axios.get(`${URN}/getServices/${id}` , {headers:authHeader()})
       .then(response => response.data)
    
@@ -122,8 +120,7 @@ export const updatePurchaseOrderData=(purchaseOrderId, issuedBy, vendorId,expDat
   }
 
  export const updateServiceDetails=(purchaseOrderDetailId, purchaseOrderId,purchaseOrderType,purchaseOrderName,rate,quantity,amount,serviceStartDate, serviceEndDate)=>{
-  
-    console.log(purchaseOrderDetailId,purchaseOrderId,purchaseOrderType,purchaseOrderName,rate,quantity,amount,serviceStartDate,serviceEndDate)
+
    const request = axios.put(`${URN}/updatePurchaseOrderDetails/`+ purchaseOrderDetailId ,{purchaseOrderId,purchaseOrderType,purchaseOrderName,rate,quantity,amount,serviceStartDate,serviceEndDate}, {headers:authHeader()})
     .then(response => response.data)
    

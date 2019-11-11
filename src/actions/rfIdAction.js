@@ -44,7 +44,6 @@ export function deleteMultipleRf(ids){
  
 
 export function updateRF(rfidId,rfid){
-    console.log(rfidId,rfid)
     const data={
         rfid:rfid
     }
