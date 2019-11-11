@@ -55,7 +55,7 @@ export function deleteSelectedService(ids){
 
 
 export const deleteService=(serviceId,isActive)=>{
- console.log(serviceId)
+
 
     const request = axios.put(`${URN}/service/delete/${serviceId}`,{isActive}, {headers:authHeader()})
      .then(response => response.data)

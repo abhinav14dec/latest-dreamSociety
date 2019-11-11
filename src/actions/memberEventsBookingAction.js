@@ -5,7 +5,6 @@ import { authHeader } from './../helper/authHeader';
 
 
 export const addEventBooking=(values)=>{
-  console.log("result", values)
    const request = axios.post(`${URN}/societyMemberEventBooking` , values , {headers:authHeader()})
     .then(response => response.data)
  
@@ -36,7 +35,7 @@ export const getEventBooking=()=>{
 export const getSpaceName=()=>{
     
     const request = axios.get(`${URN}/eventSpaceMaster`, {headers:authHeader()})
-     .then(response => console.log(response.data))
+     .then(response => (response.data))
  
      
      return{
@@ -79,7 +78,6 @@ export const deleteEventBooking=(societyMemberEventBookingId)=>{
  }
 
  export const updateEventBooking=(societyMemberEventBookingId, societyMemberEventId, startDate, endDate,numberOfGuestExpected, eventSpaceId)=>{
-    console.log(societyMemberEventBookingId, societyMemberEventId, startDate, endDate,numberOfGuestExpected, eventSpaceId)
     const request = axios.put(`${URN}/societyMemberEventBooking/`+ societyMemberEventBookingId ,{societyMemberEventId, startDate, endDate,numberOfGuestExpected, eventSpaceId}, {headers:authHeader()})
      .then(response => response.data)
  

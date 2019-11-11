@@ -361,7 +361,7 @@ class MaintenanceSubMasterDetails extends Component{
                     </div>
                     <div className="top-details">
                         <h3>Maintenance Sub Master</h3>
-                        <Button color="primary" onClick={this.route} color="primary">Add Sub Maintenance</Button>
+                        <Button color="primary" onClick={this.route}>Add Sub Maintenance</Button>
                     </div>
                     <Modal isOpen={this.state.editSubMaintenanceModal} toggle={this.toggleEditSubMaintenanceModal.bind(this)}>
                         <ModalHeader toggle={this.toggleEditSubMaintenanceModal.bind(this)}>Edit Sub Maintenance</ModalHeader>

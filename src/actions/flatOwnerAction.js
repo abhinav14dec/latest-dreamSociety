@@ -93,7 +93,7 @@ export function updateFlatOwner(
             adhaarCardNo:Aadhaar,
             profilePicture,
             fileName,rfidId}
-            console.log('=============data============',data)
+            
     const request=axios.put(`${URN}/owner/`+ownerId,data,{headers:authHeader()})
         .then(reponse=>reponse.data)
         return {
@@ -103,7 +103,7 @@ export function updateFlatOwner(
 }
 
 export function getOwnerMember(id){
-    console.log(id)
+    
     const request =axios.get(`${URN}/owner/ownerMember/`+id,{headers:authHeader()})
     .then(response=>response.data)
     return{
@@ -143,7 +143,7 @@ export function memberUpdate(memberFirstName,memberLastName,gender,memberDob,rel
 }
 
 export function addNewMember(memberFirstName,memberLastName,memberDob,gender,relationId,id,memberRfId,towerId,memberContact,memberEmail,flatDetailId){
-    console.log(memberFirstName,memberLastName,memberDob,gender,relationId,id,towerId,flatDetailId)
+
     const request=axios.post(`${URN}/owner/ownerMember/${id}`,{memberFirstName,memberLastName,memberDob,gender,relationId,memberRfId,towerId,memberContact,memberEmail,flatDetailId},{headers:authHeader()})
     .then(response=>response.data)
     return {
@@ -153,7 +153,7 @@ export function addNewMember(memberFirstName,memberLastName,memberDob,gender,rel
 }
 
 export function getAllFloor (id){
-    console.log(id)
+    
     const request =axios.get(`${URN}/towerFloor/${id}`,{headers:authHeader()})
     .then(response=>response.data)
     return {
@@ -163,7 +163,6 @@ export function getAllFloor (id){
 }
 
 export function getOwnerFlats(ownerId){
-    console.log(ownerId)
     const request =axios.get(`${URN}/owner/getFlats/${ownerId}`,{headers:authHeader()})
     .then(response=>response.data)
     return{
@@ -173,7 +172,6 @@ export function getOwnerFlats(ownerId){
 }
 
 export function deleteOwnerFlats(flatDetailId,ownerId){
-    console.log(flatDetailId,ownerId)
     const request =axios.put(`${URN}/owner/deleteFlat/${ownerId}`,{flatDetailId},{headers:authHeader()})
     .then(response=>response.data)
     return {
@@ -183,7 +181,6 @@ export function deleteOwnerFlats(flatDetailId,ownerId){
 }
 
 export function addAnotherFlats(ownerId,flatDetailId){
-    console.log(ownerId,flatDetailId)
     const request = axios.post(`${URN}/owner/addMoreFlats`,{flatDetailId,ownerId},{headers:authHeader()})
     .then(response=>response.data)
     return{
@@ -193,7 +190,6 @@ export function addAnotherFlats(ownerId,flatDetailId){
 }
 
 export function editOwnerFlat(ownerId,previousId,newId){
-    console.log(ownerId,previousId,newId)
     const request =axios.put(`${URN}/owner/editFlat/${ownerId}`,{previousId,newId},{headers:authHeader()})
     .then(response=>response.data)
     return{

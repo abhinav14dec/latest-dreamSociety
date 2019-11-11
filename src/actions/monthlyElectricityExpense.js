@@ -54,7 +54,6 @@ export function updateElecExpense(electricityConsumerId,towerId, floorId, flatDe
 }
 
 export function filterViaDate(from, to){
-    console.log(from, to)
     const request = axios.get(`${URN}/electricityConsumer/date/${from}/${to}`, {headers:authHeader()})
     .then(res=>res.data);
 

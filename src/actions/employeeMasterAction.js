@@ -10,7 +10,6 @@ export function AddEmployee(data){
         }
       }
 const request= axios.post(`${URN}/employee`,data,{headers:authHeader(),config})
-  console.log(data,"1232423")
 return{
     type:ADD_EMP,
     payload:request

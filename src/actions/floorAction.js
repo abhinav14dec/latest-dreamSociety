@@ -13,7 +13,6 @@ export function getFloor(){
 }
 
 export function postFloor(values){
-    console.log(values)
    const request = axios.post(`${URN}/floor`, values, {headers: authHeader()})
    return {
        type: ADD_FLOOR,

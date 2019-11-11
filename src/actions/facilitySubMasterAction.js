@@ -5,8 +5,6 @@ import { authHeader } from './../helper/authHeader';
 
 
 export const postFacilitySubMaster = (facilityId,monthlyRate, unitRate,monthlyRateType,rateType) => {
-   
-   console.log(facilityId,monthlyRate, unitRate,monthlyRateType,rateType)
     const request = axios.post(`${URN}/facilityDetail`,{facilityId,monthlyRate, unitRate,monthlyRateType,rateType}, { headers: authHeader() })
         .then(response => response.data)
         .catch(error =>  error)
@@ -38,7 +36,7 @@ export const deleteFacilityRate=(facilityDetailId)=>{
         facilityDetailId,
         isActive:false
     }
-    console.log(data)
+    
     const request = axios.put(`${URN}/facilityDetail/delete/${facilityDetailId}`,data, {headers:authHeader()})
      .then(response => response.data)
  
@@ -67,9 +65,7 @@ export const deleteFacilityRate=(facilityDetailId)=>{
 
 
  export const updateSubFacilty=(facilityDetailId, faciltyId,monthlyRate, unitRate)=>{
-     console.log(facilityDetailId, faciltyId,monthlyRate, unitRate,"update Facility===============")
-  
-    
+     
     const request = axios.put(`${URN}/facilityDetail/`+ facilityDetailId ,{ faciltyId,monthlyRate, unitRate}, {headers:authHeader()})
      .then(response => response.data)
     

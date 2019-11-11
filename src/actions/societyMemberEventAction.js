@@ -6,7 +6,6 @@ import { authHeader } from './../helper/authHeader';
 
 
 export const addSocietyMemberEvents=(values)=>{
-  console.log(values)
    const request = axios.post(`${URN}/societyMemberEvent` , values , {headers:authHeader()})
     .then(response => response.data)
  

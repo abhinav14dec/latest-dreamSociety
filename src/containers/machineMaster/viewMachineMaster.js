@@ -35,7 +35,6 @@ class ViewMachineMaster extends Component {
         search: '',
         errors: {},
         loading: true,
-        message: '',
         modalLoading: false,
         parkingId:'',
         slotId:'',
@@ -600,7 +599,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({viewTower,getAllFloor,viewMachine,deleteMachine,deleteMultipleMachine, updateMachine,getFlats, addNewFlatForTenant, getFlatDetailViaTowerId, viewTower, editFlats,
+    return bindActionCreators({viewTower,getAllFloor,viewMachine,deleteMachine,deleteMultipleMachine, updateMachine,
+        getFlats, addNewFlatForTenant, 
+        getFlatDetailViaTowerId, viewTower, editFlats,
         deleteFlat,getMachine}, dispatch)
 }
 

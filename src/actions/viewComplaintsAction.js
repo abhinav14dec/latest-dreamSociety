@@ -16,7 +16,6 @@ export function getComplaints(){
 
 
 export function getFeedback(complaintId){
-    console.log(complaintId)
     const request =axios.get(`${URN}/vendorComplaints/feedback/${complaintId}`,{headers:authHeader()})
     .then(response => response.data)
 

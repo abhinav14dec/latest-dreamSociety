@@ -6,7 +6,7 @@ import { authHeader } from '../helper/authHeader';
 
 export const registerComplaint=(values)=>{
    
-    console.log(values)
+    
    
     const request = axios.post(`${URN}/registerComplaint` ,values , {headers:authHeader()})
      .then(response => response.data)
@@ -53,7 +53,6 @@ export const registerComplaint=(values)=>{
 
 
  export const postRegister=(values)=>{
-     console.log("==================values", values)
      const request= axios.post(`${URN}/complaintRegister`, values , {headers:authHeader()})
      .then(response=>response.data)
      return{

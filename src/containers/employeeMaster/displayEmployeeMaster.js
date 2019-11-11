@@ -53,14 +53,9 @@ class DisplayEmployeeMaster extends Component {
             lastName: '',
             salary: '',
             contact: '',
-            email: '',
             ids: [],
             isDisabled: true,
             documentOne: '',
-            countryName: '',
-            stateName: '',
-            cityName: '',
-            locationName: '',
             currentAddress: '',
             panCardNumber: '',
             permanentAddress: '',
@@ -84,8 +79,6 @@ class DisplayEmployeeMaster extends Component {
             currentStateId: '',
             currentCity: '',
             currentCityId: '',
-            currentState: '',
-            currentStateId: '',
             currentLocation: '',
             permanentLocationId: '',
             readOnlyCountryId: '',
@@ -93,7 +86,6 @@ class DisplayEmployeeMaster extends Component {
             readOnlyCityId: '',
             readOnlyLocationId: '',
             userCurrent: false,
-            contact: '',
             email: '',
             employeeDetailId: '',
             emailServerError: '',
@@ -415,8 +407,8 @@ class DisplayEmployeeMaster extends Component {
     updateCurrentAddress1 = (location) => {
         this.setState({ location })
         this.setState({
-            currentAddress: this.state.currentAddressDefault + ', ' + location + ', ' +
-                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + this.state.pin
+            currentAddress: `${this.state.currentAddressDefault}, ${location}, 
+                ${this.state.currentCity}, ${this.state.currentState},  ${this.state.currentCountry}, Pin/Zip Code: ${this.state.pin}`
         })
     }
 
@@ -436,7 +428,7 @@ class DisplayEmployeeMaster extends Component {
         this.setState({ pin })
         this.setState({
             currentAddress: this.state.currentAddressDefault + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip Code: ' + pin
+                `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip Code: ${pin}`
         })
     }
 
@@ -446,13 +438,13 @@ class DisplayEmployeeMaster extends Component {
             delete errors[e.target.name];
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin, errors
+                    `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`, errors
             });
         }
         else {
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                    this.state.currentCity + ', ' + this.state.currentState + ', ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' + this.state.pin
+                `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`
             })
         }
     }
@@ -804,7 +796,7 @@ class DisplayEmployeeMaster extends Component {
         this.setState({ pin1 })
         this.setState({
             permanentAddress: this.state.permanentAddressDefault + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip Code: ' + pin1
+                `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin1}`
         })
     }
 
@@ -872,13 +864,13 @@ class DisplayEmployeeMaster extends Component {
             delete errors[e.target.name];
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1, errors
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`, errors
             });
         }
         else {
             this.setState({
                 permanentAddressDefault: e.target.value, permanentAddress: e.target.value + (this.state.locationName ? (', ' + this.state.locationName + ', ') : ', ') +
-                    this.state.cityName + ', ' + this.state.stateName + ', ' + this.state.countryName + ', ' + 'Pin/Zip code: ' + this.state.pin1
+                    `${this.state.cityName}, ${this.state.stateName}, ${this.state.countryName}, Pin/Zip code: ${this.state.pin1}`
             })
         }
 
@@ -902,7 +894,7 @@ class DisplayEmployeeMaster extends Component {
         let employeeData = <div>
             <FormGroup>
                 <div style={{ border: '1px solid black', textAlign: 'center', width: '100px', height: '100px', margin: '0 auto' }}>
-                    <img src={this.state.picture} height='100px' width='100px' />
+                    <img src={this.state.picture} height='100px' width='100px' alt="profile pic"/>
                 </div>
             </FormGroup>
             <FormGroup>
@@ -1032,7 +1024,7 @@ class DisplayEmployeeMaster extends Component {
                     </Col>
                     <Col md={4}>
                         <div style={{ textAlign: 'center' }}>
-                            <img id="target" src={this.state.picture} height='100px' width='100px' />
+                            <img id="target" src={this.state.picture} height='100px' width='100px' alt="profile pic" />
                         </div>
                     </Col>
 
@@ -1176,7 +1168,6 @@ class DisplayEmployeeMaster extends Component {
                             value={this.state.currentAddress}
                             type="textarea" disabled
                             placeholder="Current Address"
-                            name="readOnlyCurrent"
                             onChange={this.onChange}
                             maxLength='250' />
                         {/* {!this.state.permanentAddress ? <span className="error">{this.state.errors.permanentAddress}</span>: ''} */}
