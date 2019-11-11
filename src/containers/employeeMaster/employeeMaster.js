@@ -69,7 +69,6 @@ class EmployeeMaster extends Component{
             currentStateId:'',
             currentCity:'',
             currentCityId:'',
-            currentState:'',
             currentLocation:'',
             permanentLocationId:'',
             currentAddressVisible:false,
@@ -82,9 +81,6 @@ class EmployeeMaster extends Component{
             pinCode:'',
             pinCode1:'',
             defaultCurrentAddress:'',
-            emailServerError:'',
-            userNameServerError:'',
-            contactServerError:'',
             rfidId:'',
 
     }
@@ -599,7 +595,7 @@ currentAddressChange = (e) => {
         let errors = Object.assign({}, this.state.errors);
         delete errors[e.target.name];
         this.setState({ currentAddressDefault: e.target.value,  currentAddress: e.target.value  + (this.state.currentLocation ? (', '  + this.state.currentLocation + ', ') : ', ') +
-        this.state.currentCity + ', ' + this.state.currentState + ',  ' + this.state.currentCountry + ', ' + 'Pin/Zip code: ' +  this.state.pin , errors });
+        `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`, errors });
     }
     else {
         this.setState({currentAddressDefault: e.target.value,  currentAddress: e.target.value  + (this.state.currentLocation ? (', '  + this.state.currentLocation + ', ') : ', ') +
