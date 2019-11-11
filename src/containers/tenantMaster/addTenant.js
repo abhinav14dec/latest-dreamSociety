@@ -46,7 +46,6 @@ class AddTenant extends Component{
             towerId:'',
             towerName:'',
             fileName: '',
-            flatNo: '',
             imageSizeError:'',
             errors:{},
             loading: false,
@@ -218,7 +217,7 @@ class AddTenant extends Component{
     }
 
     userMemberHandler = (e) => {
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
             this.setState({
                 noOfMembers: e.target.value,
                 errors:{},
@@ -431,7 +430,7 @@ class AddTenant extends Component{
         getFlats=({getFlatDetail})=>{
             if(getFlatDetail && getFlatDetail.flatDetail){
               return  getFlatDetail.flatDetail.filter((flatRecord)=>{
-                    return flatRecord.floorId==this.state.floorId
+                    return flatRecord.floorId===this.state.floorId
                 }).map((selectFlat)=>{
                     return {...selectFlat, label:selectFlat.flatNo,value:selectFlat.flatDetailId}
                 });
@@ -760,7 +759,7 @@ class AddTenant extends Component{
                     <Label htmlFor="Gender3" style={{paddingRight:'35px',paddingLeft:'20px'}}>Other</Label>
                     <span><Input type="radio" onKeyPress={OnKeyPressUserhandler} value="Other"
                                 name = {`memberName${i}`} onChange={this.memberDetailChange} 
-                                className="input"  value="Other"/></span>
+                                className="input"/></span>
                 </Col>
                 <FormGroup>
                     <Row md={12}>
@@ -783,7 +782,7 @@ class AddTenant extends Component{
         }
 
         let formData = <div>
-            <div style={{ 'display': this.state.step == 1 ? 'block' : 'none' }}>
+            <div style={{ 'display': this.state.step === 1 ? 'block' : 'none' }}>
                         <h3>Tenant Details</h3>
                         <FormGroup>
                             <Label>First Name</Label>
@@ -859,47 +858,7 @@ class AddTenant extends Component{
                              {<span className="error">{this.state.errors.panCardNumber}</span>}
                         </FormGroup>
                     </div>
-                    {/* <div style={{ 'display': this.state.step == 2 ? 'block' : 'none' }}>
-                        <h3>Bank Details</h3>
-                        <FormGroup>
-                                <Label>Bank Name</Label>
-                                <Input placeholder="Bank Name" onChange={this.onChange}
-                                onKeyPress={this.bankValidation}
-                                maxLength="100"
-                                 type="text" name="bankName" />
-                                 {<span className="error">{this.state.errors.bankName}</span>}
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Account Holder Name</Label>
-                            <Input placeholder="Holder Name" onChange={this.onChange}
-                            onKeyPress={OnKeyPressUserhandler} maxLength="80"
-                             type="text" name='accountHolderName' />
-                             {<span className="error">{this.state.errors.accountHolderName}</span>}
-                        </FormGroup>
-                        <FormGroup >
-                            <Label>Account Number</Label>
-                            <Input onKeyPress={numberValidation} onChange={this.onChange}
-                             placeholder="Account Number"
-                             type="text" className="quantity" name='accountNumber' maxLength='18'/>
-                             {<span className="error">{this.state.errors.accountNumber}</span>}
-                        </FormGroup>
-                        
-                        <FormGroup>
-                            <Label>IFSC Code</Label>
-                            <Input placeholder="IFSC code" onChange={this.ifscChange}
-                            maxLength="11"
-                            value={this.state.IFSCCode.toUpperCase()}
-                            onKeyPress={(e) => {
-                                const pattern = /^[a-zA-Z0-9]+$/;
-                                let inputChar = String.fromCharCode(e.charCode);
-                                if (!pattern.test(inputChar)) {
-                                    e.preventDefault();
-                                }
-                            }}
-                             type='text' name="IFSCCode" />
-                             {<span className="error">{this.state.errors.IFSCCode}</span>}
-                        </FormGroup>
-                    </div> */}
+            
                     <div style={{ 'display': this.state.step === 2 ? 'block' : 'none' }}>
                         <h3>Tenant Member Details</h3>
                         <div style={{textAlign:'right'}}><span className="error">{this.state.errors.memberError}</span></div>
