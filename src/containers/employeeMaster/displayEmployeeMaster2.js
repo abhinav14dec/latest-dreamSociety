@@ -434,6 +434,7 @@ class DisplayEmployeeMaster2 extends Component {
     emailChange = (e) => {
         this.setState({ errors: { email: '' } })
         this.setState({ email: e.target.value, emailServerError: '' })
+        // eslint-disable-next-line
         if (e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)) {
             this.setState({ [e.target.name]: e.target.value.trim() });
             this.setState({ emailValidError: '' })

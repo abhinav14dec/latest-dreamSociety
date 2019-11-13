@@ -183,7 +183,7 @@ class TenantDetail extends Component {
                 if(item1 && item2){
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
-                }
+                } else return null;
             }).filter(this.searchFilter(this.state.search && this.state.search)).map((item, index) => {
                 if(item){
                     return (
@@ -244,7 +244,9 @@ class TenantDetail extends Component {
                                 <Button color="danger" onClick={this.delete.bind(this, item.tenantId)}>Delete</Button>
                             </td>
                         </tr>
+                        
                     )
+                    
                 }
                 else return false
             })
@@ -498,6 +500,7 @@ class TenantDetail extends Component {
 
     emailChange = (e) => {
         this.setState({email:e.target.value, messageEmailErr:''})
+        // eslint-disable-next-line
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value});
             this.setState({emailValidError: ''})

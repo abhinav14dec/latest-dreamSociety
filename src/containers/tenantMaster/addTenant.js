@@ -384,6 +384,7 @@ class AddTenant extends Component{
 
     emailChange = (e) => {
         this.setState({[e.target.name]:e.target.value, messageEmailErr:'',emailChangeErr:''})
+        // eslint-disable-next-line
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value,message:''});
             this.setState({emailValidError: '',message:''})
@@ -914,8 +915,11 @@ class AddTenant extends Component{
                         <h3 style={{textAlign:'center'}}>Permanent Address</h3>
                         {this.state.defaultPermanent ? <FormGroup>
                             <Label>Permanent Address</Label>
+
                             <Input id="permanentaddr" readOnly type="textarea" onChange={this.defaultPermanentAddressChange}
-                            maxLength="250" value={this.state.defaultPermanentAddress} value={this.state.correspondenceAddress}
+                            maxLength="250" value={this.state.defaultPermanentAddress} 
+                             // eslint-disable-next-line
+                            value={this.state.correspondenceAddress}
                              name="defaultPermanentAddress" placeholder="Permanent Address" />
                         </FormGroup> : ''}
                         {this.state.permanentAddrDefault ? <div>

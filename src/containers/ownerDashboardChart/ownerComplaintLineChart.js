@@ -45,6 +45,8 @@ class OwnerComplaintLineChart extends Component {
           ]
         }
       ],
+
+      // eslint-disable-next-line
       data: [
         {
           // Change type to "doughnut", "line", "splineArea", etc.

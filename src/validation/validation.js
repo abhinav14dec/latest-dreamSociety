@@ -17,7 +17,9 @@ export const numberValidation = event => {
     return d.toISOString().split("T")[0];
   };
   
+ 
   export const emailValid = event => {
+     // eslint-disable-next-line
     const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/;
     let inputChar = String.fromCharCode(event.charCode);
     if (!pattern.test(inputChar)) {
