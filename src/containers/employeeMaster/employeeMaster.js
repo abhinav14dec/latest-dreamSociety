@@ -12,6 +12,7 @@ import './employeeMaster.css';
 import {  FormGroup, Input, Label, Row, Col } from 'reactstrap';
 import {getRfId} from '../../actions/rfIdAction';
 import { PlaceHolder } from '../../actionCreators/index';
+import {emailValid} from '../../validation/validation';
 
 class EmployeeMaster extends Component{
 
@@ -283,13 +284,7 @@ FileChange=(event)=>{
 
     }
 
-    emailValid(event) {
-        const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
+   
     
     emailChange = (e) => {
         this.setState({errors:{email: ''}})
@@ -728,7 +723,7 @@ let formData=
                         name="email"
                         maxLength="70"
                         onChange={this.emailChange}
-                        onKeyPress={this.emailValid} />
+                        onKeyPress={emailValid} />
                         {this.state.emailServerError ? <span  className="error">{this.state.emailServerError}</span> : null}
                         <span><br/></span>
                         {<span  className="error">{this.state.errors.email}</span>}

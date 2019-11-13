@@ -15,6 +15,7 @@ import DefaultSelect from '../../constants/defaultSelect'
 import './employeeMaster.css'
 import GoogleDocsViewer from 'react-google-docs-viewer';
 import {getRfId} from '../../actions/rfIdAction';
+import {emailValid} from '../../validation/validation';
 
 class DisplayEmployeeMaster extends Component {
 
@@ -457,14 +458,7 @@ class DisplayEmployeeMaster extends Component {
             this.setState({ editCurrent: false, currentAddress: this.state.readOnlyCurrent, userCurrent: false })
         }
     }
-    emailValid(event) {
-        const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-
+   
     emailChange = (e) => {
         this.setState({ errors: { email: '' } })
         this.setState({ email: e.target.value, emailServerError: '' })
@@ -1070,7 +1064,7 @@ class DisplayEmployeeMaster extends Component {
 
             <FormGroup>
                 <Label > Email Address</Label>
-                <Input value={this.state.email} name="email" onChange={this.emailChange} onKeyPress={this.emailValid} />
+                <Input value={this.state.email} name="email" onChange={this.emailChange} onKeyPress={emailValid} />
                 {this.state.messageEmailErr ? <span className='error'>{this.state.messageEmailErr}</span> : ''}
                 {<span className="error">{this.state.emailValidError}</span>}
                 <span><br /></span>

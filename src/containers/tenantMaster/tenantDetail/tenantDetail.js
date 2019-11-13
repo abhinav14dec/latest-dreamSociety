@@ -13,6 +13,7 @@ import { viewTower } from '../../../actions/towerMasterAction';
 import { connect } from 'react-redux';
 import Spinner from '../../../components/spinner/spinner';
 import "./tenantDetail.css"
+import {emailValid} from '../../../validation/validation';
 
 class TenantDetail extends Component {
     constructor(props){
@@ -493,13 +494,7 @@ class TenantDetail extends Component {
         }
     }
 
-    emailValid(event) {
-        const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
+   
 
     emailChange = (e) => {
         this.setState({email:e.target.value, messageEmailErr:''})
@@ -977,7 +972,7 @@ class TenantDetail extends Component {
                 <Row md={12}>
                 <Col md={6}>
                     <Label>Email</Label>
-                    <Input value={this.state.email} name="email" onChange={this.emailChange} onKeyPress={this.emailValid} />
+                    <Input value={this.state.email} name="email" onChange={this.emailChange} onKeyPress={emailValid} />
                     {this.state.messageEmailErr ? <span className='error'>{this.state.messageEmailErr}</span> : ''}
                     {<span className="error">{this.state.emailValidError}</span>}
                     <span><br/></span>

@@ -7,6 +7,7 @@ import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';
 import _ from 'underscore';
 import DefaultSelect from './../../constants/defaultSelect';
+import { emailValid } from '../../validation/validation';
 
 
 class SocietyManagementDetail extends Component {
@@ -57,16 +58,6 @@ class SocietyManagementDetail extends Component {
         }
         else {
             this.setState({ [event.target.name]: event.target.value });
-        }
-    }
-
-    
-    
-    emailValid(event) {
-        const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
         }
     }
 
@@ -611,7 +602,7 @@ class SocietyManagementDetail extends Component {
 
                         <FormGroup>
                             <Label>Email Id</Label>
-                            <Input type="email"  name="email"   onChange={this.emailChange}     onKeyPress={this.emailValid} value={this.state.email}   maxLength={50}/>
+                            <Input type="email"  name="email"   onChange={this.emailChange}  onKeyPress={emailValid} value={this.state.email}   maxLength={50}/>
                             {!this.state.email ? <span className="error">{this.state.errors.email}</span> : ''}
                             <span className="error">{this.state.emailValidError}</span>
                              

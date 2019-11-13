@@ -14,6 +14,7 @@ import SearchFilter from '../../components/searchFilter/searchFilter';
 import DefaultSelect from '../../constants/defaultSelect'
 import './employeeMaster.css'
 import GoogleDocsViewer from 'react-google-docs-viewer';
+import {emailValid} from '../../validation/validation';
 
 class DisplayEmployeeMaster2 extends Component {
 
@@ -427,15 +428,6 @@ class DisplayEmployeeMaster2 extends Component {
         }
         else {
             this.setState({ editCurrent: false, currentAddress: this.state.readOnlyCurrent, userCurrent: false })
-        }
-    }
-
-
-    emailValid(event) {
-        const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
         }
     }
 
@@ -930,7 +922,7 @@ class DisplayEmployeeMaster2 extends Component {
                 <Label > Email Address</Label>
                 <Input name="email" value={this.state.email}
                     onChange={this.emailChange}
-                    onKeyPress={this.emailValid}
+                    onKeyPress={emailValid}
 
 
                 />

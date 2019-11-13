@@ -7,6 +7,7 @@ import { Table, Input, Button, Modal, FormGroup, ModalBody, ModalHeader,Label } 
 import { viewPerson, getFlat, getTower, getRoles, updatePerson, deletePerson, deleteMultiplePerson } from '../../actions/personDetailsMasterAction';
 import SearchFilter from '../../components/searchFilter/searchFilter'
 import UI from '../../components/newUI/superAdminDashboard';
+import {emailValid} from '../../validation/validation';
 
 import Spinner from '../../components/spinner/spinner';
 class displayPersonDetails extends Component {
@@ -61,15 +62,6 @@ class displayPersonDetails extends Component {
 
         OnKeyPresshandler(event) {
                 const pattern = /[a-zA-Z _]/;
-                let inputChar = String.fromCharCode(event.charCode);
-                if (!pattern.test(inputChar)) {
-                        event.preventDefault();
-                }
-        }
-
-
-        OnKeyPressmail(event) {
-                const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/;
                 let inputChar = String.fromCharCode(event.charCode);
                 if (!pattern.test(inputChar)) {
                         event.preventDefault();
@@ -352,7 +344,7 @@ class displayPersonDetails extends Component {
 <Label> Email</Label>
 <Input type="text" name="email" value={this.state.email} onChange={this.onChange}
 
-        onKeyPress={this.OnKeyPressmail} maxLength={40} required
+        onKeyPress={emailValid} maxLength={40} required
 />
 <span className="error"> {this.state.errors.email}</span>
 <span className="error">{this.state.emailMessage}</span>

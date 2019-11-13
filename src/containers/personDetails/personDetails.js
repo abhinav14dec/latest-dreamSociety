@@ -5,6 +5,7 @@ import {getTower,getFlat,getRoles,addPerson} from '../../actions/personDetailsMa
 import Spinner from '../../components/spinner/spinner'
 import DefaultSelect from '../../constants/defaultSelect';
 import UI from '../../components/newUI/superAdminDashboard';
+import { emailValid } from '../../validation/validation';
 
  class PersonDetails extends Component{
 constructor(props){
@@ -50,13 +51,7 @@ OnKeyPressNumber(event) {
     }
 }
 
-OnKeyPressmail(event){
-    const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-    let inputChar = String.fromCharCode(event.charCode);
-    if (!pattern.test(inputChar)) {
-        event.preventDefault();
-    }
-}
+
 
 onChange=(e)=>{
         this.setState({usernameMessage:'',emailMessage:''})
@@ -169,7 +164,7 @@ form1 = <form onSubmit={this.submit}>
              
           <div className="form-group">
               <label> Email</label>
-              <input type="email" name="email"  placeholder="Email" onChange={this.onChange} maxLength={50} className="form-control" onKeyPress={this.OnKeyPressmail}  />
+              <input type="email" name="email"  placeholder="Email" onChange={this.onChange} maxLength={50} className="form-control" onKeyPress={emailValid}  />
               <span className="error">{this.state.errors.email}</span>
               <span className="error">{this.state.emailMessage}</span>
           </div>

@@ -13,10 +13,10 @@ import DefaultSelect from './../../constants/defaultSelect';
 import Select from 'react-select';
 import { PlaceHolder } from '../../actionCreators/index';
 import {getRfId} from '../../actions/rfIdAction';
+import {emailValid} from '../../validation/validation';
 
 
 class IndividualVendor extends Component{
-
     constructor(props){
         super(props);
 
@@ -139,16 +139,9 @@ class IndividualVendor extends Component{
         }}
 
 
-    emailValid(event) {
-        const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/
-        let inputChar = String.fromCharCode(event.charCode);
-        if (!pattern.test(inputChar)) {
-            event.preventDefault();
-        }
-    }
-
     
     emailChange = (e) => {
+   
         this.setState({email:e.target.value, messageEmailErr:''})
         if(e.target.value.match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
             this.setState({[e.target.name]:e.target.value});
@@ -815,7 +808,7 @@ class IndividualVendor extends Component{
             <FormGroup>
                 <Label>Email Id</Label>
                 <Input placeholder="Email Id" type="email" name="email" maxLength={200} onChange={this.emailChange}
-                        onKeyPress={this.emailValid}/>
+                        onKeyPress={emailValid}/>
                      {!this.state.email ? <span className="error">{this.state.errors.email}</span> : ''}
                             <span className="error">{this.state.emailValidError}</span>
                             <span className="error">{this.state.messageEmailErr}</span>
