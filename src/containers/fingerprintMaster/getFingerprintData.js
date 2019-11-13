@@ -180,7 +180,6 @@ class FingerPrint extends Component {
               <td>
                 <Input
                   type="select"
-                  defaultValue="no-value"
                   value={
                     item.userId !== this.state.selectedUser
                       ? "no-value"
