@@ -40,7 +40,6 @@ class InventoryLineChart extends Component {
 					   this.setState({['count'+i] : this.state.viewData[i] }) 
 					   this.setState({['avgRate'+i] : this.state.displayData[i] }) 	
 					   this.setState({['assetType'+i]:this.state.assetTypeData[i]})
-					//    this.state.display[i]= 	{label:"count",y:this.state.displayData[i]}
 					   
 					   this.state.view[i]= 	{label:" Asset Count",name: this.state.displayData[i],assetType:this.state.assetTypeData[i], y:this.state.viewData[i]}
 					//    this.setState({viewData:this.state.viewData[i]})
@@ -58,9 +57,6 @@ class InventoryLineChart extends Component {
    
 
 		this.setState({
-			// count: data.inventory.map((item)=>{
-			// 	{item.count}
-			// }),
 			assetType: data.inventory.assetType
 		})
 

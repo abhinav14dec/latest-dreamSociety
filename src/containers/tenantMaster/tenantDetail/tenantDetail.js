@@ -247,7 +247,7 @@ class TenantDetail extends Component {
                 }
                 else return false
             })
-        }
+        } 
     }
 
     viewMembers(id){
