@@ -44,19 +44,19 @@ class Demo extends Component {
                     <div className="collapse navbar-collapse" id="navbarsExample05">
                         <ul className="navbar-nav mr-auto mx-auto">
                             <li className={(this.state.currentElement === '') ? "nav-item mx-3 active" : "nav-item mx-3"} onClick={this.clickHandle}>
-                                <Link className="nav-link" to="/"><i class="fa fa-home"></i> Home</Link>
+                                <Link className="nav-link" to="/"><i className="fa fa-home"></i> Home</Link>
                             </li>
                             {/* <li className={(this.state.currentElement === 'gallery') ? "nav-item mx-3 active" : "nav-item mx-3"} onClick={this.clickHandle}>
-                                <Link className="nav-link" to="/gallery"><i class="fa fa-image"></i> Gallery</Link>
+                                <Link className="nav-link" to="/gallery"><i className="fa fa-image"></i> Gallery</Link>
                             </li> */}
                             <li className={(this.state.currentElement === 'features') ? "nav-item mx-3 active" : "nav-item mx-3"} onClick={this.clickHandle}>
-                                <Link className="nav-link" to="/features"><i class="fa fa-list-alt"></i> Features</Link>
+                                <Link className="nav-link" to="/features"><i className="fa fa-list-alt"></i> Features</Link>
                             </li>
                             <li className={(this.state.currentElement === 'technologies') ? "nav-item mx-3 active" : "nav-item mx-3"} onClick={this.clickHandle}>
-                                <Link className="nav-link" to="/technologies"><i class="fa fa-microchip"></i> Technologies</Link>
+                                <Link className="nav-link" to="/technologies"><i className="fa fa-microchip"></i> Technologies</Link>
                             </li>
                             <li className={(this.state.currentElement === 'contactUs') ? "nav-item mx-3 active" : "nav-item mx-3"} onClick={this.clickHandle}>
-                                <Link className="nav-link" to="/contactUs"><i class="fa fa-address-book"></i> Contact Us</Link>
+                                <Link className="nav-link" to="/contactUs"><i className="fa fa-address-book"></i> Contact Us</Link>
                             </li>
                         </ul>
                         <div className="form-inline mt-2 ml-3 mt-md-0">
