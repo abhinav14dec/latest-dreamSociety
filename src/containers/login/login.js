@@ -52,24 +52,36 @@ class Login extends Component {
 
         $('.slides.active').animate({ left: '-100vw' }, 500);
         $('.slides').map((index, item) => {
+            if(item){
                 if (sliderIndex === index) {
                     $('.slides').removeClass('active');
                     $(item).addClass('active');
                     $(item).css('left', '100vw');
                     $(item).animate({ left: '+0vw' }, 500);
                 } 
+                return '';
+            }else return null
+                
         })
         $('.sliderCircles').map((index, item) => {
-            if (sliderIndex === index) {
-                $('.sliderCircles').removeClass('active');
-                $(item).addClass('active');
-            }
+            if(item){
+                if (sliderIndex === index) {
+                    $('.sliderCircles').removeClass('active');
+                    $(item).addClass('active');
+                }
+                return '';
+            }else return null
+          
         })
         $('.sliderTexts').map((index, item) => {
-            if (sliderIndex === index) {
-                $('.sliderTexts').removeClass('active');
-                $(item).addClass('active');
-            }
+            if(item){
+                if (sliderIndex === index) {
+                    $('.sliderTexts').removeClass('active');
+                    $(item).addClass('active');
+                }
+                return '';
+            }else return null
+           
         })
 
         return sliderIndex;

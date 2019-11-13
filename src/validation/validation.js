@@ -18,7 +18,7 @@ export const numberValidation = event => {
   };
   
   export const emailValid = event => {
-    const pattern = /^(?!@*?\@)[a-zA-Z0-9@._]+$/;
+    const pattern = /^(?!@*?\@\@)[a-zA-Z0-9@._]+$/;
     let inputChar = String.fromCharCode(event.charCode);
     if (!pattern.test(inputChar)) {
       event.preventDefault();
