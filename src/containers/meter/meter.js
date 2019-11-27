@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Form, Label,FormGroup,Input } from 'reactstrap';
+import { Button, Form, Label,FormGroup } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 import UI from '../../components/newUI/superAdminDashboard';
 import Select from 'react-select';
 import { PlaceHolder } from '../../actionCreators/index';
 import {getAllFloor,addAnotherFlats} from '../../actions/flatOwnerAction';
 import { viewTower } from '../../actions/towerMasterAction';
-import {addMachine} from '../../actions/machineMasterAction';
+import {addMeter} from '../../actions/meterMachineAction';
+import {getMeter} from '../../actions/meterAction';
 import {Link} from 'react-router-dom';
 import {getFlatDetails} from '../../actions/flatDetailMasterAction';
 import {viewMachine} from '../../actions/machineIdMasterAction';
 import DefaultSelect from '../../constants/defaultSelect';
 
-class MachineMaster extends Component {
+class Meter extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             machineDetailId:'',
+            meterName:'',
             towerId:'',
             floorId:'',
             flatDetailIds:'',
-            type:'',
             loading: true,
             errors: {},
             message:'',
@@ -32,22 +33,22 @@ class MachineMaster extends Component {
     componentDidMount(){
         this.props.viewTower().then(()=>this.setState({loading:false}))
         this.props.getFlatDetails().then(()=>this.setState({loading:false}))
-       this.props.viewMachine().then(()=>this.setState({loading:false}))
+       this.props.getMeter().then(()=>this.setState({loading:false}))
     }
 
 
 
-    flatList =({machine})=>{
-        if(machine &&  machine.machinesDetail)
+    flatList =({meterDetails})=>{
+        if(meterDetails &&  meterDetails.meter)
         {
 
-                     return machine.machinesDetail.map((item)=>{
+                     return meterDetails.meter.map((item)=>{
                                 
                                 return (
                 
-                                    <option key={item.machineDetailId} value ={item.machineDetailId}>
+                                    <option key={item.meterDetailId} value ={item.meterDetailId}>
                          
-                                         {item.machineActualId}
+                                         {item.meterName}
                        
 
                                         </option>
@@ -143,17 +144,17 @@ changePassword = () => {
 
   
 
-        push=()=>{
-        this.props.history.push('/superDashboard/viewMachineMaster')
+        close=()=>{
+        this.props.history.push('/superDashboard/meter/meterDetails')
         }
 
  onSubmit=(e)=>{
     e.preventDefault();
     let errors = {};
-    if(!this.state.machineDetailId){
-        errors.machineDetailId="Machine Id can't be empty"
+    if(!this.state.meterName){
+        errors.meterName="Meter Id can't be empty"
        }
-    else if(this.state.towerId===''){
+    if(this.state.towerId===''){
         errors.towerId="Tower can't be empty"
     }
     else if(this.state.floorId===''){
@@ -163,11 +164,6 @@ changePassword = () => {
     {
         errors.flatDetailIds="flat can't be empty"
     }
-
-    else if(this.state.type==='')
-    {
-        errors.type="type can't be empty"
-    }
     this.setState({errors});
     const isValid=Object.keys(errors).length === 0;
     
@@ -175,27 +171,27 @@ changePassword = () => {
     
         this.setState({loading:true})
   
-    this.props.addMachine(this.state.machineDetailId, this.state.flatDetailIds,this.state.type).then(()=> this.props.history.push('/superDashboard/viewMachineMaster')).catch(err => {
+    this.props.addMeter(this.state.meterName, this.state.flatDetailIds).then(()=> this.props.history.push('/superDashboard/meter/meterDetails')).catch(err => {
         this.setState({message: err.response.data.message, loading: false})
     })
 }
         }
-
-      
-
+        pushRoute=()=>{
+            this.props.history.push('/superDashboard/meter/meterDetail');
+        }
     render() {
         let formData;
         formData =
             <div>
                     <FormGroup>
-                    <Label>Machine Id</Label>
-                    <select  className="form-control"   defaultValue='no-value'  name ="machineDetailId" onChange ={this.onChange}  onKeyPress={this.KeyPress}  maxLength={16}>
+                    <Label>Meter No</Label>
+                    <select  className="form-control"   defaultValue='no-value'  name ="meterName" onChange ={this.onChange}  onKeyPress={this.KeyPress}  maxLength={16}>
                    <DefaultSelect/>
                     
-                    {this.flatList(this.props.MachineIdDetails)}
+                    {this.flatList(this.props.MeterReducer)}
                     
                     </select>
-                    <span className="error">{this.state.errors.machineDetailId}</span>
+                    <span className="error">{this.state.errors.meterName}</span>
                               <span className="error">{this.state.message}</span>
                     
                 </FormGroup >
@@ -224,21 +220,12 @@ changePassword = () => {
                         name="flatDetailIds"
                         onChange={this.flatChangeHandler.bind(this, 'flatDetailIds')}
                     />
-                    {!this.state.flatDetailIds ? <span className="error">{this.state.errors.flatDetailIds}</span> : ''}
+            {!this.state.flatDetailIds ? <span className="error">{this.state.errors.flatDetailIds}</span> : ''}
                    
                 </FormGroup >
-                <FormGroup>
-                    <Label>Type</Label>
-                    <Input placeholder={PlaceHolder} onChange={this.onChange} name="type" type="select"> 
-                    <option selected disabled>--Select--</option>
-                     <option value="1">In</option>
-                     <option value="0">Out</option>
-                    </Input>
-                    {!this.state.type ? <span className="error">{this.state.errors.type}</span> : ''}
-                </FormGroup>
-                <Button className="btn btn-success mr-2" >Add Machine</Button>
-                <Link to='/superDashBoard/viewMachineMaster'>
-                <Button color="danger" id="addAssets" >Cancel</Button>
+                <Button className="btn btn-success mr-2" >Add Meter</Button>
+                <Link to='/superDashboard/meter/meterDetails'>
+                <Button color="danger" id="addAssets" onClick={this.pushRoute} >Cancel</Button>
             </Link>
             </div>
         return (
@@ -249,7 +236,7 @@ changePassword = () => {
                             <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                                 <span aria-hidden="true">&times;</span>
                             </div>
-                            <div><h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Add Machine Details</h3></div>
+                            <div><h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Add Meter Details</h3></div>
                             {!this.state.loading ? formData : <Spinner />}
                         </Form>
                     </div>
@@ -263,10 +250,11 @@ function mapStateToProps(state) {
         towerFloor:state.FlatOwnerReducer,
         towerList: state.TowerDetails,
         MachineIdDetails: state.MachineIdDetails,
+        MeterReducer:state.MeterReducer
 
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({getAllFloor,viewTower,addAnotherFlats,getFlatDetails,addMachine,viewMachine}, dispatch)
+    return bindActionCreators({getAllFloor,viewTower,addAnotherFlats,getFlatDetails,addMeter,viewMachine,getMeter}, dispatch)
 }
-export default connect(mapStateToProps,mapDispatchToProps)(MachineMaster);
+export default connect(mapStateToProps,mapDispatchToProps)(Meter);
