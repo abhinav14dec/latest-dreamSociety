@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Label, Input} from 'reactstrap';
+import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Label} from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 import {getAllFloor} from '../../actions/flatOwnerAction';
-
 import DefaultSelect from './../../constants/defaultSelect';
 import { viewTower } from '../../actions/towerMasterAction';
+import {viewMeter,deleteMeter,updateMeter,deleteSelectedMeterMasterDetails} from '../../actions/meterMachineAction';
+import {getMeter} from '../../actions/meterAction';
 
 
-import {viewMachine,updateMachine,deleteMachine,deleteMultipleMachine,getMachine} from '../../actions/machineMasterAction';
+import {updateMachine,deleteMachine,deleteMultipleMachine,getMachine} from '../../actions/machineMasterAction';
 import {addNewFlatForTenant, getFlats,getFlatDetailViaTowerId, editFlats, deleteFlat } from '../../actions/tenantMasterAction';
 import Select from 'react-select';
 import { PlaceHolder } from '../../actionCreators/index';
 
 import Spinner from '../../components/spinner/spinner';
-class ViewMachineMaster extends Component {
+class MeterDetails extends Component {
     state = {
         filterName: 'machineActualId',
         flatDetailId: '',
@@ -45,22 +46,24 @@ class ViewMachineMaster extends Component {
         machineId:'',
         message:'',
         flatDetailIds:'',
-        type:''
+        meterId:'',
+        meterName:'',
     }
 
    
    
 
     componentDidMount(){
-        this.props.viewTower();
-            this.props.viewMachine().then(() => this.setState({loading:false,modalLoading:false}))
-            this.props.getFlats(this.state.tenantId).then(() => this.setState({loading:false}))
-             this.props.getMachine()
+        this.refreshData();
+      
     }
 
     refreshData=()=>{
         this.props.viewTower();
-        this.props.viewMachine().then(()=>this.setState({modalLoading:false,modal:false}))
+        this.props.viewMeter().then(() => this.setState({loading:false,modalLoading:false}))
+        this.props.getFlats(this.state.tenantId).then(() => this.setState({loading:false}))
+        this.props.getMeter().then(()=>this.setState({loading:false}))
+        
     }
 
 
@@ -77,24 +80,22 @@ class ViewMachineMaster extends Component {
     }
 
     push = () => {
-        this.props.history.push('/superDashboard/machineMaster')
+        this.props.history.push('/superDashboard/meter')
     }
-    delete=(machineId)=>{
+
+    delete=(meterId)=>{
         this.setState({loading:true})
         let { isActive } = this.state;
-        this.props.deleteMachine(machineId,isActive).then(() => this.refreshData())
-        this.setState({ isActive: false  })
-    
-        
+        this.props.deleteMeter(meterId,isActive).then(() => this.refreshData())
+        this.setState({ isActive: false  })    
     }
    
-    toggle = (machineId,machineDetailId, machineActualId,towerName,floorName,flatNo,towerId,floorId,type) => {
+    toggle = (meterId,meterDetailId,meterName,towerName,floorName,flatNo,towerId,floorId) => {
         this.props.getFlatDetailViaTowerId(towerId);
 
         this.setState({
-            machineId,machineDetailId,machineActualId,towerName,floorName,flatNo,towerId,floorId,type,
+            meterId,meterDetailId,meterName,towerName,floorName,flatNo,towerId,floorId,
             modal: !this.state.modal
-            
         })
     }
 
@@ -203,30 +204,27 @@ class ViewMachineMaster extends Component {
             if(!this.state.towerId) errors.towerId = `Please enter tower name.`
             if(!this.state.floorId) errors.floorId = `Please enter floor.`
             if(!this.state.flatDetailIds) errors.flatDetailIds = `Please enter flat.`
-            if(!this.state.type) errors.type=`Please enter Type.`
             this.setState({ errors });
             const isValid = Object.keys(errors).length === 0;
             if(isValid  && this.state.message===''){
                 this.setState({modalLoading:true})
             
                
-                    let { flatDetailIds,machineDetailId,machineId,type } = this.state;
+                    let { meterId,flatDetailIds,meterDetailId} = this.state;
            
-                    this.props.updateMachine(flatDetailIds,machineDetailId,machineId, type).then(() => this.refreshData())
+                    this.props.updateMeter(meterId,flatDetailIds,meterDetailId).then(() => this.refreshData())
                 .catch(err=>{ 
-                    this.setState({modalLoading:false,message: err.response.data.message})
+                    this.setState({message: err.response.data.message})
                     })
                     if(this.state.message === ''){
-                        this.setState({modal: true})
+                        this.setState({modal: !this.state.modal})
                     }
                     else {
                         this.setState({modal: false})
                     }
                 
                    
-            // this.setState({
-            //     modalLoading: true
-            // })
+           
                 
             }
         }
@@ -259,7 +257,7 @@ class ViewMachineMaster extends Component {
         }
         deleteSelected=(ids)=>{
             this.setState({loading:true,isDisabled:true});
-            this.props.deleteMultipleMachine(ids)
+            this.props.deleteSelectedMeterMasterDetails(ids)
             .then(() => this.refreshData())
             .catch(err => err.response.data.message);
         }
@@ -269,23 +267,25 @@ class ViewMachineMaster extends Component {
 
 
 
-        flatList =({machine})=>{
-            if(machine && machine.Machines)
+        flatList =({meterMachineDetail})=>{
+            if(meterMachineDetail && meterMachineDetail.Meters)
             {
-                         return machine.Machines.sort((item1,item2) =>{
-                            var cmprVal=(item1.machine_detail_master[this.state.filterName].localeCompare(item2.machine_detail_master[this.state.filterName]))
-                            return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{
+                 return meterMachineDetail.Meters
+                //  .sort((item1,item2) =>{
+                //             var cmprVal=(item1.machine_detail_master[this.state.filterName].localeCompare(item2.machine_detail_master[this.state.filterName]))
+                //             return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search))
+                            .map((item,index)=>{ 
                                     
                                     return (
                     
-                                        <tr key={item.machineId}>
-                                            <td><input type="checkbox" name="ids" value={item.machineId} className="SelectAll"
+                                        <tr key={item.meterId}>
+                                            <td><input type="checkbox" name="ids" value={item.meterId} className="SelectAll"
                                     onChange={(e, i) => {
-                                        const { machineId } = item
+                                        const { meterId } = item
                                         if (!e.target.checked) {
                                             if (this.state.ids.length > -1) {
                                                 document.getElementById('allSelect').checked = false;
-                                                let indexOfId = this.state.ids.indexOf(machineId);
+                                                let indexOfId = this.state.ids.indexOf(meterId);
                                                 if (indexOfId > -1) {
                                                     this.state.ids.splice(indexOfId, 1)
                                                 }
@@ -295,7 +295,7 @@ class ViewMachineMaster extends Component {
                                             }
                                         }
                                         else {
-                                            this.setState({ ids: [...this.state.ids, machineId] })
+                                            this.setState({ ids: [...this.state.ids, meterId] })
                                             if (this.state.ids.length >= 0) {
                                                 this.setState({ isDisabled: false })
                                             }
@@ -303,15 +303,15 @@ class ViewMachineMaster extends Component {
                                     }} /></td>
                                            
                                             <td>{index + 1}</td>
-                                            <td> {item.machine_detail_master.machineActualId}</td>
+                                            <td> {item.meter_detail_master.meterName}</td>
                                             <td>{item.flat_detail_master.tower_master.towerName}</td>
                                             <td>{item.flat_detail_master.floor_master.floorName}</td>
                                             <td>{item.flat_detail_master.flatNo}</td>
-                                            <td>{item.type===true ? 'IN' : 'OUT'}</td>
                                           <td style={{ textAlign: "center" }}>
-                                 <button className="btn btn-success mr-2" onClick={this.toggle.bind(this,item.machineId, item.machine_detail_master.machineDetailId,item.machine_detail_master.machineActualId,item.flat_detail_master.tower_master.towerName,item.flat_detail_master.floor_master.floorName,item.flat_detail_master.flatNo,item.flat_detail_master.tower_master.towerId,
-                                 item.flat_detail_master.floor_master.floorId,item.type===true ? 'IN' : 'OUT')}>Edit</button>
-                             <button className="btn btn-danger" onClick={this.delete.bind(this,item.machineId)} >Delete</button>
+                                 <button className="btn btn-success mr-2" onClick={this.toggle.bind(this,item.meterId,item.meter_detail_master.meterDetailId, item.meter_detail_master.meterName,
+                                 item.flat_detail_master.tower_master.towerName,item.flat_detail_master.floor_master.floorName,item.flat_detail_master.flatNo,item.flat_detail_master.tower_master.towerId,
+                                 item.flat_detail_master.floor_master.floorId)}>Edit</button>
+                             <button className="btn btn-danger" onClick={this.delete.bind(this,item.meterId)} >Delete</button>
                        </td>
     
                                             </tr>
@@ -332,7 +332,7 @@ class ViewMachineMaster extends Component {
 
 
     close = () => {
-        return this.props.history.replace('/superDashBoard/flatOwnerList')
+        return this.props.history.replace('/superDashBoard')
     }
     searchOnChange = (e) => {
         //  this.setState({})
@@ -347,20 +347,14 @@ class ViewMachineMaster extends Component {
              !search;
         }
     }
-    flat =({machine1})=>{
-        if(machine1)
+    flat =({meterDetails})=>{
+        if(meterDetails)
         {
-
-                     return machine1.machinesDetail.map((item)=>{
-                                
-                                return (
-                
-                                    <option key={item.machineDetailId} value ={item.machineDetailId}>
-                         
-                                         {item.machineActualId}
-                       
-
-                                        </option>
+            return meterDetails.meter.map((item)=>{
+                    return (
+                        <option key={item.meterDetailId} value ={item.meterDetailId}>
+                                {item.meterName}
+                        </option>
             )
         })
     }
@@ -394,7 +388,6 @@ class ViewMachineMaster extends Component {
         this.setState({
             newFlatId:e.target.value
         },function(){
-            console.log(this.state.newFlatId);
         })
     }
 
@@ -479,13 +472,12 @@ class ViewMachineMaster extends Component {
                         <th>Tower Name</th>
                         <th>Floor</th>
                         <th>Flat Number</th>
-                        <th>Type</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {this.flatList(this.props.MachineDetails)}
+                    {this.flatList(this.props.MeterReducer)}
                 </tbody>
             </Table>
       let deleteSelectedButton = <Button color="danger" className="mb-2"
@@ -494,24 +486,30 @@ class ViewMachineMaster extends Component {
 
 
         let formData =<div>
-       
-               <FormGroup>
-                    <label>Machine Id</label>
-                    <select  className="form-control"  value={this.state.machineDetailId} name ="machineDetailId" onChange ={this.onChange}  onKeyPress={this.KeyPress}  maxLength={16}>
-                   <DefaultSelect/>
-                    {this.flat(this.props.MachineDetails)}
+
+       <FormGroup>
+                    <label>Meter Id</label>
+                    <select  className="form-control"   value={this.state.meterDetailId} name ="meterDetailId" onChange ={this.onChange}  onKeyPress={this.KeyPress}  maxLength={16}>
+                   <DefaultSelect/>  
+                   {/* <option disabled>{this.state.meterName}</option>  */}
+                    {this.flat(this.props.MeterReducer)}
                     </select>
                     <span className="error">{this.state.errors.machineDetailId}</span>
                               <span className="error">{this.state.message}</span>
                     
                 </FormGroup >
         
-             <FormGroup>
+ <FormGroup>
+    
                     <label>Tower</label>
-                    <Select options={this.getTower(this.props.towerList)}
+                    {console.log(this.state.towerName)}
+                    <Select
+                    value={this.state.towerName}
+                    options={this.getTower(this.props.towerList)}
                         onChange={this.towerChangeHandler.bind(this, 'towerId')}
                         placeholder={PlaceHolder} />
-                    {!this.state.towerId ? <span className="error">{this.state.errors.towerId}</span> : ''}
+            {!this.state.towerId ? <span className="error">{this.state.errors.towerId}</span> : ''}
+                    
                 </FormGroup >
                 <FormGroup>
                     <label>Floor</label>
@@ -533,17 +531,6 @@ class ViewMachineMaster extends Component {
             {!this.state.flatDetailIds ? <span className="error">{this.state.errors.flatDetailIds}</span> : ''}
 
                 </FormGroup >
-
-                <FormGroup>
-                    <Label>Type</Label>
-                    <Input placeholder={PlaceHolder} onChange={this.onChange} value={this.state.value} name="type" type="select"> 
-                    <option>{this.state.type}</option>
-                    <option selected disabled>--Select--</option>
-                     <option value="1">In</option>
-                     <option value="0">Out</option>
-                    </Input>
-                    {!this.state.type ? <span className="error">{this.state.errors.type}</span> : ''}
-                </FormGroup>
                            
                                    <FormGroup>
          <Button onClick={this.update} className="mr-2" color="success">Save</Button>
@@ -558,8 +545,8 @@ class ViewMachineMaster extends Component {
                          <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                              <span aria-hidden="true">&times;</span>
                          </div>
-                         <div className="top-details" style={{ fontWeight: 'bold' }}><h3>Machine  Details</h3>
-                             <Button color="primary" type="button" onClick={this.push}> Add Machine</Button>
+                         <div className="top-details" style={{ fontWeight: 'bold' }}><h3>Meter  Details</h3>
+                             <Button color="primary" type="button" onClick={this.push}> Add Meter</Button>
                          </div>
                          <SearchFilter type="text" value={this.state.search} onChange={this.searchOnChange} />
                          {deleteSelectedButton}
@@ -603,17 +590,18 @@ function mapStateToProps(state) {
         towerFloor:state.FlatOwnerReducer,
         tenantReducer:state.tenantReducer,
         towerList: state.TowerDetails,
-        MachineIdDetails: state.MachineIdDetails
+        MachineIdDetails: state.MachineIdDetails,
+        MeterReducer:state.MeterReducer
 
 
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({getAllFloor,viewMachine,deleteMachine,deleteMultipleMachine, updateMachine,
-        getFlats, addNewFlatForTenant, 
-        getFlatDetailViaTowerId, viewTower, editFlats,
-        deleteFlat,getMachine}, dispatch)
+    return bindActionCreators({getAllFloor,viewMeter,deleteMachine,deleteMultipleMachine, updateMachine,
+        getFlats, addNewFlatForTenant, deleteMeter,
+        getFlatDetailViaTowerId, viewTower, editFlats,deleteSelectedMeterMasterDetails,
+        deleteFlat,getMachine,getMeter,updateMeter}, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewMachineMaster);
+export default connect(mapStateToProps, mapDispatchToProps)(MeterDetails);
