@@ -5,8 +5,10 @@ import {Form, Row, Col,Button, FormGroup, Label, Input} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import DefaultSelect from '../../constants/defaultSelect';
 import {ViewEvent,GetEventOrganiser} from '../../actions/eventMasterAction';
+import { getEventDetails} from '../../actions/eventSpaceMasterAction';
 import {addSocietyEvents} from '../../actions/societyEventBooking';
 import Spinner from '../../components/spinner/spinner';
+
 
 
 class SocietyEventBooking extends Component {
@@ -29,6 +31,9 @@ class SocietyEventBooking extends Component {
            perPersonCharge:'',
            childAbove:'',
            charges:'',
+           eventSpaceId:'',
+           guestAllowed:false,
+           guestLimit:false,
            description:'',
            loading:true,
            errors:{},
@@ -38,7 +43,8 @@ class SocietyEventBooking extends Component {
 
     componentDidMount(){
         this.props.ViewEvent().then(() => this.setState({loading: false})).catch(() => this.setState({loading:false}));;
-        this.props.GetEventOrganiser().then(() => this.setState({loading: false})).catch(() => this.setState({loading:false}));;
+        this.props.GetEventOrganiser().then(() => this.setState({loading: false})).catch(() => this.setState({loading:false}));
+        this.props.getEventDetails().then(() => this.setState({loading: false})).catch(() => this.setState({loading:false}));
     }
 
     logout = () => {
@@ -65,6 +71,7 @@ class SocietyEventBooking extends Component {
     }
 
     h=(event)=>{
+        console.log(event.target.value)
         this.setState({ [event.target.name]: event.target.checked},function(){
         })
       
@@ -150,7 +157,10 @@ class SocietyEventBooking extends Component {
         }   
         else if(this.state.charges===''){
             errors.charges="Charges can't be empty"
-        }  
+        }
+        else if(this.state.eventSpaceId===''){
+            errors.eventSpaceId="Space Area can't be empty"
+        }
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0
         if (isValid) {
@@ -177,6 +187,7 @@ class SocietyEventBooking extends Component {
                 perPersonCharge:'',
                 childAbove:'',
                 charges:'',
+                eventSpaceId:'',
                 description:''
             });
     }
@@ -205,6 +216,19 @@ class SocietyEventBooking extends Component {
     minDate = () => {
         var d = new Date();
         return d.toISOString().split('T')[0];
+    }
+
+    fetchSpace=({space})=>{
+        console.log(space && space.societyMember);
+        if(space){
+            return space ? space.societyMember.map(item=>{
+                return(
+                    <option key={item.eventSpaceId} value={item.eventSpaceId}>
+                       {item.spaceName}
+                    </option>
+                )
+            }): ''
+        }
     }
     
     render(){
@@ -314,7 +338,7 @@ class SocietyEventBooking extends Component {
                             </Col>
                             <Col md={6}>
                             <FormGroup>
-                                <Label>Per Person Charge</Label>                               
+                                <Label>Per Person Charge(Adult)</Label>                               
                                 <Input type="text" name ="perPersonCharge"  placeholder="Enter Price" value={this.state.perPersonCharge} maxLength={4} onChange={this.perHandleChange}/>
                                 <div>{!this.state.perPersonCharge ? <span className="error">{this.state.errors.perPersonCharge}</span>: null}</div>
                             </FormGroup>
@@ -323,7 +347,7 @@ class SocietyEventBooking extends Component {
                         <Row form>
                             <Col md={6}>
                             <FormGroup>                               
-                                <Label>Child Above </Label>                               
+                                <Label>Child Above(Years) </Label>                               
                                 <Input type="text" name ="childAbove"  placeholder="Example 12 years"maxLength={8}   onChange={this.handleChange}/>
                                 <span className="error">{this.state.errors.childAbove}</span>
                             </FormGroup>
@@ -336,6 +360,26 @@ class SocietyEventBooking extends Component {
                             </FormGroup>
                             </Col>
                         </Row>
+                        <FormGroup>
+                            <Label>Space Area </Label>
+                                <Input type="select" name="eventSpaceId" defaultValue='no-value' onChange={this.handleChange}>
+                                <DefaultSelect/>
+                                {this.fetchSpace(this.props.eventSpaceMasterReducer)}
+                                </Input>
+                                <span className="error">{this.state.errors.eventSpaceId}</span>  
+                        </FormGroup>
+
+                        <FormGroup check>
+                                <Label check>   
+                                <Input type="checkbox" name="guestAllowed" onChange={this.h} />Non-Member/guest are allowed or not 
+                                </Label>
+                        </FormGroup>
+
+                        <FormGroup check>
+                                <Label check>   
+                                <Input type="checkbox" name="guestLimit" onChange={this.h}/>Limit alerted for non-member 
+                                </Label>
+                        </FormGroup>
                             <FormGroup>
                                 <Label>Description</Label>                               
                                 <Input type="text" name ="description" placeholder="Description"  maxLength={3000} onChange={this.handleChange}/>
@@ -354,8 +398,6 @@ class SocietyEventBooking extends Component {
                         </div>
                         <div><h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Book Society Events </h3></div><br/>
                         {!this.state.loading ? formData : <Spinner />}
-                          
-
                     </Form>
                 </UI>
             </div>
@@ -367,13 +409,14 @@ class SocietyEventBooking extends Component {
 function mapStateToProps(state) {
     return {
         EventDetails: state.EventDetails,
-        societyEventBookingReducer: state.societyEventBookingReducer
+        societyEventBookingReducer: state.societyEventBookingReducer,
+        eventSpaceMasterReducer:state.eventSpaceMasterReducer
     }
 }
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({ViewEvent,GetEventOrganiser,addSocietyEvents}, dispatch);
+    return bindActionCreators({ViewEvent,GetEventOrganiser,addSocietyEvents,getEventDetails}, dispatch);
 }
 
 
