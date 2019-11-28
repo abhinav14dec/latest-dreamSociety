@@ -189,8 +189,8 @@ import ContactUs from './containers/login/contactUs';
 import VideoStreaming from './containers/videoStream/videoStreaming';
 import TenantAccess from './containers/tenantAccess/tenantAccess';
 import OwnerAccess from './containers/ownerAccess/ownerAccess';
-
-
+import SocietyEventCelebration from './containers/societyEventCelebration/societyEventCelebration'
+import ViewInvitation from './containers/viewInvitations/viewInvitation'
 
 class App extends Component {
   render() {
@@ -370,25 +370,26 @@ class App extends Component {
             <OwnerPrivateRoute path='/ownerDashboardChart/ownerComplaintLineChart' component={OwnerComplaintPieChart} />
             <OwnerPrivateRoute path='/ownerDashboardChart/paymentDetailsChart' component={PaymentDetailsChart} />
             <OwnerPrivateRoute path='/ownerDashboardChart/serviceDetailsChart' component={ServiceDetailsChart} />
+            <OwnerPrivateRoute path='/ownerDashboard/societyEventCelebration/:id' component={SocietyEventCelebration}/>
 
             <TenantPrivateRoute path='/tenantDashboardChart/tenantChart' component={TenantChart} />
             <TenantPrivateRoute path='/tenantDashboardChart/tenantComplaintChart' component={TenantComplaintPieChart} />
             <TenantPrivateRoute path='/tenantDashboardChart/tenantPaymentChart' component={TenantPaymentChart} />
             <TenantPrivateRoute path='/tenantDashboardChart/tenantServicesChart' component={TenantServicesChart} />
-
+            <TenantPrivateRoute path='/tenantDashboard/societyEventCelebration/:id' component={SocietyEventCelebration} />
             <EmployeePrivateRoute path='/employeeDashboardChart/employeeChart' component={EmployeeChart} />
             <PrivateRoute path='/superDashboard/facilityMaster' component={FacilityMaster} />
             <PrivateRoute path='/superDashboard/facilityDetails' component={FacilityDetails} />
             <PrivateRoute path='/superDashboard/facilitySubMaster' component={FacilitySubMaster} />
             <PrivateRoute path='/superDashboard/facilitySubMasterDetails' component={FacilitySubMasterDetails} />
-
             <OwnerPrivateRoute path='/ownerDashboard/ownerFacility' component={OwnerFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={TenantFacility} />
-
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
-
+            <OwnerPrivateRoute path='/ownerDashboard/viewInvitations' component={ViewInvitation}/>
+            <OwnerPrivateRoute path='/tenantDashboard/viewInvitations' component={ViewInvitation}/>
           </Switch>
+          
         </div>
 
       </BrowserRouter>
