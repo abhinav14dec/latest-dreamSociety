@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Form, Label,FormGroup } from 'reactstrap';
+import { Button, Form, Label,FormGroup,Input } from 'reactstrap';
 import Spinner from '../../components/spinner/spinner';
 import UI from '../../components/newUI/superAdminDashboard';
 import Select from 'react-select';
@@ -23,6 +23,7 @@ class MachineMaster extends Component {
             towerId:'',
             floorId:'',
             flatDetailIds:'',
+            type:'',
             loading: true,
             errors: {},
             message:'',
@@ -152,7 +153,7 @@ changePassword = () => {
     if(!this.state.machineDetailId){
         errors.machineDetailId="Machine Id can't be empty"
        }
-    if(this.state.towerId===''){
+    else if(this.state.towerId===''){
         errors.towerId="Tower can't be empty"
     }
     else if(this.state.floorId===''){
@@ -162,6 +163,11 @@ changePassword = () => {
     {
         errors.flatDetailIds="flat can't be empty"
     }
+
+    else if(this.state.type==='')
+    {
+        errors.type="type can't be empty"
+    }
     this.setState({errors});
     const isValid=Object.keys(errors).length === 0;
     
@@ -169,11 +175,14 @@ changePassword = () => {
     
         this.setState({loading:true})
   
-    this.props.addMachine(this.state.machineDetailId, this.state.flatDetailIds).then(()=> this.props.history.push('/superDashboard/viewMachineMaster')).catch(err => {
+    this.props.addMachine(this.state.machineDetailId, this.state.flatDetailIds,this.state.type).then(()=> this.props.history.push('/superDashboard/viewMachineMaster')).catch(err => {
         this.setState({message: err.response.data.message, loading: false})
     })
 }
         }
+
+      
+
     render() {
         let formData;
         formData =
@@ -215,9 +224,18 @@ changePassword = () => {
                         name="flatDetailIds"
                         onChange={this.flatChangeHandler.bind(this, 'flatDetailIds')}
                     />
-            {!this.state.flatDetailIds ? <span className="error">{this.state.errors.flatDetailIds}</span> : ''}
+                    {!this.state.flatDetailIds ? <span className="error">{this.state.errors.flatDetailIds}</span> : ''}
                    
                 </FormGroup >
+                <FormGroup>
+                    <Label>Type</Label>
+                    <Input placeholder={PlaceHolder} onChange={this.onChange} name="type" type="select"> 
+                    <option selected disabled>--Select--</option>
+                     <option value="1">In</option>
+                     <option value="0">Out</option>
+                    </Input>
+                    {!this.state.type ? <span className="error">{this.state.errors.type}</span> : ''}
+                </FormGroup>
                 <Button className="btn btn-success mr-2" >Add Machine</Button>
                 <Link to='/superDashBoard/viewMachineMaster'>
                 <Button color="danger" id="addAssets" >Cancel</Button>

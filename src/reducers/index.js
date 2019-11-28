@@ -61,6 +61,7 @@ import FacilitySubMasterReducer from './facilitySubMasterReducer/facilitySubMast
 import  facilityReducer from  './facilityReducer/facilityReducer';
 import  userFacilityReducer from  './userFacilityReducer/userFacilityReducer';
 import  ownerAccessReducer from  './ownerAccessReducer/ownerAccessReducer';
+import MeterReducer from './meterReducer/meterReducer'
 import societyEventCelebrationReducer from './societyEventCelebrationReducer/societyEventCelebrationReducer'
 
 
@@ -123,6 +124,7 @@ const rootReducer = combineReducers({
     facilityReducer,
     userFacilityReducer,
     ownerAccessReducer,
-    societyEventCelebrationReducer
+    societyEventCelebrationReducer,
+    MeterReducer
 })
 export default rootReducer;

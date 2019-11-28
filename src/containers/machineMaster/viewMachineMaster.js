@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Label} from 'reactstrap';
+import { Button, Table,Modal,ModalBody,ModalHeader,FormGroup,Label, Input} from 'reactstrap';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 import UI from '../../components/newUI/superAdminDashboard';
 import {getAllFloor} from '../../actions/flatOwnerAction';
@@ -44,7 +44,8 @@ class ViewMachineMaster extends Component {
         machineDetailId:'',
         machineId:'',
         message:'',
-        flatDetailIds:''
+        flatDetailIds:'',
+        type:''
     }
 
    
@@ -87,11 +88,11 @@ class ViewMachineMaster extends Component {
         
     }
    
-    toggle = (machineId,machineDetailId, machineActualId,towerName,floorName,flatNo,towerId,floorId) => {
+    toggle = (machineId,machineDetailId, machineActualId,towerName,floorName,flatNo,towerId,floorId,type) => {
         this.props.getFlatDetailViaTowerId(towerId);
 
         this.setState({
-            machineId,machineDetailId,machineActualId,towerName,floorName,flatNo,towerId,floorId,
+            machineId,machineDetailId,machineActualId,towerName,floorName,flatNo,towerId,floorId,type,
             modal: !this.state.modal
             
         })
@@ -202,15 +203,16 @@ class ViewMachineMaster extends Component {
             if(!this.state.towerId) errors.towerId = `Please enter tower name.`
             if(!this.state.floorId) errors.floorId = `Please enter floor.`
             if(!this.state.flatDetailIds) errors.flatDetailIds = `Please enter flat.`
+            if(!this.state.type) errors.type=`Please enter Type.`
             this.setState({ errors });
             const isValid = Object.keys(errors).length === 0;
             if(isValid  && this.state.message===''){
                 this.setState({modalLoading:true})
             
                
-                    let { flatDetailIds,machineDetailId,machineId } = this.state;
+                    let { flatDetailIds,machineDetailId,machineId,type } = this.state;
            
-                    this.props.updateMachine(flatDetailIds,machineDetailId,machineId).then(() => this.refreshData())
+                    this.props.updateMachine(flatDetailIds,machineDetailId,machineId, type).then(() => this.refreshData())
                 .catch(err=>{ 
                     this.setState({modalLoading:false,message: err.response.data.message})
                     })
@@ -270,10 +272,9 @@ class ViewMachineMaster extends Component {
         flatList =({machine})=>{
             if(machine && machine.Machines)
             {
-    
                          return machine.Machines.sort((item1,item2) =>{
                             var cmprVal=(item1.machine_detail_master[this.state.filterName].localeCompare(item2.machine_detail_master[this.state.filterName]))
-                            return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{ 
+                            return this.state.sortVal ?cmprVal:-cmprVal}).filter(this.searchFilter(this.state.search)).map((item,index)=>{
                                     
                                     return (
                     
@@ -306,9 +307,10 @@ class ViewMachineMaster extends Component {
                                             <td>{item.flat_detail_master.tower_master.towerName}</td>
                                             <td>{item.flat_detail_master.floor_master.floorName}</td>
                                             <td>{item.flat_detail_master.flatNo}</td>
+                                            <td>{item.type===true ? 'IN' : 'OUT'}</td>
                                           <td style={{ textAlign: "center" }}>
                                  <button className="btn btn-success mr-2" onClick={this.toggle.bind(this,item.machineId, item.machine_detail_master.machineDetailId,item.machine_detail_master.machineActualId,item.flat_detail_master.tower_master.towerName,item.flat_detail_master.floor_master.floorName,item.flat_detail_master.flatNo,item.flat_detail_master.tower_master.towerId,
-                                 item.flat_detail_master.floor_master.floorId)}>Edit</button>
+                                 item.flat_detail_master.floor_master.floorId,item.type===true ? 'IN' : 'OUT')}>Edit</button>
                              <button className="btn btn-danger" onClick={this.delete.bind(this,item.machineId)} >Delete</button>
                        </td>
     
@@ -392,7 +394,7 @@ class ViewMachineMaster extends Component {
         this.setState({
             newFlatId:e.target.value
         },function(){
-            console.log(this.state.newFlatId)
+            console.log(this.state.newFlatId);
         })
     }
 
@@ -477,6 +479,7 @@ class ViewMachineMaster extends Component {
                         <th>Tower Name</th>
                         <th>Floor</th>
                         <th>Flat Number</th>
+                        <th>Type</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -492,26 +495,23 @@ class ViewMachineMaster extends Component {
 
         let formData =<div>
        
-       <FormGroup>
+               <FormGroup>
                     <label>Machine Id</label>
-                    <select  className="form-control"   value={this.state.machineDetailId} name ="machineDetailId" onChange ={this.onChange}  onKeyPress={this.KeyPress}  maxLength={16}>
+                    <select  className="form-control"  value={this.state.machineDetailId} name ="machineDetailId" onChange ={this.onChange}  onKeyPress={this.KeyPress}  maxLength={16}>
                    <DefaultSelect/>
-                      
                     {this.flat(this.props.MachineDetails)}
-                    
                     </select>
                     <span className="error">{this.state.errors.machineDetailId}</span>
                               <span className="error">{this.state.message}</span>
                     
                 </FormGroup >
         
- <FormGroup>
+             <FormGroup>
                     <label>Tower</label>
                     <Select options={this.getTower(this.props.towerList)}
                         onChange={this.towerChangeHandler.bind(this, 'towerId')}
                         placeholder={PlaceHolder} />
-            {!this.state.towerId ? <span className="error">{this.state.errors.towerId}</span> : ''}
-                    
+                    {!this.state.towerId ? <span className="error">{this.state.errors.towerId}</span> : ''}
                 </FormGroup >
                 <FormGroup>
                     <label>Floor</label>
@@ -533,6 +533,17 @@ class ViewMachineMaster extends Component {
             {!this.state.flatDetailIds ? <span className="error">{this.state.errors.flatDetailIds}</span> : ''}
 
                 </FormGroup >
+
+                <FormGroup>
+                    <Label>Type</Label>
+                    <Input placeholder={PlaceHolder} onChange={this.onChange} value={this.state.value} name="type" type="select"> 
+                    <option>{this.state.type}</option>
+                    <option selected disabled>--Select--</option>
+                     <option value="1">In</option>
+                     <option value="0">Out</option>
+                    </Input>
+                    {!this.state.type ? <span className="error">{this.state.errors.type}</span> : ''}
+                </FormGroup>
                            
                                    <FormGroup>
          <Button onClick={this.update} className="mr-2" color="success">Save</Button>

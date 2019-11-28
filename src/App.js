@@ -191,6 +191,12 @@ import TenantAccess from './containers/tenantAccess/tenantAccess';
 import OwnerAccess from './containers/ownerAccess/ownerAccess';
 import SocietyEventCelebration from './containers/societyEventCelebration/societyEventCelebration'
 import ViewInvitation from './containers/viewInvitations/viewInvitation'
+import MeterMaster from './containers/meterMaster/meterMaster';
+import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
+import Meter from './containers/meter/meter';
+import MeterDetails from './containers/meter/meterDetails';
+
+
 
 class App extends Component {
   render() {
@@ -223,7 +229,11 @@ class App extends Component {
             <PrivateRoute path='/superDashboard/towermaster' component={TowerMaster} />
             <PrivateRoute path='/superDashboard/sizemaster' component={SizeMaster} />
             <PrivateRoute path='/superDashboard/event' component={EventMaster} />
+            <PrivateRoute path='/superDashboard/meter' exact component={Meter}/>
+            <PrivateRoute path='/superDashboard/meter/meterDetails' exact component={MeterDetails}/>
             <PrivateRoute path='/superDashboard/flatmaster' exact component={FlatMaster} />
+            <PrivateRoute path='/superDashboard/meterMaster' exact component={MeterMaster} />
+            <PrivateRoute path='/superDashboard/meterMaster/meterMasterDetails' exact component={MeterMasterDetails} />
             <PrivateRoute path='/superDashboard/flatmaster/flatmasterdetails' component={FlatMasterDetails} />
             <PrivateRoute path='/superDashboard/countryMaster' exact component={countryMaster} />
             <PrivateRoute path='/superDashboard/countryMaster/countryMasterDetails' exact component={countryMasterDetails} />
