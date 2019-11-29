@@ -118,8 +118,7 @@ class DisplaySocietyEventBooking extends Component {
     }
 
     fetchSpace=({space})=>{
-        console.log(space && space.societyMember);
-        if(space){
+        if(space && space.societyMember){
             return space ? space.societyMember.map(item=>{
                 return(
                     <option key={item.eventSpaceId} value={item.eventSpaceId}>
@@ -228,7 +227,6 @@ minDate = () => {
 
 updateEvents(){
     const {societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks}= this.state; 
-    console.log("update",societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks)
     let errors = {};
         if(this.state.perPersonCharge===''){
             errors.perPersonCharge="Person Charges can't be empty"
@@ -524,7 +522,6 @@ render() {
 }
 
 function mapStateToProps(state) {
-    console.log(state,"========state")
     return {
         societyEventBookingReducer: state.societyEventBookingReducer,
         EventDetails: state.EventDetails,

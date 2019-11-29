@@ -193,6 +193,9 @@ import MeterMaster from './containers/meterMaster/meterMaster';
 import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
 import Meter from './containers/meter/meter';
 import MeterDetails from './containers/meter/meterDetails';
+import IndividualVendorBooking from './containers/individualVendorBooking/individualVendorBooking';
+import IndividualVendorBookingDetails from './containers/individualVendorBooking/individualVendorBookingDetails';
+import BookingRequestDetail from './containers/individualVendorBooking/bookingRequestDetail';
 
 
 
@@ -395,7 +398,11 @@ class App extends Component {
 
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
-
+            <TenantPrivateRoute path='/tenantDashboard/individualVendorBooking' component={IndividualVendorBooking} />
+            <OwnerPrivateRoute path='/ownerDashboard/individualVendorBooking' component={IndividualVendorBooking} />
+            <TenantPrivateRoute path='/tenantDashboard/individualVendorBookingDetails' component={IndividualVendorBookingDetails} />
+            <OwnerPrivateRoute path='/ownerDashboard/individualVendorBookingDetails' component={IndividualVendorBookingDetails} />
+            <VendorPrivateRoute path='/vendorDashboard/bookingRequestDetail' component={BookingRequestDetail}/>
           </Switch>
         </div>
 

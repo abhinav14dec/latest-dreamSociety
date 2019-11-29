@@ -71,7 +71,6 @@ class SocietyEventBooking extends Component {
     }
 
     h=(event)=>{
-        console.log(event.target.value)
         this.setState({ [event.target.name]: event.target.checked},function(){
         })
       
@@ -126,7 +125,7 @@ class SocietyEventBooking extends Component {
 
     onSubmit=(event)=>{
         event.preventDefault();
-        const Events= this.state;
+        
         let errors = {};
         if(this.state.eventId===''){
             errors.eventId="Event Name can't be empty"
@@ -163,34 +162,34 @@ class SocietyEventBooking extends Component {
         }
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0
-        if (isValid) {
-            this.setState({loading: true});
-            this.props.addSocietyEvents(Events)
-            .then(()=>this.props.history.push('/superDashboard/DisplaySocietyEventBooking'))
-            .catch((err)=>{
-                this.setState({message: err.response.data.message,loading:false})})
+    //     if (isValid) {
+    //         this.setState({loading: true});
+    //         this.props.addSocietyEvents(Events)
+    //         .then(()=>this.props.history.push('/superDashboard/DisplaySocietyEventBooking'))
+    //         .catch((err)=>{
+    //             this.setState({message: err.response.data.message,loading:false})})
 
-            this.setState({
-                eventId:'', 
-                organisedBy:'',
-                startDate:'',
-                endDate:'',
-                startTime:'',
-                endTime:'',         
-                breakfast:false,
-                lunch:false,
-                eveningSnacks:false,
-                dinner:false,
-                dJ:false,
-                drinks:false,
-                invitationCardPicture:'',
-                perPersonCharge:'',
-                childAbove:'',
-                charges:'',
-                eventSpaceId:'',
-                description:''
-            });
-    }
+    //         this.setState({
+    //             eventId:'', 
+    //             organisedBy:'',
+    //             startDate:'',
+    //             endDate:'',
+    //             startTime:'',
+    //             endTime:'',         
+    //             breakfast:false,
+    //             lunch:false,
+    //             eveningSnacks:false,
+    //             dinner:false,
+    //             dJ:false,
+    //             drinks:false,
+    //             invitationCardPicture:'',
+    //             perPersonCharge:'',
+    //             childAbove:'',
+    //             charges:'',
+    //             eventSpaceId:'',
+    //             description:''
+    //         });
+    // }
 }
     push=()=>{
         this.props.history.push('/superDashBoard/displaySocietyeventbooking')
@@ -219,15 +218,14 @@ class SocietyEventBooking extends Component {
     }
 
     fetchSpace=({space})=>{
-        console.log(space && space.societyMember);
-        if(space){
-            return space ? space.societyMember.map(item=>{
+        if(space && space.societyMember){
+            return space.societyMember.map(item=>{
                 return(
                     <option key={item.eventSpaceId} value={item.eventSpaceId}>
                        {item.spaceName}
                     </option>
                 )
-            }): ''
+            })
         }
     }
     

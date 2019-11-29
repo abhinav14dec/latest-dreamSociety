@@ -236,15 +236,11 @@ class IndividualVendor extends Component{
 
     countryName = ({countryResult}) => {
         if(countryResult){
-          
-           return( 
-            countryResult.map((item) =>{
+           return countryResult.map((item) =>{
                    return(
                     { ...item, label: item.countryName, value: item.countryId }
                    )
                })
-           )
-            
         }
     }
     countryName1 = ({countryResult}) => {
@@ -647,7 +643,7 @@ class IndividualVendor extends Component{
         this.setState({errors})
         
         const isValid= Object.keys(errors).length === 0;
-
+        
              if(isValid){
                 
                 this.props.addVendor(this.state).then(()=>this.props.history.push('/superDashboard/individualVendorDetail'))
