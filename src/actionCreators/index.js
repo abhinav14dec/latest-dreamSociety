@@ -4,10 +4,14 @@
 // export  const DocURN = 'http://13.235.13.21:8083/';
 // export  const UR = 'http://13.235.13.21:8083/';
 
-export  const URN = 'http://192.168.0.117:8083/api';
-export  const PicURN = 'http://192.168.0.117:8083/';
-export  const DocURN = 'http://192.168.0.117:8083/';
-export  const UR = 'http://192.168.0.117:8083/';
+export  const URN = 'http://192.168.0.123:8083/api';
+export  const PicURN = 'http://192.168.0.123:8083/';
+export  const DocURN = 'http://192.168.0.123:8083/';
+export  const UR = 'http://192.168.0.123:8083/';
+// export  const URN = 'http://192.168.0.117:8083/api';
+// export  const PicURN = 'http://192.168.0.117:8083/';
+// export  const DocURN = 'http://192.168.0.117:8083/';
+// export  const UR = 'http://192.168.0.117:8083/';
                    
 
 export const USER_LOGIN='user_login';
@@ -396,12 +400,11 @@ export const ADD_USER_FACILITY='ADD_USER_FACILITY';
 export const GET_USER_FACILITY='GET_USER_FACILITY';
 export const NOT_IN_USE_FACILITY='NOT_IN_USE_FACILITY';
 export const UPDATE_USER_FACILITY='UPDATE_USER_FACILITY';
-
 export const CONTACT_US = 'CONTACT_US';
-
 export const VIDEO_STREAM = 'VIDEO_STREAM';
-
 export const GET_OWNER_ACCESS_DATA='GET_ACCESS_DATA';
+export const GUEST_DETAILS_FOR_EVENT='GUEST_DETAILS_FOR_EVENT';
+export const VIEW_INVITATION_LIST='VIEW_INVITATION_LIST'
 export const ADD_METER="ADD_METER";
 export const GET_METER="GET_METER";
 export const DELETE_METER="DELETE_METER";
