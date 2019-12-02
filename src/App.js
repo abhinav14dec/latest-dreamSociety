@@ -193,7 +193,7 @@ import MeterMaster from './containers/meterMaster/meterMaster';
 import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
 import Meter from './containers/meter/meter';
 import MeterDetails from './containers/meter/meterDetails';
-
+import PaymentComponent from './components/reusableComponents/paymentComponent'
 
 
 class App extends Component {
@@ -395,6 +395,7 @@ class App extends Component {
 
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
+            <Route path = '/superDashboard/payment' component={PaymentComponent}/>
 
           </Switch>
         </div>
