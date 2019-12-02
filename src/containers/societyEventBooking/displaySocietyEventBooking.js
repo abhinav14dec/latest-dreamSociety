@@ -6,6 +6,7 @@ import UI from '../../components/newUI/superAdminDashboard';
 import {getSocietyEvents,updateSocietyEvents,deleteEvents,deleteSelectedEvent} from '../../actions/societyEventBooking';
 import Spinner from '../../components/spinner/spinner';
 import {ViewEvent,GetEventOrganiser} from '../../actions/eventMasterAction';
+import { getEventDetails} from '../../actions/eventSpaceMasterAction';
 import DefaultSelect from '../../constants/defaultSelect';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 
@@ -30,6 +31,10 @@ class DisplaySocietyEventBooking extends Component {
            perPersonCharge:'',
            childAbove:'',
            charges:'',
+           eventSpaceId:'',
+           spaceName:'',
+           guestAllowed:false,
+           guestLimit:false,
            description:'',
            editEventModal:false,
            modalLoading:false,
@@ -64,6 +69,7 @@ class DisplaySocietyEventBooking extends Component {
         });
         this.props.ViewEvent();
         this.props.GetEventOrganiser();
+        this.props.getEventDetails();
     }   
 
     perHandleChange=(e)=>{
@@ -72,10 +78,10 @@ class DisplaySocietyEventBooking extends Component {
             
         }}
 
-    editEvent(societyEventBookId,eventId,eventName,firstName,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks){
+    editEvent(societyEventBookId,eventId,eventName,firstName,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks){
       
         this.setState({
-            societyEventBookId,eventId,eventName,firstName,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks
+            societyEventBookId,eventId,eventName,firstName,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks
             ,editEventModal: !this.state.editEventModal})
     }
 
@@ -111,7 +117,18 @@ class DisplaySocietyEventBooking extends Component {
         return this.props.history.replace('/superDashboard/changePassword')
     }
 
-
+    fetchSpace=({space})=>{
+        if(space && space.societyMember){
+            return space ? space.societyMember.map(item=>{
+                return(
+                    <option key={item.eventSpaceId} value={item.eventSpaceId}>
+                       {item.spaceName}
+                    </option>
+                )
+            }): ''
+        }
+    }
+    
     renderList({ societyEvents }) {
         if (societyEvents && societyEvents.eventBookings ) {
             return  societyEvents.eventBookings.sort((item1,item2)=>{
@@ -149,10 +166,13 @@ class DisplaySocietyEventBooking extends Component {
                        <td>{item.startTime}</td>
                        <td>{item.endTime}</td>                       
                        <td>{item.perPersonCharge}</td>
-                       <td>{item.childAbove}</td>
+                       <td>{`${item.childAbove} Years`}</td>
                        <td>{item.charges}</td>
+                       <td>{item.event_space_master.spaceName}</td>
+                       <td>{item.guestAllowed===false ? 'No' : 'Yes'}</td>
+                       <td>{item.guestLimit===true ? '3' : 'No'}</td>
                        <td>
-                             <Button color="success" className="mr-2" onClick={this.editEvent.bind(this,item.societyEventBookId,item.event_master.eventId,item.event_master?item.event_master.eventName:'',item.user_master?item.user_master.firstName:'',item.startDate,item.endDate,item.startTime,item.endTime,item.perPersonCharge,item.childAbove,item.charges,item.description,item.breakfast,item.lunch,item.eveningSnacks,item.dinner,item.dj,item.drinks)}>Edit</Button>                 
+                             <Button color="success" className="mr-2" onClick={this.editEvent.bind(this,item.societyEventBookId,item.event_master.eventId,item.event_master?item.event_master.eventName:'',item.user_master?item.user_master.firstName:'',item.startDate,item.endDate,item.startTime,item.endTime,item.perPersonCharge,item.childAbove,item.charges,item.eventSpaceId,item.event_space_master.spaceName,item.guestAllowed, item.guestLimit,item.description,item.breakfast,item.lunch,item.eveningSnacks,item.dinner,item.dj,item.drinks)}>Edit</Button>                 
                              <Button color="danger"  onClick={this.deleteEvents.bind(this, item.societyEventBookId)}>Delete</Button>
                         </td>
                    
@@ -206,7 +226,7 @@ minDate = () => {
 }
 
 updateEvents(){
-    const {societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks}= this.state; 
+    const {societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks}= this.state; 
     let errors = {};
         if(this.state.perPersonCharge===''){
             errors.perPersonCharge="Person Charges can't be empty"
@@ -225,7 +245,7 @@ updateEvents(){
             const isValid = Object.keys(errors).length === 0
             if (isValid  &&  this.state.message === '') {
              
-                this.props.updateSocietyEvents(societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks)
+                this.props.updateSocietyEvents(societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks)
                 .then(()=>this.refreshData())
                 .catch(err=>{
                     this.setState({modalLoading:false,message: err.response.data.message, loading: false})
@@ -296,7 +316,10 @@ render() {
                 <th>Event End Time</th>             
                 <th>Per Person Charges</th>
                 <th>Child Above</th>
-                <th>Charges</th>   
+                <th>Charges(Per Child)</th>
+                <th>Space Area</th>
+                <th>Guest Allowed</th>
+                <th>Guest Alert Limit</th>   
                 <th style={{width:'14%'}}>Actions</th>                          
             </tr>
             
@@ -422,6 +445,27 @@ render() {
                             </Row>
 
                             <FormGroup>
+                            <Label>Space Area </Label>
+                                <Input type="select" name="eventSpaceId" value={this.state.spaceName} onChange={this.handleChange}>
+                                <DefaultSelect/>
+                                {this.fetchSpace(this.props.eventSpaceMasterReducer)}
+                                </Input>
+                                <span className="error">{this.state.errors.eventSpaceId}</span>  
+                            </FormGroup>
+
+                            <FormGroup check>
+                                    <Label check>   
+                                    <Input type="checkbox" name="guestAllowed" onChange={this.h} checked={this.state.guestAllowed=== true ? true : false}/>Non-Member/guest are allowed or not 
+                                    </Label>
+                            </FormGroup>
+
+                            <FormGroup check>
+                                    <Label check>   
+                                    <Input type="checkbox" name="guestLimit" onChange={this.h} checked={this.state.guestLimit=== true ? true : false}/>Limit alerted for non-member 
+                                    </Label>
+                            </FormGroup>
+
+                            <FormGroup>
                                 <Label>Description</Label>                               
                                 <Input type="text" name ="description" value={this.state.description} maxLength={3000} onChange={this.handleChange}/>
                             </FormGroup>
@@ -443,12 +487,9 @@ render() {
                                 <div style={{cursor:'pointer'}} className="close" aria-label="Close" onClick={this.close}>
                                     <span aria-hidden="true">&times;</span>
                             </div> 
-                            
-                   
                     <div className="top-details" style={{ fontWeight: 'bold'}}><h3>Society Event Booking Details</h3>
                     <Button color="primary" type="button" onClick={this.push}>Book Society Event</Button></div>
                     
-             
                     <SearchFilter type="text" value={this.state.search}
                         onChange={this.searchOnChange} />
                     
@@ -471,8 +512,7 @@ render() {
                            {!this.state.modalLoading?modalData:<Spinner/>}
                         </ModalBody>
                     </Modal>
-                </div>
-               
+                </div> 
             </UI>
             </div>
         )
@@ -484,13 +524,14 @@ render() {
 function mapStateToProps(state) {
     return {
         societyEventBookingReducer: state.societyEventBookingReducer,
-        EventDetails: state.EventDetails
+        EventDetails: state.EventDetails,
+        eventSpaceMasterReducer:state.eventSpaceMasterReducer
     }
 }
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({getSocietyEvents,ViewEvent,GetEventOrganiser,updateSocietyEvents,deleteEvents,deleteSelectedEvent}, dispatch);
+    return bindActionCreators({getSocietyEvents,ViewEvent,GetEventOrganiser,updateSocietyEvents,deleteEvents,deleteSelectedEvent,getEventDetails}, dispatch);
 }
 
 

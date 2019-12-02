@@ -51,7 +51,7 @@ class InventoryDetails extends Component {
         this.setState({ modal: !this.state.modal })
     }
 
-    UNSAFE_componentWillMount() {     
+    componentWillMount() {     
         this.props.getAssets()
         this.props.fetchAssets();
         this.props.getInventory()

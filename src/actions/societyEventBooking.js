@@ -26,9 +26,9 @@ export function addSocietyEvents( values){
     }
 }
 
-export function updateSocietyEvents(societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,description ,breakfast,lunch,eveningSnacks,dinner,dj,drinks){
+export function updateSocietyEvents(societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description ,breakfast,lunch,eveningSnacks,dinner,dj,drinks){
 
-  const request = axios.put(`${URN}/updateEventBookings/`+societyEventBookId,{eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,description,breakfast,lunch,eveningSnacks,dinner,dj,drinks },{headers:authHeader()})
+  const request = axios.put(`${URN}/updateEventBookings/`+societyEventBookId,{eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dj,drinks },{headers:authHeader()})
   .then()
   return{
       type:UPDATE_SOCIETY_EVENTS,

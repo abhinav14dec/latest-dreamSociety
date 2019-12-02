@@ -8,7 +8,6 @@ export function AddMeter(values){
 //    .then(getCountry());
 
    return{
-
        type:ADD_METER,
        payload: request 
    }

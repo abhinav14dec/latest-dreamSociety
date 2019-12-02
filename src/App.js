@@ -189,11 +189,20 @@ import ContactUs from './containers/login/contactUs';
 import VideoStreaming from './containers/videoStream/videoStreaming';
 import TenantAccess from './containers/tenantAccess/tenantAccess';
 import OwnerAccess from './containers/ownerAccess/ownerAccess';
+import SocietyEventCelebration from './containers/societyEventCelebration/societyEventCelebration'
+import ViewInvitation from './containers/viewInvitations/viewInvitation'
 import MeterMaster from './containers/meterMaster/meterMaster';
 import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
 import Meter from './containers/meter/meter';
 import MeterDetails from './containers/meter/meterDetails';
+<<<<<<< HEAD
 import PaymentComponent from './components/reusableComponents/paymentComponent'
+=======
+import IndividualVendorBooking from './containers/individualVendorBooking/individualVendorBooking';
+import IndividualVendorBookingDetails from './containers/individualVendorBooking/individualVendorBookingDetails';
+import BookingRequestDetail from './containers/individualVendorBooking/bookingRequestDetail';
+
+>>>>>>> d0465a8b6c0e3c606f5a5fe99ced65d3f8aea67d
 
 
 class App extends Component {
@@ -378,26 +387,37 @@ class App extends Component {
             <OwnerPrivateRoute path='/ownerDashboardChart/ownerComplaintLineChart' component={OwnerComplaintPieChart} />
             <OwnerPrivateRoute path='/ownerDashboardChart/paymentDetailsChart' component={PaymentDetailsChart} />
             <OwnerPrivateRoute path='/ownerDashboardChart/serviceDetailsChart' component={ServiceDetailsChart} />
+            <OwnerPrivateRoute path='/ownerDashboard/societyEventCelebration/:id' component={SocietyEventCelebration}/>
 
             <TenantPrivateRoute path='/tenantDashboardChart/tenantChart' component={TenantChart} />
             <TenantPrivateRoute path='/tenantDashboardChart/tenantComplaintChart' component={TenantComplaintPieChart} />
             <TenantPrivateRoute path='/tenantDashboardChart/tenantPaymentChart' component={TenantPaymentChart} />
             <TenantPrivateRoute path='/tenantDashboardChart/tenantServicesChart' component={TenantServicesChart} />
-
+            <TenantPrivateRoute path='/tenantDashboard/societyEventCelebration/:id' component={SocietyEventCelebration} />
             <EmployeePrivateRoute path='/employeeDashboardChart/employeeChart' component={EmployeeChart} />
             <PrivateRoute path='/superDashboard/facilityMaster' component={FacilityMaster} />
             <PrivateRoute path='/superDashboard/facilityDetails' component={FacilityDetails} />
             <PrivateRoute path='/superDashboard/facilitySubMaster' component={FacilitySubMaster} />
             <PrivateRoute path='/superDashboard/facilitySubMasterDetails' component={FacilitySubMasterDetails} />
-
             <OwnerPrivateRoute path='/ownerDashboard/ownerFacility' component={OwnerFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={TenantFacility} />
-
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
+<<<<<<< HEAD
             <Route path = '/superDashboard/payment' component={PaymentComponent}/>
 
+=======
+            <TenantPrivateRoute path='/tenantDashboard/individualVendorBooking' component={IndividualVendorBooking} />
+            <OwnerPrivateRoute path='/ownerDashboard/individualVendorBooking' component={IndividualVendorBooking} />
+            
+            <TenantPrivateRoute path='/tenantDashboard/individualVendorBookingDetails' component={IndividualVendorBookingDetails} />
+            <OwnerPrivateRoute path='/ownerDashboard/individualVendorBookingDetails' component={IndividualVendorBookingDetails} />
+            <VendorPrivateRoute path='/vendorDashboard/bookingRequestDetail' component={BookingRequestDetail}/>
+            <OwnerPrivateRoute path='/ownerDashboard/viewInvitations' component={ViewInvitation}/>
+            <OwnerPrivateRoute path='/tenantDashboard/viewInvitations' component={ViewInvitation}/>
+>>>>>>> d0465a8b6c0e3c606f5a5fe99ced65d3f8aea67d
           </Switch>
+          
         </div>
 
       </BrowserRouter>

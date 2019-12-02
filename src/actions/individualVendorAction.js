@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URN, ADD_VENDOR,GET_INDIVIDUAL_VENDOR, DELETE_INDIVIDUAL_VENDOR, DELETE_SELECT_INDIVIDUAL_VENDOR, UPDATE_INDIVIDUAL_VENDOR ,GET_INDIVIDUAL_SERVICEID} from '../actionCreators/index'
+import { URN, ADD_VENDOR,GET_INDIVIDUAL_VENDOR, DELETE_INDIVIDUAL_VENDOR, DELETE_SELECT_INDIVIDUAL_VENDOR, UPDATE_INDIVIDUAL_VENDOR ,GET_INDIVIDUAL_SERVICEID,GET_INDIVIDUAL_DATA,ADD_VENDOR_BOOKING,GET_VENDOR_BOOKING} from '../actionCreators/index'
 import { authHeader } from '../helper/authHeader';
 
 
@@ -7,10 +7,7 @@ import { authHeader } from '../helper/authHeader';
 export const addVendor=(values)=>{   
     const request = axios.post(`${URN}/individualVendor` ,values , {headers:authHeader()})
      .then(response => response.data)
-  
- 
      return{
- 
          type:ADD_VENDOR,
          payload: request 
      }
@@ -33,11 +30,8 @@ export const addVendor=(values)=>{
 
  export const getServiceVendor=(id)=>{
     const request = axios.get(`${URN}/individualVendor/${id}` , {headers:authHeader()})
-     .then(response => response.data)
-  
- 
+     .then(response => console.log(response.data))
      return{
- 
          type:GET_INDIVIDUAL_SERVICEID,
          payload: request 
      }
@@ -92,4 +86,43 @@ export const addVendor=(values)=>{
  
  }
 
+ //individual vendor booking details by Id
+
+ export const getVendorData=(id)=>{
+    console.log(id)
+    const request = axios.get(`${URN}/individualVendor/service/${id}` , {headers:authHeader()})
+     .then(response => response.data)
+  
+     return{
  
+         type:GET_INDIVIDUAL_DATA,
+         payload: request 
+     }
+ 
+ }
+
+
+    export const addVendorBooking=(values)=>{  
+        console.log(values,"=========values"); 
+        const request = axios.post(`${URN}/individualVendor/booking` ,values , {headers:authHeader()})
+        .then(response => response.data)
+
+        return{
+            type:ADD_VENDOR_BOOKING,
+            payload: request 
+        }
+    
+    }
+
+    export const getVendorBooking=(values)=>{  
+        console.log(values,"=========values"); 
+        const request = axios.post(`${URN}/individualVendor/booking` , {headers:authHeader()})
+        .then(response => response.data)
+
+        return{
+            type:GET_VENDOR_BOOKING,
+            payload: request 
+        }
+    
+    }
+

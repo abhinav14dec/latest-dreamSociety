@@ -43,14 +43,14 @@ class SizeMaster extends Component {
             this.setState({ [event.target.name]: event.target.value});
         }
     }
- onkeyPresshandle(event){
-    const pattern = /[a-zA-Z _]/;
-    let inputChar = String.fromCharCode(event.charCode);
-    if (!pattern.test(inputChar)) {
-      event.preventDefault();
+    onkeyPresshandle(event){
+        const pattern = /[a-zA-Z _]/;
+        let inputChar = String.fromCharCode(event.charCode);
+        if (!pattern.test(inputChar)) {
+        event.preventDefault();
 
+        }
     }
- }
 
     submit(e) {
         e.preventDefault()
