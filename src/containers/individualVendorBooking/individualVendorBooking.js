@@ -28,7 +28,7 @@ class IndividualVendorBooking extends Component {
            endTime2:'',
            startTimeSlotSelected:'',
            endTimeSlotSelected:'',
-           enableFingerprint:false,
+           enableFingerPrint:false,
            enableSmsNotification :false,
            payOnline:false,
            loading:false,
@@ -54,12 +54,21 @@ class IndividualVendorBooking extends Component {
         this.handleChange(event);
         let selected= event.target.value
         this.props.getVendorData(selected);
-       
+
+        this.setState({
+        individualVendorId:'',
+        rate:'',
+        rateType:'',
+        startTime:'',
+        startTime1: '',
+        startTime2:'',
+        endTime:'',
+        endTime1:'',
+        endTime2:'',
+        startTimeSlotSelected:'',
+        endTimeSlotSelected:'',
+        })
     
-            // this.setState({
-            //     stateId: data1.stateId,
-            //     stateName:data1.stateName
-            // })
     }
 
     vendorChange=(event)=>{
@@ -95,9 +104,9 @@ class IndividualVendorBooking extends Component {
     
     }
     
-    timeChange=(endTime,event)=> {
-        console.log(endTime,event,"endTime,event")
-        this.setState({message:'',endTimeSlotSelected:endTime})
+    timeChange=(startTime,endTime,event)=> {
+        this.setState({message:''})
+    
         if (!!this.state.errors[event.target.name]) {
             let errors = Object.assign({}, this.state.errors);
             delete errors[event.target.name];
@@ -106,6 +115,8 @@ class IndividualVendorBooking extends Component {
         else {
             this.setState({ [event.target.name]: event.target.value.trim('') });
         }
+        this.setState({startTimeSlotSelected: startTime,endTimeSlotSelected: endTime})
+
     }
     
     handleChange=(event)=> {
@@ -124,7 +135,6 @@ class IndividualVendorBooking extends Component {
     h=(event)=>{
         this.setState({ [event.target.name]: event.target.checked},function(){
         })
-      
     }
 
     
@@ -164,7 +174,7 @@ class IndividualVendorBooking extends Component {
 
     onSubmit=(event)=>{
         event.preventDefault();
-        const {startTimeSlotSelected,endTimeSlotSelected,individualVendorId,enableSmsNotification,payOnline,enableFingerprint}= this.state;
+        const {startTimeSlotSelected,endTimeSlotSelected,individualVendorId,enableSmsNotification,payOnline,enableFingerPrint}= this.state;
         let errors = {};
         if(this.state.serviceId===''){
             errors.serviceId="Service Name can't be empty"
@@ -174,30 +184,29 @@ class IndividualVendorBooking extends Component {
         }  
         
         const vendorData={
-            startTimeSlotSelected,endTimeSlotSelected,individualVendorId,enableSmsNotification,payOnline,enableFingerprint
+            startTimeSlotSelected,endTimeSlotSelected,individualVendorId,enableSmsNotification,payOnline,enableFingerPrint
         }
 
-        console.log(vendorData,"===")
                   
        
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0
-    //     if (isValid) {
-    //         this.setState({loading: true});
-    //         this.props.addVendorBooking(vendorData)
-    //         .then(()=>this.push())
-    //         .catch((err)=>{
-    //             this.setState({message: err.response.data.message,loading:false})})
+        if (isValid) {
+            this.setState({loading: true});
+            this.props.addVendorBooking(vendorData)
+            .then(()=>this.push())
+            .catch((err)=>{
+                this.setState({message: err.response.data.message,loading:false})})
 
-    //         this.setState({
-    //             startTimeSlotSelected:'',
-    //             endTimeSlotSelected:'',
-    //             individualVendorId:'',
-    //             enableSmsNotification:false,
-    //             payOnline:false,
-    //             enableFingerPrint:false
-    //         });
-    // }
+            this.setState({
+                startTimeSlotSelected:'',
+                endTimeSlotSelected:'',
+                individualVendorId:'',
+                enableSmsNotification:false,
+                payOnline:false,
+                enableFingerPrint:false
+            });
+    }
 }
     push=()=>{
         let path=this.props.location.pathname;
@@ -239,6 +248,7 @@ class IndividualVendorBooking extends Component {
     
     
     render(){
+      
         let  formData =<div>
                 <Row form>
                             <Col md={6}>
@@ -286,16 +296,16 @@ class IndividualVendorBooking extends Component {
                                     </Col>
                                     {this.state.startTime ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected"  onChange={this.timeChange.bind(this,this.state.endTime)}/> {this.state.startTime} to {this.state.endTime}  
+                                       <Input type="radio" name="timeSlotSelected"  onChange={this.timeChange.bind(this,this.state.startTime,this.state.endTime)}/> {this.state.startTime} to {this.state.endTime}  
                                     </Col> : ''
                                     }
                                     {this.state.startTime1 ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected"   onChange={this.timeChange.bind(this,this.state.endTime1)}/> {this.state.startTime1} to {this.state.endTime1}   
+                                       <Input type="radio" name="timeSlotSelected"   onChange={this.timeChange.bind(this,this.state.startTime1,this.state.endTime1)}/> {this.state.startTime1} to {this.state.endTime1}   
                                     </Col> :''
                                     }
                                     {this.state.startTime2 ?<Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected"   onChange={this.timeChange.bind(this,this.state.endTime2)}/> {this.state.startTime2} to {this.state.endTime2}   
+                                       <Input type="radio" name="timeSlotSelected"   onChange={this.timeChange.bind(this,this.state.startTime,this.state.endTime2)}/> {this.state.startTime2} to {this.state.endTime2}   
                                     </Col> :''
                                     }
                                 </Row>
@@ -303,12 +313,12 @@ class IndividualVendorBooking extends Component {
      
                             <FormGroup check>
                                 <Label check>   
-                                <Input type="checkbox" name="enableFingerprint" onChange={this.h} /> Do you want enable fingerprint
+                                <Input type="checkbox" name="enableFingerPrint"  onChange={this.h} /> Do you want enable fingerprint
                                 </Label>
                             </FormGroup>
                             <FormGroup check>
                                 <Label check>   
-                                <Input type="checkbox" name="enableSmsNotification " onChange={this.h} /> Do you want get SMS notification when she/he arrives or leaves
+                                <Input type="checkbox" name="enableSmsNotification"  onChange={this.h} /> Do you want get SMS notification when she/he arrives or leaves
                                 </Label>
                             </FormGroup>
                             <FormGroup check>                                                                                                                                                                                                                            
