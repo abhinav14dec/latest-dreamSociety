@@ -27,7 +27,7 @@ export default function(state={},action){
     return { ...state, addVendorBooking: action.payload};
 
     case GET_VENDOR_BOOKING:
-    return { ...state, getVendorBooking: action.payload};
+    return { ...state, vendorBooking: action.payload};
 
     default:
     return state;

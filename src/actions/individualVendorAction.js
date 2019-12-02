@@ -114,9 +114,8 @@ export const addVendor=(values)=>{
     
     }
 
-    export const getVendorBooking=(values)=>{  
-        console.log(values,"=========values"); 
-        const request = axios.post(`${URN}/individualVendor/booking` , {headers:authHeader()})
+    export const getVendorBooking=()=>{  
+        const request = axios.get(`${URN}/individualVendor/booking/request` , {headers:authHeader()})
         .then(response => response.data)
 
         return{

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Table, Row, Col,Button,  Modal, FormGroup, ModalBody, ModalHeader, Label, Input} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
-import {getVendorBooking} from '../../actions/individualVendorAction';
+import {serviceDetails} from '../../actions/registerComplainAction';
+import {getVendorData,getVendorBooking} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
 
 import DefaultSelect from '../../constants/defaultSelect';
@@ -13,7 +14,7 @@ class IndividualVendorBookingDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        //    filterName:"eventName",
+           filterName:"serviceName",
            
            editEventModal:false,
            modalLoading:false,
@@ -30,11 +31,11 @@ class IndividualVendorBookingDetails extends Component {
         this.refreshData();
     }
 
-    // searchFilter(search) {
-    //     return function (x) {
-    //         return x.event_master? x.event_master.eventName.toLowerCase().includes(search.toLowerCase()):'' || !search;
-    //     }
-    // }
+    searchFilter(search) {
+        return function (x) {
+            return x.individual_vendor.service_master? x.individual_vendor.service_master.serviceName.toLowerCase().includes(search.toLowerCase()):'' || !search;
+        }
+    }
 
     searchOnChange = (e) => {
         this.setState({ search: e.target.value })
@@ -46,17 +47,19 @@ class IndividualVendorBookingDetails extends Component {
 
             this.setState({loading:false, modalLoading: false, editEventModal:false})
         });
-        // this.props.ViewEvent();
+        this.props.serviceDetails();
         // this.props.GetEventOrganiser();
         // this.props.getEventDetails();
     }   
 
    
 
-    editEvent(societyEventBookId,eventId,eventName,firstName,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks){
+    editEvent(
+        individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId
+    ){
       
         this.setState({
-            societyEventBookId,eventId,eventName,firstName,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks
+            individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId
             ,editEventModal: !this.state.editEventModal})
     }
 
@@ -66,10 +69,10 @@ class IndividualVendorBookingDetails extends Component {
         });
     }
 
-    deleteEvents(societyEventBookId){
+    deleteEvents(individualVendorId){
         this.setState({loading:true})
         let {isActive } =this.state;  
-        this.props.deleteEvents(societyEventBookId,isActive)
+        this.props.deleteEvents(individualVendorId,isActive)
             .then(() => this.refreshData())
             this.setState({isActive:false})
     }
@@ -115,61 +118,59 @@ class IndividualVendorBookingDetails extends Component {
         }
     }
     
-    renderList({ getVendorBooking }) {
-        if(getVendorBooking){
-            console.log(getVendorBooking,"====getVendorBooking")
+    renderList({vendorBooking  }) {
+        if(vendorBooking){
+            console.log(vendorBooking,"====getVendorBooking")
         }
-        // if (societyEvents && societyEvents.eventBookings ) {
-        //     return  societyEvents.eventBookings.sort((item1,item2)=>{
-        //         var cmprVal =  (item1.event_master[this.state.filterName].localeCompare(item2.event_master[this.state.filterName]))
-        //         return this.state.sortVal ? cmprVal : -cmprVal;
-        //     }).filter(this.searchFilter(this.state.search)).map((item,index)=>{
-        //         return(
-        //             <tr key={item.societyEventBookId}>
-        //                <td><input type="checkbox" name="ids" className="SelectAll" value={item.societyEventBookId}
-        //                  onChange={(e) => {
-        //                     const {societyEventBookId} = item
-        //                     if(!e.target.checked){
-        //                         document.getElementById('allSelect').checked=false;
-        //                         let indexOfId = this.state.ids.indexOf(societyEventBookId);
-        //                         if(indexOfId > -1){
-        //                             this.state.ids.splice(indexOfId, 1);
-        //                         }
-        //                         if(this.state.ids.length === 0){
-        //                             this.setState({isDisabled: true});
-        //                         }
-        //                     }
-        //                     else {
-        //                         this.setState({ids: [...this.state.ids, societyEventBookId]});
-        //                         if(this.state.ids.length >= 0){
-        //                             this.setState({isDisabled: false})
-        //                         }
-        //                     }
+        if (vendorBooking && vendorBooking.booking ) {
+            return  vendorBooking.booking.sort((item1,item2)=>{
+                var cmprVal =  (item1.individual_vendor.service_master[this.state.filterName].localeCompare(item2.individual_vendor.service_master[this.state.filterName]))
+                return this.state.sortVal ? cmprVal : -cmprVal;
+            }).filter(this.searchFilter(this.state.search)).map((item,index)=>{
+                return(
+                    <tr key={item.individualVendorId}>
+                       <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorId}
+                         onChange={(e) => {
+                            const {individualVendorId} = item
+                            if(!e.target.checked){
+                                document.getElementById('allSelect').checked=false;
+                                let indexOfId = this.state.ids.indexOf(individualVendorId);
+                                if(indexOfId > -1){
+                                    this.state.ids.splice(indexOfId, 1);
+                                }
+                                if(this.state.ids.length === 0){
+                                    this.setState({isDisabled: true});
+                                }
+                            }
+                            else {
+                                this.setState({ids: [...this.state.ids, individualVendorId]});
+                                if(this.state.ids.length >= 0){
+                                    this.setState({isDisabled: false})
+                                }
+                            }
                                 
-        //                      }}/></td>
-        //                <td>{index+1}</td>
-        //                <td>{item.event_master?item.event_master.eventName:''}</td>
-        //                <td>{item.user_master?item.user_master.firstName + " " + item.user_master.lastName:''}</td>
-        //                <td>{item.startDate}</td>
-        //                <td>{item.endDate}</td>
-        //                <td>{item.startTime}</td>
-        //                <td>{item.endTime}</td>                       
-        //                <td>{item.perPersonCharge}</td>
-        //                <td>{`${item.childAbove} Years`}</td>
-        //                <td>{item.charges}</td>
-        //                <td>{item.event_space_master.spaceName}</td>
-        //                <td>{item.guestAllowed===false ? 'No' : 'Yes'}</td>
-        //                <td>{item.guestLimit===true ? '3' : 'No'}</td>
-        //                <td>
-        //                      <Button color="success" className="mr-2" onClick={this.editEvent.bind(this,item.societyEventBookId,item.event_master.eventId,item.event_master?item.event_master.eventName:'',item.user_master?item.user_master.firstName:'',item.startDate,item.endDate,item.startTime,item.endTime,item.perPersonCharge,item.childAbove,item.charges,item.eventSpaceId,item.event_space_master.spaceName,item.guestAllowed, item.guestLimit,item.description,item.breakfast,item.lunch,item.eveningSnacks,item.dinner,item.dj,item.drinks)}>Edit</Button>                 
-        //                      <Button color="danger"  onClick={this.deleteEvents.bind(this, item.societyEventBookId)}>Delete</Button>
-        //                 </td>
+                             }}/></td>
+                       <td>{index+1}</td>
+                       <td>{item.individual_vendor.service_master?item.individual_vendor.service_master.serviceName:''}</td>
+                       <td>{item.individual_vendor ? item.individual_vendor.firstName + " " + item.individual_vendor.lastName:''}</td>
+                       <td>{item.individual_vendor.rate_master.rateType}</td>
+                       <td>{item.individual_vendor.rate}</td>
+                       <td>{item ?`${item.startTimeSlotSelected} to ${item.endTimeSlotSelected}` :''}</td>
+                       <td>{item.enableSmsNotification===true ? 'Yes' :'No'}</td>
+                       <td>{item.payOnline===true ? 'Yes' :'No'}</td>
+                       <td>{item.enableFingerPrint===true ? 'Yes' :'No'}</td>
+    
+                       <td>
+                             <Button color="success" className="mr-2" onClick={this.editEvent.bind(this,item.individualVendorId,item.individual_vendor.service_master.serviceName,item.individual_vendor.firstName,item.individual_vendor.lastName,
+                                item.individual_vendor.rate_master.rateType,item.individual_vendor.rate,item.startTimeSlotSelected,item.endTimeSlotSelected,item.enableSmsNotification,item.payOnline,item.enableFingerPrint,item.individual_vendor.serviceId)}>Edit</Button>                 
+                             <Button color="danger"  onClick={this.deleteEvents.bind(this, item.individualVendorId)}>Delete</Button>
+                        </td> 
                    
-        //             </tr>
-        //         )
-        //     })
+                    </tr>
+                )
+            })
         
-        // }
+        }
     }
 
 
@@ -188,26 +189,26 @@ class IndividualVendorBookingDetails extends Component {
  
 
 updateEvents(){
-    const {societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks}= this.state; 
+    const {individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId}= this.state; 
     let errors = {};
-        if(this.state.perPersonCharge===''){
-            errors.perPersonCharge="Person Charges can't be empty"
+        if(this.state.serviceId===''){
+            errors.serviceId="Service Name can't be empty"
             }
-            else if(this.state.childAbove===''){
-                errors.childAbove="Child Above can't be empty"
-            }   
-            else if(this.state.charges===''){
-                errors.charges="Charges can't be empty"
-            }  
-            else if(this.state.startDate > this.state.endDate){
-                errors.startDate = "Start Date should be less than end date ";
-            }
+            // else if(this.state.childAbove===''){
+            //     errors.childAbove="Child Above can't be empty"
+            // }   
+            // else if(this.state.charges===''){
+            //     errors.charges="Charges can't be empty"
+            // }  
+            // else if(this.state.startDate > this.state.endDate){
+            //     errors.startDate = "Start Date should be less than end date ";
+            // }
             
             this.setState({ errors });
             const isValid = Object.keys(errors).length === 0
             if (isValid  &&  this.state.message === '') {
              
-                this.props.updateSocietyEvents(societyEventBookId,eventId,eventName,organisedBy,startDate,endDate,startTime,endTime,perPersonCharge,childAbove,charges,eventSpaceId,spaceName,guestAllowed, guestLimit,description,breakfast,lunch,eveningSnacks,dinner,dJ,drinks)
+                this.props.updateSocietyEvents(individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId)
                 .then(()=>this.refreshData())
                 .catch(err=>{
                     this.setState({modalLoading:false,message: err.response.data.message, loading: false})
@@ -271,6 +272,32 @@ h=(event)=>{
 
 }
 
+
+getService({item}){
+    if(item){
+        return item.map((data) => {
+            return (
+                <option key={data.serviceId} value={data.serviceId}>
+                    {data.serviceName}
+                </option>
+            )
+        })
+    }
+     else return '';
+}
+
+getVendorDetails=({getVendorBooking})=>{
+    if(getVendorBooking && getVendorBooking.vendors){
+        return getVendorBooking.vendors.map(item=>{
+            return(
+                <option key={item.individualVendorId} value={item.individualVendorId}>
+                     {`${item.firstName} ${item.lastName}`}
+                </option>
+            )
+        })
+    }
+
+}
 render() { 
     
            let tableData= <Table className="table table-bordered">
@@ -280,7 +307,7 @@ render() {
                 <th  style={{width:'4%'}}>#</th>
                 <th onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,
-                                filterName:"eventName"}});
+                                filterName:"serviceName"}});
                         }}>Service Type  <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
                 <th>Vendor Name</th>
                 <th>Rate Type</th>
@@ -301,13 +328,13 @@ render() {
         </Table>
                         
             let modalData =<div>
-                        <Row form>
+                         <Row form>
                             <Col md={6}>
                             <FormGroup>
                                 <Label>Service Type</Label>
-                                <Input type="select" name="serviceId"  onChange={this.serviceChange}>
+                                <Input type="select" name="serviceId" defaultValue='no-value' onChange={this.serviceChange}>
                                 <DefaultSelect/>
-                                {/* {this.getService(this.props.registerComplaintReducer)}                   */}
+                                {this.getService(this.props.registerComplaintReducer)}                  
                                 </Input>
                                 <span className="error">{this.state.errors.serviceId}</span>
                             </FormGroup>
@@ -318,7 +345,7 @@ render() {
                             <Label>List of vendor</Label>
                             <Input type="select" name="individualVendorId" defaultValue='no-value' onChange={this.vendorChange}>
                             <DefaultSelect/>
-                            {/* {this.getVendorDetails(this.props.IndividualVendorReducer)}                   */}
+                            {this.getVendorDetails(this.props.IndividualVendorReducer)}                  
                             </Input>
                             <span className="error">{this.state.errors.individualVendorId}</span>
                             </FormGroup>
@@ -347,16 +374,16 @@ render() {
                                     </Col>
                                     {this.state.startTime ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected" value = {this.state.startTime} onChange={this.handleChange}/> {this.state.startTime} to {this.state.endTime}  
+                                       <Input type="radio" name="startTimeSlotSelected"  onChange={this.timeChange.bind(this,this.state.endTime)}/> {this.state.startTime} to {this.state.endTime}  
                                     </Col> : ''
                                     }
                                     {this.state.startTime1 ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected" onChange={this.handleChange}/> {this.state.startTime1} to {this.state.endTime1}   
+                                       <Input type="radio" name="startTimeSlotSelected"   onChange={this.timeChange.bind(this,this.state.endTime1)}/> {this.state.startTime1} to {this.state.endTime1}   
                                     </Col> :''
                                     }
                                     {this.state.startTime2 ?<Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected" onChange={this.handleChange}/> {this.state.startTime2} to {this.state.endTime2}   
+                                       <Input type="radio" name="startTimeSlotSelected"  onChange={this.timeChange.bind(this,this.state.endTime2)}/> {this.state.startTime2} to {this.state.endTime2}   
                                     </Col> :''
                                     }
                                 </Row>
@@ -378,10 +405,10 @@ render() {
                                 </Label>
                             </FormGroup>
 
-                            {/* <FormGroup>
+                            <FormGroup>
                                 <Button color="primary" className="mr-2"  onClick={this.updateEvents.bind(this)} >Save </Button>
                                 <Button color="danger" onClick={this.toggleEditEventModal.bind(this)}>Cancel</Button>
-                            </FormGroup> */} 
+                            </FormGroup> 
 </div>
          let deleteSelectedButton = <Button color="danger" className="mb-2"
          onClick={this.deleteSelected.bind(this, this.state.ids)} disabled={this.state.isDisabled}>Delete Selected</Button>
@@ -438,7 +465,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({getVendorBooking}, dispatch);
+    return bindActionCreators({serviceDetails,getVendorBooking,getVendorData}, dispatch);
 }
 
 
