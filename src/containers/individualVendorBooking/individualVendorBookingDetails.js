@@ -4,18 +4,35 @@ import { bindActionCreators } from 'redux';
 import {Table, Row, Col,Button,  Modal, FormGroup, ModalBody, ModalHeader, Label, Input} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import {serviceDetails} from '../../actions/registerComplainAction';
-import {getVendorData,getVendorBooking} from '../../actions/individualVendorAction';
+import {getVendorData,getVendorBooking,deleteIndividualVendorBooking,deleteSelectVendorBooking,updateIndividualVendorBooking} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
 
 import DefaultSelect from '../../constants/defaultSelect';
 import SearchFilter from '../../components/searchFilter/searchFilter';
+import _ from 'underscore';
 
 class IndividualVendorBookingDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
            filterName:"serviceName",
-           
+           serviceId:'',
+           individualVendorBookingId:'',
+           individualVendorId:'',
+           serviceName:'',
+           rate:'',
+           rateType:'',
+           startTime:'',
+           startTime1: '',
+           startTime2:'',
+           endTime:'',
+           endTime1:'',
+           endTime2:'',
+           startTimeSlotSelected:'',
+           endTimeSlotSelected:'',
+           enableFingerprint:false,
+           enableSmsNotification :false,
+           payOnline:false,
            editEventModal:false,
            modalLoading:false,
            loading:false,
@@ -55,12 +72,13 @@ class IndividualVendorBookingDetails extends Component {
    
 
     editEvent(
-        individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId
+        individualVendorBookingId, individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId
     ){
       
         this.setState({
-            individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId
+            individualVendorBookingId, individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId
             ,editEventModal: !this.state.editEventModal})
+            this.props.getVendorData(serviceId);
     }
 
     toggleEditEventModal() {
@@ -69,10 +87,10 @@ class IndividualVendorBookingDetails extends Component {
         });
     }
 
-    deleteEvents(individualVendorId){
+    deleteEvents(individualVendorBookingId){
         this.setState({loading:true})
         let {isActive } =this.state;  
-        this.props.deleteEvents(individualVendorId,isActive)
+        this.props.deleteIndividualVendorBooking(individualVendorBookingId,isActive)
             .then(() => this.refreshData())
             this.setState({isActive:false})
     }
@@ -80,7 +98,7 @@ class IndividualVendorBookingDetails extends Component {
     deleteSelected(ids){
         this.setState({loading:true,
         isDisabled:true});
-        this.props.deleteSelectedEvent(ids)
+        this.props.deleteSelectVendorBooking(ids)
         .then(() => this.refreshData())
       
     }
@@ -119,22 +137,20 @@ class IndividualVendorBookingDetails extends Component {
     }
     
     renderList({vendorBooking  }) {
-        if(vendorBooking){
-            console.log(vendorBooking,"====getVendorBooking")
-        }
+
         if (vendorBooking && vendorBooking.booking ) {
             return  vendorBooking.booking.sort((item1,item2)=>{
                 var cmprVal =  (item1.individual_vendor.service_master[this.state.filterName].localeCompare(item2.individual_vendor.service_master[this.state.filterName]))
                 return this.state.sortVal ? cmprVal : -cmprVal;
             }).filter(this.searchFilter(this.state.search)).map((item,index)=>{
                 return(
-                    <tr key={item.individualVendorId}>
-                       <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorId}
+                    <tr key={item.individualVendorBookingId}>
+                       <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorBookingId}
                          onChange={(e) => {
-                            const {individualVendorId} = item
+                            const {individualVendorBookingId} = item
                             if(!e.target.checked){
                                 document.getElementById('allSelect').checked=false;
-                                let indexOfId = this.state.ids.indexOf(individualVendorId);
+                                let indexOfId = this.state.ids.indexOf(individualVendorBookingId);
                                 if(indexOfId > -1){
                                     this.state.ids.splice(indexOfId, 1);
                                 }
@@ -143,7 +159,7 @@ class IndividualVendorBookingDetails extends Component {
                                 }
                             }
                             else {
-                                this.setState({ids: [...this.state.ids, individualVendorId]});
+                                this.setState({ids: [...this.state.ids, individualVendorBookingId]});
                                 if(this.state.ids.length >= 0){
                                     this.setState({isDisabled: false})
                                 }
@@ -161,9 +177,9 @@ class IndividualVendorBookingDetails extends Component {
                        <td>{item.enableFingerPrint===true ? 'Yes' :'No'}</td>
     
                        <td>
-                             <Button color="success" className="mr-2" onClick={this.editEvent.bind(this,item.individualVendorId,item.individual_vendor.service_master.serviceName,item.individual_vendor.firstName,item.individual_vendor.lastName,
+                             <Button color="success" className="mr-2" onClick={this.editEvent.bind(this,item.individualVendorBookingId,item.individualVendorId,item.individual_vendor.service_master.serviceName,item.individual_vendor.firstName,item.individual_vendor.lastName,
                                 item.individual_vendor.rate_master.rateType,item.individual_vendor.rate,item.startTimeSlotSelected,item.endTimeSlotSelected,item.enableSmsNotification,item.payOnline,item.enableFingerPrint,item.individual_vendor.serviceId)}>Edit</Button>                 
-                             <Button color="danger"  onClick={this.deleteEvents.bind(this, item.individualVendorId)}>Delete</Button>
+                             <Button color="danger"  onClick={this.deleteEvents.bind(this, item.individualVendorBookingId)}>Delete</Button>
                         </td> 
                    
                     </tr>
@@ -189,7 +205,7 @@ class IndividualVendorBookingDetails extends Component {
  
 
 updateEvents(){
-    const {individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId}= this.state; 
+    const {individualVendorBookingId,individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId}= this.state; 
     let errors = {};
         if(this.state.serviceId===''){
             errors.serviceId="Service Name can't be empty"
@@ -208,7 +224,7 @@ updateEvents(){
             const isValid = Object.keys(errors).length === 0
             if (isValid  &&  this.state.message === '') {
              
-                this.props.updateSocietyEvents(individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId)
+                this.props.updateIndividualVendorBooking(individualVendorBookingId,individualVendorId,serviceName,firstName,lastName,rateType,rate,startTimeSlotSelected,endTimeSlotSelected,enableSmsNotification,payOnline,enableFingerPrint,serviceId)
                 .then(()=>this.refreshData())
                 .catch(err=>{
                     this.setState({modalLoading:false,message: err.response.data.message, loading: false})
@@ -283,7 +299,7 @@ getService({item}){
             )
         })
     }
-     else return '';
+     else{return '';} 
 }
 
 getVendorDetails=({getVendorBooking})=>{
@@ -298,6 +314,81 @@ getVendorDetails=({getVendorBooking})=>{
     }
 
 }
+
+serviceChange=(event)=>{
+    this.setState({loading: false})
+    let selected= event.target.value
+    console.log(selected)
+    this.props.getVendorData(selected);
+
+    this.setState({
+        individualVendorId:'',
+        rate:'',
+        rateType:'',
+        startTime:'',
+        startTime1: '',
+        startTime2:'',
+        endTime:'',
+        endTime1:'',
+        endTime2:'',
+        startTimeSlotSelected:'',
+        endTimeSlotSelected:'',
+        enableFingerprint:false,
+        enableSmsNotification :false,
+        payOnline:false,
+    })
+}
+
+
+vendorChange=(event)=>{
+    this.setState({message:''})
+    if (!!this.state.errors[event.target.name]) {
+        let errors = Object.assign({}, this.state.errors);
+        delete errors[event.target.name];
+        this.setState({ [event.target.name]: event.target.value.trim(''), errors });
+    }
+    else {
+        this.setState({ [event.target.name]: event.target.value.trim('') });
+    }
+
+    let selected=event.target.value;
+
+    var result = _.find(this.props.IndividualVendorReducer.getVendorBooking.vendors,function(obj){ 
+        // eslint-disable-next-line
+    return obj.individualVendorId == selected
+    })
+
+
+    this.setState({
+        rate:result.rate,
+        rateType:result.rate_master.rateType,
+        startTime:result.startTime ? result.startTime : '',
+        startTime1:result.startTim1 ? result.startTim1 : '',
+        startTime2:result.startTim2 ? result.startTim2 : '',
+        endTime:result.endTime ? result.endTime :'',
+        endTime1:result.endTime1 ? result.endTime1 :'',
+        endTime2:result.endTime2 ? result.endTime2 :'',
+
+    })
+
+}
+
+timeChange=(startTime,endTime,event)=> {
+    console.log(startTime,endTime,event,"endTime,event")
+    this.setState({message:''})
+
+    if (!!this.state.errors[event.target.name]) {
+        let errors = Object.assign({}, this.state.errors);
+        delete errors[event.target.name];
+        this.setState({ [event.target.name]: event.target.value.trim(''), errors });
+    }
+    else {
+        this.setState({ [event.target.name]: event.target.value.trim('') });
+    }
+    this.setState({startTimeSlotSelected: startTime,endTimeSlotSelected: endTime})
+
+}
+
 render() { 
     
            let tableData= <Table className="table table-bordered">
@@ -326,13 +417,13 @@ render() {
             {this.renderList(this.props.IndividualVendorReducer)}
         </tbody>
         </Table>
-                        
+            
             let modalData =<div>
                          <Row form>
                             <Col md={6}>
                             <FormGroup>
                                 <Label>Service Type</Label>
-                                <Input type="select" name="serviceId" defaultValue='no-value' onChange={this.serviceChange}>
+                                <Input type="select" name="serviceId" onChange={this.serviceChange}>
                                 <DefaultSelect/>
                                 {this.getService(this.props.registerComplaintReducer)}                  
                                 </Input>
@@ -343,7 +434,7 @@ render() {
                             <Col md={6}>
                             <FormGroup>
                             <Label>List of vendor</Label>
-                            <Input type="select" name="individualVendorId" defaultValue='no-value' onChange={this.vendorChange}>
+                            <Input type="select" name="individualVendorId" onChange={this.vendorChange}>
                             <DefaultSelect/>
                             {this.getVendorDetails(this.props.IndividualVendorReducer)}                  
                             </Input>
@@ -366,7 +457,6 @@ render() {
                             </FormGroup>
                             </Col>
                         </Row>
-
                         <FormGroup> 
                                 <Row md={12}>
                                     <Col md={2}>
@@ -374,16 +464,16 @@ render() {
                                     </Col>
                                     {this.state.startTime ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected"  onChange={this.timeChange.bind(this,this.state.endTime)}/> {this.state.startTime} to {this.state.endTime}  
+                                       <Input type="radio" name="timeSlotSelected"  onChange={this.timeChange.bind(this,this.state.startTime,this.state.endTime)}/> {this.state.startTime} to {this.state.endTime}  
                                     </Col> : ''
                                     }
                                     {this.state.startTime1 ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected"   onChange={this.timeChange.bind(this,this.state.endTime1)}/> {this.state.startTime1} to {this.state.endTime1}   
+                                       <Input type="radio" name="timeSlotSelected"   onChange={this.timeChange.bind(this,this.state.startTime1,this.state.endTime1)}/> {this.state.startTime1} to {this.state.endTime1}   
                                     </Col> :''
                                     }
                                     {this.state.startTime2 ?<Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected"  onChange={this.timeChange.bind(this,this.state.endTime2)}/> {this.state.startTime2} to {this.state.endTime2}   
+                                       <Input type="radio" name="timeSlotSelected"   onChange={this.timeChange.bind(this,this.state.startTime,this.state.endTime2)}/> {this.state.startTime2} to {this.state.endTime2}   
                                     </Col> :''
                                     }
                                 </Row>
@@ -391,17 +481,17 @@ render() {
      
                             <FormGroup check>
                                 <Label check>   
-                                <Input type="checkbox" name="enableFingerprint" onChange={this.h} /> Do you want enable fingerprint
+                                <Input type="checkbox" name="enableFingerprint" checked={this.state.enableFingerPrint===true ? true : false} onChange={this.h} /> Do you want enable fingerprint
                                 </Label>
                             </FormGroup>
                             <FormGroup check>
                                 <Label check>   
-                                <Input type="checkbox" name="enableSmsNotification " onChange={this.h} /> Do you want get SMS notification when she/he arrives or leaves
+                                <Input type="checkbox" name="enableSmsNotification" checked={this.state.enableSmsNotification===true ? true : false} onChange={this.h} /> Do you want get SMS notification when she/he arrives or leaves
                                 </Label>
                             </FormGroup>
                             <FormGroup check>                                                                                                                                                                                                                            
                                 <Label check>   
-                                <Input type="checkbox" name="payOnline"  onChange={this.h}/> Do you want to pay online
+                                <Input type="checkbox" name="payOnline" checked={this.state.payOnline===true ? true : false} onChange={this.h}/> Do you want to pay online
                                 </Label>
                             </FormGroup>
 
@@ -465,7 +555,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({serviceDetails,getVendorBooking,getVendorData}, dispatch);
+    return bindActionCreators({serviceDetails,getVendorBooking,getVendorData,deleteIndividualVendorBooking,deleteSelectVendorBooking,updateIndividualVendorBooking}, dispatch);
 }
 
 

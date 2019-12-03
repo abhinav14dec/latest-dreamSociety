@@ -16,7 +16,7 @@ class MaintenanceBillGeneration extends Component {
         super(props);
         this.state = {
        
-           payOnline:false,
+           
            loading:false,
            errors:{},
            message:'',
