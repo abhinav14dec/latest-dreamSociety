@@ -7,13 +7,13 @@ import {
   updateUserFacility
 } from "./../../actions/userFacilityAction";
 import { bindActionCreators } from "redux";
-import UI from "../../components/newUI/ownerDashboard";
 import { Table, Button, FormGroup, Input, Label } from "reactstrap";
 import Spinner from "../../components/spinner/spinner";
 import DefaultSelect from "../../constants/defaultSelect";
-// import { stat } from 'fs';
 import $ from "jquery";
 import moment from "moment";
+import UI from "../../components/newUI/ownerDashboard";
+import TenantUI from "../../components/newUI/tenantDashboard";
 
 class OwnerFacility extends Component {
   constructor(props) {
@@ -51,9 +51,21 @@ class OwnerFacility extends Component {
     return this.props.history.replace("/");
   };
 
-  changePassword = () => {
-    return this.props.history.replace("/ownerDashboard/changePasswordOwner");
-  };
+  changePassword=()=>{ 
+    let path=this.props.location.pathname;
+    switch(path){
+        case '/ownerDashboard/ownerFacility':
+        this.props.history.push('/ownerDashboard/changePasswordOwner')
+        break;
+
+        case '/tenantDashboard/tenantFacility':
+        this.props.history.push('/tenantDashboard/changePasswordTenant')
+        // eslint-disable-next-line
+        default:
+    }
+    
+}
+
 
   activatedChange = async e => {
     let selected = e.target.value;
@@ -94,8 +106,8 @@ class OwnerFacility extends Component {
   };
 
   facilityDisabled = facilityDetailId => {
-    $(function() {
-      $("input[type='checkbox']").on("change", function() {
+    $(function () {
+      $("input[type='checkbox']").on("change", function () {
         $(this)
           .closest("tr")
           .find("select[name=duration]")
@@ -142,11 +154,11 @@ class OwnerFacility extends Component {
       if (this.state.arrData === false) {
         this.getDataUser(userFacilty);
       }
-      return userFacilty.data.facilitiesInUse.map(item => {
+      return userFacilty.data.facilitiesInUse.map(item => { console.log(item,"=====")
         return (
           <tr key={item.facilityDetailId}>
             <td>
-              <Input
+              <input
                 type="checkbox"
                 name="facilitiesUser"
                 defaultChecked
@@ -171,16 +183,15 @@ class OwnerFacility extends Component {
                     });
                   }
                 }}
-              ></Input>
+              ></input>
             </td>
-
             <td>
               {item.facilities_details_master.facilities_master.facilityName}
             </td>
             <td>
               {item.facilities_details_master.monthlyRate
                 ? item.facilities_details_master.monthlyRate +
-                  " Per Monthly Rate"
+                " Per Monthly Rate"
                 : item.facilities_details_master.unitRate + " Per Unit Rate"}
             </td>
             <td>{moment(item.startDate).format("MM/DD/YYYY")}</td>
@@ -204,7 +215,7 @@ class OwnerFacility extends Component {
         return (
           <tr key={item.facilityDetailId}>
             <td>
-              <Input
+              <input
                 type="checkbox"
                 name="facilities"
                 disabled={this.facilityDisabled(item.facilityDetailId)}
@@ -230,7 +241,7 @@ class OwnerFacility extends Component {
                   }
                   this.facilityDisabled(facilityDetailId);
                 }}
-              ></Input>
+              ></input>
             </td>
             <td>{item.facilities_master.facilityName}</td>
             <td>
@@ -265,6 +276,8 @@ class OwnerFacility extends Component {
   };
 
   render() {
+
+    console.log(this.props.location,"===============this.props.location")
     let radioData = (
       <div>
         <Label
@@ -347,61 +360,66 @@ class OwnerFacility extends Component {
             </Table>{" "}
           </div>
         ) : (
-          <div>
-            {" "}
-            <Table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Facility Name</th>
-                  <th>Rate/Type</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                </tr>
-              </thead>
+            <div>
+              {" "}
+              <Table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Facility Name</th>
+                    <th>Rate/Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                {this.getActivatedData(this.props.userFacilityReducer)}
-              </tbody>
+                <tbody>
+                  {this.getActivatedData(this.props.userFacilityReducer)}
+                </tbody>
 
-              <FormGroup>
-                <td>
-                  <Button
-                    color="success"
-                    onClick={this.inUseSubmit.bind(
-                      this,
-                      this.state.facilitiesUser
-                    )}
-                  >
-                    Submit
+                <FormGroup>
+                  <td>
+                    <Button
+                      color="success"
+                      onClick={this.inUseSubmit.bind(
+                        this,
+                        this.state.facilitiesUser
+                      )}
+                    >
+                      Submit
                   </Button>
-                </td>
-              </FormGroup>
-            </Table>
-          </div>
-        )}
+                  </td>
+                </FormGroup>
+              </Table>
+            </div>
+          )}
       </div>
     );
 
+    let displayData= <div className="w3-container w3-margin-top w3-responsive">
+    <div
+      style={{ cursor: "pointer" }}
+      className="close"
+      aria-label="Close"
+      onClick={this.close}
+    >
+      <span aria-hidden="true">&times;</span>
+    </div>
+    <h3 style={{ textAlign: "center", marginBottom: "10px" }}>
+      Owner Facility
+    </h3>
+    {radioData}
+    {!this.state.loading ? table : <Spinner />}
+  </div>
+  
     return (
       <div>
+        {this.props.location.pathname==='/ownerDashboard/ownerFacility' ?
         <UI onClick={this.logout} change={this.changePassword}>
-          <div className="w3-container w3-margin-top w3-responsive">
-            <div
-              style={{ cursor: "pointer" }}
-              className="close"
-              aria-label="Close"
-              onClick={this.close}
-            >
-              <span aria-hidden="true">&times;</span>
-            </div>
-            <h3 style={{ textAlign: "center", marginBottom: "10px" }}>
-              Owner Facility
-            </h3>
-            {radioData}
-            {!this.state.loading ? table : <Spinner />}
-          </div>
-        </UI>
+        {displayData}
+   </UI>:<TenantUI onClick={this.logout} change={this.changePassword}>
+             {displayData}
+        </TenantUI>}
       </div>
     );
   }

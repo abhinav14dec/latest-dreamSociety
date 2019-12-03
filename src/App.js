@@ -199,6 +199,9 @@ import PaymentComponent from './components/reusableComponents/paymentComponent'
 import IndividualVendorBooking from './containers/individualVendorBooking/individualVendorBooking';
 import IndividualVendorBookingDetails from './containers/individualVendorBooking/individualVendorBookingDetails';
 import BookingRequestDetail from './containers/individualVendorBooking/bookingRequestDetail';
+import MaintenanceBillGeneration from './containers/maintenanceBillInfo/maintenanceBillGeneration';
+import MaintenanceBillPayment from './containers/maintenanceBillInfo/maintenanceBillPayment';
+import ElectricityBillGeneration from './containers/electricityBillInfo/electricityBillGeneration';
 
 
 
@@ -397,6 +400,7 @@ class App extends Component {
             <PrivateRoute path='/superDashboard/facilitySubMaster' component={FacilitySubMaster} />
             <PrivateRoute path='/superDashboard/facilitySubMasterDetails' component={FacilitySubMasterDetails} />
             <OwnerPrivateRoute path='/ownerDashboard/ownerFacility' component={OwnerFacility} />
+            <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={OwnerFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={TenantFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
@@ -410,6 +414,12 @@ class App extends Component {
             <VendorPrivateRoute path='/vendorDashboard/bookingRequestDetail' component={BookingRequestDetail}/>
             <OwnerPrivateRoute path='/ownerDashboard/viewInvitations' component={ViewInvitation}/>
             <OwnerPrivateRoute path='/tenantDashboard/viewInvitations' component={ViewInvitation}/>
+
+            <PrivateRoute path='/superDashboard/maintenanceBillGeneration' component={MaintenanceBillGeneration} />          
+            <TenantPrivateRoute path='/tenantDashboard/maintenanceBillPayment' component={MaintenanceBillPayment} />
+            <OwnerPrivateRoute path='/ownerDashboard/maintenanceBillPayment' component={MaintenanceBillPayment} />
+            <PrivateRoute path='/superDashboard/electricityBillGeneration' component={ElectricityBillGeneration} />  
+           
           </Switch>
           
         </div>

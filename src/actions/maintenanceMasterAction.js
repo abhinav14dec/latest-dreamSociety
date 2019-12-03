@@ -10,8 +10,6 @@ export const addMaintenance=(values)=>{
    const request = axios.post(`${URN}/maintenance` , values , {headers:authHeader()})
     .then(response => response.data)
  
-
-    
     return{
 
         type:ADD_MAINTENANCE,
@@ -24,10 +22,7 @@ export const getMaintenance=()=>{
   
    const request = axios.get(`${URN}/maintenance`  , {headers:authHeader()})
     .then(response => response.data)
-
-    
     return{
-
         type:GET_MAINTENANCE,
         payload: request 
     }
