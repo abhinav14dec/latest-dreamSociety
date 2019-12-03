@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FormGroup, Row, Col, Form, Label, Input, Button } from "reactstrap";
-import UI from "../../components/newUI/superAdminDashboard";
+import UI from "../../components/newUI/ownerDashboard";
 import { userLogout } from "../../actions/loginAction";
 import {
   guestDetails,
@@ -100,7 +100,11 @@ class SocietyEventCelebration extends Component {
         interested: interested,
         totalCharges: this.state.price
       };
-      this.props.guestDetails(payload)
+      this.props.guestDetails(payload,res=>{
+        if(res){
+          this.props.history.push('/superDashboard/payment',res)
+        }
+      })
     });
   };
 
