@@ -1,4 +1,5 @@
-import {ADD_VENDOR,GET_INDIVIDUAL_VENDOR, DELETE_INDIVIDUAL_VENDOR, DELETE_SELECT_INDIVIDUAL_VENDOR, UPDATE_INDIVIDUAL_VENDOR,GET_INDIVIDUAL_SERVICEID,GET_INDIVIDUAL_DATA,ADD_VENDOR_BOOKING,GET_VENDOR_BOOKING} from  '../../actionCreators/index';
+import {ADD_VENDOR,GET_INDIVIDUAL_VENDOR, DELETE_INDIVIDUAL_VENDOR, DELETE_SELECT_INDIVIDUAL_VENDOR, UPDATE_INDIVIDUAL_VENDOR,GET_INDIVIDUAL_SERVICEID,GET_INDIVIDUAL_DATA,ADD_VENDOR_BOOKING,GET_VENDOR_BOOKING,
+    GET_INDIVIDUAL_VENDOR_BOOKING_REQUEST} from  '../../actionCreators/index';
 export default function(state={},action){
   
     switch(action.type){
@@ -28,6 +29,9 @@ export default function(state={},action){
 
     case GET_VENDOR_BOOKING:
     return { ...state, vendorBooking: action.payload};
+
+    case GET_INDIVIDUAL_VENDOR_BOOKING_REQUEST:
+    return { ...state, vendorBookingRequest: action.payload};
 
     default:
     return state;

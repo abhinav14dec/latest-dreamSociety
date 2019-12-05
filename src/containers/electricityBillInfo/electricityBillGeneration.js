@@ -4,15 +4,14 @@ import { bindActionCreators } from 'redux';
 import { Form, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import DefaultSelect from '../../constants/defaultSelect';
-import { getMaintenanceBillInfo } from '../../actions/maintenanceBillAction';
-import { viewTower } from '../../actions/towerMasterAction';
+import { getElectricityBillInfo } from '../../actions/maintenanceBillAction';
 import Spinner from '../../components/spinner/spinner';
 import { Table } from 'semantic-ui-react';
 
 
 
 
-class MaintenanceBillGeneration extends Component {
+class ElectricityBillGeneration extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,12 +22,12 @@ class MaintenanceBillGeneration extends Component {
     }
 
     componentDidMount() {
-        this.props.viewTower().then(() => this.setState({ loading: false })).catch(() => this.setState({ loading: false }));
+        // this.props.viewTower().then(() => this.setState({ loading: false })).catch(() => this.setState({ loading: false }));
     }
 
 
     handleChange = (event) => {
-        let towerId = event.target.value
+        
         this.setState({ message: '' })
         if (!!this.state.errors[event.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -38,7 +37,6 @@ class MaintenanceBillGeneration extends Component {
         else {
             this.setState({ [event.target.name]: event.target.value.trim('') });
         }
-        this.props.getMaintenanceBillInfo(towerId)
     }
 
 
@@ -68,25 +66,25 @@ class MaintenanceBillGeneration extends Component {
      }
 
 
-    renderMaintenance = ({ getMaintenanceBill }) => {
-        if (getMaintenanceBill && getMaintenanceBill.charges) {
-            return getMaintenanceBill.charges.map((item, index) => {
-                return (
-                    <tr key={item.maintenanceChargesId}>
-                        <td>{index + 1}</td>
-                        <td>{item.maintenance_type_master.maintenance_master.category}</td>
-                        <td>{item.to}</td>
-                        <td>{item.from}</td>
-                        <td>{item.flat_detail_master.floor_master.floorName}</td>
-                        <td>{item.flat_detail_master.flatNo}</td>
-                        <td>{item.rate ? `${item.rate} INR` : ''}</td>
-                        <td>{item.superArea}</td>
-                        <td>{item.charges ? `${item.charges} INR` : ''}</td>
-                    </tr>
-                )
-            })
-        }
-    }
+    // renderElectricity = ({ getElectricityBill }) => {
+    //     if (getElectricityBill && getElectricityBill.charges) {
+    //         return getElectricityBill.charges.map((item, index) => {
+    //             return (
+    //                 <tr key={item.ElectricityChargesId}>
+    //                     <td>{index + 1}</td>
+    //                     <td>{item.maintenance_type_master.maintenance_master.category}</td>
+    //                     <td>{item.to}</td>
+    //                     <td>{item.from}</td>
+    //                     <td>{item.flat_detail_master.floor_master.floorName}</td>
+    //                     <td>{item.flat_detail_master.flatNo}</td>
+    //                     <td>{item.rate ? `${item.rate} INR` : ''}</td>
+    //                     <td>{item.superArea}</td>
+    //                     <td>{item.charges ? `${item.charges} INR` : ''}</td>
+    //                 </tr>
+    //             )
+    //         })
+    //     }
+    // }
 
     render() {
         let formData = <div>
@@ -96,7 +94,7 @@ class MaintenanceBillGeneration extends Component {
                         <Label>Tower</Label>
                         <Input type="select" name="towerId" defaultValue='no-value' onChange={this.handleChange}>
                             <DefaultSelect />
-                            {this.towerData(this.props.TowerDetails)}
+                            {/* {this.towerData(this.props.TowerDetails)} */}
                         </Input>
                     </FormGroup>
                 </Col>
@@ -117,7 +115,7 @@ class MaintenanceBillGeneration extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderMaintenance(this.props.MaintenanceBillReducer)}
+                        {/* {this.renderMaintenance(this.props.MaintenanceBillReducer)} */}
                     </tbody>
                 </Table>
             </div>
@@ -130,7 +128,7 @@ class MaintenanceBillGeneration extends Component {
                         <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                             <span aria-hidden="true">&times;</span>
                         </div>
-                        <div><h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Maintenance Bill Generation</h3></div><br />
+                        <div><h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Electricity Bill Generation</h3></div><br />
                         {!this.state.loading ? formData : <Spinner />}
                     </Form>
                 </UI>
@@ -142,14 +140,13 @@ class MaintenanceBillGeneration extends Component {
 
 function mapStateToProps(state) {
     return {
-        TowerDetails: state.TowerDetails,
         MaintenanceBillReducer: state.MaintenanceBillReducer
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getMaintenanceBillInfo, viewTower }, dispatch);
+    return bindActionCreators({ getElectricityBillInfo }, dispatch);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MaintenanceBillGeneration);
+export default connect(mapStateToProps, mapDispatchToProps)(ElectricityBillGeneration);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Table,Button, Label} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
-// import {getVendorBooking} from '../../actions/individualVendorAction';
+import {getVendorRequest} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
 import SearchFilter from '../../components/searchFilter/searchFilter';
 
@@ -11,7 +11,7 @@ class BookingRequestDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        //    filterName:"eventName",
+           filterName:"firstName",
            
            editEventModal:false,
            modalLoading:false,
@@ -28,11 +28,11 @@ class BookingRequestDetails extends Component {
         this.refreshData();
     }
 
-    // searchFilter(search) {
-    //     return function (x) {
-    //         return x.event_master? x.event_master.eventName.toLowerCase().includes(search.toLowerCase()):'' || !search;
-    //     }
-    // }
+    searchFilter(search) {
+        return function (x) {
+            return x.bookedBy[0] ? x.bookedBy[0].firstName.toLowerCase().includes(search.toLowerCase()):'' || !search;
+        }
+    }
 
     searchOnChange = (e) => {
         this.setState({ search: e.target.value })
@@ -40,10 +40,10 @@ class BookingRequestDetails extends Component {
 
 
     refreshData() {
-        // this.props.getVendorBooking().then(()=> this.setState({loading:false, modalLoading: false, editEventModal:false})).catch((err)=>{
+        this.props.getVendorRequest().then(()=> this.setState({loading:false, modalLoading: false, editEventModal:false})).catch((err)=>{
 
-        //     this.setState({loading:false, modalLoading: false, editEventModal:false})
-        // });
+            this.setState({loading:false, modalLoading: false, editEventModal:false})
+        });
      
     }   
 
@@ -87,11 +87,57 @@ class BookingRequestDetails extends Component {
         
     }
 
-    renderList({ getVendorBooking }) {
-        if(getVendorBooking){
-            console.log(getVendorBooking,"====getVendorBooking")
-        }
-       
+    renderList({ vendorBookingRequest }) {
+            if (vendorBookingRequest && vendorBookingRequest.bookings) {
+                
+                return  vendorBookingRequest.bookings.sort((item1,item2)=>{ 
+                    var cmprVal =  (item1.bookedBy[0][this.state.filterName].localeCompare(item2.bookedBy[0][this.state.filterName]))
+                    return this.state.sortVal ? cmprVal : -cmprVal;
+                }).filter(this.searchFilter(this.state.search)).map((item,index)=>{
+                    let itemData=item.bookedBy[0]
+        
+                    return(
+                        <tr key={item.individualVendorBookingId}>
+                           <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorBookingId}
+                             onChange={(e) => {
+                                const {individualVendorBookingId} = item
+                                if(!e.target.checked){
+                                    document.getElementById('allSelect').checked=false;
+                                    let indexOfId = this.state.ids.indexOf(individualVendorBookingId);
+                                    if(indexOfId > -1){
+                                        this.state.ids.splice(indexOfId, 1);
+                                    }
+                                    if(this.state.ids.length === 0){
+                                        this.setState({isDisabled: true});
+                                    }
+                                }
+                                else {
+                                    this.setState({ids: [...this.state.ids, individualVendorBookingId]});
+                                    if(this.state.ids.length >= 0){
+                                        this.setState({isDisabled: false})
+                                    }
+                                }
+                                    
+                                 }}/></td>
+                           <td>{index+1}</td>
+                           <td>tower</td>
+                           <td>floor</td>
+                           <td>flat</td>
+                           <td>{`${itemData.firstName} ${itemData.lastName}`}</td>
+                           <td>{itemData.contact} </td>
+                           <td>{item ?`${item.startTimeSlotSelected} to ${item.endTimeSlotSelected}` :''}</td>
+                           <td>{item.payOnline===true ? 'Yes' : 'No'}</td>
+                          
+        
+                           <td>
+                                 <Button color="success" className="mr-2" onClick={this.editEvent}>Confirm</Button>                 
+                                 <Button color="danger"  onClick={this.deleteEvents.bind(this, item.individualVendorBookingId)}>Not-Confirm</Button>
+                            </td> 
+                        </tr>
+                    )
+                })
+            
+            }
     }
 
 
@@ -140,11 +186,12 @@ render() {
                 <th  style={{width:'4%'}}>#</th>
                 <th onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,
-                                filterName:"eventName"}});
+                                filterName:"firstName"}});
                         }}>Tower Name <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
                 <th>Floor</th>
                 <th>Flat</th>
                 <th>Person Name</th>
+                <th>Contact No</th>
                 <th>Booked Slot Time</th>              
                 <th>Pay Online</th>
                 <th style={{width:'14%'}}>Actions</th>                          
@@ -154,7 +201,7 @@ render() {
         </thead>
 
         <tbody>
-            {/* {this.renderList(this.props.IndividualVendorReducer)} */}
+            {this.renderList(this.props.IndividualVendorReducer)}
         </tbody>
         </Table>
                         
@@ -201,14 +248,13 @@ render() {
 
 function mapStateToProps(state) {
     return {
-        registerComplaintReducer : state.registerComplaintReducer,
         IndividualVendorReducer: state.IndividualVendorReducer
     }
 }
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({getVendorRequest}, dispatch);
 }
 
 

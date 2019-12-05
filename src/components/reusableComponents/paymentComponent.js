@@ -223,7 +223,7 @@ class Payment extends Component {
 
 
     render() {
-        // console.log('asdbchadbsc');
+        console.log('props from society....', this.props);
         let formData;
         formData = <div style={{maxWidth:"100%",alignItems:"center"}}>
 

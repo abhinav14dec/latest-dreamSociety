@@ -63,6 +63,7 @@ import  userFacilityReducer from  './userFacilityReducer/userFacilityReducer';
 import  ownerAccessReducer from  './ownerAccessReducer/ownerAccessReducer';
 import MeterReducer from './meterReducer/meterReducer'
 import societyEventCelebrationReducer from './societyEventCelebrationReducer/societyEventCelebrationReducer'
+import MaintenanceBillReducer from './maintenanceBillReducer/maintenanceBillReducer';
 
 
 const rootReducer = combineReducers({
@@ -125,6 +126,7 @@ const rootReducer = combineReducers({
     userFacilityReducer,
     ownerAccessReducer,
     societyEventCelebrationReducer,
-    MeterReducer
+    MeterReducer,
+    MaintenanceBillReducer
 })
 export default rootReducer;
