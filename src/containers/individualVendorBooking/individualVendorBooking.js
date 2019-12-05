@@ -94,7 +94,19 @@ class IndividualVendorBooking extends Component {
         })
     
     }
-
+    
+    timeChange=(endTime,event)=> {
+        console.log(endTime,event,"endTime,event")
+        this.setState({message:'',endTimeSlotSelected:endTime})
+        if (!!this.state.errors[event.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[event.target.name];
+            this.setState({ [event.target.name]: event.target.value.trim(''), errors });
+        }
+        else {
+            this.setState({ [event.target.name]: event.target.value.trim('') });
+        }
+    }
     
     handleChange=(event)=> {
 
@@ -155,37 +167,37 @@ class IndividualVendorBooking extends Component {
         const {startTimeSlotSelected,endTimeSlotSelected,individualVendorId,enableSmsNotification,payOnline,enableFingerprint}= this.state;
         let errors = {};
         if(this.state.serviceId===''){
-            errors.serviceId="Event Name can't be empty"
+            errors.serviceId="Service Name can't be empty"
         }     
         else if(this.state.individualVendorId===''){
-            errors.individualVendorId="Organiser Name can't be empty"
+            errors.individualVendorId="Individual Vendor Name can't be empty"
         }  
         
         const vendorData={
             startTimeSlotSelected,endTimeSlotSelected,individualVendorId,enableSmsNotification,payOnline,enableFingerprint
         }
 
-    
+        console.log(vendorData,"===")
                   
        
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0
-        if (isValid) {
-            this.setState({loading: true});
-            this.props.addVendorBooking(vendorData)
-            .then(()=>this.push())
-            .catch((err)=>{
-                this.setState({message: err.response.data.message,loading:false})})
+    //     if (isValid) {
+    //         this.setState({loading: true});
+    //         this.props.addVendorBooking(vendorData)
+    //         .then(()=>this.push())
+    //         .catch((err)=>{
+    //             this.setState({message: err.response.data.message,loading:false})})
 
-            this.setState({
-                startTimeSlotSelected:'',
-                endTimeSlotSelected:'',
-                individualVendorId:'',
-                enableSmsNotification:false,
-                payOnline:false,
-                enableFingerPrint:false
-            });
-    }
+    //         this.setState({
+    //             startTimeSlotSelected:'',
+    //             endTimeSlotSelected:'',
+    //             individualVendorId:'',
+    //             enableSmsNotification:false,
+    //             payOnline:false,
+    //             enableFingerPrint:false
+    //         });
+    // }
 }
     push=()=>{
         let path=this.props.location.pathname;
@@ -274,16 +286,16 @@ class IndividualVendorBooking extends Component {
                                     </Col>
                                     {this.state.startTime ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected" value = {this.state.startTime} onChange={this.handleChange}/> {this.state.startTime} to {this.state.endTime}  
+                                       <Input type="radio" name="startTimeSlotSelected"  onChange={this.timeChange.bind(this,this.state.endTime)}/> {this.state.startTime} to {this.state.endTime}  
                                     </Col> : ''
                                     }
                                     {this.state.startTime1 ?
                                     <Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected" onChange={this.handleChange}/> {this.state.startTime1} to {this.state.endTime1}   
+                                       <Input type="radio" name="startTimeSlotSelected"   onChange={this.timeChange.bind(this,this.state.endTime1)}/> {this.state.startTime1} to {this.state.endTime1}   
                                     </Col> :''
                                     }
                                     {this.state.startTime2 ?<Col md={2}>
-                                       <Input type="radio" name="startTimeSlotSelected" onChange={this.handleChange}/> {this.state.startTime2} to {this.state.endTime2}   
+                                       <Input type="radio" name="startTimeSlotSelected"   onChange={this.timeChange.bind(this,this.state.endTime2)}/> {this.state.startTime2} to {this.state.endTime2}   
                                     </Col> :''
                                     }
                                 </Row>

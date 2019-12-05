@@ -195,14 +195,12 @@ import MeterMaster from './containers/meterMaster/meterMaster';
 import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
 import Meter from './containers/meter/meter';
 import MeterDetails from './containers/meter/meterDetails';
-<<<<<<< HEAD
 import PaymentComponent from './components/reusableComponents/paymentComponent'
-=======
+import PaymentDone from './components/reusableComponents/paymentDone'
 import IndividualVendorBooking from './containers/individualVendorBooking/individualVendorBooking';
 import IndividualVendorBookingDetails from './containers/individualVendorBooking/individualVendorBookingDetails';
 import BookingRequestDetail from './containers/individualVendorBooking/bookingRequestDetail';
 
->>>>>>> d0465a8b6c0e3c606f5a5fe99ced65d3f8aea67d
 
 
 class App extends Component {
@@ -403,10 +401,8 @@ class App extends Component {
             <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={TenantFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
-<<<<<<< HEAD
-            <Route path = '/superDashboard/payment' component={PaymentComponent}/>
-
-=======
+            <PrivateRoute path = '/superDashboard/payment' component={PaymentComponent}/>
+            <PrivateRoute path = 'superDashboard/paymentDone' component={PaymentDone}/>>
             <TenantPrivateRoute path='/tenantDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             <OwnerPrivateRoute path='/ownerDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             
@@ -415,7 +411,6 @@ class App extends Component {
             <VendorPrivateRoute path='/vendorDashboard/bookingRequestDetail' component={BookingRequestDetail}/>
             <OwnerPrivateRoute path='/ownerDashboard/viewInvitations' component={ViewInvitation}/>
             <OwnerPrivateRoute path='/tenantDashboard/viewInvitations' component={ViewInvitation}/>
->>>>>>> d0465a8b6c0e3c606f5a5fe99ced65d3f8aea67d
           </Switch>
           
         </div>

@@ -8,6 +8,12 @@ export  const URN = 'http://192.168.0.123:8083/api';
 export  const PicURN = 'http://192.168.0.123:8083/';
 export  const DocURN = 'http://192.168.0.123:8083/';
 export  const UR = 'http://192.168.0.123:8083/';
+
+// export  const URN = 'http://192.168.0.117:8083/api';
+// export  const PicURN = 'http://192.168.0.117:8083/';
+// export  const DocURN = 'http://192.168.0.117:8083/';
+// export  const UR = 'http://192.168.0.117:8083/';
+
                    
 
 export const USER_LOGIN='user_login';
@@ -410,6 +416,10 @@ export const DELETE_METER_DETAILS="DELETE_METER";
 export const UPDATE_MACHINE_DETAIL="UPDATE_MACHINE_DETAIL";
 export const DELETE_MULTIPLE_METER_DETAILS="DELETE_MULTIPLE_METER_DETAILS";
 export const DELETE_MULTIPLE_METER_DETAIL="DELETE_MULTIPLE_METER_DETAIL";
+
+export const ADD_VENDOR_BOOKING='ADD_VENDOR_BOOKING';
+export const GET_INDIVIDUAL_DATA='GET_INDIVIDUAL_DATA';
+export const GET_VENDOR_BOOKING='GET_VENDOR_BOOKING';
 
 /* SETTINGS */
 export const CHANGE_LOCALE = "CHANGE_LOCALE";

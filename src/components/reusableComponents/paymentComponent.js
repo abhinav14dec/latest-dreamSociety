@@ -1,8 +1,8 @@
-import React, { Component, useEffect } from 'react';
+import React,{ Component, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getData, addCard, getCard } from '../../actions/paymentAction';
+import { getData, addCard, getCard, verifySignatureFun} from '../../actions/paymentAction';
 import axios from 'axios';
 import { URN } from '../../actionCreators';
 import { authHeader } from '../../helper/authHeader';
@@ -10,19 +10,35 @@ import { Form, Button, FormGroup, Input, Label } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';
 
-
+console.log("process.env",process.env)
 var razorpay = new window.Razorpay({
     key: 'rzp_test_igd3N3CAkAeRcV',
     key_secret:'rXLwbN77HeeIVma6EQDScJ3P'
+    
 });
+let redirect_url;
 let globalData = {
     'contact': "9960525050",
     'email': "mayurmahale9@gmail.com",
     'method': "card",
-    'order_id':"order_DnEeCm3fIbLYYD",
-    'amount':300
+    'order_id':"order_DoWN48iKHTMNX2",
+    'amount':444400,
+    // callback_url : `http://localhost:8083/superDashboard/paymentDone`,
+    // redirect:true,
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+        if(response){
+            redirect_url=`/paymentDone?${response.razorpay_payment_id}&${response.razorpay_order_id}&${response.razorpay_signature}`
+        }else{
+            redirect_url=`/payment`
+        }   
+        window.location.href = redirect_url;
+    },
+    
 }
-let userId;
+let verification={}
+let dataPayment={};
+let paymentCheck=false
 class Payment extends Component {
 
     constructor(props) {
@@ -45,27 +61,20 @@ class Payment extends Component {
             holder: '',
             checkCard: true,
             showRzp: false,
-            charges:400
+            charges:400,
+            oId:'',
+            pId:'',
+            sig:''
+            
         }
 }
 
     componentWillMount() {
         this.setState({ user: localStorage.getItem('userId')})
     }
-
-    // authHeader=()=>{
-    //      if(token){
-    //          console.log(token)
-    //          return {'Authorization': 'Bearer '+ token};
-    //      }
-    //      else {
-    //          return {};
-    //      }
-
-    // }
     componentDidMount() {
         this.props.getData();
-        console.log("uuuuuser",this.state.user)
+        
         this.props.getCard(authHeader).then(res=>{
             return res.payload.card.map(item=>{
                 return this.setState({numberArray:item.number})
@@ -98,20 +107,11 @@ class Payment extends Component {
     }
     changeDate = () => {
         this.setState({ errMessageDate: '', checkCard: false });
-        // var selectedText = document.getElementById('date').value;
-        // var selectedDate = new Date(selectedText);
-        // var now = new Date();
-        // if (selectedDate < now) {
-        //     this.setState({currentDate:'Date must be in future'})
-        // }else{
-        //     this.setState({ expiration: e.target.value })
-        // }
+        
     }
 
     changeExpiryDate = (e) => {
-        // let checkCard=this.state.checkCard;
-        // console.log(checkCard);
-
+       
         console.log('onBlur');
         this.setState({ [e.target.name]: e.target.value },()=>{
             let expMonth = this.state.expiration.split('/')
@@ -119,22 +119,10 @@ class Payment extends Component {
             globalData['card[expiry_month]'] = expMonth[0];
             globalData['card[expiry_year]'] = expMonth[1];
         });
-        // axios.post('http://192.168.0.107:8000/api/validate/card',  {
-        //     number,checkCard
-        // }).then(res => {console.log(res)
-        //     // this.setState({ cardBrand: res.data.response.brand})
-        //     // if (res.data.response.validExpiration == true) {
-        //     //     this.setState({ errMessageDate: '' })
-
-        //     // }
-        // }
-        // )
-        //     .catch(err =>{console.log(err.response)
-        //          this.setState({ errMessageDate: 'plzz enter date in MM/DD' })
-        //     }
-        //          );
 
     }
+
+   
     change = (e) => {
         let checkCard = this.state.checkCard;
         let number = e.target.value;
@@ -180,26 +168,10 @@ class Payment extends Component {
             
             this.props.addCard(this.state,authHeader);
         }
-        
-        razorpay.createPayment(globalData);
-        razorpay.on('payment.success', function (resp) {
-        console.log(resp);
-        });
-        razorpay.on('payment.error', function (resp) { 
-        console.log(resp.error)
-        });
-        // if(this.state.paymentCheckbox){
-        //     axios.post(`${URN}/order/create/${userId}`,
-        //      mainOrder, { headers: authHeader() })
-        //      .then(response => {
-        //          globalData['order_id'] = response.data.razorpay_order_id
-        //      })
-        // }
-        // 
-        // this.props.getCard(this.state.user);
-        this.setState({ show: false, cardBrand: '', errMessage: '', cardStatus: '', currentDate: '' });
-
+       setTimeout=()=>{
+        this.setState({ show: false, cardBrand: '', errMessage: '', cardStatus: '', currentDate: '',verification:verification });
     }
+}
     getCards = ({ getCard }) => {
         if (getCard) {
             return getCard.map(item => {
@@ -234,7 +206,7 @@ class Payment extends Component {
 
     //                         <Col xs="8">
     //                             <h5>{item}</h5>
-    //                         </Col>
+    //                         </Col> 
 
     //                     </Row>
     //                     <hr />
@@ -286,13 +258,38 @@ class Payment extends Component {
 
             <FormGroup style = {{marginTop:"20px"}}>
             <Button color="danger" onClick={this.designationDetails}>Cancel</Button>
-            <Button color="success" className="mr-2" style={{float:"right"}}>Pay</Button>
+            <Button color="success" onClick={(res)=>{
+            razorpay.createPayment(globalData);
+            console.log("uuuuuser",razorpay)
+            
+
+            let promise = new Promise((resolve,reject)=>{
+                razorpay.on('payment.success',function(rspn){
+                    console.log(rspn)
+                dataPayment = rspn
+                paymentCheck=true;
+                if(paymentCheck){
+                    resolve();
+                }
+            })
+            })
+            promise.then(rrr=>{
+                
+                    console.log("dkjshfkdhsh",paymentCheck)
+                    console.log("dataPayment",dataPayment)
+                this.props.verifySignatureFun(dataPayment,authHeader)
+               axios.get(``)
+                
+            }).catch(err=>{
+                console.log(err);
+            })
+            }} className="mr-2" style={{float:"right"}}>Pay</Button>
             </FormGroup>
         </div>
         return (
             <div>
                  <UI onClick={this.logout} change={this.changePassword}>
-                    <Form onSubmit={(e)=>this.submit(e,this.props.getCard(authHeader))} style={{maxWidth:"40%"}}>
+                    <Form onSubmit={(e)=>{this.submit(e,this.props.getCard(authHeader))}} style={{maxWidth:"40%"}}>
                         <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                             <span aria-hidden="true">&times;</span>
                         </div>
@@ -317,7 +314,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getData,
         addCard,
-        getCard
+        getCard,
+        verifySignatureFun
     }, dispatch)
 }
 

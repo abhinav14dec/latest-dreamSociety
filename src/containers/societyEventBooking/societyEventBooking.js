@@ -161,35 +161,37 @@ class SocietyEventBooking extends Component {
             errors.eventSpaceId="Space Area can't be empty"
         }
         this.setState({ errors });
-        const isValid = Object.keys(errors).length === 0
-    //     if (isValid) {
-    //         this.setState({loading: true});
-    //         this.props.addSocietyEvents(Events)
-    //         .then(()=>this.props.history.push('/superDashboard/DisplaySocietyEventBooking'))
-    //         .catch((err)=>{
-    //             this.setState({message: err.response.data.message,loading:false})})
 
-    //         this.setState({
-    //             eventId:'', 
-    //             organisedBy:'',
-    //             startDate:'',
-    //             endDate:'',
-    //             startTime:'',
-    //             endTime:'',         
-    //             breakfast:false,
-    //             lunch:false,
-    //             eveningSnacks:false,
-    //             dinner:false,
-    //             dJ:false,
-    //             drinks:false,
-    //             invitationCardPicture:'',
-    //             perPersonCharge:'',
-    //             childAbove:'',
-    //             charges:'',
-    //             eventSpaceId:'',
-    //             description:''
-    //         });
-    // }
+        const Events=this.state
+        const isValid = Object.keys(errors).length === 0
+        if (isValid) {
+            this.setState({loading: true});
+            this.props.addSocietyEvents(Events)
+            .then(()=>this.props.history.push('/superDashboard/DisplaySocietyEventBooking'))
+            .catch((err)=>{
+                this.setState({message: err.response.data.message,loading:false})})
+
+            this.setState({
+                eventId:'', 
+                organisedBy:'',
+                startDate:'',
+                endDate:'',
+                startTime:'',
+                endTime:'',         
+                breakfast:false,
+                lunch:false,
+                eveningSnacks:false,
+                dinner:false,
+                dJ:false,
+                drinks:false,
+                invitationCardPicture:'',
+                perPersonCharge:'',
+                childAbove:'',
+                charges:'',
+                eventSpaceId:'',
+                description:''
+            });
+    }
 }
     push=()=>{
         this.props.history.push('/superDashBoard/displaySocietyeventbooking')
