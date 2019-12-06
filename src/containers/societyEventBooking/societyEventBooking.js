@@ -33,7 +33,7 @@ class SocietyEventBooking extends Component {
            charges:'',
            eventSpaceId:'',
            guestAllowed:false,
-           guestLimit:false,
+           guestLimit:'',
            description:'',
            loading:true,
            errors:{},
@@ -160,6 +160,11 @@ class SocietyEventBooking extends Component {
         else if(this.state.eventSpaceId===''){
             errors.eventSpaceId="Space Area can't be empty"
         }
+
+        else if(this.state.guestLimit===''){
+            errors.guestLimit="Guest Limit can't be empty"
+        }
+        
         this.setState({ errors });
 
         const Events=this.state
@@ -374,12 +379,23 @@ class SocietyEventBooking extends Component {
                                 <Input type="checkbox" name="guestAllowed" onChange={this.h} />Non-Member/guest are allowed or not 
                                 </Label>
                         </FormGroup>
-
-                        <FormGroup check>
+                        
+                        {this.state.guestAllowed===true?
+                        <Row form>
+                            <Col md={6}>
+                            <FormGroup>
+                                <Label>Guest Limit</Label>                               
+                                <Input type="text" name ="guestLimit"  placeholder="guest limit"  maxLength={2} onChange={this.handleChange}/>
+                                <div>{!this.state.guestLimit ? <span className="error">{this.state.errors.guestLimit}</span>: null}</div>
+                            </FormGroup>
+                            </Col> 
+                        </Row> :'' }
+                    
+                        {/* <FormGroup check>
                                 <Label check>   
                                 <Input type="checkbox" name="guestLimit" onChange={this.h}/>Limit alerted for non-member 
                                 </Label>
-                        </FormGroup>
+                        </FormGroup> */}
                             <FormGroup>
                                 <Label>Description</Label>                               
                                 <Input type="text" name ="description" placeholder="Description"  maxLength={3000} onChange={this.handleChange}/>

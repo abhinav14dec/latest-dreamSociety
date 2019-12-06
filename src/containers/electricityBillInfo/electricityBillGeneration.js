@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import { Form, Row, Col, FormGroup, Label, Input,Button } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import DefaultSelect from '../../constants/defaultSelect';
-import { getElectricityBillInfo } from '../../actions/maintenanceBillAction';
+import { getElectricityBillInfo,getElectricityBillUpdate} from '../../actions/maintenanceBillAction';
+import { viewTower } from '../../actions/towerMasterAction';
 import Spinner from '../../components/spinner/spinner';
 import { Table } from 'semantic-ui-react';
 
@@ -15,19 +16,26 @@ class ElectricityBillGeneration extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            towerId:'',
+            entryDate:'',
+            currentReading:'',
+            unitConsumed:[],
+            unitConsumeIndex:[],
+            monthlyCharges:'',
             loading: false,
             errors: {},
             message: '',
+            ids:[],
         }
     }
 
     componentDidMount() {
-        // this.props.viewTower().then(() => this.setState({ loading: false })).catch(() => this.setState({ loading: false }));
+        this.props.viewTower().then(() => this.setState({ loading: false })).catch(() => this.setState({ loading: false }));
     }
 
 
     handleChange = (event) => {
-        
+        let towerId = event.target.value
         this.setState({ message: '' })
         if (!!this.state.errors[event.target.name]) {
             let errors = Object.assign({}, this.state.errors);
@@ -37,20 +45,33 @@ class ElectricityBillGeneration extends Component {
         else {
             this.setState({ [event.target.name]: event.target.value.trim('') });
         }
+         this.props.getElectricityBillInfo(towerId).then(res=>{
+             if(res){
+                 this.setState({ids:res.payload.electricityCharges})
+             }
+         });
     }
 
+    dateChange=(event)=>{
+       let selected=event.target.value
+       this.setState({entryDate:selected})
+    }
 
-
-    towerData = ({ tower }) => {
-        if (tower && tower.tower) {
-            return tower.tower.map((data) => {
-                return (
-                    <option key={data.towerId} value={data.towerId}>
-                        {data.towerName}
-                    </option>
-                )
-            })
-        }
+    onChangeUnit=(initialReading,value,index,event)=>{
+        this.setState({[event.target.name]:event.target.value})
+       console.log('index...', this.state.ids)
+       let units=event.target.value-initialReading
+       let unitConsumed=this.state.unitConsumed
+       let ids=this.state.ids?this.state.ids.map(item=>{
+           return item.electricityChargesId
+       }):''
+       if(ids.includes(value)){
+           unitConsumed[index]=units
+       }
+       else{
+           unitConsumed[index]=0
+       }
+       this.setState({unitConsumed})
     }
 
 
@@ -65,36 +86,74 @@ class ElectricityBillGeneration extends Component {
         return this.props.history.replace('/superDashboard/changePassword')
      }
 
+     minDate=()=>{
+        var d =new Date();
+        return d.toISOString().split('T')[0];
+    }
 
-    // renderElectricity = ({ getElectricityBill }) => {
-    //     if (getElectricityBill && getElectricityBill.charges) {
-    //         return getElectricityBill.charges.map((item, index) => {
-    //             return (
-    //                 <tr key={item.ElectricityChargesId}>
-    //                     <td>{index + 1}</td>
-    //                     <td>{item.maintenance_type_master.maintenance_master.category}</td>
-    //                     <td>{item.to}</td>
-    //                     <td>{item.from}</td>
-    //                     <td>{item.flat_detail_master.floor_master.floorName}</td>
-    //                     <td>{item.flat_detail_master.flatNo}</td>
-    //                     <td>{item.rate ? `${item.rate} INR` : ''}</td>
-    //                     <td>{item.superArea}</td>
-    //                     <td>{item.charges ? `${item.charges} INR` : ''}</td>
-    //                 </tr>
-    //             )
-    //         })
-    //     }
-    // }
+    submitHandle=(id,monthlyCharges)=>{
+        const {entryDate,currentReading,unitConsumed}=this.state
+        console.log('Final value....',unitConsumed )
+        let payload={
+               entryDate:entryDate,
+               currentReading:Number(currentReading),
+               monthlyCharges:monthlyCharges,
+               unitConsumed:unitConsumed[0]
+        }
+        
+        this.props.getElectricityBillUpdate(id,payload);
+
+        this.setState({
+            entryDate:'',currentReading:'',monthlyCharges:'',unitConsumed:''
+        })
+    }
+
+
+    renderElectricity = ({ getElectricityBill }) => {
+        if (getElectricityBill && getElectricityBill.electricityCharges) {
+            return getElectricityBill.electricityCharges.map((item, index) => {
+                let rate=Number(item.maintenance_type_master.rate)
+                
+                return (
+                    <tr key={item.electricityChargesId}>
+                        <td>{index + 1}</td>
+                        <td>{item.flat_detail_master.floor_master.floorName}</td>
+                        <td>{item.flat_detail_master.flatNo}</td>
+                        <td>{item.lastReadingDate ? item.lastReadingDate : ''}</td>
+                        <td><Input type="date" min={this.minDate()} onChange={this.dateChange}/></td>
+                        <td>{item.initialReading}</td>
+                        <td><Input type="text" name= "currentReading"placeholder="unit" onChange={this.onChangeUnit.bind(this,item.initialReading,item.electricityChargesId,index)}/></td>
+                        <td>{this.state.unitConsumed[index]}</td>
+                        <td>{ this.state.unitConsumed[index]? rate*this.state.unitConsumed[index]:''}</td>
+                        <td><Button color="success" onClick={()=>this.submitHandle(item.electricityChargesId,rate*this.state.unitConsumed[index])}>Submit</Button></td>
+                    </tr>
+                )
+            })
+        }
+    }
+
+    towerData = ({ tower }) => {
+        if (tower && tower.tower) {
+            return tower.tower.map((data) => {
+                return (
+                    <option key={data.towerId} value={data.towerId}>
+                        {data.towerName}
+                    </option>
+                )
+            })
+        }
+    }
+
 
     render() {
         let formData = <div>
-            <Row form>
+             <Row form>
                 <Col md={6}>
                     <FormGroup>
                         <Label>Tower</Label>
                         <Input type="select" name="towerId" defaultValue='no-value' onChange={this.handleChange}>
                             <DefaultSelect />
-                            {/* {this.towerData(this.props.TowerDetails)} */}
+                            {this.towerData(this.props.TowerDetails)}
                         </Input>
                     </FormGroup>
                 </Col>
@@ -104,18 +163,18 @@ class ElectricityBillGeneration extends Component {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Maintenance Type</th>
-                            <th>To</th>
-                            <th>From</th>
                             <th>Floor No</th>
                             <th>Flat No</th>
-                            <th>Rate</th>
-                            <th>Super Area</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Initial Reading</th>
+                            <th>Current Reading</th>
+                            <th>Unit Consume</th>
                             <th>Monthly Charges</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {this.renderMaintenance(this.props.MaintenanceBillReducer)} */}
+                        {this.renderElectricity(this.props.MaintenanceBillReducer)}
                     </tbody>
                 </Table>
             </div>
@@ -140,12 +199,13 @@ class ElectricityBillGeneration extends Component {
 
 function mapStateToProps(state) {
     return {
-        MaintenanceBillReducer: state.MaintenanceBillReducer
+        MaintenanceBillReducer: state.MaintenanceBillReducer,
+        TowerDetails: state.TowerDetails
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getElectricityBillInfo }, dispatch);
+    return bindActionCreators({ getElectricityBillInfo,viewTower,getElectricityBillUpdate }, dispatch);
 }
 
 
