@@ -71,10 +71,10 @@ class Payment extends Component {
                 return this.setState({numberArray:item.number})
             })
         })
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.async = true;
-        document.body.appendChild(script);
+        // const script = document.createElement('script');
+        // script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        // script.async = true;
+        // document.body.appendChild(script);
     }
     checkChange = () => {
         this.setState({paymentCheckbox:!this.state.paymentCheckbox})
@@ -251,12 +251,10 @@ class Payment extends Component {
 
 
     render() {
-        console.log('props from society....', this.props);
         let formData;
         formData = <div style={{maxWidth:"100%",alignItems:"center"}}>
-
             <FormGroup>
-                <Label>Amount: ₹ {this.state.charges}</Label>
+                <Label>Amount: ₹ {this.props.location.state.totalCharges}</Label>
                 </FormGroup>
                 <FormGroup>
                 <Input type="text" name="holder" onChange={this.holder} placeholder="Enter Card holder Name" onKeyPress={this.nameValidation} maxLength={30}/>
