@@ -436,7 +436,8 @@ export const CHANGE_LOCALE = "CHANGE_LOCALE";
 export const PAYMENT_DATA="PAYMENT_DATA";
 export const ADD_CARD="ADD_CARD";
 export const GET_CARD="GET_CARD";
-export const VERIFY_SIGNATURE="VERIFY_SIGNATURE"
+export const VERIFY_SIGNATURE="VERIFY_SIGNATURE";
+export const GET_CARD_DETAILS="GET_CARD_DETAILS";
 // export const URN="https://ecommercedeals.herokuapp.com/api";
 
 /* MENU */
