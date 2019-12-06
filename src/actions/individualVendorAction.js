@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { URN, ADD_VENDOR,GET_INDIVIDUAL_VENDOR, DELETE_INDIVIDUAL_VENDOR, DELETE_SELECT_INDIVIDUAL_VENDOR, UPDATE_INDIVIDUAL_VENDOR ,GET_INDIVIDUAL_SERVICEID,GET_INDIVIDUAL_DATA,ADD_VENDOR_BOOKING,GET_VENDOR_BOOKING,
-    DELETE_VENDOR_BOOKING,DELETE_SELECT_INDIVIDUAL_VENDOR_BOOKING, UPDATE_INDIVIDUAL_VENDOR_BOOKING,GET_INDIVIDUAL_VENDOR_BOOKING_REQUEST} from '../actionCreators/index'
+    DELETE_VENDOR_BOOKING,DELETE_SELECT_INDIVIDUAL_VENDOR_BOOKING, UPDATE_INDIVIDUAL_VENDOR_BOOKING,GET_INDIVIDUAL_VENDOR_BOOKING_REQUEST,GET_INDIVIDUAL_VENDOR_CONFIRM,GET_TIME_SLOT} from '../actionCreators/index'
 import { authHeader } from '../helper/authHeader';
 
 
@@ -175,6 +175,20 @@ export const addVendor=(values)=>{
          }
      
      }
+    
+    //  timeSlot by vendorid
+    export const timeSlotData=(id)=>{
+        console.log(id)
+        const request = axios.get(`${URN}/vendor/slots/${id}` , {headers:authHeader()})
+         .then(response => response.data)
+      
+         return{
+     
+             type:GET_TIME_SLOT,
+             payload: request 
+         }
+     
+     }
 
 
      //individual Vendor Booking request
@@ -183,6 +197,17 @@ export const addVendor=(values)=>{
          .then(response => response.data)
          return{
              type:GET_INDIVIDUAL_VENDOR_BOOKING_REQUEST,
+             payload: request 
+         }
+     
+     }
+
+     //confirm by vendor
+     export const getVendorConfirmed=(type,id)=>{
+        const request = axios.put(`${URN}/individualVendor/booking/${type}/${id}` , {headers:authHeader()})
+         .then(response => response.data)
+         return{
+             type:GET_INDIVIDUAL_VENDOR_CONFIRM,
              payload: request 
          }
      

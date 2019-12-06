@@ -196,12 +196,15 @@ import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
 import Meter from './containers/meter/meter';
 import MeterDetails from './containers/meter/meterDetails';
 import PaymentComponent from './components/reusableComponents/paymentComponent'
+import Payment from './components/reusableComponents/paymentComponent'
+import PaymentDone from './components/reusableComponents/paymentDone'
 import IndividualVendorBooking from './containers/individualVendorBooking/individualVendorBooking';
 import IndividualVendorBookingDetails from './containers/individualVendorBooking/individualVendorBookingDetails';
 import BookingRequestDetail from './containers/individualVendorBooking/bookingRequestDetail';
 import MaintenanceBillGeneration from './containers/maintenanceBillInfo/maintenanceBillGeneration';
 import MaintenanceBillPayment from './containers/maintenanceBillInfo/maintenanceBillPayment';
 import ElectricityBillGeneration from './containers/electricityBillInfo/electricityBillGeneration';
+import FacilityBillCharges from './containers/facilityBillChargesInfo/facilityBillCharges';
 
 
 
@@ -404,8 +407,10 @@ class App extends Component {
             <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={TenantFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
-            <Route path = '/superDashboard/payment' component={PaymentComponent}/>
+            <PrivateRoute path = '/superDashboard/payment' component={PaymentComponent}/>
 
+            <OwnerPrivateRoute  path = '/ownerDashboard/payment' component={Payment}/>
+            <PrivateRoute path = '/ownerDashboard/paymentDone' component={PaymentDone}/>>
             <TenantPrivateRoute path='/tenantDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             <OwnerPrivateRoute path='/ownerDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             
@@ -418,7 +423,9 @@ class App extends Component {
             <PrivateRoute path='/superDashboard/maintenanceBillGeneration' component={MaintenanceBillGeneration} />          
             <TenantPrivateRoute path='/tenantDashboard/maintenanceBillPayment' component={MaintenanceBillPayment} />
             <OwnerPrivateRoute path='/ownerDashboard/maintenanceBillPayment' component={MaintenanceBillPayment} />
-            <PrivateRoute path='/superDashboard/electricityBillGeneration' component={ElectricityBillGeneration} />  
+            <PrivateRoute path='/superDashboard/electricityBillGeneration' component={ElectricityBillGeneration} />
+            <OwnerPrivateRoute path='/ownerDashboard/facilityBillGeneration' component={FacilityBillCharges} /> 
+            <TenantPrivateRoute path='/tenantDashboard/facilityBillGeneration' component={FacilityBillCharges} />   
            
           </Switch>
           

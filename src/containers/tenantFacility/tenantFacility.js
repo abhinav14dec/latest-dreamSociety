@@ -140,7 +140,7 @@ class TenantFacility extends Component {
         return (
           <tr key={item.facilityDetailId}>
             <td>
-              <Input
+              <input
                 type="checkbox"
                 name="facilitiesUser"
                 defaultChecked
@@ -165,7 +165,7 @@ class TenantFacility extends Component {
                     });
                   }
                 }}
-              ></Input>
+              ></input>
             </td>
 
             <td>
@@ -198,7 +198,7 @@ class TenantFacility extends Component {
         return (
           <tr key={item.facilityDetailId}>
             <td>
-              <Input
+              <input
                 type="checkbox"
                 name="facilities"
                 disabled={this.facilityDisabled(item.facilityDetailId)}
@@ -224,7 +224,7 @@ class TenantFacility extends Component {
                   }
                   this.facilityDisabled(facilityDetailId);
                 }}
-              ></Input>
+              ></input>
             </td>
             <td>{item.facilities_master.facilityName}</td>
             <td>

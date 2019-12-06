@@ -4,15 +4,15 @@
 // export  const DocURN = 'http://13.235.13.21:8083/';
 // export  const UR = 'http://13.235.13.21:8083/';
 
-export  const URN = 'http://192.168.0.123:8083/api';
-export  const PicURN = 'http://192.168.0.123:8083/';
-export  const DocURN = 'http://192.168.0.123:8083/';
-export  const UR = 'http://192.168.0.123:8083/';
+// export  const URN = 'http://192.168.0.123:8083/api';
+// export  const PicURN = 'http://192.168.0.123:8083/';
+// export  const DocURN = 'http://192.168.0.123:8083/';
+// export  const UR = 'http://192.168.0.123:8083/';
 
-// export  const URN = 'http://192.168.0.117:8083/api';
-// export  const PicURN = 'http://192.168.0.117:8083/';
-// export  const DocURN = 'http://192.168.0.117:8083/';
-// export  const UR = 'http://192.168.0.117:8083/';
+export  const URN = 'http://192.168.0.117:8083/api';
+export  const PicURN = 'http://192.168.0.117:8083/';
+export  const DocURN = 'http://192.168.0.117:8083/';
+export  const UR = 'http://192.168.0.117:8083/';
 
                    
 
@@ -436,7 +436,8 @@ export const CHANGE_LOCALE = "CHANGE_LOCALE";
 export const PAYMENT_DATA="PAYMENT_DATA";
 export const ADD_CARD="ADD_CARD";
 export const GET_CARD="GET_CARD";
-export const VERIFY_SIGNATURE="VERIFY_SIGNATURE"
+export const VERIFY_SIGNATURE="VERIFY_SIGNATURE";
+export const GET_CARD_DETAILS="GET_CARD_DETAILS";
 // export const URN="https://ecommercedeals.herokuapp.com/api";
 
 /* MENU */
@@ -450,5 +451,9 @@ export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
 //maintenance bill info
 export const GET_MAINTENANCE_BILL='GET_MAINTENANCE_BILL';
 export const GET_ELECTRICITY_BILL='GET_ELECTRICITY_BILL';
+export const UPDATE_ELECTRICITY_BILL='UPDATE_ELECTRICITY_BILL';
+export const GET_FACILITY_CHARGES='GET_FACILITY_CHARGES';
+export const GET_INDIVIDUAL_VENDOR_CONFIRM='GET_INDIVIDUAL_VENDOR_CONFIRM';
+export const GET_TIME_SLOT='GET_TIME_SLOT';
 
 

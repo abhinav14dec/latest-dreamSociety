@@ -1,8 +1,8 @@
-import React, { Component, useEffect } from 'react';
+import React,{ Component, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getData, addCard, getCard } from '../../actions/paymentAction';
+import { getData, addCard, getCard, verifySignatureFun, getCardDetails} from '../../actions/paymentAction';
 import axios from 'axios';
 import { URN } from '../../actionCreators';
 import { authHeader } from '../../helper/authHeader';
@@ -10,20 +10,18 @@ import { Form, Button, FormGroup, Input, Label } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';
 
-
+console.log("process.env",process.env)
 var razorpay = new window.Razorpay({
-    key: 'rzp_test_igd3N3CAkAeRcV',
-    key_secret:'rXLwbN77HeeIVma6EQDScJ3P'
+    key: 'rzp_test_igd3N3CAkAeRcV'
+    
 });
-let globalData = {
-    'contact': "9960525050",
-    'email': "mayurmahale9@gmail.com",
-    'method': "card",
-    'order_id':"order_DnEeCm3fIbLYYD",
-    'amount':300
-}
-let userId;
+let redirect_url;
+
+let verification={}
+let dataPayment={};
+let paymentCheck=false
 class Payment extends Component {
+    
 
     constructor(props) {
         super(props);
@@ -35,7 +33,8 @@ class Payment extends Component {
             number: '',
             numberArray:[],
             cvvNo: '',
-            expiration: '',
+            expMonth: '',
+            expYear:'',
             errMessage: '',
             cardBrand: '',
             isValid: null,
@@ -45,41 +44,79 @@ class Payment extends Component {
             holder: '',
             checkCard: true,
             showRzp: false,
-            charges:400
+            charges:0,
+            contact:'',
+            email:'',
+            method:'',
+            order_id:'',
+            amount:'',
+            radioCheck:false,
+            radioId:0,
+            existingCard:false,
+            existingCardId:""
         }
+        this.globalData = {
+            'contact': "9960525050",
+            'email': "mayurmahale9@gmail.com",
+            'method': "card",
+            'order_id':this.props.location.state.razorpay_id,
+            'amount':this.props.location.state.totalCharges*100,  
+        }
+        
 }
 
     componentWillMount() {
         this.setState({ user: localStorage.getItem('userId')})
     }
-
-    // authHeader=()=>{
-    //      if(token){
-    //          console.log(token)
-    //          return {'Authorization': 'Bearer '+ token};
-    //      }
-    //      else {
-    //          return {};
-    //      }
-
-    // }
     componentDidMount() {
         this.props.getData();
-        console.log("uuuuuser",this.state.user)
+        
         this.props.getCard(authHeader).then(res=>{
             return res.payload.card.map(item=>{
-                return this.setState({numberArray:item.number})
+                return this.setState({
+                    numberArray:[...this.state.numberArray,item.number],
+                    charges:this.props.location.state.totalCharges
+                })
             })
         })
-        // const script = document.createElement('script');
-        // script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        // script.async = true;
-        // document.body.appendChild(script);
+       
+    }
+
+    checkRadio=(e,id)=>{
+        console.log("iiiiiii",id)
+        if(id==1){
+            this.setState({radioId:1})
+        }else{
+            this.setState({radioId:0})
+        }
+        
     }
     checkChange = () => {
         this.setState({paymentCheckbox:!this.state.paymentCheckbox})
     }
+    payWithExisting = (e,index) => {
+        e.preventDefault();
+        console.log("vallllllll====>",e.target.value)
+        this.props.getCardDetails(e.target.value,authHeader).then(res=>{
+            const cardData = res.payload.getExpiry;
+            cardData.map((item,index)=>{
+                console.log("sdfdsfdsfsdfsf",item)
+                const exp = item.expiration.split('/');
+            this.setState({
+                holder:item.holder,
+                number:item.number,
+                expMonth:exp[0],
+                expYear:exp[1]
+            })
+            if(index){
+                this.setState({existingCardId:index})
+            }else{
+                this.setState({existingCardId:""})
+            }
+            })
+        })
 
+    }
 
     addCard = (e) => {
         e.preventDefault();
@@ -92,49 +129,25 @@ class Payment extends Component {
         this.setState({ errMessage: '', cardBrand: '', cardStatus: '', checkCard: true });
     }
     holder = (e) => {
-        this.setState({ holder: e.target.value },()=>{
-            globalData['card[name]'] = this.state.holder
-        })
+        this.setState({ holder: e.target.value })
     }
     changeDate = () => {
         this.setState({ errMessageDate: '', checkCard: false });
-        // var selectedText = document.getElementById('date').value;
-        // var selectedDate = new Date(selectedText);
-        // var now = new Date();
-        // if (selectedDate < now) {
-        //     this.setState({currentDate:'Date must be in future'})
-        // }else{
-        //     this.setState({ expiration: e.target.value })
-        // }
+        
     }
 
     changeExpiryDate = (e) => {
-        // let checkCard=this.state.checkCard;
-        // console.log(checkCard);
-
+       
         console.log('onBlur');
         this.setState({ [e.target.name]: e.target.value },()=>{
             let expMonth = this.state.expiration.split('/')
             console.log("expMonth",expMonth)
-            globalData['card[expiry_month]'] = expMonth[0];
-            globalData['card[expiry_year]'] = expMonth[1];
+            this.setState({expMonth:expMonth[0],expYear:expMonth[1]})
         });
-        // axios.post('http://192.168.0.107:8000/api/validate/card',  {
-        //     number,checkCard
-        // }).then(res => {console.log(res)
-        //     // this.setState({ cardBrand: res.data.response.brand})
-        //     // if (res.data.response.validExpiration == true) {
-        //     //     this.setState({ errMessageDate: '' })
-
-        //     // }
-        // }
-        // )
-        //     .catch(err =>{console.log(err.response)
-        //          this.setState({ errMessageDate: 'plzz enter date in MM/DD' })
-        //     }
-        //          );
 
     }
+
+   
     change = (e) => {
         let checkCard = this.state.checkCard;
         let number = e.target.value;
@@ -145,7 +158,8 @@ class Payment extends Component {
         },{headers: authHeader()}).then(res => {
             this.setState({ cardBrand: res.data.response.brand })
             if (res.data.response.validCardNumber == true) {
-                globalData['card[number]'] = number;
+                this.setState({number})
+                
                 this.setState({ cardStatus: 'Card Number Approved', isValid: true })
 
             }
@@ -169,39 +183,24 @@ class Payment extends Component {
         }
     }
     setCvv = (e) => {
-        globalData['card[cvv]'] = e.target.value.toString();
+        this.setState({cvvNo:e.target.value.toString()})
+      
     }
     submit = (e) => {
         e.preventDefault();
         
-        // this.props.value(this.state);
+        
         console.log("this.state.number",this.state.number)
         if(this.state.paymentCheckbox && !this.state.numberArray.includes(this.state.number)){
-            
             this.props.addCard(this.state,authHeader);
         }
-        
-        razorpay.createPayment(globalData);
-        razorpay.on('payment.success', function (resp) {
-        console.log(resp);
-        });
-        razorpay.on('payment.error', function (resp) { 
-        console.log(resp.error)
-        });
-        // if(this.state.paymentCheckbox){
-        //     axios.post(`${URN}/order/create/${userId}`,
-        //      mainOrder, { headers: authHeader() })
-        //      .then(response => {
-        //          globalData['order_id'] = response.data.razorpay_order_id
-        //      })
-        // }
-        // 
-        // this.props.getCard(this.state.user);
-        this.setState({ show: false, cardBrand: '', errMessage: '', cardStatus: '', currentDate: '' });
-
+       setTimeout=()=>{
+        this.setState({ show: false, cardBrand: '', errMessage: '', cardStatus: '', currentDate: '',verification:verification });
     }
+}
     getCards = ({ getCard }) => {
         if (getCard) {
+            console.log("Getting====>",getCard)
             return getCard.map(item => {
                 return (
                     <div>
@@ -217,46 +216,44 @@ class Payment extends Component {
         }
 
     }
-    // showData({ paymentData }) {
-    //     if (paymentData) {
-    //         let arr = [];
-    //         let data = paymentData.methods.wallet
-    //         for (let x in data) {
-    //             arr.push(x);
-    //         }
-    //         return arr.map(item => {
-    //             return (
-    //                 <div>
-    //                     <Row>
-    //                         <Col xs="4">
-    //                             <h5></h5>
-    //                         </Col>
-
-    //                         <Col xs="8">
-    //                             <h5>{item}</h5>
-    //                         </Col>
-
-    //                     </Row>
-    //                     <hr />
-    //                 </div>
-    //             )
-    //         })
-    //     }
-    // }
+   
     logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user-type');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('contact');
         return this.props.history.replace('/')
     }
 
 
     render() {
+        console.log('props from society....', this.props);
+        let {numberArray} = this.state; 
         let formData;
         formData = <div style={{maxWidth:"100%",alignItems:"center"}}>
             <FormGroup>
                 <Label>Amount: ₹ {this.props.location.state.totalCharges}</Label>
                 </FormGroup>
                 <FormGroup>
+                <Row xs={12}>
+                <Col xs={6}>
+                <FormGroup check>
+                <Label check>
+                <Input type="radio" name="newCard" checked={this.state.radioId==0} onChange={(e)=>this.checkRadio(e,0)}/>Add New Card and Pay
+                </Label>
+                </FormGroup>
+                </Col>
+                <Col xs={6}>
+                <FormGroup check>
+                <Label check>
+                <Input type="radio" name="oldCard" checked={this.state.radioId==1} onChange={(e)=>this.checkRadio(e,1)}/>Pay with Existing Cards
+                </Label>
+                </FormGroup>
+                </Col>
+                </Row>
+                </FormGroup>
+                {(this.state.radioId===0)?<div>
+                    <FormGroup>
                 <Input type="text" name="holder" onChange={this.holder} placeholder="Enter Card holder Name" onKeyPress={this.nameValidation} maxLength={30}/>
                 </FormGroup>
                 <FormGroup>
@@ -280,17 +277,71 @@ class Payment extends Component {
                 <Input type="checkbox" onChange={this.checkChange}/> Do you want to save your card for future?
                 </Label>
                 </FormGroup>
+                </div>:
+                <div>{numberArray.map((item,index)=>{
+                  return (
+                      <div>
+                 <FormGroup check key={index}>
+                  <Label check>
+                  <Input type="radio" value={item} name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>{item}
+                  </Label>
+                  </FormGroup>
+                  {(index==this.state.existingCardId)?
+                    <Input type="text" name="cvvNo" onChange={this.setCvv} placeholder='Enter cvv no'/>:
+                    ""}
+                  </div>
+                  )
+                })
+                }</div>}
+                
             
 
             <FormGroup style = {{marginTop:"20px"}}>
             <Button color="danger" onClick={this.designationDetails}>Cancel</Button>
-            <Button color="success" className="mr-2" style={{float:"right"}}>Pay</Button>
+            <Button type="submit" color="success" onClick={(res)=>{
+            razorpay.createPayment({
+            'contact':localStorage.getItem('contact'),
+            'email':localStorage.getItem('userName'),
+            'method':'card',
+            'order_id':this.props.location.state.razorpay_id,
+            'amount':this.props.location.state.totalCharges*100,
+            'card[name]':this.state.holder,
+            'card[number]':this.state.number,
+            'card[cvv]':this.state.cvvNo,
+            'card[expiry_month]':this.state.expMonth,
+            'card[expiry_year]':this.state.expYear,
+
+            });
+            console.log("uuuuuser",razorpay)
+            
+
+            let promise = new Promise((resolve,reject)=>{
+                razorpay.on('payment.success',function(rspn){
+                    console.log(rspn)
+                dataPayment = rspn
+                paymentCheck=true;
+                if(paymentCheck){
+                    resolve();
+                }
+            })
+            })
+            promise.then(rrr=>{
+                
+                    console.log("dkjshfkdhsh",paymentCheck)
+                    console.log("dataPayment",dataPayment)
+                this.props.verifySignatureFun(dataPayment,authHeader)
+               axios.get(``)
+                
+            }).catch(err=>{
+                console.log(err);
+            })
+            }} className="mr-2" style={{float:"right"}}>Pay</Button>
             </FormGroup>
         </div>
         return (
             <div>
                  <UI onClick={this.logout} change={this.changePassword}>
-                    <Form onSubmit={(e)=>this.submit(e,this.props.getCard(authHeader))} style={{maxWidth:"40%"}}>
+                    <Form onSubmit={(e)=>{this.submit(e)}} style={{maxWidth:"40%"}}>
                         <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                             <span aria-hidden="true">&times;</span>
                         </div>
@@ -315,7 +366,9 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getData,
         addCard,
-        getCard
+        getCard,
+        verifySignatureFun,
+        getCardDetails
     }, dispatch)
 }
 

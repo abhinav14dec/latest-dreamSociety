@@ -154,7 +154,7 @@ class OwnerFacility extends Component {
       if (this.state.arrData === false) {
         this.getDataUser(userFacilty);
       }
-      return userFacilty.data.facilitiesInUse.map(item => { console.log(item,"=====")
+      return userFacilty.data.facilitiesInUse.map(item => {
         return (
           <tr key={item.facilityDetailId}>
             <td>
@@ -201,6 +201,7 @@ class OwnerFacility extends Component {
                 name="endDate"
                 defaultValue={item.endDate}
                 onChange={this.onChange.bind(this, item.facilityDetailId)}
+                disabled
               />
             </td>
           </tr>
@@ -276,8 +277,6 @@ class OwnerFacility extends Component {
   };
 
   render() {
-
-    console.log(this.props.location,"===============this.props.location")
     let radioData = (
       <div>
         <Label

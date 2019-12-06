@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {authHeader} from '../helper/authHeader';
-import {URN,ADD_FACILITY,GET_FACILITY,UPDATE_FACILITY,DELETE_FACILITY_IDS,DELETE_FACILITY} from '../actionCreators/index';
+import {URN,ADD_FACILITY,GET_FACILITY,UPDATE_FACILITY,DELETE_FACILITY_IDS,DELETE_FACILITY,GET_FACILITY_CHARGES} from '../actionCreators/index';
 
 export function addFacility(facilityName){
     const request = axios.post(`${URN}/facility`,{facilityName}, {headers:authHeader()})
@@ -59,3 +59,15 @@ export const deleteFacility=(facilityId,isActive)=>{
      }
  
  }
+
+
+ //facilityCharges
+ export function getFacilityCharges(){
+    const request =axios.get(`${URN}/facilitiesCharges`,{headers:authHeader()})
+    .then(response => response.data)
+    return {
+        type:GET_FACILITY_CHARGES,
+        payload:request
+    }
+}
+

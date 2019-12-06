@@ -154,6 +154,7 @@ class Demo extends Component {
                     </nav> */}
                     <nav id="sidebarOwner" className="bg-light inactive">
                         <div id="sidebarOwner-content">
+                        <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard/payment">Pay with Razorpay</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard">Pay Dues</Link></div></Menu.Item>
                             {/* <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard/addTenant">Add Tenant</Link></div></Menu.Item> */}
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard">Vendor Services</Link></div></Menu.Item>
@@ -168,6 +169,8 @@ class Demo extends Component {
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard/registerComplaintOwner">Register Complaint</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard/complaintOwnerDetails">View Status Detail</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard/ownerFacility">Owner Facility</Link></div></Menu.Item>
+                            <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/ownerDashboard/facilityBillGeneration">Facility Bill Charges</Link></div></Menu.Item>
+                            
                             <div style={{ height: '10%' }}></div>
                         </div>
                     </nav>

@@ -103,7 +103,7 @@ class SocietyEventCelebration extends Component {
       };
       this.props.guestDetails(payload,res=>{
         if(res){
-          this.props.history.push('/superDashboard/payment',res)
+          this.props.history.push('/ownerDashboard/payment',res)
         }
       })
     });
