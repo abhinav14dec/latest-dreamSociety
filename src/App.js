@@ -195,7 +195,7 @@ import MeterMaster from './containers/meterMaster/meterMaster';
 import MeterMasterDetails from './containers/meterMaster/meterMasterDetails';
 import Meter from './containers/meter/meter';
 import MeterDetails from './containers/meter/meterDetails';
-import PaymentComponent from './components/reusableComponents/paymentComponent'
+import Payment from './components/reusableComponents/paymentComponent'
 import PaymentDone from './components/reusableComponents/paymentDone'
 import IndividualVendorBooking from './containers/individualVendorBooking/individualVendorBooking';
 import IndividualVendorBookingDetails from './containers/individualVendorBooking/individualVendorBookingDetails';
@@ -405,8 +405,8 @@ class App extends Component {
             <TenantPrivateRoute path='/tenantDashboard/tenantFacility' component={TenantFacility} />
             <TenantPrivateRoute path='/tenantDashboard/tenantAccess' component={TenantAccess}/>
             <OwnerPrivateRoute path='/ownerDashboard/ownerAccess' component={OwnerAccess}/>
-            <PrivateRoute path = '/superDashboard/payment' component={PaymentComponent}/>
-            <PrivateRoute path = 'superDashboard/paymentDone' component={PaymentDone}/>>
+            <OwnerPrivateRoute  path = '/ownerDashboard/payment' component={Payment}/>
+            <PrivateRoute path = '/ownerDashboard/paymentDone' component={PaymentDone}/>>
             <TenantPrivateRoute path='/tenantDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             <OwnerPrivateRoute path='/ownerDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             

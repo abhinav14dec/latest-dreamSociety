@@ -112,6 +112,8 @@ class Login extends Component {
                         this.setState({
                             message: loginData.payload.data.message
                         })
+                        console.log("loginData.payload.data",loginData.payload.data)
+
                         localStorage.setItem('token', loginData.payload.data.accessToken);
                         localStorage.setItem('user-type', loginData.payload.data.userType);
                         localStorage.setItem('firstName', loginData.payload.data.user.firstName);
@@ -121,6 +123,8 @@ class Login extends Component {
                         localStorage.setItem('stateName', loginData.payload.data.society.state_master.stateName)
                         localStorage.setItem('cityName', loginData.payload.data.society.city_master.cityName)
                         localStorage.setItem('locationName', loginData.payload.data.society.location_master.locationName)
+                        localStorage.setItem('userName',loginData.payload.data.user.userName);
+                        localStorage.setItem('contact',loginData.payload.data.user.contact);
                         localStorage.setItem('userId', loginData.payload.data.user.userId)
                         localStorage.setItem('role', loginData.payload.data.user.roles[0].roleName)
                         switch (loginData.payload.data.user.roles[0].roleName) {

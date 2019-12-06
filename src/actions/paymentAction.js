@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import{PAYMENT_DATA,ADD_CARD,VERIFY_SIGNATURE,GET_CARD,URN} from '../actionCreators';
+import{PAYMENT_DATA,ADD_CARD,VERIFY_SIGNATURE,GET_CARD,GET_CARD_DETAILS,URN} from '../actionCreators';
 
 
 export function getData(){
@@ -41,6 +41,15 @@ export function verifySignatureFun(data,authHeader){
     .then(response => response.data)
     return {
         type: VERIFY_SIGNATURE,
+        payload: request
+    }
+}
+
+export function getCardDetails(number,authHeader){
+  const request = axios.post(`${URN}/existing/card`,{number},{headers:authHeader()})
+    .then(response => response.data)
+    return {
+        type: GET_CARD_DETAILS,
         payload: request
     }
 }
