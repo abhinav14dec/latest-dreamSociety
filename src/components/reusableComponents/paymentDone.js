@@ -4,7 +4,7 @@ export class PaymentDone extends Component {
     render() {
         return (
             <div>
-                Payment is processing.....
+                Payment Success
             </div>
         )
     }

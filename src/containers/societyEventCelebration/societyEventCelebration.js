@@ -9,6 +9,7 @@ import {
 import { connect } from "react-redux";
 class SocietyEventCelebration extends Component {
   state = {
+    purpose:'Society Event Celebration',
     guestName: "",
     guestEmail: "",
     guestMobileNum: "",
@@ -68,6 +69,7 @@ class SocietyEventCelebration extends Component {
       numOfChildInFamily,
       interested,
       filteredList,
+      purpose
     } = this.state;
 
     let childCharge =
@@ -96,6 +98,7 @@ class SocietyEventCelebration extends Component {
         noOfChildInFamily: numOfChildInFamily,
         noOfAdultInGuest: numOfAdultInGuest,
         noOfChildInGuest: numOfChildInGuest,
+        purpose:purpose,
         /*guestList:this.state.guestList,*/
         interested: interested,
         totalCharges: this.state.price
