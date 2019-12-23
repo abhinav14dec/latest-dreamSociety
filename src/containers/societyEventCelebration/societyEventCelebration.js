@@ -82,9 +82,9 @@ class SocietyEventCelebration extends Component {
     const totalGuest = numOfAdultInGuest + numOfChildInGuest;
     let guestLimit=filteredList&&filteredList[0]?filteredList[0].guestLimit:'';
     for (let i = 0; i < totalGuest; i++) {
-        // if(!this.state[`guestName` + i]|| !this.state[`guestMobileNum`+i]){
-        //         errors.errorGuestDetails="Please fill all guest details"
-        // }
+        if(!this.state[`guestName` + i]|| !this.state[`guestMobileNum`+i]){
+                errors.errorGuestDetails="Please fill all guest details"
+        }
       data = {
         guestName: this.state["guestName" + i],
         guestEmail: this.state["guestEmail" + i],
@@ -92,7 +92,8 @@ class SocietyEventCelebration extends Component {
       };
       list.push(data);
     }
-    this.setState({ guestList: list, price: price }, () => {
+    this.setState({ guestList: list, price: price,errors:errors }, () => {
+      const isValid = Object.keys(errors).length === 0
       let payload = {
         noOfAdultsInFamily: numOfAdultInFamily,
         noOfChildInFamily: numOfChildInFamily,

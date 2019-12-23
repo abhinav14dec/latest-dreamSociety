@@ -1,4 +1,4 @@
-import {ADD_FACILITY,GET_FACILITY,UPDATE_FACILITY,DELETE_FACILITY_IDS,DELETE_FACILITY} from '../../actionCreators/index';
+import {ADD_FACILITY,GET_FACILITY,UPDATE_FACILITY,DELETE_FACILITY_IDS,DELETE_FACILITY,GET_FACILITY_CHARGES} from '../../actionCreators/index';
 
 
 export default function(state={}, action) {
@@ -17,7 +17,10 @@ export default function(state={}, action) {
                     return {...state, deleteAllFacility: action.payload}
 
         case DELETE_FACILITY:
-                        return {...state, deleteFacility: action.payload}
+                    return {...state, deleteFacility: action.payload}
+
+        case GET_FACILITY_CHARGES:
+                    return {...state, facilityCharges: action.payload}
 
             default:
             return state;

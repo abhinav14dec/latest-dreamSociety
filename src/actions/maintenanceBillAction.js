@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URN, GET_MAINTENANCE_BILL,GET_ELECTRICITY_BILL} from '../actionCreators/index'
+import { URN, GET_MAINTENANCE_BILL,GET_ELECTRICITY_BILL,UPDATE_ELECTRICITY_BILL} from '../actionCreators/index'
 import { authHeader } from './../helper/authHeader';
 
 export const getMaintenanceBillInfo=(towerId)=>{
@@ -13,11 +13,24 @@ export const getMaintenanceBillInfo=(towerId)=>{
 
 }
 
-export const getElectricityBillInfo=()=>{
-    const request = axios.get(`${URN}/calculate/elctricityCharges`  , {headers:authHeader()})
+export const getElectricityBillInfo=(towerId)=>{
+    console.log(towerId,"=======towerId")
+    const request = axios.get(`${URN}/electricityCharges/${towerId}`  , {headers:authHeader()})
      .then(response => response.data)
      return{
          type:GET_ELECTRICITY_BILL,
+         payload: request 
+     }
+ 
+ }
+
+ export const getElectricityBillUpdate=(id,payload)=>{
+     console.log(id,payload,"inside action")
+
+    const request = axios.put(`${URN}/electricityCharges/${id}`,payload , {headers:authHeader()})
+     .then(response => response.data)
+     return{
+         type:UPDATE_ELECTRICITY_BILL,
          payload: request 
      }
  

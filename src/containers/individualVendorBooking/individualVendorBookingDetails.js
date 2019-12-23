@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Table, Row, Col, Button, Modal, FormGroup, ModalBody, ModalHeader, Label, Input } from 'reactstrap';
 import UI from '../../components/newUI/ownerDashboard';
 import TenantUI from "../../components/newUI/tenantDashboard";
-import { serviceDetails } from '../../actions/registerComplainAction';
+import { serviceDetails,userflatDetails } from '../../actions/registerComplainAction';
 import { getVendorData, getVendorBooking, deleteIndividualVendorBooking, deleteSelectVendorBooking, updateIndividualVendorBooking } from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
 import DefaultSelect from '../../constants/defaultSelect';
@@ -16,6 +16,7 @@ class IndividualVendorBookingDetails extends Component {
         super(props);
         this.state = {
             filterName: "serviceName",
+            flatDetailId:'',
             serviceId: '',
             individualVendorBookingId: '',
             individualVendorId: '',
@@ -65,18 +66,18 @@ class IndividualVendorBookingDetails extends Component {
             this.setState({ loading: false, modalLoading: false, editEventModal: false })
         });
         this.props.serviceDetails();
-        // this.props.GetEventOrganiser();
+        this.props.userflatDetails();
         // this.props.getEventDetails();
     }
 
 
 
     editEvent(
-        individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId
+        individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId,flatDetailId
     ) {
 
         this.setState({
-            individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId
+            individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId,flatDetailId
             , editEventModal: !this.state.editEventModal
         })
         this.props.getVendorData(serviceId);
@@ -127,6 +128,21 @@ class IndividualVendorBookingDetails extends Component {
 
     }
 
+    close = () => {
+        let path = this.props.location.pathname;
+        switch (path) {
+            case '/ownerDashboard/individualVendorBookingDetails':
+                this.props.history.push('/ownerDashboard');
+                break;
+
+            case '/tenantDashboard/individualVendorBookingDetails':
+                this.props.history.push('/tenantDashboard');
+            // eslint-disable-next-line
+            default:
+        }
+
+    }
+
     fetchSpace = ({ space }) => {
         if (space && space.societyMember) {
             return space ? space.societyMember.map(item => {
@@ -170,6 +186,7 @@ class IndividualVendorBookingDetails extends Component {
 
                             }} /></td>
                         <td>{index + 1}</td>
+                        <td>{`Flatno- ${item.flat_detail_master?item.flat_detail_master.flatNo:''}, ${item.flat_detail_master?item.flat_detail_master.tower_master.towerName:''}, ${item.flat_detail_master?item.flat_detail_master.floor_master.floorName:''} floor`}</td>
                         <td>{item.individual_vendor.service_master ? item.individual_vendor.service_master.serviceName : ''}</td>
                         <td>{item.individual_vendor ? item.individual_vendor.firstName + " " + item.individual_vendor.lastName : ''}</td>
                         <td>{item.individual_vendor.rate_master.rateType}</td>
@@ -181,7 +198,7 @@ class IndividualVendorBookingDetails extends Component {
 
                         <td>
                             <Button color="success" className="mr-2" onClick={this.editEvent.bind(this, item.individualVendorBookingId, item.individualVendorId, item.individual_vendor.service_master.serviceName, item.individual_vendor.firstName, item.individual_vendor.lastName,
-                                item.individual_vendor.rate_master.rateType, item.individual_vendor.rate, item.startTimeSlotSelected, item.endTimeSlotSelected, item.enableSmsNotification, item.payOnline, item.enableFingerPrint, item.individual_vendor.serviceId)}>Edit</Button>
+                                item.individual_vendor.rate_master.rateType, item.individual_vendor.rate, item.startTimeSlotSelected, item.endTimeSlotSelected, item.enableSmsNotification, item.payOnline, item.enableFingerPrint, item.individual_vendor.serviceId,item.flat_detail_master?item.flat_detail_master.flatDetailId:'')}>Edit</Button>
                             <Button color="danger" onClick={this.deleteEvents.bind(this, item.individualVendorBookingId)}>Delete</Button>
                         </td>
 
@@ -208,9 +225,12 @@ class IndividualVendorBookingDetails extends Component {
 
 
     updateEvents() {
-        const { individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId } = this.state;
+        const { individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId,flatDetailId } = this.state;
         let errors = {};
-        if (this.state.serviceId === '') {
+        if (this.state.flatDetailId === '') {
+            errors.flatDetailId = "Service Name can't be empty"
+        }
+        else if(this.state.serviceId === '') {
             errors.serviceId = "Service Name can't be empty"
         }
         // else if(this.state.childAbove===''){
@@ -227,7 +247,7 @@ class IndividualVendorBookingDetails extends Component {
         const isValid = Object.keys(errors).length === 0
         if (isValid && this.state.message === '') {
 
-            this.props.updateIndividualVendorBooking(individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId)
+            this.props.updateIndividualVendorBooking(individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId,flatDetailId)
                 .then(() => this.refreshData())
                 .catch(err => {
                     this.setState({ modalLoading: false, message: err.response.data.message, loading: false })
@@ -291,6 +311,20 @@ class IndividualVendorBookingDetails extends Component {
 
     }
 
+    userflatDetails({userFlat}){
+        if(userFlat &&  userFlat.flats){
+            return( 
+                userFlat.flats.map((item) =>{ 
+                    return(
+                        <option key={item.flatDetailId} value={item.flatDetailId}>
+                         {"Flatno-"+item.flatNo+", "+item.tower_master.towerName+", "+item.floor_master.floorName+" floor"}
+                        </option>
+                    )
+                })
+            )
+             
+         }
+    }
 
     getService({ item }) {
         if (item) {
@@ -399,6 +433,7 @@ class IndividualVendorBookingDetails extends Component {
                 <tr>
                     <th style={{ width: '4%' }}></th>
                     <th style={{ width: '4%' }}>#</th>
+                    <th>Flat no</th>
                     <th onClick={() => {
                         this.setState((state) => {
                             return {
@@ -426,6 +461,19 @@ class IndividualVendorBookingDetails extends Component {
         </Table>
 
         let modalData = <div>
+            <FormGroup>
+                 
+                 <Row md={12}>
+                 <Col>
+                 <Label>Flat no</Label>
+                 <Input type="select"  name="flatDetailId"  onChange={this.handleChange} >
+                     <DefaultSelect />
+                     {this.userflatDetails(this.props.registerComplaintReducer)}
+                 </Input >
+                 <span className='error'>{this.state.errors.flatDetailId}</span>
+                 </Col>
+                 </Row>
+                 </FormGroup>
             <Row form>
                 <Col md={6}>
                     <FormGroup>
@@ -564,7 +612,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({ serviceDetails, getVendorBooking, getVendorData, deleteIndividualVendorBooking, deleteSelectVendorBooking, updateIndividualVendorBooking }, dispatch);
+    return bindActionCreators({userflatDetails, serviceDetails, getVendorBooking, getVendorData, deleteIndividualVendorBooking, deleteSelectVendorBooking, updateIndividualVendorBooking }, dispatch);
 }
 
 

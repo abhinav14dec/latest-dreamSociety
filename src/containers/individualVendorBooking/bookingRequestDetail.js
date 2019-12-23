@@ -2,17 +2,18 @@ import  React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Table,Button, Label} from 'reactstrap';
-import UI from '../../components/newUI/superAdminDashboard';
-import {getVendorRequest} from '../../actions/individualVendorAction';
+import UI from '../../components/newUI/vendorDashboard';
+import {getVendorRequest,getVendorConfirmed} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
-import SearchFilter from '../../components/searchFilter/searchFilter';
+
 
 class BookingRequestDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
            filterName:"firstName",
-           
+           type:'notConfirm',
+           msg:'',
            editEventModal:false,
            modalLoading:false,
            loading:false,
@@ -48,15 +49,6 @@ class BookingRequestDetails extends Component {
     }   
 
 
-
-
-    deleteEvents(societyEventBookId){
-        this.setState({loading:true})
-        let {isActive } =this.state;  
-        this.props.deleteEvents(societyEventBookId,isActive)
-            .then(() => this.refreshData())
-            this.setState({isActive:false})
-    }
     
     deleteSelected(ids){
         this.setState({loading:true,
@@ -73,19 +65,18 @@ class BookingRequestDetails extends Component {
     }
 
     changePassword=()=>{ 
-        let path=this.props.location.pathname;
-        switch(path){
-            case '/ownerDashboard/individualVendorBooking':
-            this.props.history.push('/ownerDashboard/changePasswordOwner')
-            break;
-
-            case '/tenantDashboard/individualVendorBooking':
-            this.props.history.push('/tenantDashboard/changePasswordTenant')
-            // eslint-disable-next-line
-            default:
-        }
-        
+        return this.props.history.replace('/vendorDashboard/changePasswordVendor'); 
     }
+
+    
+    activeChange = (id,e) => {
+    let selected=e.target.value;
+    // this.setState({
+    //   type: selected
+    // });
+    this.props.getVendorConfirmed(selected,id)
+    // this.setState({ modalLoading: true });
+  };
 
     renderList({ vendorBookingRequest }) {
             if (vendorBookingRequest && vendorBookingRequest.bookings) {
@@ -120,23 +111,24 @@ class BookingRequestDetails extends Component {
                                     
                                  }}/></td>
                            <td>{index+1}</td>
-                           <td>tower</td>
-                           <td>floor</td>
-                           <td>flat</td>
                            <td>{`${itemData.firstName} ${itemData.lastName}`}</td>
+                           <td>{itemData.flats[0].tower_master.towerName}</td>
+                           <td>{itemData.flats[0].floor_master.floorName}</td>
+                           <td>{itemData.flats[0].flatNo}</td>
                            <td>{itemData.contact} </td>
                            <td>{item ?`${item.startTimeSlotSelected} to ${item.endTimeSlotSelected}` :''}</td>
                            <td>{item.payOnline===true ? 'Yes' : 'No'}</td>
                           
         
                            <td>
-                                 <Button color="success" className="mr-2" onClick={this.editEvent}>Confirm</Button>                 
-                                 <Button color="danger"  onClick={this.deleteEvents.bind(this, item.individualVendorBookingId)}>Not-Confirm</Button>
+                                 <Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Confirm</Button>                 
+                                 <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Not-Confirm</Button>
                             </td> 
                         </tr>
+                        
                     )
                 })
-            
+
             }
     }
 
@@ -187,12 +179,12 @@ render() {
                 <th onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,
                                 filterName:"firstName"}});
-                        }}>Tower Name <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
+                        }}>Person Name <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
+                <th>Tower Name</th>
                 <th>Floor</th>
-                <th>Flat</th>
-                <th>Person Name</th>
+                <th>Flat No</th>
                 <th>Contact No</th>
-                <th>Booked Slot Time</th>              
+                <th>Booked Slot Time</th>             
                 <th>Pay Online</th>
                 <th style={{width:'14%'}}>Actions</th>                          
             </tr>
@@ -220,8 +212,8 @@ render() {
                     <div className="top-details" style={{ fontWeight: 'bold'}}><h3>Vendor Booking Request</h3>
                     </div>
                     
-                    <SearchFilter type="text" value={this.state.search}
-                        onChange={this.searchOnChange} />
+                    {/* <SearchFilter type="text" value={this.state.search}
+                        onChange={this.searchOnChange} /> */}
                     
                     {deleteSelectedButton}
                     <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
@@ -254,7 +246,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 
-    return bindActionCreators({getVendorRequest}, dispatch);
+    return bindActionCreators({getVendorConfirmed,getVendorRequest}, dispatch);
 }
 
 

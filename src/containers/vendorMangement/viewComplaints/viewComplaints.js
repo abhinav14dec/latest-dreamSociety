@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Modal, FormGroup, ModalBody, ModalHeader, Input, Label, Table } from 'reactstrap';
 import SearchFilter from '../../../components/searchFilter/searchFilter';
-import UI from '../../../components/newUI/superAdminDashboard';
+import UI from '../../../components/newUI/vendorDashboard';
 import Spinner from '../../../components/spinner/spinner';
 import DefaultSelect from '../../../constants/defaultSelect';
 
@@ -174,7 +174,7 @@ class ViewComplaints extends Component {
     renderList = ({ complaints }) => {
       
 
-        if (complaints) {
+        if (complaints && complaints.complaints) {
 
             return complaints.complaints.sort((item1, item2) => {
                 var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
@@ -258,7 +258,7 @@ class ViewComplaints extends Component {
     }
 
     changePassword = () => {
-        return this.props.history.replace('/superDashboard/changePassword')
+        return this.props.history.replace('/vendorDashboard/changePasswordVendor')
     }
 
     selectAll = () => {
