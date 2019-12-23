@@ -6,6 +6,7 @@ import UI from '../../components/newUI/vendorDashboard';
 import {getVendorRequest,getVendorConfirmed} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
 import { authHeader } from '../../helper/authHeader';
+import SearchFilter from '../../components/searchFilter/searchFilter';
 
 
 class BookingRequestDetails extends Component {
@@ -208,8 +209,8 @@ render() {
                     <div className="top-details" style={{ fontWeight: 'bold'}}><h3>Vendor Booking Request</h3>
                     </div>
                     
-                    {/* <SearchFilter type="text" value={this.state.search}
-                        onChange={this.searchOnChange} /> */}
+                    <SearchFilter type="text" value={this.state.search}
+                        onChange={this.searchOnChange} />
                     
                     {deleteSelectedButton}
                     <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
