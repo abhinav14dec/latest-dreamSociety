@@ -7,7 +7,7 @@ import axios from 'axios';
 import { URN } from '../../actionCreators';
 import { authHeader } from '../../helper/authHeader';
 import { Form, Button, FormGroup, Input, Label } from 'reactstrap';
-import UI from '../../components/newUI/superAdminDashboard';
+import UI from '../../components/newUI/ownerDashboard';
 import Spinner from '../../components/spinner/spinner';
 
 // console.log("process.env",process.env)
@@ -54,13 +54,6 @@ class Payment extends Component {
             existingCard:false,
             existingCardId:""
         }
-        this.globalData = {
-            'contact': "9960525050",
-            'email': "mayurmahale9@gmail.com",
-            'method': "card",
-            'order_id':this.props.location.state.razorpay_id,
-            'amount':this.props.location.state.totalCharges*100,  
-        }
         
 }
 
@@ -93,7 +86,7 @@ class Payment extends Component {
     checkChange = () => {
         this.setState({paymentCheckbox:!this.state.paymentCheckbox})
     }
-    payWithExisting = (e,index) => {
+    payWithExisting = (e,ind) => {
         e.preventDefault();
         console.log("vallllllll====>",e.target.value)
         this.props.getCardDetails(e.target.value,authHeader).then(res=>{
@@ -108,8 +101,9 @@ class Payment extends Component {
                 expMonth:exp[0],
                 expYear:exp[1]
             })
-            if(index){
-                this.setState({existingCardId:index})
+            console.log("9innnnnn===>",ind)
+            if(ind){
+                this.setState({existingCardId:ind})
             }else{
                 this.setState({existingCardId:""})
             }
@@ -120,7 +114,6 @@ class Payment extends Component {
 
     addCard = (e) => {
         e.preventDefault();
-        console.log('hii');
         this.setState({ show: true });
     }
 
@@ -138,10 +131,9 @@ class Payment extends Component {
 
     changeExpiryDate = (e) => {
        
-        console.log('onBlur');
+        
         this.setState({ [e.target.name]: e.target.value },()=>{
             let expMonth = this.state.expiration.split('/')
-            console.log("expMonth",expMonth)
             this.setState({expMonth:expMonth[0],expYear:expMonth[1]})
         });
 
@@ -151,7 +143,6 @@ class Payment extends Component {
     change = (e) => {
         let checkCard = this.state.checkCard;
         let number = e.target.value;
-        console.log('onBlur');
         this.setState({ [e.target.name]: e.target.value });
         axios.post(`${URN}/validate/card`, {
             number, checkCard
@@ -188,9 +179,6 @@ class Payment extends Component {
     }
     submit = (e) => {
         e.preventDefault();
-        
-        
-        console.log("this.state.number",this.state.number)
         if(this.state.paymentCheckbox && !this.state.numberArray.includes(this.state.number)){
             this.props.addCard(this.state,authHeader);
         }
@@ -201,7 +189,6 @@ class Payment extends Component {
 }
     getCards = ({ getCard }) => {
         if (getCard) {
-            console.log("Getting====>",getCard)
             return getCard.map(item => {
                 return (
                     <div>
@@ -228,13 +215,13 @@ class Payment extends Component {
 
 
     render() {
-        console.log('props from society....', this.props);
         let {numberArray} = this.state; 
         let formData;
+        console.log("purpose====>",this.props.location.state);
         formData = <div style={{maxWidth:"100%",alignItems:"center"}}>
-
+    
             <FormGroup>
-                <Label>Amount: ₹ {this.props.location.state.totalCharges}</Label>
+                <Label>Amount: ₹ {this.props.location.state.totalCharges} for {this.props.location.state.purpose}</Label>
                 </FormGroup>
                 <FormGroup>
                 <Row xs={12}>
@@ -282,16 +269,18 @@ class Payment extends Component {
                 </div>:
                 <div>{numberArray.map((item,index)=>{
                   return (
-                      <div>
-                 <FormGroup check key={index}>
+                      <div key={index}>
+                 <FormGroup check>
                   <Label check>
-                  <Input type="radio" value={item} name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>{item}
+                  {console.log("item.length-4",item.length-4)}
+                  <Input type="radio" value={item} name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>{item.slice(item.length-4,item.length)}
                   </Label>
                   </FormGroup>
-                  {   // eslint-disable-next-line
-                      (index==this.state.existingCardId)?
+                  <FormGroup>
+                  {(index==this.state.existingCardId)?
                     <Input type="text" name="cvvNo" onChange={this.setCvv} placeholder='Enter cvv no'/>:
                     ""}
+                    </FormGroup>
                   </div>
                   )
                 })
@@ -315,12 +304,10 @@ class Payment extends Component {
             'card[expiry_year]':this.state.expYear,
 
             });
-            console.log("uuuuuser",razorpay)
             
 
             let promise = new Promise((resolve,reject)=>{
                 razorpay.on('payment.success',function(rspn){
-                    console.log(rspn)
                 dataPayment = rspn
                 paymentCheck=true;
                 if(paymentCheck){
@@ -329,11 +316,12 @@ class Payment extends Component {
             })
             })
             promise.then(rrr=>{
+                this.props.verifySignatureFun(dataPayment,authHeader).then(res=>{
+                    if(res){
+                        this.props.history.push('/ownerDashboard/paymentDone')
+                    }
+                })
                 
-                    console.log("dkjshfkdhsh",paymentCheck)
-                    console.log("dataPayment",dataPayment)
-                this.props.verifySignatureFun(dataPayment,authHeader)
-               axios.get(``)
                 
             }).catch(err=>{
                 console.log(err);
@@ -344,7 +332,7 @@ class Payment extends Component {
         return (
             <div>
                  <UI onClick={this.logout} change={this.changePassword}>
-                    <Form onSubmit={(e)=>{this.submit(e)}} style={{maxWidth:"40%"}}>
+                    <Form onSubmit={(e)=>{this.submit(e)}} style={{maxWidth:"60%"}}>
                         <div style={{ cursor: 'pointer' }} className="close" aria-label="Close" onClick={this.close}>
                             <span aria-hidden="true">&times;</span>
                         </div>

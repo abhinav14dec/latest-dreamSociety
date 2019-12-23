@@ -9,6 +9,7 @@ import {
 import { connect } from "react-redux";
 class SocietyEventCelebration extends Component {
   state = {
+    purpose:'Society Event Celebration',
     guestName: "",
     guestEmail: "",
     guestMobileNum: "",
@@ -60,7 +61,7 @@ class SocietyEventCelebration extends Component {
     event.preventDefault();
     let data = {};
     let list = [];
-    // let errors={}
+    let errors={}
     const {
       numOfAdultInGuest,
       numOfChildInGuest,
@@ -68,6 +69,7 @@ class SocietyEventCelebration extends Component {
       numOfChildInFamily,
       interested,
       filteredList,
+      purpose
     } = this.state;
 
     let childCharge =
@@ -80,9 +82,9 @@ class SocietyEventCelebration extends Component {
     const totalGuest = numOfAdultInGuest + numOfChildInGuest;
     // let guestLimit=filteredList&&filteredList[0]?filteredList[0].guestLimit:'';
     for (let i = 0; i < totalGuest; i++) {
-        // if(!this.state[`guestName` + i]|| !this.state[`guestMobileNum`+i]){
-        //         errors.errorGuestDetails="Please fill all guest details"
-        // }
+        if(!this.state[`guestName` + i]|| !this.state[`guestMobileNum`+i]){
+                errors.errorGuestDetails="Please fill all guest details"
+        }
       data = {
         guestName: this.state["guestName" + i],
         guestEmail: this.state["guestEmail" + i],
@@ -90,12 +92,14 @@ class SocietyEventCelebration extends Component {
       };
       list.push(data);
     }
-    this.setState({ guestList: list, price: price }, () => {
+    this.setState({ guestList: list, price: price,errors:errors }, () => {
+      const isValid = Object.keys(errors).length === 0
       let payload = {
         noOfAdultsInFamily: numOfAdultInFamily,
         noOfChildInFamily: numOfChildInFamily,
         noOfAdultInGuest: numOfAdultInGuest,
         noOfChildInGuest: numOfChildInGuest,
+        purpose:purpose,
         /*guestList:this.state.guestList,*/
         interested: interested,
         totalCharges: this.state.price

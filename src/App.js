@@ -410,7 +410,7 @@ class App extends Component {
             <PrivateRoute path = '/superDashboard/payment' component={PaymentComponent}/>
 
             <OwnerPrivateRoute  path = '/ownerDashboard/payment' component={Payment}/>
-            <PrivateRoute path = '/ownerDashboard/paymentDone' component={PaymentDone}/>>
+            <OwnerPrivateRoute path = '/ownerDashboard/paymentDone' component={PaymentDone}/>>
             <TenantPrivateRoute path='/tenantDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             <OwnerPrivateRoute path='/ownerDashboard/individualVendorBooking' component={IndividualVendorBooking} />
             
