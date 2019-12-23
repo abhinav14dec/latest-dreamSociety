@@ -1,4 +1,4 @@
-import React,{ Component, useEffect } from 'react';
+import React,{ Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,12 +10,11 @@ import { Form, Button, FormGroup, Input, Label } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';
 
-console.log("process.env",process.env)
+// console.log("process.env",process.env)
 var razorpay = new window.Razorpay({
     key: 'rzp_test_igd3N3CAkAeRcV'
     
 });
-let redirect_url;
 
 let verification={}
 let dataPayment={};
@@ -84,7 +83,7 @@ class Payment extends Component {
 
     checkRadio=(e,id)=>{
         console.log("iiiiiii",id)
-        if(id==1){
+        if(id===1){
             this.setState({radioId:1})
         }else{
             this.setState({radioId:0})
@@ -99,6 +98,7 @@ class Payment extends Component {
         console.log("vallllllll====>",e.target.value)
         this.props.getCardDetails(e.target.value,authHeader).then(res=>{
             const cardData = res.payload.getExpiry;
+            // eslint-disable-next-line
             cardData.map((item,index)=>{
                 console.log("sdfdsfdsfsdfsf",item)
                 const exp = item.expiration.split('/');
@@ -157,7 +157,7 @@ class Payment extends Component {
             number, checkCard
         },{headers: authHeader()}).then(res => {
             this.setState({ cardBrand: res.data.response.brand })
-            if (res.data.response.validCardNumber == true) {
+            if (res.data.response.validCardNumber === true) {
                 this.setState({number})
                 
                 this.setState({ cardStatus: 'Card Number Approved', isValid: true })
@@ -194,6 +194,7 @@ class Payment extends Component {
         if(this.state.paymentCheckbox && !this.state.numberArray.includes(this.state.number)){
             this.props.addCard(this.state,authHeader);
         }
+        // eslint-disable-next-line
        setTimeout=()=>{
         this.setState({ show: false, cardBrand: '', errMessage: '', cardStatus: '', currentDate: '',verification:verification });
     }
@@ -240,14 +241,14 @@ class Payment extends Component {
                 <Col xs={6}>
                 <FormGroup check>
                 <Label check>
-                <Input type="radio" name="newCard" checked={this.state.radioId==0} onChange={(e)=>this.checkRadio(e,0)}/>Add New Card and Pay
+                <Input type="radio" name="newCard" checked={this.state.radioId===0} onChange={(e)=>this.checkRadio(e,0)}/>Add New Card and Pay
                 </Label>
                 </FormGroup>
                 </Col>
                 <Col xs={6}>
                 <FormGroup check>
                 <Label check>
-                <Input type="radio" name="oldCard" checked={this.state.radioId==1} onChange={(e)=>this.checkRadio(e,1)}/>Pay with Existing Cards
+                <Input type="radio" name="oldCard" checked={this.state.radioId===1} onChange={(e)=>this.checkRadio(e,1)}/>Pay with Existing Cards
                 </Label>
                 </FormGroup>
                 </Col>
@@ -287,7 +288,8 @@ class Payment extends Component {
                   <Input type="radio" value={item} name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>{item}
                   </Label>
                   </FormGroup>
-                  {(index==this.state.existingCardId)?
+                  {   // eslint-disable-next-line
+                      (index==this.state.existingCardId)?
                     <Input type="text" name="cvvNo" onChange={this.setCvv} placeholder='Enter cvv no'/>:
                     ""}
                   </div>

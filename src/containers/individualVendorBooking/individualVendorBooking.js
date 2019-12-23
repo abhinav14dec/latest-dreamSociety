@@ -164,7 +164,7 @@ class IndividualVendorBooking extends Component {
   }
 
   getService({ item }) {
-    if (item) {
+    if (item && item) {
       return item.map(data => {
         return (
           <option key={data.serviceId} value={data.serviceId}>
@@ -196,6 +196,7 @@ class IndividualVendorBooking extends Component {
   onSubmit = event => {
     event.preventDefault();
     const {
+      flatDetailId,
       startTimeSlotSelected,
       endTimeSlotSelected,
       individualVendorId,
@@ -214,6 +215,7 @@ class IndividualVendorBooking extends Component {
     }
 
     const vendorData = {
+      flatDetailId,
       startTimeSlotSelected,
       endTimeSlotSelected,
       individualVendorId,
@@ -229,11 +231,12 @@ class IndividualVendorBooking extends Component {
       this.props
         .addVendorBooking(vendorData)
         .then(() => this.push())
-        .catch(err => {
-          this.setState({ message: err.response.data.message, loading: false });
-        });
+        // .catch(err => {
+        //   this.setState({ message: err.response.data.message, loading: false });
+        // });
 
       this.setState({
+        flatDetailId:"",
         startTimeSlotSelected: "",
         endTimeSlotSelected: "",
         individualVendorId: "",

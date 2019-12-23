@@ -60,7 +60,7 @@ class SocietyEventCelebration extends Component {
     event.preventDefault();
     let data = {};
     let list = [];
-    let errors={}
+    // let errors={}
     const {
       numOfAdultInGuest,
       numOfChildInGuest,
@@ -78,7 +78,7 @@ class SocietyEventCelebration extends Component {
       (numOfAdultInFamily + numOfAdultInGuest) * adultCharge +
       (numOfChildInFamily + numOfChildInGuest) * childCharge;
     const totalGuest = numOfAdultInGuest + numOfChildInGuest;
-    let guestLimit=filteredList&&filteredList[0]?filteredList[0].guestLimit:'';
+    // let guestLimit=filteredList&&filteredList[0]?filteredList[0].guestLimit:'';
     for (let i = 0; i < totalGuest; i++) {
         // if(!this.state[`guestName` + i]|| !this.state[`guestMobileNum`+i]){
         //         errors.errorGuestDetails="Please fill all guest details"

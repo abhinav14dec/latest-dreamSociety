@@ -5,6 +5,7 @@ import {Table,Button, Label} from 'reactstrap';
 import UI from '../../components/newUI/vendorDashboard';
 import {getVendorRequest,getVendorConfirmed} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
+import { authHeader } from '../../helper/authHeader';
 
 
 class BookingRequestDetails extends Component {
@@ -13,10 +14,9 @@ class BookingRequestDetails extends Component {
         this.state = {
            filterName:"firstName",
            type:'notConfirm',
-           msg:'',
            editEventModal:false,
            modalLoading:false,
-           loading:false,
+           loading:true,
            isDisabled:true,
            ids:[],
            errors:{},
@@ -41,11 +41,7 @@ class BookingRequestDetails extends Component {
 
 
     refreshData() {
-        this.props.getVendorRequest().then(()=> this.setState({loading:false, modalLoading: false, editEventModal:false})).catch((err)=>{
-
-            this.setState({loading:false, modalLoading: false, editEventModal:false})
-        });
-     
+        this.props.getVendorRequest().then(() => this.setState({ loading: false,modalLoading: false }))
     }   
 
 
@@ -71,11 +67,9 @@ class BookingRequestDetails extends Component {
     
     activeChange = (id,e) => {
     let selected=e.target.value;
-    // this.setState({
-    //   type: selected
-    // });
-    this.props.getVendorConfirmed(selected,id)
-    // this.setState({ modalLoading: true });
+    this.props.getVendorConfirmed(selected,id,authHeader).then(() => this.refreshData())
+    this.setState({ modalLoading: true })
+    
   };
 
     renderList({ vendorBookingRequest }) {
@@ -121,9 +115,10 @@ class BookingRequestDetails extends Component {
                           
         
                            <td>
-                                 <Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Confirm</Button>                 
-                                 <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Not-Confirm</Button>
+                                {item.confirmedByVendor===true ? <Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)} disabled>Confirm</Button> :<Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Confirm</Button> }
+                                {item.confirmedByVendor===false ? <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)} disabled>Not-Confirm</Button> : <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Not-Confirm</Button>}
                             </td> 
+                            <td>{item.confirmedByVendor===true ? 'Confirmed' : 'Not Confirmed'}</td>
                         </tr>
                         
                     )
@@ -165,11 +160,11 @@ unSelectAll = () =>{
 
 
 h=(event)=>{
-    this.setState({ [event.target.name]: event.target.checked},function(){console.log(this.state.dJ,this.state.breakfast)})
+    this.setState({ [event.target.name]: event.target.checked},function(){console.log("-----checked")})
 
 }
 
-render() { 
+render() {
     
            let tableData= <Table className="table table-bordered">
         <thead>
@@ -186,7 +181,8 @@ render() {
                 <th>Contact No</th>
                 <th>Booked Slot Time</th>             
                 <th>Pay Online</th>
-                <th style={{width:'14%'}}>Actions</th>                          
+                <th style={{width:'14%'}}>Actions</th>
+                <th>Message</th>                          
             </tr>
             
         
