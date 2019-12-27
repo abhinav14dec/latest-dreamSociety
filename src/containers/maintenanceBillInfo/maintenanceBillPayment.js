@@ -1,10 +1,10 @@
 import  React, {Component} from 'react';  
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Form} from 'reactstrap';
+import {Table,Form} from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import Spinner from '../../components/spinner/spinner';
-import { Table } from 'semantic-ui-react';
+
 
 
 

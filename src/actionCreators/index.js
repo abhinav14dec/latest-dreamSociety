@@ -9,10 +9,10 @@
 // export  const DocURN = 'http://192.168.0.123:8083/';
 // export  const UR = 'http://192.168.0.123:8083/';
 
-export  const URN = 'http://192.168.0.117:8085/api';
-export  const PicURN = 'http://192.168.0.117:8085/';
-export  const DocURN = 'http://192.168.0.117:8085/';
-export  const UR = 'http://192.168.0.117:8085/';
+export  const URN = 'http://192.168.0.117:8082/api';
+export  const PicURN = 'http://192.168.0.117:8082/';
+export  const DocURN = 'http://192.168.0.117:8082/';
+export  const UR = 'http://192.168.0.117:8082/';
 
                    
 
