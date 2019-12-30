@@ -131,7 +131,7 @@ export const addVendor=(values)=>{
             individualVendorBookingId,
             isActive:false
         }
-        const request = axios.put(`${URN}/individualVendor/booking/delete/${individualVendorBookingId}`,data, {headers:authHeader()})
+        const request = axios.put(`${URN}/individual/vendor/booking/delete/${individualVendorBookingId}`,data, {headers:authHeader()})
          .then(response => response.data)
      
        
@@ -178,7 +178,6 @@ export const addVendor=(values)=>{
     
     //  timeSlot by vendorid
     export const timeSlotData=(id)=>{
-        console.log(id)
         const request = axios.get(`${URN}/vendor/slots/${id}` , {headers:authHeader()})
          .then(response => response.data)
       
@@ -203,8 +202,8 @@ export const addVendor=(values)=>{
      }
 
      //confirm by vendor
-     export const getVendorConfirmed=(type,id)=>{
-        const request = axios.put(`${URN}/individualVendor/booking/${type}/${id}` , {headers:authHeader()})
+     export const getVendorConfirmed=(type,id,token)=>{
+        const request = axios.put(`${URN}/individualVendor/booking/${type}/${id}`,{}, {headers:token()})
          .then(response => response.data)
          return{
              type:GET_INDIVIDUAL_VENDOR_CONFIRM,

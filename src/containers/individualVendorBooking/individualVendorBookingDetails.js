@@ -41,7 +41,9 @@ class IndividualVendorBookingDetails extends Component {
             ids: [],
             errors: {},
             message: '',
-            search: ''
+            search: '',
+            slots:[],
+            individualVendorName:''
         }
     }
 
@@ -78,7 +80,7 @@ class IndividualVendorBookingDetails extends Component {
 
         this.setState({
             individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId,flatDetailId
-            , editEventModal: !this.state.editEventModal
+            , editEventModal: !this.state.editEventModal , individualVendorName: `${firstName} ${lastName}`
         })
         this.props.getVendorData(serviceId);
     }
@@ -227,12 +229,12 @@ class IndividualVendorBookingDetails extends Component {
     updateEvents() {
         const { individualVendorBookingId, individualVendorId, serviceName, firstName, lastName, rateType, rate, startTimeSlotSelected, endTimeSlotSelected, enableSmsNotification, payOnline, enableFingerPrint, serviceId,flatDetailId } = this.state;
         let errors = {};
-        if (this.state.flatDetailId === '') {
-            errors.flatDetailId = "Service Name can't be empty"
-        }
-        else if(this.state.serviceId === '') {
-            errors.serviceId = "Service Name can't be empty"
-        }
+        // if (this.state.flatDetailId === '') {
+        //     errors.flatDetailId = "Service Name can't be empty"
+        // }
+        // else if(this.state.serviceId === '') {
+        //     errors.serviceId = "Service Name can't be empty"
+        // }
         // else if(this.state.childAbove===''){
         //     errors.childAbove="Child Above can't be empty"
         // }   
@@ -327,7 +329,7 @@ class IndividualVendorBookingDetails extends Component {
     }
 
     getService({ item }) {
-        if (item) {
+        if (item && item) {
             return item ? item.map((data) => {
                 return (
                     <option key={data.serviceId} value={data.serviceId}>
@@ -355,7 +357,7 @@ class IndividualVendorBookingDetails extends Component {
     serviceChange = (event) => {
         this.setState({ loading: false })
         let selected = event.target.value
-        console.log(selected)
+        
         this.props.getVendorData(selected);
 
         this.setState({
@@ -377,41 +379,33 @@ class IndividualVendorBookingDetails extends Component {
     }
 
 
-    vendorChange = (event) => {
-        this.setState({ message: '' })
-        if (!!this.state.errors[event.target.name]) {
-            let errors = Object.assign({}, this.state.errors);
-            delete errors[event.target.name];
-            this.setState({ [event.target.name]: event.target.value.trim(''), errors });
-        }
-        else {
-            this.setState({ [event.target.name]: event.target.value.trim('') });
-        }
-
+    vendorChange = event => {
+        this.setState({ loading: false });
+        this.handleChange(event);
         let selected = event.target.value;
-
-        var result = _.find(this.props.IndividualVendorReducer.getVendorBooking.vendors, function (obj) {
+        this.props.timeSlotData(selected).then(res => {
+          this.setState({ slots: res.payload.slots }, () => {
+            console.log("======inside state");
+          });
+        });
+    
+        var result = _.find(
+          this.props.IndividualVendorReducer.getVendorBooking.vendors,
+          function(obj) {
             // eslint-disable-next-line
-            return obj.individualVendorId == selected
-        })
-
-
+            return obj.individualVendorId == selected;
+          }
+        );
+    
         this.setState({
-            rate: result.rate,
-            rateType: result.rate_master.rateType,
-            startTime: result.startTime ? result.startTime : '',
-            startTime1: result.startTim1 ? result.startTim1 : '',
-            startTime2: result.startTim2 ? result.startTim2 : '',
-            endTime: result.endTime ? result.endTime : '',
-            endTime1: result.endTime1 ? result.endTime1 : '',
-            endTime2: result.endTime2 ? result.endTime2 : '',
-
-        })
-
-    }
+          individualVendorId: result.individualVendorId,
+          rate: result.rate,
+          rateType: result.rate_master.rateType
+        });
+      };
 
     timeChange = (startTime, endTime, event) => {
-        console.log(startTime, endTime, event, "endTime,event")
+        
         this.setState({ message: '' })
 
         if (!!this.state.errors[event.target.name]) {
@@ -466,11 +460,10 @@ class IndividualVendorBookingDetails extends Component {
                  <Row md={12}>
                  <Col>
                  <Label>Flat no</Label>
-                 <Input type="select"  name="flatDetailId"  onChange={this.handleChange} >
+                 <Input type="select"  name="flatDetailId"  onChange={this.handleChange} readOnly>
                      <DefaultSelect />
                      {this.userflatDetails(this.props.registerComplaintReducer)}
                  </Input >
-                 <span className='error'>{this.state.errors.flatDetailId}</span>
                  </Col>
                  </Row>
                  </FormGroup>
@@ -478,7 +471,7 @@ class IndividualVendorBookingDetails extends Component {
                 <Col md={6}>
                     <FormGroup>
                         <Label>Service Type</Label>
-                        <Input type="select" name="serviceId" onChange={this.serviceChange}>
+                        <Input type="select" name="serviceId" onChange={this.serviceChange} readOnly>
                             <DefaultSelect />
                             {this.getService(this.props.registerComplaintReducer)}
                         </Input>
@@ -489,7 +482,7 @@ class IndividualVendorBookingDetails extends Component {
                 <Col md={6}>
                     <FormGroup>
                         <Label>List of vendor</Label>
-                        <Input type="select" name="individualVendorId" onChange={this.vendorChange}>
+                        <Input type="select" name="individualVendorId" onChange={this.vendorChange} value={this.state.individualVendorId} readOnly>
                             <DefaultSelect />
                             {this.getVendorDetails(this.props.IndividualVendorReducer)}
                         </Input>
@@ -512,27 +505,67 @@ class IndividualVendorBookingDetails extends Component {
                     </FormGroup>
                 </Col>
             </Row>
+
+
             <FormGroup>
-                <Row md={12}>
-                    <Col md={2}>
-                        <Label><b>Slot Time : </b></Label>
-                    </Col>
-                    {this.state.startTime ?
-                        <Col md={2}>
-                            <Input type="radio" name="timeSlotSelected" onChange={this.timeChange.bind(this, this.state.startTime, this.state.endTime)} /> {this.state.startTime} to {this.state.endTime}
-                        </Col> : ''
-                    }
-                    {this.state.startTime1 ?
-                        <Col md={2}>
-                            <Input type="radio" name="timeSlotSelected" onChange={this.timeChange.bind(this, this.state.startTime1, this.state.endTime1)} /> {this.state.startTime1} to {this.state.endTime1}
-                        </Col> : ''
-                    }
-                    {this.state.startTime2 ? <Col md={2}>
-                        <Input type="radio" name="timeSlotSelected" onChange={this.timeChange.bind(this, this.state.startTime, this.state.endTime2)} /> {this.state.startTime2} to {this.state.endTime2}
-                    </Col> : ''
-                    }
-                </Row>
-            </FormGroup>
+          <Row md={12}>
+            <Col md={2}>
+              <Label>
+                <b>Slot Time : </b>
+              </Label>
+            </Col>
+           {this.state.startTimeSlotSelected ? `${this.state.startTimeSlotSelected} to ${this.state.endTimeSlotSelected}`
+           :''}
+            {this.state.slots && this.state.slots.startTime ? (
+              <Col md={2}>
+                <Input
+                  type="radio"
+                  name="timeSlotSelected"
+                  onChange={this.timeChange.bind(
+                    this,
+                    this.state.slots.startTime,
+                    this.state.slots.endTime
+                  )}
+                />
+                {this.state.slots.startTime} to {this.state.slots.endTime}
+              </Col>
+            ) : (
+              ""
+            )}
+            {this.state.slots && this.state.slots.startTime1 ? (
+              <Col md={2}>
+                <Input
+                  type="radio"
+                  name="timeSlotSelected"
+                  onChange={this.timeChange.bind(
+                    this,
+                    this.state.slots.startTime1,
+                    this.state.slots.endTime1
+                  )}
+                />{" "}
+                {this.state.slots.startTime1} to {this.state.slots.endTime1}
+              </Col>
+            ) : (
+              ""
+            )}
+            {this.state.slots && this.state.slots.startTime2 ? (
+              <Col md={2}>
+                <Input
+                  type="radio"
+                  name="timeSlotSelected"
+                  onChange={this.timeChange.bind(
+                    this,
+                    this.state.slots[0].startTime,
+                    this.state.slots.endTime2
+                  )}
+                />{" "}
+                {this.state.slots.startTime2} to {this.state.slots.endTime2}
+              </Col>
+            ) : (
+              ""
+            )}
+          </Row>
+        </FormGroup>
 
             <FormGroup check>
                 <Label check>

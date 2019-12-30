@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import {Table, Form, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import UI from '../../components/newUI/superAdminDashboard';
 import DefaultSelect from '../../constants/defaultSelect';
 import { getMaintenanceBillInfo } from '../../actions/maintenanceBillAction';
 import { viewTower } from '../../actions/towerMasterAction';
 import Spinner from '../../components/spinner/spinner';
-import { Table } from 'semantic-ui-react';
+
 
 
 

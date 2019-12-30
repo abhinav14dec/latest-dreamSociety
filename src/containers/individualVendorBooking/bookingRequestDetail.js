@@ -1,10 +1,12 @@
 import  React, {Component} from 'react';  
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Table,Button, Label} from 'reactstrap';
+import {Table,Button} from 'reactstrap';
 import UI from '../../components/newUI/vendorDashboard';
 import {getVendorRequest,getVendorConfirmed} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
+import { authHeader } from '../../helper/authHeader';
+import SearchFilter from '../../components/searchFilter/searchFilter';
 
 
 class BookingRequestDetails extends Component {
@@ -13,7 +15,6 @@ class BookingRequestDetails extends Component {
         this.state = {
            filterName:"firstName",
            type:'notConfirm',
-           msg:'',
            editEventModal:false,
            modalLoading:false,
            loading:false,
@@ -41,11 +42,7 @@ class BookingRequestDetails extends Component {
 
 
     refreshData() {
-        this.props.getVendorRequest().then(()=> this.setState({loading:false, modalLoading: false, editEventModal:false})).catch((err)=>{
-
-            this.setState({loading:false, modalLoading: false, editEventModal:false})
-        });
-     
+        this.props.getVendorRequest().then(() => this.setState({ loading: false,modalLoading: false }))
     }   
 
 
@@ -71,11 +68,9 @@ class BookingRequestDetails extends Component {
     
     activeChange = (id,e) => {
     let selected=e.target.value;
-    // this.setState({
-    //   type: selected
-    // });
-    this.props.getVendorConfirmed(selected,id)
-    // this.setState({ modalLoading: true });
+    this.props.getVendorConfirmed(selected,id,authHeader).then(() => this.refreshData())
+    this.setState({ modalLoading: true })
+    
   };
 
     renderList({ vendorBookingRequest }) {
@@ -89,7 +84,7 @@ class BookingRequestDetails extends Component {
         
                     return(
                         <tr key={item.individualVendorBookingId}>
-                           <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorBookingId}
+                           {/* <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorBookingId}
                              onChange={(e) => {
                                 const {individualVendorBookingId} = item
                                 if(!e.target.checked){
@@ -109,7 +104,7 @@ class BookingRequestDetails extends Component {
                                     }
                                 }
                                     
-                                 }}/></td>
+                                 }}/></td> */}
                            <td>{index+1}</td>
                            <td>{`${itemData.firstName} ${itemData.lastName}`}</td>
                            <td>{itemData.flats[0].tower_master.towerName}</td>
@@ -121,9 +116,10 @@ class BookingRequestDetails extends Component {
                           
         
                            <td>
-                                 <Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Confirm</Button>                 
-                                 <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Not-Confirm</Button>
+                                {item.confirmedByVendor===true ? <Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)} disabled>Confirm</Button> :<Button color="success" value='confirm'  className="mr-2" onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Confirm</Button> }
+                                {item.confirmedByVendor===false ? <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)} disabled>Not-Confirm</Button> : <Button color="danger" value='notConfirm'  onClick={this.activeChange.bind(this,item.individualVendorBookingId)}>Not-Confirm</Button>}
                             </td> 
+                            <td>{item.confirmedByVendor===true ? 'Confirmed' : 'Not Confirmed'}</td>
                         </tr>
                         
                     )
@@ -165,16 +161,16 @@ unSelectAll = () =>{
 
 
 h=(event)=>{
-    this.setState({ [event.target.name]: event.target.checked},function(){console.log(this.state.dJ,this.state.breakfast)})
+    this.setState({ [event.target.name]: event.target.checked},function(){console.log("-----checked")})
 
 }
 
-render() { 
+render() {
     
            let tableData= <Table className="table table-bordered">
         <thead>
             <tr>
-                <th style={{width:'4%'}}></th>  
+                {/* <th style={{width:'4%'}}></th>   */}
                 <th  style={{width:'4%'}}>#</th>
                 <th onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,
@@ -186,7 +182,8 @@ render() {
                 <th>Contact No</th>
                 <th>Booked Slot Time</th>             
                 <th>Pay Online</th>
-                <th style={{width:'14%'}}>Actions</th>                          
+                <th style={{width:'14%'}}>Actions</th>
+                <th>Message</th>                          
             </tr>
             
         
@@ -196,7 +193,7 @@ render() {
             {this.renderList(this.props.IndividualVendorReducer)}
         </tbody>
         </Table>
-                        
+        // eslint-disable-next-line          
          let deleteSelectedButton = <Button color="danger" className="mb-2"
          onClick={this.deleteSelected.bind(this, this.state.ids)} disabled={this.state.isDisabled}>Delete Selected</Button>
   return (
@@ -212,11 +209,11 @@ render() {
                     <div className="top-details" style={{ fontWeight: 'bold'}}><h3>Vendor Booking Request</h3>
                     </div>
                     
-                    {/* <SearchFilter type="text" value={this.state.search}
-                        onChange={this.searchOnChange} /> */}
+                    <SearchFilter type="text" value={this.state.search}
+                        onChange={this.searchOnChange} />
                     
-                    {deleteSelectedButton}
-                    <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
+                    {/* {deleteSelectedButton} */}
+                    {/* <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
                         id="allSelect"
                         type="checkbox" onChange={(e) => {
                             if(e.target.checked) {
@@ -226,7 +223,7 @@ render() {
                                 this.unSelectAll();
                             } 
                         } }/>
-                    </Label>
+                    </Label> */}
                     {!this.state.loading ? tableData : <Spinner />}
                    
                 </div> 
