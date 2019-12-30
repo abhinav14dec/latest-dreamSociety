@@ -125,7 +125,7 @@ class SocietyEventBooking extends Component {
 
     onSubmit=(event)=>{
         event.preventDefault();
-        
+        console.log("=======")
         let errors = {};
         if(this.state.eventId===''){
             errors.eventId="Event Name can't be empty"
@@ -161,13 +161,14 @@ class SocietyEventBooking extends Component {
             errors.eventSpaceId="Space Area can't be empty"
         }
 
-        else if(this.state.guestLimit===''){
-            errors.guestLimit="Guest Limit can't be empty"
-        }
+        // else if(this.state.guestLimit===''){
+        //     errors.guestLimit="Guest Limit can't be empty"
+        // }
         
         this.setState({ errors });
 
         const Events=this.state
+        console.log(Events,"+======event")
         const isValid = Object.keys(errors).length === 0
         if (isValid) {
             this.setState({loading: true});
@@ -176,26 +177,26 @@ class SocietyEventBooking extends Component {
             .catch((err)=>{
                 this.setState({message: err.response.data.message,loading:false})})
 
-            this.setState({
-                eventId:'', 
-                organisedBy:'',
-                startDate:'',
-                endDate:'',
-                startTime:'',
-                endTime:'',         
-                breakfast:false,
-                lunch:false,
-                eveningSnacks:false,
-                dinner:false,
-                dJ:false,
-                drinks:false,
-                invitationCardPicture:'',
-                perPersonCharge:'',
-                childAbove:'',
-                charges:'',
-                eventSpaceId:'',
-                description:''
-            });
+            // this.setState({
+            //     eventId:'', 
+            //     organisedBy:'',
+            //     startDate:'',
+            //     endDate:'',
+            //     startTime:'',
+            //     endTime:'',         
+            //     breakfast:false,
+            //     lunch:false,
+            //     eveningSnacks:false,
+            //     dinner:false,
+            //     dJ:false,
+            //     drinks:false,
+            //     invitationCardPicture:'',
+            //     perPersonCharge:'',
+            //     childAbove:'',
+            //     charges:'',
+            //     eventSpaceId:'',
+            //     description:''
+            // });
     }
 }
     push=()=>{
@@ -386,7 +387,7 @@ class SocietyEventBooking extends Component {
                             <FormGroup>
                                 <Label>Guest Limit</Label>                               
                                 <Input type="text" name ="guestLimit"  placeholder="guest limit"  maxLength={2} onChange={this.handleChange}/>
-                                <div>{!this.state.guestLimit ? <span className="error">{this.state.errors.guestLimit}</span>: null}</div>
+                                {/* <div>{!this.state.guestLimit ? <span className="error">{this.state.errors.guestLimit}</span>: null}</div> */}
                             </FormGroup>
                             </Col> 
                         </Row> :'' }

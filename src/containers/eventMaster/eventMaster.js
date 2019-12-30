@@ -11,7 +11,6 @@ class EventMaster extends Component {
 state = {
     eventType: "",
     eventName: "",
-    eventOrganiser: [],
     startDate: "",
     endDate: "",
     menuVisible: false,
@@ -48,8 +47,9 @@ state = {
   submit = e => {
     e.preventDefault();
     let errors = {};
-    const { eventType, eventName, eventOrganiser } = this.state;
-
+    let eventOrganiser;
+    const { eventType, eventName, userId } = this.state;
+    eventOrganiser=userId;
     if (!this.state.eventType) {
       errors.eventType = "Event Type can't be empty. Please select.";
     }
@@ -62,7 +62,6 @@ state = {
 
     this.setState({ errors });
     const isValid = Object.keys(errors).length === 0;
-
     if (isValid) {
       this.setState({ loading: true });
 

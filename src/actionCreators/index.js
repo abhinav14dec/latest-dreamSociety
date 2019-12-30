@@ -1,18 +1,18 @@
 
-// export const URN = 'http://ec2-3-132-216-102.us-east-2.compute.amazonaws.com:8082/api';
-// export  const PicURN = 'http://ec2-3-132-216-102.us-east-2.compute.amazonaws.com:8082/';
-// export  const DocURN = 'http://ec2-3-132-216-102.us-east-2.compute.amazonaws.com:8082/';
-// export  const UR = 'http://ec2-3-132-216-102.us-east-2.compute.amazonaws.com:8082/';
+export const URN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/api';
+export  const PicURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
+export  const DocURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
+export  const UR = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
 
 // export  const URN = 'http://18.216.4.122:8082/api';
 // export  const PicURN = 'http://18.216.4.122:8082/';
 // export  const DocURN = 'http://18.216.4.122:8082/';
 // export  const UR = 'http://18.216.4.122:8082/';
 
-export  const URN = 'http://192.168.0.117:8082/api';
-export  const PicURN = 'http://192.168.0.117:8082/';
-export  const DocURN = 'http://192.168.0.117:8082/';
-export  const UR = 'http://192.168.0.117:8082/';
+// export  const URN = 'http://192.168.0.117:8082/api';
+// export  const PicURN = 'http://192.168.0.117:8082/';
+// export  const DocURN = 'http://192.168.0.117:8082/';
+// export  const UR = 'http://192.168.0.117:8082/';
 
                    
 
