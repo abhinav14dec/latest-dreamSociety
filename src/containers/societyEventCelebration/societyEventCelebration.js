@@ -93,6 +93,7 @@ class SocietyEventCelebration extends Component {
       list.push(data);
     }
     this.setState({ guestList: list, price: price,errors:errors }, () => {
+      // eslint-disable-next-line
       const isValid = Object.keys(errors).length === 0
       let payload = {
         noOfAdultsInFamily: numOfAdultInFamily,

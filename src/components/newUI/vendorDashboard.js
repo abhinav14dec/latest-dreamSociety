@@ -49,7 +49,7 @@ class Demo extends Component {
                             <button type="button" id="sidebarCollapse" className="btn btn-info bg-dark">
 
                                 <Icon name="sidebar" style={{ color: 'white', cursor: 'pointer' }} />
-
+                                Menu
 
                             </button>
 

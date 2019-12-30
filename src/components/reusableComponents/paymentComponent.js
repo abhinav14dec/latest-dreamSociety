@@ -277,7 +277,7 @@ class Payment extends Component {
                   </Label>
                   </FormGroup>
                   <FormGroup>
-                  {(index==this.state.existingCardId)?
+                  {(index===this.state.existingCardId)?
                     <Input type="text" name="cvvNo" onChange={this.setCvv} placeholder='Enter cvv no'/>:
                     ""}
                     </FormGroup>

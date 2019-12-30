@@ -1,7 +1,7 @@
 import  React, {Component} from 'react';  
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Table,Button, Label} from 'reactstrap';
+import {Table,Button} from 'reactstrap';
 import UI from '../../components/newUI/vendorDashboard';
 import {getVendorRequest,getVendorConfirmed} from '../../actions/individualVendorAction';
 import Spinner from '../../components/spinner/spinner';
@@ -17,7 +17,7 @@ class BookingRequestDetails extends Component {
            type:'notConfirm',
            editEventModal:false,
            modalLoading:false,
-           loading:true,
+           loading:false,
            isDisabled:true,
            ids:[],
            errors:{},
@@ -84,7 +84,7 @@ class BookingRequestDetails extends Component {
         
                     return(
                         <tr key={item.individualVendorBookingId}>
-                           <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorBookingId}
+                           {/* <td><input type="checkbox" name="ids" className="SelectAll" value={item.individualVendorBookingId}
                              onChange={(e) => {
                                 const {individualVendorBookingId} = item
                                 if(!e.target.checked){
@@ -104,7 +104,7 @@ class BookingRequestDetails extends Component {
                                     }
                                 }
                                     
-                                 }}/></td>
+                                 }}/></td> */}
                            <td>{index+1}</td>
                            <td>{`${itemData.firstName} ${itemData.lastName}`}</td>
                            <td>{itemData.flats[0].tower_master.towerName}</td>
@@ -170,7 +170,7 @@ render() {
            let tableData= <Table className="table table-bordered">
         <thead>
             <tr>
-                <th style={{width:'4%'}}></th>  
+                {/* <th style={{width:'4%'}}></th>   */}
                 <th  style={{width:'4%'}}>#</th>
                 <th onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,
@@ -193,7 +193,7 @@ render() {
             {this.renderList(this.props.IndividualVendorReducer)}
         </tbody>
         </Table>
-                        
+        // eslint-disable-next-line          
          let deleteSelectedButton = <Button color="danger" className="mb-2"
          onClick={this.deleteSelected.bind(this, this.state.ids)} disabled={this.state.isDisabled}>Delete Selected</Button>
   return (
@@ -212,8 +212,8 @@ render() {
                     <SearchFilter type="text" value={this.state.search}
                         onChange={this.searchOnChange} />
                     
-                    {deleteSelectedButton}
-                    <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
+                    {/* {deleteSelectedButton} */}
+                    {/* <Label style={{padding:'10px'}}><b>Select All</b><input className="ml-2"
                         id="allSelect"
                         type="checkbox" onChange={(e) => {
                             if(e.target.checked) {
@@ -223,7 +223,7 @@ render() {
                                 this.unSelectAll();
                             } 
                         } }/>
-                    </Label>
+                    </Label> */}
                     {!this.state.loading ? tableData : <Spinner />}
                    
                 </div> 
