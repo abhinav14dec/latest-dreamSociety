@@ -32,7 +32,9 @@ class Payment extends Component {
             paymentCheckbox:false,
             number: '',
             numberArray:[],
+            numberWithSpace:"",
             cvvNo: '',
+            cardNoLength:4,
             expMonth: '',
             expYear:'',
             errMessage: '',
@@ -111,15 +113,85 @@ class Payment extends Component {
         })
 
     }
+    getCardType=(number)=>
+{
+    // visa
+    var re = new RegExp("^4");
+    if (number.match(re) != null){
+        this.setState({cardBrand:'Visa',cardNoLength:19})
+    }
+    // Mastercard 
+    
+    re = new RegExp("5[1-5][0-9]|(2(?:2[2-9][^0]|2[3-9]|[3-6]|22[1-9]|7[0-1]|72[0]))\d*")
+     if (number.match(re)!==null){
+         console.log("kjsdfkjsdhf")
+         this.setState({cardBrand:'MasterCard',cardNoLength:19});
+     }
+     
+    // AMEX
+    re = new RegExp("^3[47]");
+    if (number.match(re) != null){
+        this.setState({cardBrand:'AMEX',cardNoLength:18})
+    }
+    // Discover
+    re = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null){
+        this.setState({cardBrand:'Discover',cardNoLength:19})
+    }
+    // Diners
+    re = new RegExp("^36");
+    if (number.match(re) != null){
+        this.setState({cardBrand:'Diners',cardNoLength:17})
+    }
+    // Diners - Carte Blanche
+    re = new RegExp("^30[0-5]");
+    if (number.match(re) != null)
+    this.setState({cardBrand:'Diners - Carte Blanche',cardNoLength:17})
+        
 
+    // JCB
+    re = new RegExp("^35(2[89]|[3-8][0-9])");
+    if (number.match(re) != null){
+        this.setState({cardBrand:'JCB',cardNoLength:19})
+    }
+    // Visa Electron
+    re = new RegExp("^(4026|417500|4508|4844|491(3|7))");
+    if (number.match(re) != null){
+    this.setState({cardBrand:'Visa Electron',cardNoLength:19})    
+    }
+    return "";
+}
     addCard = (e) => {
         e.preventDefault();
         this.setState({ show: true });
     }
 
-    number = (e) => {
-        e.preventDefault();
-        this.setState({ errMessage: '', cardBrand: '', cardStatus: '', checkCard: true });
+    cardNumberHandler = (e,brand) => {
+       this.setState({checkCard:true});
+    var v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+    var matches = v.match(/\d{4,16}/g);
+    var match = matches && matches[0] || ''
+    var parts = []
+
+    if(e.target.value.length===4){
+        return this.getCardType(e.target.value)
+    }else if(e.target.value.length<4){
+        this.setState({cardBrand:''})
+    }
+    for (var i=0, len=match.length; i<len; i+=4) {
+        
+            parts.push(match.substring(i, i+4))
+        
+        
+    }
+
+    if (parts.length) {
+        e.target.value = parts.join(' ')
+        
+        return e.target.value
+    } else {
+        return e.target.value
+    }
     }
     holder = (e) => {
         this.setState({ holder: e.target.value })
@@ -130,8 +202,6 @@ class Payment extends Component {
     }
 
     changeExpiryDate = (e) => {
-       
-        
         this.setState({ [e.target.name]: e.target.value },()=>{
             let expMonth = this.state.expiration.split('/')
             this.setState({expMonth:expMonth[0],expYear:expMonth[1]})
@@ -142,23 +212,27 @@ class Payment extends Component {
    
     change = (e) => {
         let checkCard = this.state.checkCard;
-        let number = e.target.value;
+        let number = e.target.value.trim();
         this.setState({ [e.target.name]: e.target.value });
         axios.post(`${URN}/validate/card`, {
             number, checkCard
         },{headers: authHeader()}).then(res => {
-            this.setState({ cardBrand: res.data.response.brand })
+            console.log("res.data.response.brand",res.data.response.brand)
+            // this.setState({ cardBrand: res.data.response.brand })
             if (res.data.response.validCardNumber == true) {
                 this.setState({number})
-                
                 this.setState({ cardStatus: 'Card Number Approved', isValid: true })
-
+            }else{
+                this.setState({ errMessage: 'Please provide valid card number', isValid: false })
             }
-        }
-        )
-            .catch(err => this.setState({ errMessage: err.response.data.response, isValid: false }));
-
+        })
+        .catch(err => {
+            this.setState({ errMessage: err.response.data.response, isValid: false })
+            // console.log(err.message);
+        })
     }
+
+
     nameValidation = (event) => {
         const pattern = /^[a-zA-Z ]+$/;
         let inputChar = String.fromCharCode(event.charCode);
@@ -216,7 +290,6 @@ class Payment extends Component {
     render() {
         let {numberArray} = this.state; 
         let formData;
-        console.log("purpose====>",this.props.location.state);
         formData = <div style={{maxWidth:"100%",alignItems:"center"}}>
     
             <FormGroup>
@@ -245,7 +318,7 @@ class Payment extends Component {
                 <Input type="text" name="holder" onChange={this.holder} placeholder="Enter Card holder Name" onKeyPress={this.nameValidation} maxLength={30}/>
                 </FormGroup>
                 <FormGroup>
-                <div><Input type="text" name="number" onChange={this.number} onBlur={this.change} placeholder="Card Number" onKeyPress={this.numberValidation} style={{position:"relative"}} maxLength={16}/><span style={{position:"absolute",right:"5%",top:"20%",color:"green"}}><b><i>{this.state.cardBrand}</i></b></span></div>
+                <div><Input type="text" name="number" onChange={(e)=>this.cardNumberHandler(e)} onBlur={this.change} onKeyPress={this.numberValidation} placeholder="Card Number" style={{position:"relative"}} maxLength={this.state.cardNoLength}/><span style={{position:"absolute",right:"5%",top:"20%",color:"green"}}><b><i>{this.state.cardBrand}</i></b></span></div>
                 {this.state.isValid ? "" : <div><span style={{ color: 'red' }}>{this.state.errMessage}</span></div>}
                 </FormGroup>
                 <Row xs={12}>
@@ -272,7 +345,12 @@ class Payment extends Component {
                  <FormGroup check>
                   <Label check>
                   {console.log("item.length-4",item.length-4)}
-                  <Input type="radio" value={item} name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>{item.slice(item.length-4,item.length)}
+                  <Input type="radio" value={item} checked = {this.state.existingCardId==index} 
+                  name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>
+                  {
+                    new Array(item.length-3).join('X').concat(item.slice(item.length-4,item.length))
+                    .replace(/(\w{4})/g, '$1 ').replace(/(^\s+|\s+$)/,'')
+                  }
                   </Label>
                   </FormGroup>
                   <FormGroup>
@@ -346,7 +424,6 @@ class Payment extends Component {
                 }
 }
 function mapStateToProps(state) {
-    console.log(",,,,,,",state.societyEventBookingReducer)
     return {
         payment: state.payment
     }
