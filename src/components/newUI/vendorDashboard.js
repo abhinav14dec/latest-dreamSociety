@@ -80,15 +80,15 @@ class Demo extends Component {
                                 onClick={this.props.onClick} >Logout</button>
                         </div> */}
                         <div className="dropdown mx-2">
-                            <button className="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button className="btn btn-outline-info login-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {localStorage.getItem('firstName')}
                             </button>
                             <div className="dropdown-menu dropdown-menu-lg-right bg-dark" aria-labelledby="dropdownMenuButton">
                                 <div className="form-inline ml-lg-3 ml-md-2 ml-sm-2 mt-2 mt-md-0">
-                                <button className="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#myModal"  type="button"
+                                <button className="btn btn-outline-info login-btn my-2 my-sm-0" data-toggle="modal" data-target="#myModal"  type="button"
                                         onClick={this.props.change}>Change Password</button>
 
-                                    <button className="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#myModal" id="login" type="button"
+                                    <button className="btn btn-outline-info login-btn my-2 my-sm-0" data-toggle="modal" data-target="#myModal" id="login" type="button"
                                         onClick={this.props.onClick} >Logout</button>
                                 </div>
                             </div>

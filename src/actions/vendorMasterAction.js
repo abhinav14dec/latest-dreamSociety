@@ -51,7 +51,7 @@ export function deleteVendor(vendorId,isActive){
      }
 }
 
-export function deleteVendorServices(vendorServiceId,isActive){console.log(vendorServiceId,"delete")
+export function deleteVendorServices(vendorServiceId,isActive){
     const request = axios.put(`${URN}/vendorService/delete/`+vendorServiceId,{isActive}, {headers:authHeader()})
      .then()     
      return{

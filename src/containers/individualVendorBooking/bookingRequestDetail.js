@@ -161,7 +161,7 @@ unSelectAll = () =>{
 
 
 h=(event)=>{
-    this.setState({ [event.target.name]: event.target.checked},function(){console.log("-----checked")})
+    this.setState({ [event.target.name]: event.target.checked})
 
 }
 

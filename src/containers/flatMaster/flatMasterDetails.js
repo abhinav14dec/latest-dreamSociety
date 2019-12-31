@@ -373,7 +373,7 @@ class flatMasterDetails extends Component {
                     <tr>
 
 
-                        <th style={{ width: "4%" }}></th>
+                        <th style={{ width: "4%" }}>Select</th>
                         <th>#</th>
                         {/* <th>Society Name</th> */}
                         <th onClick={() => {

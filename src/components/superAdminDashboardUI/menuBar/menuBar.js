@@ -33,7 +33,7 @@ class MenuBar extends Component {
                             </li>
                         </ul>
                         <form className="form-inline mt-2 mt-md-0">
-                            <button className="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#myModal" id="login" type="button"
+                            <button className="btn btn-outline-info login-btn my-2 my-sm-0" data-toggle="modal" data-target="#myModal" id="login" type="button"
                               onClick={this.logout}  >Logout</button>
                         </form>
                     </div>

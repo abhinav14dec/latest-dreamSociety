@@ -320,7 +320,7 @@ class FlatMemberList extends Component {
         tableData = <Table className="table table-bordered">
             <thead>
                 <tr>
-                    <th style={{ width: "4%" }}></th>
+                    <th style={{ width: "4%" }}>Select</th>
                     <th style={{ textAlign: "center", width: "4%" }}>#</th>
                     <th style={{ textAlign: "center", width: "16%" }}>Name</th>
                     <th style={{ textAlign: "center", width: "16%" }}>Date of Birth</th>

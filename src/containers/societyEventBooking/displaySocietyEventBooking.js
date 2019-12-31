@@ -301,7 +301,7 @@ push=()=>{
 }
 
 h=(event)=>{
-    this.setState({ [event.target.name]: event.target.checked},function(){console.log(this.state.dJ,this.state.breakfast)})
+    this.setState({ [event.target.name]: event.target.checked});
 
 }
 
@@ -310,7 +310,7 @@ render() {
            let tableData= <Table className="table table-bordered">
         <thead>
             <tr>
-                <th style={{width:'4%'}}></th>  
+                <th style={{width:'4%'}}>Select</th>  
                 <th  style={{width:'4%'}}>#</th>
                 <th onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,

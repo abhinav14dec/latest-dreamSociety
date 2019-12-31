@@ -274,8 +274,6 @@ class AddTenant extends Component{
                     [name]: selectOption.value,
                     errors:''
                 }
-            }, function () {
-                console.log(selectOption.value)
             });
     }
 
@@ -454,8 +452,6 @@ class AddTenant extends Component{
                     message:'',
                     correspondenceAddress: 'Tower : ' + selectOption.towerName
                 }
-            }, function () {
-                console.log(selectOption.towerId)
             });
             this.props.getFlatDetailViaTowerId(selectOption.towerId);
         }
@@ -685,8 +681,6 @@ class AddTenant extends Component{
                     [name]: selectOption.value,
                     errors:''
                 }
-            }, function () {
-                console.log(selectOption.value)
             });
         }
 }

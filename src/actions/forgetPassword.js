@@ -16,7 +16,6 @@
     }
 
     export function clearMessage(){
-    //     console.log('action',values);
     //    const request = axios.get(`${URN}/forgotPassword/` + values )
     //    .then(response => response.data)
     //     // .then(getCountry());

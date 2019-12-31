@@ -302,7 +302,7 @@ class FacilitySubMasterDetails extends Component {
             <Table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th style={{ width: "4%" }}></th>
+                        <th style={{ width: "4%" }}>Select</th>
                         <th>#</th>
                         {/* <th>Facility Name</th> */}
 

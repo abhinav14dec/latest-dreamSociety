@@ -309,7 +309,7 @@ class IndividualVendorBookingDetails extends Component {
     }
 
     h = (event) => {
-        this.setState({ [event.target.name]: event.target.checked }, function () { console.log(this.state.dJ, this.state.breakfast) })
+        this.setState({ [event.target.name]: event.target.checked })
 
     }
 
@@ -384,9 +384,7 @@ class IndividualVendorBookingDetails extends Component {
         this.handleChange(event);
         let selected = event.target.value;
         this.props.timeSlotData(selected).then(res => {
-          this.setState({ slots: res.payload.slots }, () => {
-            console.log("======inside state");
-          });
+          this.setState({ slots: res.payload.slots });
         });
     
         var result = _.find(

@@ -52,10 +52,10 @@ class ViewMachineMaster extends Component {
    
 
     componentDidMount(){
-        this.props.viewTower();
+        this.props.viewTower().then(() => this.setState({loading:false,modalLoading:false}))
             this.props.viewMachine().then(() => this.setState({loading:false,modalLoading:false}))
             this.props.getFlats(this.state.tenantId).then(() => this.setState({loading:false}))
-             this.props.getMachine()
+             this.props.getMachine().then(() => this.setState({loading:false,modalLoading:false}))
     }
 
     refreshData=()=>{
@@ -156,7 +156,7 @@ class ViewMachineMaster extends Component {
         }
 
     getTower = ({ tower }) => {
-        if (tower) {
+        if (tower && tower.tower) {
             return tower.tower.map((item) => {
                 return (
                     // { ...item, label: item.towerName, value: item.towerId }
@@ -348,11 +348,10 @@ class ViewMachineMaster extends Component {
         }
     }
     flat =({machine1})=>{
-        if(machine1)
+        if(machine1 && machine1.machinesDetail)
         {
 
                      return machine1.machinesDetail.map((item)=>{
-                                
                                 return (
                 
                                     <option key={item.machineDetailId} value ={item.machineDetailId}>
@@ -393,9 +392,7 @@ class ViewMachineMaster extends Component {
     onflatChangeHandler=(e)=>{
         this.setState({
             newFlatId:e.target.value
-        },function(){
-            console.log(this.state.newFlatId);
-        })
+        });
     }
 
 

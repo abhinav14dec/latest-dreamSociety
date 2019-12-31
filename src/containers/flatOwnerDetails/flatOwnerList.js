@@ -653,7 +653,7 @@ class FlatOwnerList extends Component {
         tableData = <Table className="table table-bordered">
             <thead>
                 <tr>
-                    <th style={{ width: "4%" }}></th>
+                    <th style={{ width: "4%" }}>Select</th>
                     <th style={{ textAlign: "center", width: "4%" }}>#</th>
                     <th style={{ textAlign: "center", width: "12%" }}>Profile Pic</th>
                     <th style={{ textAlign: "center", width: "12%" }} onClick={() => {

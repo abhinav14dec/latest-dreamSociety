@@ -366,7 +366,7 @@ class CityMasterDetail extends Component {
             <Table className="table table-bordered">
                 <thead>
                     <tr  >
-                        <th style={{width:'4%'}}></th>
+                        <th style={{width:'4%'}}>Select</th>
                         <th>#</th>
                         <th>Country Name</th>
                         <th>State Name</th>

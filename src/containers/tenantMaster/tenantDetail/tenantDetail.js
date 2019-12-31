@@ -369,9 +369,7 @@ class TenantDetail extends Component {
                 towerId: selectOption.towerId,
                 towerName: selectOption.towerName
             }
-        }, function () {
-            console.log(selectOption.towerId)
-        });
+        })
         this.props.getFlatDetailViaTowerId(selectOption.towerId);
     }
 
@@ -788,9 +786,7 @@ class TenantDetail extends Component {
                     [name]: selectOption.value,
                     errors:''
                 }
-            }, function () {
-                console.log(selectOption.value)
-            });
+            })
         }
 }
     editRFID = () => {

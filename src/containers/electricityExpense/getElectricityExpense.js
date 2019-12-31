@@ -413,7 +413,7 @@ class GetElectricityExpense extends Component {
       <Table bordered>
         <thead>
           <tr>
-            <th style={{ width: "4%" }}></th>
+            <th style={{ width: "4%" }}>Select</th>
             <th style={{ width: "4%" }}>#</th>
             <th>Tower</th>
             <th>Floor</th>

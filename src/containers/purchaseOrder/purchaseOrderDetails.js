@@ -771,7 +771,7 @@ class PurchaseOrderDetails extends Component {
       <Table className="table table-bordered">
         <thead>
           <tr>
-            <th style={{ width: "4%" }}></th>
+            <th style={{ width: "4%" }}>Select</th>
             <th style={{ textAlign: "center", width: "4%" }}>#</th>
             <th style={{ textAlign: "center", width: "12%" }}>Order Id</th>
             <th style={{ textAlign: "center", width: "12%" }}>IssuedBy</th>

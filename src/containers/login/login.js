@@ -207,15 +207,15 @@ class Login extends Component {
                 <ModalBody>
                     <div style={{ 'color': 'red' }}>{this.state.message}</div>
                     <FormGroup>
-                        <Label>Username</Label>
-                        <Input name="username" type="text" value={this.state.username} onChange={this.onChangeHandler}></Input>
+                        <Label for="username">Username</Label>
+                        <Input name="username" id="username" type="text" value={this.state.username} onChange={this.onChangeHandler}></Input>
                     </FormGroup>
                     <FormGroup>
-                        <Label>Password</Label>
-                        <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandler}></Input>
+                        <Label for="password">Password</Label>
+                        <Input name="password" id="password" type="password" value={this.state.password} onChange={this.onChangeHandler}></Input>
                     </FormGroup>
                     <FormGroup>
-                        <Button onClick={this.submit} color="primary" >Login</Button>{' '}
+                        <Button style={{color:'black'}} onClick={this.submit} color="primary" >Login</Button>{' '}
                     </FormGroup>
                     <a style={{ color: 'blue' }} href="/forgetPassword">Forget Password ?</a>
                     {/* <Link to ="/forgetPassword">Forget Password ?</Link> */}

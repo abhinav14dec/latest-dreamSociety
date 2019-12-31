@@ -88,9 +88,7 @@ class IndividualVendorBooking extends Component {
     this.handleChange(event);
     let selected = event.target.value;
     this.props.timeSlotData(selected).then(res => {
-      this.setState({ slots: res.payload.slots }, () => {
-        console.log(this.state.slots, "======inside state");
-      });
+      this.setState({ slots: res.payload.slots });
     });
 
     var result = _.find(
