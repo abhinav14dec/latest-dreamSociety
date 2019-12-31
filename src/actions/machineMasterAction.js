@@ -5,7 +5,7 @@ import {URN,ADD_MACHINE,GET_MACHINE,GET_MACHINE_ACTUAL_ID,UPDATE_MACHINE, DELETE
 
   
 export  function addMachine(machineDetailId,flatDetailId,type){
-    console.log(machineDetailId,flatDetailId,type)
+    
     const request= axios.post(`${URN}/machine `,{flatDetailId,machineDetailId,type} ,{headers:authHeader()})
     return{
         type :ADD_MACHINE,
@@ -31,7 +31,7 @@ export  function viewMachine(){
 }
 
 export function updateMachine( flatDetailId,machineDetailId,machineId,type){
-    console.log(flatDetailId,machineDetailId,machineId,type);
+    
     const request =axios.put(`${URN}/machine/`+machineId,{flatDetailId,machineDetailId,type},{headers:authHeader()})
     return{
         type:UPDATE_MACHINE,

@@ -14,7 +14,7 @@ export const getMaintenanceBillInfo=(towerId)=>{
 }
 
 export const getElectricityBillInfo=(towerId)=>{
-    console.log(towerId,"=======towerId")
+    
     const request = axios.get(`${URN}/electricityCharges/${towerId}`  , {headers:authHeader()})
      .then(response => response.data)
      return{
@@ -25,7 +25,7 @@ export const getElectricityBillInfo=(towerId)=>{
  }
 
  export const getElectricityBillUpdate=(id,payload)=>{
-     console.log(id,payload,"inside action")
+     
 
     const request = axios.put(`${URN}/electricityCharges/${id}`,payload , {headers:authHeader()})
      .then(response => response.data)

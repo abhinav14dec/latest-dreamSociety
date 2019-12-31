@@ -502,7 +502,7 @@ class MeterDetails extends Component {
  <FormGroup>
     
                     <label>Tower</label>
-                    {console.log(this.state.towerName)}
+                    
                     <Select
                     value={this.state.towerName}
                     options={this.getTower(this.props.towerList)}

@@ -4,7 +4,7 @@ import {URN,ADD_SOCIETY_EVENTS,GET_SOCIETY_EVENTS,UPDATE_SOCIETY_EVENTS ,DELETE_
 
 
 export function addSocietyEvents( values){
-  console.log(values,"=======event")
+  
      const request = axios.post(`${URN}/createEventBooking` , values , {headers:authHeader()})
       .then(response => response.data)
    

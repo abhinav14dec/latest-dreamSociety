@@ -77,7 +77,7 @@ class Payment extends Component {
     }
 
     checkRadio=(e,id)=>{
-        console.log("iiiiiii",id)
+        
         if(id===1){
             this.setState({radioId:1})
         }else{
@@ -90,12 +90,12 @@ class Payment extends Component {
     }
     payWithExisting = (e,ind) => {
         e.preventDefault();
-        console.log("vallllllll====>",e.target.value)
+        
         this.props.getCardDetails(e.target.value,authHeader).then(res=>{
             const cardData = res.payload.getExpiry;
             // eslint-disable-next-line
             cardData.map((item,index)=>{
-                console.log("sdfdsfdsfsdfsf",item)
+            
                 const exp = item.expiration.split('/');
             this.setState({
                 holder:item.holder,
@@ -103,7 +103,7 @@ class Payment extends Component {
                 expMonth:exp[0],
                 expYear:exp[1]
             })
-            console.log("9innnnnn===>",ind)
+            
             if(ind){
                 this.setState({existingCardId:ind})
             }else{
@@ -121,10 +121,10 @@ class Payment extends Component {
         this.setState({cardBrand:'Visa',cardNoLength:19})
     }
     // Mastercard 
-    
+    // eslint-disable-next-line
     re = new RegExp("5[1-5][0-9]|(2(?:2[2-9][^0]|2[3-9]|[3-6]|22[1-9]|7[0-1]|72[0]))\d*")
      if (number.match(re)!==null){
-         console.log("kjsdfkjsdhf")
+         
          this.setState({cardBrand:'MasterCard',cardNoLength:19});
      }
      
@@ -170,6 +170,7 @@ class Payment extends Component {
        this.setState({checkCard:true});
     var v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
     var matches = v.match(/\d{4,16}/g);
+    // eslint-disable-next-line
     var match = matches && matches[0] || ''
     var parts = []
 
@@ -217,9 +218,9 @@ class Payment extends Component {
         axios.post(`${URN}/validate/card`, {
             number, checkCard
         },{headers: authHeader()}).then(res => {
-            console.log("res.data.response.brand",res.data.response.brand)
+            
             // this.setState({ cardBrand: res.data.response.brand })
-            if (res.data.response.validCardNumber == true) {
+            if (res.data.response.validCardNumber === true) {
                 this.setState({number})
                 this.setState({ cardStatus: 'Card Number Approved', isValid: true })
             }else{
@@ -228,7 +229,7 @@ class Payment extends Component {
         })
         .catch(err => {
             this.setState({ errMessage: err.response.data.response, isValid: false })
-            // console.log(err.message);
+        
         })
     }
 
@@ -345,8 +346,8 @@ class Payment extends Component {
                       <div key={index}>
                  <FormGroup check>
                   <Label check>
-                  {console.log("item.length-4",item.length-4)}
-                  <Input type="radio" value={item} checked = {this.state.existingCardId==index} 
+                  
+                  <Input type="radio" value={item} checked = {this.state.existingCardId===index} 
                   name="existingCard" onChange={(e)=>this.payWithExisting(e,index)}/>
                   {
                     new Array(item.length-3).join('X').concat(item.slice(item.length-4,item.length))

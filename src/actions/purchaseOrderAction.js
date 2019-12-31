@@ -89,8 +89,7 @@ export const updatePurchaseOrderData=(purchaseOrderId, issuedBy, vendorId,expDat
   }
 
   export const updateAssetsDetails=(purchaseOrderId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount,purchaseOrderDetailId)=>{
-  
-    //  console.log(purchaseOrderId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount,purchaseOrderDetailId)
+
     const request = axios.put(`${URN}/updatePurchaseOrderDetails/`+ purchaseOrderDetailId ,{purchaseOrderDetailId,purchaseOrderType,purchaseOrderSubType,purchaseOrderName,rate,quantity,amount}, {headers:authHeader()})
      .then(response => response.data)
     

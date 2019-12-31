@@ -59,7 +59,7 @@ class ElectricityBillGeneration extends Component {
 
     onChangeUnit=(initialReading,value,index,event)=>{
         this.setState({[event.target.name]:event.target.value})
-       console.log('index...', this.state.ids)
+       
        let units=event.target.value-initialReading
        let unitConsumed=this.state.unitConsumed
        let ids=this.state.ids?this.state.ids.map(item=>{
@@ -93,7 +93,7 @@ class ElectricityBillGeneration extends Component {
 
     submitHandle=(id,monthlyCharges)=>{
         const {entryDate,currentReading,unitConsumed}=this.state
-        console.log('Final value....',unitConsumed )
+        
         let payload={
                entryDate:entryDate,
                currentReading:Number(currentReading),

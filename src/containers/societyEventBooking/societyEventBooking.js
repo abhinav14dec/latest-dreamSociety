@@ -125,7 +125,7 @@ class SocietyEventBooking extends Component {
 
     onSubmit=(event)=>{
         event.preventDefault();
-        console.log("=======")
+        
         let errors = {};
         if(this.state.eventId===''){
             errors.eventId="Event Name can't be empty"
@@ -168,7 +168,7 @@ class SocietyEventBooking extends Component {
         this.setState({ errors });
 
         const Events=this.state
-        console.log(Events,"+======event")
+        
         const isValid = Object.keys(errors).length === 0
         if (isValid) {
             this.setState({loading: true});

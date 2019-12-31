@@ -14,7 +14,7 @@ export function getData(){
 }
 
 export function addCard(values,authHeader){
-  console.log('action reached',values);
+  
   
 const request = axios.post(`${URN}/save/card/data`,values,{headers:authHeader()})
   .then(response => response.data)
@@ -25,7 +25,7 @@ const request = axios.post(`${URN}/save/card/data`,values,{headers:authHeader()}
 }
 
 export function getCard(authHeader){
-    // console.log(user);
+  
   const request = axios.get(`${URN}/card`,{headers:authHeader()})
     .then(response => response.data)
     return {
@@ -35,7 +35,7 @@ export function getCard(authHeader){
 }
 
 export function verifySignatureFun(data,authHeader){ 
-  console.log(data,"verifySignature");
+
 
   const request = axios.post(`${URN}/card/verifySignature`,data,{headers:authHeader()})
     .then(response => response.data)

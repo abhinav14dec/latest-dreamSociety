@@ -33,7 +33,7 @@ export function updateFacility(facilityId,facilityName){
 }
 
 
-export function deleteSelectedFacility(ids){console.log(ids)
+export function deleteSelectedFacility(ids){
     const request= axios.put(`${URN}/facility/delete/deleteSelected`,{ids},{headers:authHeader()})
     .then((response) => response.data)
     .then(() => this.getFacility())

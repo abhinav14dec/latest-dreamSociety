@@ -3,7 +3,7 @@ import {authHeader} from '../helper/authHeader';
 import axios from 'axios';
 
 
-export function addCommonAreaMachine(commonAreaId,machineDetailId,machines){console.log("action",commonAreaId,machineDetailId,machines)
+export function addCommonAreaMachine(commonAreaId,machineDetailId,machines){
     const request = axios.post(`${URN}/commonAreaDetail`,{commonAreaId,machineDetailId,machines}, {headers:authHeader()})
    
     return {

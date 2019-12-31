@@ -112,7 +112,7 @@ class Login extends Component {
                         this.setState({
                             message: loginData.payload.data.message
                         })
-                        console.log("loginData.payload.data",loginData.payload.data)
+                       
 
                         localStorage.setItem('token', loginData.payload.data.accessToken);
                         localStorage.setItem('user-type', loginData.payload.data.userType);
