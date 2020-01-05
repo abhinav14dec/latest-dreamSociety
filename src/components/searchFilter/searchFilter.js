@@ -7,7 +7,8 @@ const searchFilter = (props) => {
             <Input type={props.type}
                 value={props.value}
                 onChange={props.onChange}
-                placeholder="Search" />
+                placeholder="Search"
+                aria-label="Search" />
         </FormGroup>
     );
 }

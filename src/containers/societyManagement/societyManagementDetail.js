@@ -357,7 +357,7 @@ class SocietyManagementDetail extends Component {
                         <td>{item.registrationNumber}</td>
                         <td>{item.totalBoardMembers}</td>
                             <td>
-                                <Button color="success mr-2" onClick={this.toggle.bind(this, 
+                                <Button color="success mr-2" className="page-btn" onClick={this.toggle.bind(this, 
                                     item.societyId, 
                                     item.country_master ? item.country_master.countryName:'', 
                                     item.state_master?item.state_master.stateName:'',
@@ -625,8 +625,8 @@ class SocietyManagementDetail extends Component {
                             <Input type="text"  name="totalBoardMembers" onChange={this.onChangeHandler} value={this.state.totalBoardMembers}  onKeyPress={this.OnKeyPresshandlerPhone} maxLength={2}/>
                             <span className="error">{this.state.errors.totalBoardMembers}</span> 
                         </FormGroup>
-                        <Button color="primary mr-2" onClick={this.editSocietyType}>Save</Button> 
-                        <Button color="danger" onClick={this.toggleModal.bind(this)}>Cancel</Button>
+                        <Button color="primary mr-2" className="page-btn" onClick={this.editSocietyType}>Save</Button> 
+                        <Button color="danger" className="page-btn" onClick={this.toggleModal.bind(this)}>Cancel</Button>
         </div>
 
         return (

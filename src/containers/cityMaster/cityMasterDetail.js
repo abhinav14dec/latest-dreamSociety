@@ -216,7 +216,7 @@ class CityMasterDetail extends Component {
            
                 return (
                     <tr key={item.cityId}  >
-                        <td><input type="checkbox" className="SelectAll" name="ids" value={item.cityId}
+                        <td><input aria-label="Checkbox" type="checkbox" className="SelectAll" name="ids" value={item.cityId}
                             onChange={(e, i) => {
                                 const { cityId } = item
                                 if (!e.target.checked) {
@@ -243,9 +243,9 @@ class CityMasterDetail extends Component {
                         <td>{item.state_master?item.state_master.stateName:''}</td>
                         <td>{item.cityName}</td>
                         <td>
-                            <Button color="success mr-2" onClick={this.toggle.bind(this, item.cityId, item.country_master?item.country_master.countryName:'', item.state_master?item.state_master.stateName:'', item.cityName)} >Edit</Button>
+                            <Button color="success mr-2" className="page-btn" onClick={this.toggle.bind(this, item.cityId, item.country_master?item.country_master.countryName:'', item.state_master?item.state_master.stateName:'', item.cityName)} >Edit</Button>
 
-                            <Button color="danger" onClick={this.deleteCityName.bind(this, item.cityId)} >Delete</Button>
+                            <Button color="danger" className="page-btn" onClick={this.deleteCityName.bind(this, item.cityId)} >Delete</Button>
 
                         </td>
                     </tr>
@@ -413,9 +413,9 @@ class CityMasterDetail extends Component {
 
 
                                 <FormGroup>
-                                    <Button color="primary mr-2" onClick={this.editCityType}>Save</Button>
+                                    <Button color="primary mr-2" className="page-btn" onClick={this.editCityType}>Save</Button>
 
-                                    <Button color="danger" onClick={this.toggleModal.bind(this)}>Cancel</Button>
+                                    <Button color="danger" className="page-btn" onClick={this.toggleModal.bind(this)}>Cancel</Button>
                                 </FormGroup>
             </div>
         return (
@@ -428,7 +428,7 @@ class CityMasterDetail extends Component {
                         </div>
                         <div className="top-details">
                             <h3>City Details</h3>
-                            <Button onClick={this.routeToAddNewCity} color="primary">Add City</Button>
+                            <Button className="page-btn" onClick={this.routeToAddNewCity} color="primary">Add City</Button>
                         </div>
                         <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
                             <ModalHeader toggle={this.toggle}>Edit</ModalHeader>
@@ -436,10 +436,11 @@ class CityMasterDetail extends Component {
                             {!this.state.modalLoading  ? modalData : <Spinner />}
                             </ModalBody>
                         </Modal>
-                        <SearchFilter type="text" value={this.state.search}
+
+                        <SearchFilter  type="text" value={this.state.search}
                             onChange={this.searchOnChange} />
 
-                        <Button color="danger" className="mb-3" onClick={this.deleteSelected.bind(this, this.state.ids)} disabled={this.state.isDisabled} >Delete Selected</Button>
+                        <Button color="danger" className="mb-3 page-btn" onClick={this.deleteSelected.bind(this, this.state.ids)} disabled={this.state.isDisabled} >Delete Selected</Button>
                         <Label htmlFor="allSelect" style={{alignContent:'baseline',marginLeft:"10px",fontWeight:"700"}}>Select All<input className="ml-2"
                     id="allSelect"
                     type="checkbox" onChange={(e) => {

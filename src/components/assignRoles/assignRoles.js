@@ -151,8 +151,8 @@ class AssignRoles extends Component {
 
         let formData = <div>
             <FormGroup>
-                <Label>Type</Label>
-                <Input type="select" defaultValue='no-value' name="roleId" onChange={this.onChangeRoles}>
+                <Label for="roleId">Type</Label>
+                <Input type="select" defaultValue='no-value' name="roleId" id="roleId" onChange={this.onChangeRoles}>
                     <DefaultSelect />
                     {this.roleDetail(this.props.AssignRolesReducer)}
                 </Input>
@@ -161,8 +161,8 @@ class AssignRoles extends Component {
 
 
             <FormGroup>
-                <Label>Name</Label>
-                <Input type="select" defaultValue='no-value' name="userId" onChange={this.onChange}>
+                <Label for="userId">Name</Label>
+                <Input type="select" defaultValue='no-value' name="userId" id="userId" onChange={this.onChange}>
                     <DefaultSelect />
                     {this.roleOwner(this.props.AssignRolesReducer)}
                 </Input>
@@ -170,16 +170,16 @@ class AssignRoles extends Component {
             </FormGroup>
 
             <FormGroup>
-                <Label>Roles</Label>
-                <Input type="select" defaultValue='no-value' name="id" onChange={this.onChange}>
+                <Label for="role">Roles</Label>
+                <Input type="select" defaultValue='no-value' name="id" id="role" onChange={this.onChange}>
                     <DefaultSelect />
                     {this.roleChanges(this.props.AssignRolesReducer)}
                 </Input>
                 <span className="error">{this.state.errors.id}</span>
             </FormGroup>
 
-            <Button color="success" className="mr-2">Submit Role</Button>
-            <Button color="danger" onClick={this.dashbordPage}>Cancel</Button>
+            <Button color="success" className="mr-2 page-btn">Submit Role</Button>
+            <Button color="danger" className="page-btn" onClick={this.dashbordPage}>Cancel</Button>
         </div>
         return (
             <div>

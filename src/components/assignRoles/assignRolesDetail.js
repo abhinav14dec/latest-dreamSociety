@@ -141,7 +141,7 @@ class AssignRolesDetail extends Component {
                         </div>
                         <div className="top-details">
                             <h3>Role Details</h3>
-                            <Button onClick={this.routeToChangeRoles} color="primary">Add Roles</Button>
+                            <Button onClick={this.routeToChangeRoles} className="page-btn" color="primary">Add Roles</Button>
                         </div>
                      
                         <SearchFilter type="text" value={this.state.search}

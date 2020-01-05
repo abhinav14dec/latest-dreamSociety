@@ -237,8 +237,8 @@ class CityMaster extends Component {
         if(!this.state.loading && this.props.cityMasterReducer.countryResult && this.props.cityMasterReducer.stateResult  &&  this.state.errors){
         formData =<div>
          <FormGroup>
-            <Label>Country Name</Label>
-            <Input type="select" defaultValue='no-value' name="countryName" onChange={this.onChangeCountry}>
+            <Label for="countryName">Country Name</Label>
+            <Input type="select" defaultValue='no-value' id="countryName" name="countryName" onChange={this.onChangeCountry}>
             <DefaultSelect/>
                 {this.countryName(this.props.cityMasterReducer)}
             </Input >
@@ -246,8 +246,8 @@ class CityMaster extends Component {
         </FormGroup>
         
         <FormGroup>
-            <Label>State Name</Label>
-            <Input type="select" defaultValue='no-value' name="stateName" onChange={this.onChangeState}>
+            <Label for="stateName">State Name</Label>
+            <Input type="select" defaultValue='no-value' id="stateName" name="stateName" onChange={this.onChangeState}>
             <DefaultSelect/>
                 {this.stateName(this.props.cityMasterReducer)}
             </Input>
@@ -255,15 +255,15 @@ class CityMaster extends Component {
         </FormGroup>
 
       <FormGroup>
-            <Label>City Name</Label>
-            <Input  type="text" name="cityName"  onChange={this.onChange}  onKeyPress={this.onKeyPressHandler} placeholder="City Name" maxLength={30}
+            <Label for="cityName">City Name</Label>
+            <Input  type="text" name="cityName" id="cityName"  onChange={this.onChange}  onKeyPress={this.onKeyPressHandler} placeholder="City Name" maxLength={30}
         minLength={3}/>
             <span className='error'>{this.state.errors.cityName}</span>
             <span className="error">{this.state.message}</span>
         </FormGroup>
          
-        <Button color="success" className="mr-2">Submit</Button>
-        <Button color="danger" onClick={this.cityDetails}>Cancel</Button>
+        <Button color="success" className="mr-2 page-btn">Submit</Button>
+        <Button color="danger" className="page-btn" onClick={this.cityDetails}>Cancel</Button>
        
         </div>
 

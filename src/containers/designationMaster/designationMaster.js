@@ -91,8 +91,8 @@ class DesignationMaster extends Component {
         formData = <div>
 
             <FormGroup>
-                <Label>Designation Name</Label>
-                <Input type="text" name="designationName" onChange={this.onDesignationChange} onKeyPress={this.OnKeyPressUserhandler} placeholder="Designation Name" maxLength={50}
+                <Label for="designationName">Designation Name</Label>
+                <Input type="text" name="designationName" id="designationName" onChange={this.onDesignationChange} onKeyPress={this.OnKeyPressUserhandler} placeholder="Designation Name" maxLength={50}
                     minLength={3} />
                 <span className="error">{this.state.errors.designationName}</span>
                 <span className="error">{this.state.message}</span>
@@ -101,8 +101,8 @@ class DesignationMaster extends Component {
 
 
 
-            <Button color="success" className="mr-2">Submit</Button>
-            <Button color="danger" onClick={this.designationDetails} >Cancel</Button>
+            <Button color="success" className="mr-2 page-btn">Submit</Button>
+            <Button color="danger" className="page-btn" onClick={this.designationDetails} >Cancel</Button>
         </div>
         return (
             <div>

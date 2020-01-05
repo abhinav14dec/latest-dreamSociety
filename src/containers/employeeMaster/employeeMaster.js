@@ -273,6 +273,7 @@ FileChange=(event)=>{
         data.append('rfidId',this.state.rfidId)
         data.append('employeeDetailId',this.state.employeeDetailId)
 
+
          this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  {
             this.setState({emailServerError:  err.response.data.messageEmailErr,
                 contactServerError:  err.response.data.messageContactErr,loading: false})
@@ -660,6 +661,8 @@ updatePermanentAddress = (pin) => {
 }
 
 render(){
+    console.log(this.state.documentOne,"==========")
+    console.log(this.state.documentTwo,"==========-------")
 let formData=
 <div>
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { authHeader } from '../helper/authHeader';
 
 export function AddEmployee(data){
-    
+    console.log(data,"action data")
     const config = {
         headers: {
           'content-type': 'multipart/form-data'

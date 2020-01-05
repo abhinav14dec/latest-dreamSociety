@@ -459,7 +459,7 @@ class DisplayVendorMaster extends Component {
             }
         }
     
-        onChangeCountry = (selectOption) => {
+        onChangeCountry = (countryName,countryId,selectOption) => {
         
             this.setState({
                 countryName: selectOption.countryName,
@@ -496,7 +496,7 @@ class DisplayVendorMaster extends Component {
             }
         }
         
-        onChangeState = (selectOption) => {
+        onChangeState = (stateName,stateId,selectOption) => {
             this.setState({
                 stateName: selectOption.stateName,
                 stateId:selectOption.stateId
@@ -536,7 +536,7 @@ class DisplayVendorMaster extends Component {
             }
         }
         
-        onChangeCity = (selectOption) => {
+        onChangeCity = (cityName,cityId,selectOption) => {
             this.setState({
                 cityName: selectOption.cityName,
                 cityId:selectOption.cityId
@@ -575,7 +575,7 @@ class DisplayVendorMaster extends Component {
              }
          }
         
-        onChangeLocation = ( selectOption) => {
+        onChangeLocation = (locationName, locationId, selectOption) => {
             this.setState({
                 locationName: selectOption.locationName,
                 locationId:selectOption.locationId,
@@ -635,7 +635,7 @@ class DisplayVendorMaster extends Component {
         `${this.state.cityName} ${this.state.stateName}, ${this.state.countryName}, Pin/Zip Code: ${pin1}`})
     }
     
-    countryChange = (selectOption) => {
+    countryChange = (currentCountry, currentCountryId,selectOption) => {
     
         this.setState({
             currentCountry: selectOption.countryName,
@@ -646,7 +646,7 @@ class DisplayVendorMaster extends Component {
     }
     
     
-    stateChange = (selectOption) => {
+    stateChange = (currentState, currentStateId,selectOption) => {
         this.setState({
             currentState: selectOption.stateName,
             currentStateId:selectOption.stateId
@@ -654,7 +654,7 @@ class DisplayVendorMaster extends Component {
         this.props.getCity(selectOption.stateId);
     }
     
-    cityChange = (selectOption) => {
+    cityChange = (currentCity,currentCityId,selectOption) => {
         this.setState({
             currentCity: selectOption.cityName,
             currentCityId:selectOption.cityId
@@ -662,7 +662,7 @@ class DisplayVendorMaster extends Component {
         this.props.getLocation(selectOption.cityId)
     }
     
-    locationChange = (selectOption) => {
+    locationChange = (currentLocation,currentLocationId,selectOption) => {
         this.setState({
             currentLocation: selectOption.locationName,
             permanentLocationId:selectOption.locationId,

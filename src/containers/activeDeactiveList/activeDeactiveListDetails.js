@@ -145,7 +145,7 @@ class ShowActiveListDetails extends Component{
                 return (
                     <tr key={item.userId}>
                      <td>
-                         <input type="checkbox" name="ids" className="SelectAll"  value={item.userId}
+                         <input aria-label="Checkbox" type="checkbox" name="ids" className="SelectAll"  value={item.userId}
                          onChange={(e) => {
                             let {userId} = item
                             if(!e.target.checked){
@@ -177,7 +177,7 @@ class ShowActiveListDetails extends Component{
 
                         <td>
                             {/* <Button color="success" size="sm" className="mr-2"onClick={this.editCountry.bind(this, item.fullName)}>Deactivate</Button> */}
-                            <Button color="danger" size="sm" onClick={this.deleteUser.bind(this, item.userId,item.type)} >Deactivate</Button>
+                            <Button color="danger" className="page-btn" size="sm" onClick={this.deleteUser.bind(this, item.userId,item.type)} >Deactivate</Button>
                         </td>
                     </tr>
                 )
@@ -292,7 +292,7 @@ class ShowActiveListDetails extends Component{
           tableData= <Table className="table table-bordered">
         <thead>
             <tr>
-            <th style={{width: "4%"}}></th>
+            <th style={{width: "4%"}}>Select</th>
                         <th>#</th>
                         <th  style={{cursor:'pointer'}} onClick={()=>{
                              this.setState((state)=>{return {sortVal:!state.sortVal,
@@ -316,7 +316,7 @@ class ShowActiveListDetails extends Component{
     let deleteSelectedButton = <Button
      disabled={this.state.isDisabled}
      color="danger"
-    className="mb-3"
+    className="mb-3 page-btn"
     onClick={this.deleteSelectedActiveMembers.bind(this, this.state.ids,this.state.type)}>Deactivate Selected</Button>
     
     let modalData = <div>
@@ -371,8 +371,8 @@ class ShowActiveListDetails extends Component{
                                          <span  className='error'>{this.state.errors.phoneCode}</span>
                                 </FormGroup>
                                 <FormGroup>
-                                <Button color="primary mr-2" onClick={this.updateBook}>Save</Button>
-                                <Button color="danger" onClick={this.toggleEditUserModal.bind(this)}>Cancel</Button>
+                                <Button color="primary mr-2" className="page-btn" onClick={this.updateBook}>Save</Button>
+                                <Button color="danger" className="page-btn" onClick={this.toggleEditUserModal.bind(this)}>Cancel</Button>
                                 </FormGroup>
     </div>
 
@@ -385,7 +385,7 @@ class ShowActiveListDetails extends Component{
                             </div>
                         <div className="top-details">
                                 <h3>Active Members Details</h3>
-                                <Button onClick={this.routeToAddNewUser} color="primary">Show Option</Button>
+                                <Button className="page-btn" onClick={this.routeToAddNewUser} color="primary">Show Option</Button>
                             </div>
                         <Modal isOpen={this.state.editUserModal} toggle={this.toggleEditUserModal.bind(this)}>
                             <ModalHeader toggle={this.toggleEditUserModal.bind(this)}>Edit a flat</ModalHeader>

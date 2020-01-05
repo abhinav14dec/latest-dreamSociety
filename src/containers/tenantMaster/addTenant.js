@@ -443,7 +443,7 @@ class AddTenant extends Component{
 
         
 
-        towerChangeHandler = (selectOption) => {
+        towerChangeHandler = (towerId,towerName,selectOption) => {
             this.setState({correspondenceAddress:''})
             this.setState(function () {
                 return {
@@ -457,7 +457,7 @@ class AddTenant extends Component{
         }
 
     
-        floorChangeHandler=(selectOption)=>{
+        floorChangeHandler=(floorName,floorId,selectOption)=>{
             this.setState({
                 floorName: selectOption.floorName,
                 floorId: selectOption.floorId,
@@ -468,7 +468,7 @@ class AddTenant extends Component{
             
             }
 
-            flatChangeHandler=(selectOption)=>{
+            flatChangeHandler=(flatNo,flatDetailId,selectOption)=>{
                 this.setState({
                     flatNo: selectOption.flatNo,
                     flatDetailId: selectOption.flatDetailId,
@@ -503,7 +503,7 @@ class AddTenant extends Component{
                 
             }
 
-            onChangeCountry = (selectOption) => {
+            onChangeCountry = (countryName,countryId,selectOption) => {
                 this.setState({
                     countryName: selectOption.countryName,
                     countryId:selectOption.countryId,
@@ -532,7 +532,7 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeState = (selectOption) => {
+            onChangeState = (stateName, stateId,selectOption) => {
                 this.setState({
                     stateName: selectOption.stateName,
                     stateId:selectOption.stateId,
@@ -564,7 +564,7 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeCity = (selectOption) => {
+            onChangeCity = (cityName,cityId,selectOption) => {
                 this.setState({
                     cityName: selectOption.cityName,
                     cityId:selectOption.cityId,
@@ -595,7 +595,7 @@ class AddTenant extends Component{
                 }
             }
 
-            onChangeLocation = (selectOption) => {
+            onChangeLocation = (locationName,locationId,selectOption) => {
                 this.setState({
                     locationName: selectOption.locationName,
                     locationId:selectOption.locationId,

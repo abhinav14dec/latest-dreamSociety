@@ -390,7 +390,8 @@ class vendorMaster extends Component {
         }
     }
     
-    onChangeCountry = (countryId, countryName, selectOption) => {    
+    onChangeCountry = (countryId, countryName, selectOption) => { 
+
         this.setState({
             countryName: selectOption.countryName,
             countryId:selectOption.countryId, 
@@ -520,7 +521,8 @@ class vendorMaster extends Component {
     }
     
     
-    countryChange = (selectOption) => {    
+    countryChange = (currentCountry,currentCountryId,selectOption) => { 
+         
         this.setState({
             currentCountry: selectOption.countryName,
             currentCountryId:selectOption.countryId, 

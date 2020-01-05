@@ -202,8 +202,9 @@ class ShowList extends Component {
              form=<div>
 
              <FormGroup>
-                <Label>Role</Label>
+                <Label for="role">Role</Label>
                 <Input type="select" 
+                id="role"
                 name='id'
                 onChange={this.onChange}>
                    <option >--SELECT--</option>
@@ -217,8 +218,8 @@ class ShowList extends Component {
             <FormGroup>
             <div className='container'>
             <div className='row'>
-                <Button className='col-5 align-self-start' color="success"onClick={this.submit} >Show Active Members </Button>
-                    <Button className='col-5 align-self-end' style={{left: '100px'}} color="danger" onClick={this.submit1}>Show Deactive Members</Button>
+                <Button className='col-5 align-self-start page-btn'  color="success"onClick={this.submit} >Show Active Members </Button>
+                    <Button className='col-5 align-self-end page-btn' style={{left: '100px'}} color="danger" onClick={this.submit1}>Show Deactive Members</Button>
                     </div>
                     </div>
             </FormGroup>
