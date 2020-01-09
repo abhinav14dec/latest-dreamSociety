@@ -4,7 +4,8 @@ import { URN,GET_FINGERPRINT_DATA,GET_MACHINE_DATA,GET_MACHINE_DETAILS,DISABLE_M
 
 
 
-export const getFingerprintData=(type)=>{   
+export const getFingerprintData=(type)=>{  
+    console.log("====action",type) 
     const request = axios.get(`${URN}/fingerPrint/userFlats/${type}`, {headers:authHeader()})
      .then(response => response.data)
      .catch(error => error)

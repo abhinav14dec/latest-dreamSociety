@@ -1,9 +1,9 @@
-import {URN,ADD_EMP,GET_EMP,DELETE_EMP,GET_LOCATION_DETAIL,UPDATE_EMPLOYEE,DELETE_MULTIPLE_EMPLOYEE} from '../actionCreators/index'
+import {URN,ADD_EMP,GET_EMP,DELETE_EMP,GET_LOCATION_DETAIL,UPDATE_EMPLOYEE,DELETE_MULTIPLE_EMPLOYEE,UPDATE_DASHBOARD_EMPLOYEE,GET_DASHBOARD_EMPLOYEE} from '../actionCreators/index'
 import axios from 'axios';
 import { authHeader } from '../helper/authHeader';
 
 export function AddEmployee(data){
-    console.log(data,"action data")
+
     const config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -76,4 +76,27 @@ export function deleteMultipleEmployee(ids){
     }
 
 
+}
+
+
+export function updateDashboardEmployee(employeeId,data){
+    const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+
+    const request =axios.put(`${URN}/employee/update/profile/`+employeeId,data,{headers:authHeader()},config)
+    return{
+        type:UPDATE_DASHBOARD_EMPLOYEE,
+        payload:request
+    }
+}
+
+export function getDashboardEmployee(userId){
+    const request = axios.get(`${URN}/employee/${userId}`,{headers:authHeader()})
+    return{
+        type:GET_DASHBOARD_EMPLOYEE,
+        payload:request
+    }
 }

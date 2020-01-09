@@ -43,7 +43,11 @@ class EmployeeMaster extends Component{
         lastName:'',
         startDate:'',
         serviceType:'',
-        salary:'',
+        hra:'',
+        basic:'',
+        travelAllowance:'',
+        pf:'',
+        esi:'',
         file:'',
         errors:{},
         contact:'',
@@ -161,6 +165,7 @@ FileChange=(event)=>{
 
     
     rfIdChangeHandler=(selectOption)=>{
+        console.log(selectOption.rfidId,"======rfid")
         this.setState({
             rfidId:selectOption.rfidId
         })
@@ -216,8 +221,8 @@ FileChange=(event)=>{
          if(!this.state.lastName){
        errors.lastName ="Last Name can't be empty."
          }
-         if(!this.state.salary){
-            errors.salary ="salary can't be empty."
+         if(!this.state.basic){
+            errors.hra ="basic can't be empty."
               }
         if(!this.state.employeeDetailId){
             errors.employeeDetailId ="service Type can't be empty"
@@ -256,25 +261,29 @@ FileChange=(event)=>{
         data.append('firstName',this.state.firstName)
         data.append('middleName',this.state.middleName)
         data.append('lastName',this.state.lastName)
-        data.append('salary',this.state.salary)
+        data.append('basic',this.state.basic)
+        data.append('hra',this.state.hra)
+        data.append('travelAllowance',this.state.travelAllowance)
+        data.append('pf',this.state.pf)
+        data.append('esi',this.state.esi)
         data.append('startDate',this.state.startDate)
         data.append('permanentAddress',this.state.permanentAddress)
         data.append('currentAddress',this.state.currentAddress)
-        data.append('stateId1',this.state.stateId)
-        data.append('countryId1',this.state.countryId)
-        data.append('cityId1',this.state.cityId)
-        data.append('locationId1',this.state.locationId)
-        data.append('stateId2',this.state.stateId)
-        data.append('countryId2',this.state.countryId)
-        data.append('cityId2',this.state.cityId)
-        data.append('locationId2',this.state.locationId)
+        // data.append('stateId1',this.state.stateId)
+        // data.append('countryId1',this.state.countryId)
+        // data.append('cityId1',this.state.cityId)
+        // data.append('locationId1',this.state.locationId)
+        // data.append('stateId2',this.state.currentStateId)
+        // data.append('countryId2',this.state.currentCountryId)
+        // data.append('cityId2',this.state.currentCityId)
+        // data.append('locationId2',this.state.currentLocationId)
         data.append('email',this.state.email)
         data.append('contact',this.state.contact)
         data.append('rfidId',this.state.rfidId)
         data.append('employeeDetailId',this.state.employeeDetailId)
 
 
-         this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  {
+         this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  { console.log(err)
             this.setState({emailServerError:  err.response.data.messageEmailErr,
                 contactServerError:  err.response.data.messageContactErr,loading: false})
         });
@@ -309,7 +318,7 @@ FileChange=(event)=>{
 
     getService=({getEmployee})=>{
  if(getEmployee && getEmployee.employeeDetail){
-     return getEmployee.employeeDetail.map((item)=>{
+     return getEmployee.employeeDetail.map((item)=>{ console.log(item,"=====")
    return(
        <option key={item.employeeDetailId} value={item.employeeDetailId}>
             {item.serviceType}-{item.employee_work_type_master.employeeWorkType}-
@@ -385,7 +394,8 @@ stateName1 = ({stateResult}) => {
 onChangeState = (stateName, stateId, selectOption) => {
     this.setState({
         stateName: selectOption.stateName,
-        stateId:selectOption.stateId
+        stateId:selectOption.stateId,
+
     })
     this.props.getCity(selectOption.stateId);
 }
@@ -424,7 +434,8 @@ cityName1=({cityResult})=>{
 onChangeCity = (cityName, cityId, selectOption) => {
     this.setState({
         cityName: selectOption.cityName,
-        cityId:selectOption.cityId
+        cityId:selectOption.cityId,
+    
     })
     this.props.getLocation(selectOption.cityId)
 }
@@ -464,6 +475,7 @@ onChangeLocation = (locationName, locationId, selectOption) => {
     this.setState({
         locationName: selectOption.locationName,
         locationId:selectOption.locationId,
+        
 
     })
     this.updatePermanentAddress1(selectOption.locationName)
@@ -476,11 +488,12 @@ updatePermanentAddress1 = (location) => {
 }
 
 
-countryChange = (selectOption) => {
+countryChange = (currentCountry,currentCountryId,selectOption) => {
 
     this.setState({
         currentCountry: selectOption.countryName,
         currentCountryId:selectOption.countryId,
+        
     })
 
     this.props.getState(selectOption.countryId)
@@ -498,7 +511,7 @@ stateChange = (currentState, currentStateId, selectOption) => {
 cityChange = (currentCity, currentCityId, selectOption) => {
     this.setState({
         currentCity: selectOption.cityName,
-        currentCityId:selectOption.cityId
+        currentCityId:selectOption.cityId,
     })
     this.props.getLocation(selectOption.cityId)
 }
@@ -533,6 +546,7 @@ defaultPermanentAddressChange = (e) =>{
 }
 
 onChange = (e) => {
+    console.log(e.target.value)
     this.setState({emailServerError:'',contactServerError:''  })
     if (!!this.state.errors[e.target.name]) {
         let errors = Object.assign({}, this.state.errors);
@@ -660,9 +674,13 @@ updatePermanentAddress = (pin) => {
     }
 }
 
+onRateChange=(e)=>{
+    if (e.target.value.match(/^\d*(\.\d{0,2})?$/)){
+        this.setState({[e.target.name]:e.target.value});    
+    }
+} 
 render(){
-    console.log(this.state.documentOne,"==========")
-    console.log(this.state.documentTwo,"==========-------")
+
 let formData=
 <div>
 
@@ -738,9 +756,30 @@ let formData=
 
         <label> Salary(perAnnum)</label>
 
-        <input placeholder="Salary" type="text"  className="form-control" name ="salary"  onChange ={this.onChange} onKeyPress={ this.OnKeyPressNumber}  maxLength={20}/>
-        <span className="error">{this.state.errors.salary}</span>
+        <input placeholder="Basic Salary" type="text"  className="form-control" name ="basic"  value={this.state.basic} onChange ={this.onRateChange}  maxLength={15}/>
+        <span className="error">{this.state.errors.basic}</span>
     </div>
+    <FormGroup>
+        <Row md={12}>
+           <Col md={6}>
+               <Input placeholder="HRA" type="text"  name ="hra" value={this.state.hra} onChange ={this.onRateChange}  maxLength={15}></Input>
+           </Col>
+           <Col md={6}>
+           <Input placeholder="Travel Allowance" type="text"  name ="travelAllowance"  value={this.state.travelAllowance} onChange ={this.onRateChange}  maxLength={15}></Input>
+           </Col>
+        </Row>
+    </FormGroup>
+    <FormGroup>
+        <Row md={12}>
+           <Col md={6}>
+               <Input placeholder="PF" type="text"  name ="pf"  value={this.state.pf} onChange ={this.onRateChange} maxLength={15}></Input>
+           </Col>
+           <Col md={6}>
+           <Input placeholder="ESI" type="text"  name ="esi"  value={this.state.esi} onChange ={this.onRateChange}  maxLength={15}></Input>
+           </Col>
+        </Row>
+    </FormGroup>
+    
 
 <FormGroup style={{paddingTop:'20px'}}>
                         <h4 style={{textAlign:'center',  fontWeight:'600', marginBottom:'20px'}}>Permanent Address</h4>

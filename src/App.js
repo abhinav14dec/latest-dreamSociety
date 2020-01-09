@@ -205,6 +205,7 @@ import MaintenanceBillGeneration from './containers/maintenanceBillInfo/maintena
 import MaintenanceBillPayment from './containers/maintenanceBillInfo/maintenanceBillPayment';
 import ElectricityBillGeneration from './containers/electricityBillInfo/electricityBillGeneration';
 import FacilityBillCharges from './containers/facilityBillChargesInfo/facilityBillCharges';
+import EmployeeDashboardDetails from './containers/employeeDashboardDetails/employeeDashboardDetails';
 
 
 
@@ -322,7 +323,7 @@ class App extends Component {
             <OwnerPrivateRoute path='/ownerDashboard/changePasswordOwner' component={ChangePasswordOwner} />
             <VendorPrivateRoute path='/vendorDashboard/changePasswordVendor' component={ChangePasswordVendor} />
             <EmployeePrivateRoute path='/employeeDashboard/changePasswordEmployee' component={ChangePasswordEmployee} />
-            <PrivateRoute path='/superDashboard/displayEmployee' component={DisplayEmployeeMaster} />
+            {/* <PrivateRoute path='/superDashboard/displayEmployee' component={DisplayEmployeeMaster} /> */}
             <PrivateRoute path='/superDashboard/displayEmployee2' component={DisplayEmployeeMaster2} />
             <PrivateRoute path='/superDashboard/inventoryList' component={InventoryList} />
             <PrivateRoute path='/superDashboard/showList' exact component={ShowList} />
@@ -425,7 +426,9 @@ class App extends Component {
             <OwnerPrivateRoute path='/ownerDashboard/maintenanceBillPayment' component={MaintenanceBillPayment} />
             <PrivateRoute path='/superDashboard/electricityBillGeneration' component={ElectricityBillGeneration} />
             <OwnerPrivateRoute path='/ownerDashboard/facilityBillGeneration' component={FacilityBillCharges} /> 
-            <TenantPrivateRoute path='/tenantDashboard/facilityBillGeneration' component={FacilityBillCharges} />   
+            <TenantPrivateRoute path='/tenantDashboard/facilityBillGeneration' component={FacilityBillCharges} />
+  
+            <EmployeePrivateRoute path='/employeeDashboard/employeeDashboardDetails' component={EmployeeDashboardDetails} /> 
            
           </Switch>
           

@@ -1,13 +1,19 @@
 
-export const URN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/api';
-export  const PicURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
-export  const DocURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
-export  const UR = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
+// export const URN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/api';
+// export  const PicURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
+// export  const DocURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
+// export  const UR = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
 
-// export const URN = 'http://192.168.0.117:9090/api';
-// export  const PicURN = 'http://192.168.0.117:9090/';
-// export  const DocURN = 'http://192.168.0.117:9090/';
-// export  const UR = 'http://192.168.0.117:9090/';
+// export const URN = 'http://127.0.0.1:8082/api';
+// export  const PicURN = 'http://127.0.0.1:8082/';
+// export  const DocURN = 'http://127.0.0.1:8082/';
+// export  const UR = 'http://127.0.0.1:8082/';
+
+export const URN = 'http://192.168.0.117:9090/api';
+export  const PicURN = 'http://192.168.0.117:9090/';
+export  const DocURN = 'http://192.168.0.117:9090/';
+export  const UR = 'http://192.168.0.117:9090/';
+
 
 
 
@@ -453,5 +459,8 @@ export const UPDATE_ELECTRICITY_BILL='UPDATE_ELECTRICITY_BILL';
 export const GET_FACILITY_CHARGES='GET_FACILITY_CHARGES';
 export const GET_INDIVIDUAL_VENDOR_CONFIRM='GET_INDIVIDUAL_VENDOR_CONFIRM';
 export const GET_TIME_SLOT='GET_TIME_SLOT';
+
+export const GET_DASHBOARD_EMPLOYEE='GET_DASHBOARD_EMPLOYEE';
+export const UPDATE_DASHBOARD_EMPLOYEE='UPDATE_DASHBOARD_EMPLOYEE';
 
 

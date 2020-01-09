@@ -199,10 +199,14 @@ class IndividualVendorBookingDetails extends Component {
                         <td>{item.enableFingerPrint === true ? 'Yes' : 'No'}</td>
 
                         <td>
-                            <Button color="success" className="mr-2" onClick={this.editEvent.bind(this, item.individualVendorBookingId, item.individualVendorId, item.individual_vendor.service_master.serviceName, item.individual_vendor.firstName, item.individual_vendor.lastName,
-                                item.individual_vendor.rate_master.rateType, item.individual_vendor.rate, item.startTimeSlotSelected, item.endTimeSlotSelected, item.enableSmsNotification, item.payOnline, item.enableFingerPrint, item.individual_vendor.serviceId,item.flat_detail_master?item.flat_detail_master.flatDetailId:'')}>Edit</Button>
+                           {item.confirmedByVendor===true ?  <Button color="success" className="mr-2" onClick={this.editEvent.bind(this, item.individualVendorBookingId, item.individualVendorId, item.individual_vendor.service_master.serviceName, item.individual_vendor.firstName, item.individual_vendor.lastName,
+                                item.individual_vendor.rate_master.rateType, item.individual_vendor.rate, item.startTimeSlotSelected, item.endTimeSlotSelected, item.enableSmsNotification, item.payOnline, item.enableFingerPrint, item.individual_vendor.serviceId,item.flat_detail_master?item.flat_detail_master.flatDetailId:'')} disabled>Edit</Button>
+                            : <Button color="success" className="mr-2" onClick={this.editEvent.bind(this, item.individualVendorBookingId, item.individualVendorId, item.individual_vendor.service_master.serviceName, item.individual_vendor.firstName, item.individual_vendor.lastName,
+                                item.individual_vendor.rate_master.rateType, item.individual_vendor.rate, item.startTimeSlotSelected, item.endTimeSlotSelected, item.enableSmsNotification, item.payOnline, item.enableFingerPrint, item.individual_vendor.serviceId,item.flat_detail_master?item.flat_detail_master.flatDetailId:'')}>Edit</Button>}
                             <Button color="danger" onClick={this.deleteEvents.bind(this, item.individualVendorBookingId)}>Delete</Button>
                         </td>
+
+                        <td>{item.confirmedByVendor===true ? 'Confirmed' : 'Not Confirmed'}</td>
 
                     </tr>
                 )
@@ -442,6 +446,7 @@ class IndividualVendorBookingDetails extends Component {
                     <th>Pay Online</th>
                     <th>Enable fingerprint</th>
                     <th style={{ width: '14%' }}>Actions</th>
+                    <th>Status</th>
                 </tr>
 
 

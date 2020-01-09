@@ -3,21 +3,17 @@ import { connect } from 'react-redux';
 import { Table, Input, Modal, Button, FormGroup, ModalBody, ModalHeader, Label, Row, Col } from 'reactstrap';
 import Select from 'react-select';
 import { getCountry, getState, getCity, getLocation } from './../../actions/societyMasterAction';
-import { ViewEmployee, updateEmployee, deleteEmployee, deleteMultipleEmployee } from '../../actions/employeeMasterAction';
-import { getEmployee } from '../../actions/employeeTypeMasterAction';
-
+import { getDashboardEmployee, updateDashboardEmployee } from '../../actions/employeeMasterAction';
 import { bindActionCreators } from 'redux';
 import { UR } from '../../actionCreators';
 import Spinner from '../../components/spinner/spinner'
 import UI from '../../components/newUI/superAdminDashboard'
-import SearchFilter from '../../components/searchFilter/searchFilter';
 import DefaultSelect from '../../constants/defaultSelect'
-import './employeeMaster.css'
 import GoogleDocsViewer from 'react-google-docs-viewer';
 import {getRfId} from '../../actions/rfIdAction';
 import {emailValid} from '../../validation/validation';
 
-class DisplayEmployeeMaster extends Component {
+class EmployeeDashboardDetails extends Component {
 
     constructor(props) {
         super(props);
@@ -40,7 +36,6 @@ class DisplayEmployeeMaster extends Component {
             profilePicture: '',
             editEmployeeModal: false,
             loading: true,
-            search: '',
             countryId: '',
             countryName: '',
             stateName: '',
@@ -122,8 +117,9 @@ class DisplayEmployeeMaster extends Component {
 
 
     refreshData() {
-        this.props.getEmployee().then(() => this.setState({ loading: false }))
-        this.props.ViewEmployee().then(() => this.setState({ loading: false, modalLoading: false, editEmployeeModal: false }));
+        const userId=localStorage.getItem('userId')      
+        console.log(userId,"userId");
+        this.props.getDashboardEmployee(userId).then(() => this.setState({ loading: false, modalLoading: false, editEmployeeModal: false }));
         this.props.getCountry().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getState().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getCity().then(() => this.setState({ loading: false, modalLoading: false }))
@@ -253,13 +249,13 @@ class DisplayEmployeeMaster extends Component {
         }
     }
 
-    editEmployeeResult(employeeId, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, documentOne, documentTwo, startDate,  employeeDetailId, rfid, rfidId) {
-        console.log(employeeId, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, documentOne, documentTwo, startDate,  employeeDetailId, rfid, rfidId,"========viewedit")
+    editEmployeeResult(employeeId, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, documentOne, documentTwo, startDate,  employeeDetailId, rfid, rfidId,serviceType,employeeWorkType,employeeType) {
+        console.log(employeeId, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, documentOne, documentTwo, startDate,  employeeDetailId, rfid, rfidId,serviceType,employeeWorkType,employeeType,"========viewedit")
         this.setState({
             editEmployeeData: { employeeId, startDate },
             documentOne, documentTwo, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email,
             currentAddress, permanentAddress, employeeDetailId,rfid, rfidId,
-            readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress, editEmployeeModal: !this.state.editEmployeeModal
+            readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress, editEmployeeModal: !this.state.editEmployeeModal,serviceType,employeeWorkType,employeeType
         })
 
     }
@@ -334,8 +330,7 @@ class DisplayEmployeeMaster extends Component {
             data.append('profilePicture', this.state.profilePicture)
             data.append('rfidId', this.state.rfidId)
 
-
-            this.props.updateEmployee(this.state.editEmployeeData.employeeId, data).then(() => this.refreshData()).catch(err => {
+            this.props.updateDashboardEmployee(this.state.editEmployeeData.employeeId, data).then(() => this.refreshData()).catch(err => {
                 
                 this.setState({
                     modalLoading: false, contactServerError: err.response.data.messageContactErr,
@@ -351,30 +346,7 @@ class DisplayEmployeeMaster extends Component {
         }
     }
 
-    deleteEmployee(employeeId) {
-        this.setState({ loading: true })
-
-        let { isActive } = this.state.editEmployeeData;
-
-        this.props.deleteEmployee(employeeId, isActive).then(() => this.refreshData())
-        this.setState({ editEmployeeData: { isActive: false } })
-    }
-
-    searchOnChange = (e) => {
-
-        this.setState({ search: e.target.value })
-    }
-
-    searchFilter(search) {
-        return function (x) {
-            return x.firstName.toLowerCase().includes(search.toLowerCase()) ||
-                x.lastName.toLowerCase().includes(search.toLowerCase()) ||
-                x.basic.toLowerCase().includes(search.toLowerCase()) ||
-                x.employee_detail_master.serviceType.toLowerCase().includes(search.toLowerCase()) ||
-                !search;
-        }
-    }
-
+   
 
     countryChange = (currentCountryId, currentCountry, selectOption) => {
 
@@ -488,43 +460,14 @@ class DisplayEmployeeMaster extends Component {
 
 
 
-    getEmployee({ getEmployee }) {
-        if (getEmployee && getEmployee.data && getEmployee.data.employee) {
-            return (
-                getEmployee.data.employee.sort((item1, item2) => {
-                    var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
-                    return this.state.sortVal ? cmprVal : -cmprVal;
-                }).filter(this.searchFilter(this.state.search)).map((item, index) => { console.log(item,"========item")
-
+    getEmployeeResult({ getDashboardEmployee }) {
+        if (getDashboardEmployee && getDashboardEmployee.data && getDashboardEmployee.data.employee) {
+                    let item=getDashboardEmployee.data.employee;
+                    console.log(item,"=====")
                     return (
                         <tr key={item.employeeId}>
-                            <td><input type="checkbox" name="ids" value={item.employeeId} className="SelectAll"
-                                onChange={(e, i) => {
-                                    const { employeeId } = item
-                                    if (!e.target.checked) {
-                                        if (this.state.ids.length > -1) {
-                                            document.getElementById('allSelect').checked = false;
-                                            let indexOfId = this.state.ids.indexOf(employeeId);
-                                            if (indexOfId > -1) {
-                                                this.state.ids.splice(indexOfId, 1)
-                                            }
-                                            if (this.state.ids.length === 0) {
-                                                this.setState({ isDisabled: true })
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        this.setState({ ids: [...this.state.ids, employeeId] })
-                                        if (this.state.ids.length >= 0) {
-                                            this.setState({ isDisabled: false })
-                                        }
-                                    }
-                                }} /></td>
-                            <td>{index + 1}</td>
                             <td style={{ width: '4%' }}><img style={{ width: "100px", height: "100px" }} src={UR + item.picture} alt="Profile Pic" /></td>
-
-                            <td >{item.firstName}</td>
-                            <td>{item.lastName}</td>
+                            <td >{`${item.firstName} ${item.lastName}`}</td>
                             <td>{item.employee_detail_master ? item.employee_detail_master.serviceType : ''}-
                             {item.employee_detail_master ? item.employee_detail_master.employee_work_type_master.employeeWorkType : ''}
                                 -{item.employee_detail_master ? item.employee_detail_master.employee_type_master.employeeType : ''}</td>
@@ -535,18 +478,18 @@ class DisplayEmployeeMaster extends Component {
                             <td>{item.esi}</td>
                             <td>{item.rfid_master ? item.rfid_master.rfid : ''}</td>
 
-                            <td> <button className="btn btn-success" onClick={this.viewData.bind(this, UR + item.picture, item.firstName, item.middleName, item.lastName, item.basic,item.hra,item.travelAllowance,item.pf,item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, UR + item.documentOne, UR + item.documentTwo, item.startDate, item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType, item.rfid_master ? item.rfid_master.rfid :'' , item.rfid_master ? item.rfid_master.rfidId: '')}>View</button></td>
+                            <td> <button className="btn btn-success" onClick={this.viewData.bind(this, UR + item.picture, item.firstName, item.middleName, item.lastName, item.basic,item.hra,item.travelAllowance,item.pf,item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, UR + item.documentOne, UR + item.documentTwo, item.startDate,
+                                 item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType, item.rfid_master ? item.rfid_master.rfid :'' , item.rfid_master ? item.rfid_master.rfidId: '')}>View</button></td>
 
                             <td>
-                                <button className="btn btn-success mr-2" onClick={this.editEmployeeResult.bind(this, item.employeeId, UR + item.picture, item.firstName, item.middleName, item.lastName, item.basic,item.hra,item.travelAllowance,item.pf,item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, UR + item.documentOne, UR + item.documentTwo, item.startDate, item.employee_detail_master.employeeDetailId,  item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '')} >Edit</button>
-                                <button className="btn btn-danger" onClick={this.deleteEmployee.bind(this, item.employeeId)}> Delete</button>
+                                <button className="btn btn-success mr-2" onClick={this.editEmployeeResult.bind(this, item.employeeId, UR + item.picture, item.firstName, item.middleName, item.lastName, item.basic,item.hra,item.travelAllowance,item.pf,item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, UR + item.documentOne, UR + item.documentTwo, item.startDate, item.employee_detail_master.employeeDetailId,  item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '',item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType)} >Edit</button>
+
                             </td>
 
 
                         </tr>
                     )
-                })
-            )
+                
         }
     }
 
@@ -593,48 +536,7 @@ class DisplayEmployeeMaster extends Component {
     }
 
 
-    selectAll = () => {
-        let selectMultiple = document.getElementsByClassName('SelectAll');
-        let ar = [];
-        for (var i = 0; i < selectMultiple.length; i++) {
-            ar.push(parseInt(selectMultiple[i].value));
-            selectMultiple[i].checked = true;
-        }
-        this.setState({ ids: ar });
-        if (ar.length > 0) {
-            this.setState({ isDisabled: false });
-        }
-    }
-
-    unSelectAll = () => {
-        let allIds = []
-        let unSelectMultiple = document.getElementsByClassName('SelectAll');
-        for (var i = 0; i < unSelectMultiple.length; i++) {
-            unSelectMultiple[i].checked = false
-        }
-
-        this.setState({ ids: [...allIds] });
-        if (allIds.length === 0) {
-            this.setState({ isDisabled: true });
-        }
-    }
-
-    deleteSelected(ids) {
-        this.setState({
-            loading: true,
-            isDisabled: true
-        });
-        this.props.deleteMultipleEmployee(ids)
-            .then(() => this.refreshData())
-            .catch(err => err.response.data.message);
-    }
-
-    addEmployee = () => {
-
-        this.props.history.push('/superDashboard/employee')
-    }
-
-
+  
 
     onChangeCountry = (countryId, countryName, selectOption) => {
 
@@ -1021,18 +923,8 @@ class DisplayEmployeeMaster extends Component {
             <Table bordered>
                 <thead>
                     <tr>
-                        <th style={{ width: "4px" }}></th>
-                        <th style={{ width: "4px" }}>#</th>
                         <th style={{ textAlign: "center", width: "12%" }}>Profile Picture</th>
-                        <th onClick={() => {
-                            this.setState((state) => {
-                                return {
-                                    sortVal: !state.sortVal,
-                                    filterName: 'firstName'
-                                }
-                            })
-                        }} >First Name      <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
-                        <th> Last Name</th>
+                        <th>Name</th>
                         <th>Service Type</th>
                         <th>Basic Salary</th>
                         <th>HRA</th>
@@ -1041,11 +933,11 @@ class DisplayEmployeeMaster extends Component {
                         <th>ESI</th>
                         <th>RF ID</th>
                         <th>Employee Detail </th>
-                        <th> Actions  </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {this.getEmployee(this.props.EmpDetails)}
+                    {this.getEmployeeResult(this.props.EmpDetails)}
                 </tbody>
             </Table>
 
@@ -1360,9 +1252,6 @@ class DisplayEmployeeMaster extends Component {
 
         </div>
 
-
-        let deleteSelectedButton = <Button color="danger" className="mb-2" disabled={this.state.isDisabled}
-            onClick={this.deleteSelected.bind(this, this.state.ids)}>Delete Selected</Button>;
         return (
             <div>
                 <UI onClick={this.logout} change={this.changePassword}>
@@ -1371,8 +1260,7 @@ class DisplayEmployeeMaster extends Component {
                             <span aria-hidden="true">&times;</span>
                         </div>
                         <div className="top-details" >
-                            <h3 align="center"> Employee Details</h3>
-                            <Button color="primary" onClick={this.addEmployee} > Add Employee</Button>
+                            <h3 align="center">Personal Details</h3>
                         </div>
                         <Modal isOpen={this.state.editEmployeeModal} toggle={this.toggleEditEmployeeModal.bind(this)}>
                             <ModalHeader toggle={this.toggleEditEmployeeModal.bind(this)}>Edit  Employee Details</ModalHeader>
@@ -1390,21 +1278,8 @@ class DisplayEmployeeMaster extends Component {
                                 <Button color="primary" onClick={this.toggleEmployeeModal.bind(this)}>Cancel</Button>
                             </ModalBody>
                         </Modal>
-                        <SearchFilter type="text" value={this.state.search} onChange={this.searchOnChange} />
 
-                        {deleteSelectedButton}
-                        <Label style={{ padding: '10px' }}><b>Select All</b><input className="ml-2"
-                            id="allSelect"
-                            type="checkbox" onChange={(e) => {
-                                if (e.target.checked) {
-                                    this.selectAll();
-                                }
-                                else if (!e.target.checked) {
-                                    this.unSelectAll();
-                                }
-                            }
-                            } />
-                        </Label>
+
                         {!this.state.loading ? tableData : <Spinner />}
                     </div>
 
@@ -1446,7 +1321,7 @@ class DisplayEmployeeMaster extends Component {
 
 
 function mapStateToProps(state) {
-
+     console.log(state,"=======");
     return {
         EmpDetails: state.EmpDetails,
         locationMasterReducer: state.locationMasterReducer,
@@ -1458,7 +1333,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ ViewEmployee, getCountry, getState, getCity, getLocation, updateEmployee, deleteEmployee, deleteMultipleEmployee, getEmployee, getRfId }, dispatch)
+    return bindActionCreators({ getDashboardEmployee, getCountry, getState, getCity, getLocation, updateDashboardEmployee, getRfId }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayEmployeeMaster)
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeDashboardDetails)

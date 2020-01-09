@@ -39,12 +39,13 @@ class FingerPrint extends Component {
     this.refreshData();
   };
 
-  refreshData = () => {
+  refreshData = (selected) => {
     const type = this.state.type;
+    console.log(type,"=====")
 
     this.setState({ loading: true });
     this.props
-      .getFingerprintData(type)
+      .getFingerprintData(selected)
       .then(() => this.setState({ loading: false, modalLoading: false }))
       .catch(err => {
         this.setState({ message: err.response.data.message, loading: false });
@@ -130,6 +131,7 @@ class FingerPrint extends Component {
 
   getDropdownForFlats = ({ fingerprintDetails }, userId) => {
     if (fingerprintDetails && fingerprintDetails.userData) {
+      console.log(fingerprintDetails,"======");
       return fingerprintDetails.userData
         .filter(flatRecord => {
           return flatRecord.userId === userId;
@@ -150,8 +152,9 @@ class FingerPrint extends Component {
 
   getFingerprintDetail({ fingerprintDetails }) {
     if (fingerprintDetails && fingerprintDetails.userData) {
+      console.log(fingerprintDetails,"======");
       return fingerprintDetails.userData
-        .sort((item1, item2) => {
+        .sort((item1, item2) => {console.log("========")
           var cmprVal =
             item1.firstName && item2.firstName
               ? item1[this.state.filterName].localeCompare(
@@ -161,7 +164,7 @@ class FingerPrint extends Component {
           return this.state.sortVal ? cmprVal : -cmprVal;
         })
         .filter(this.searchFilter(this.state.search))
-        .map((item, index) => {
+        .map((item, index) => { console.log(item,"====")
           return (
             <tr key={item.userId}>
               <td> {index + 1}</td>
@@ -223,7 +226,7 @@ class FingerPrint extends Component {
       type: selected
     });
 
-    this.refreshData();
+    this.refreshData(selected);
     this.setState({ modalLoading: true });
   };
 
@@ -363,6 +366,7 @@ class FingerPrint extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state,"======state")
   return {
     fingerprintReducer: state.fingerprintReducer
   };
