@@ -78,10 +78,10 @@ class Demo extends Component {
 
                         <div className="container-fluid">
 
-                            <button type="button"  id="sidebarCollapse" className="btn btn-info bg-dark">
+                            <button type="button" id="sidebarCollapse" className="btn btn-info bg-dark">
 
                                 <Icon name="sidebar" style={{ color: 'white', cursor: 'pointer' }} />
-                                 Menu
+                                Menu
 
                             </button>
 
@@ -189,8 +189,9 @@ class Demo extends Component {
                     </nav>
                     <nav id="sidebarMaster" className="bg-light  inactive">
                         <div id="sidebarMaster-content">
-                        {/* <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/payment">Pay with Razorpay</Link></div></Menu.Item> */}
-                        <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/getFingerprintData">Fingerprint Data Master</Link></div></Menu.Item>
+                            <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/getSalaryAccount">Salary Account Master</Link></div></Menu.Item>
+                            <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/employeeSalaryGenerator">Employee Salary Generator</Link></div></Menu.Item>
+                            <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/getFingerprintData">Fingerprint Data Master</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/assignRolesDetail">Assign Roles</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/societyManagementDetail">Society Management Details</Link></div></Menu.Item>
                             <Menu.Item className="master text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/designationMasterDetail">Designation Master</Link></div></Menu.Item>
@@ -236,7 +237,7 @@ class Demo extends Component {
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/facilitySubMasterDetails">Facility Sub Master</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/meterMaster/meterMasterDetails">Meter Master</Link></div></Menu.Item>
                             <Menu.Item className="text-center h1 mr-4 mt-4 mb-4"><Icon className='col' name="user" /><div className='col ml-2 pb-3 border border-white border-left-0 border-right-0 border-top-0' style={{ fontSize: "0.8rem" }}><Link to="/superDashboard/meter/meterDetails">Meter Details</Link></div></Menu.Item>
-                            
+
                             <div style={{ height: '10%' }}></div>
                         </div>
                     </nav>

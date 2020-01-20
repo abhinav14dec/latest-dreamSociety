@@ -77,8 +77,6 @@ class CityMaster extends Component {
                 stateId: data1.stateId,
                 stateName:data1.stateName
             })
-
-
     }
 
     onCityChange=(e)=>{

@@ -647,7 +647,6 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-
     return bindActionCreators({userflatDetails, serviceDetails, getVendorBooking, getVendorData, deleteIndividualVendorBooking, deleteSelectVendorBooking, updateIndividualVendorBooking }, dispatch);
 }
 

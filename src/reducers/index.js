@@ -46,7 +46,7 @@ import activeDeactive from './activeDeactive/activeDeactiveReducer';
 
 import AssignRolesReducer from './assignRolesReducer/assignRolesReducer';
 import IndividualVendorReducer from './individualVendorReducer/individualVendorReducer';
-import  MachineIdDetails from './MachineIdMasterReducer.js/machineIdMaster'
+import MachineIdDetails from './MachineIdMasterReducer.js/machineIdMaster'
 import registerComplaintReducer from './registerComplaintReducer/registerComplaintReducer';
 import commonAreaReducer from './commonAreaReducer/commonAreaReducer';
 import RFIdReducer from './rfReducer/rfReducer'
@@ -55,15 +55,16 @@ import viewComplaintsReducer from './viewComplaintsReducer/viewComplaintsReducer
 import electricityExpenseReducer from './electricityExpenseMaster/electricityExpenseMasterReducer';
 import monthlyElectricityExpenseReducer from './monthlyElectricityExpenseReducer/monthlyElectricityExpenseReducer';
 import PurchaseOrder from './purchaseOrderReducer/purchaseOrderReducer';
-import PersonalEventBookingReducer  from './personalEventBookingReducer/personalEventBookingReducer';
-import fingerprintReducer  from './fingerprint/fingerprintMaster';
+import PersonalEventBookingReducer from './personalEventBookingReducer/personalEventBookingReducer';
+import fingerprintReducer from './fingerprint/fingerprintMaster';
 import FacilitySubMasterReducer from './facilitySubMasterReducer/facilitySubMasterReducer';
-import  facilityReducer from  './facilityReducer/facilityReducer';
-import  userFacilityReducer from  './userFacilityReducer/userFacilityReducer';
-import  ownerAccessReducer from  './ownerAccessReducer/ownerAccessReducer';
+import facilityReducer from './facilityReducer/facilityReducer';
+import userFacilityReducer from './userFacilityReducer/userFacilityReducer';
+import ownerAccessReducer from './ownerAccessReducer/ownerAccessReducer';
 import MeterReducer from './meterReducer/meterReducer'
 import societyEventCelebrationReducer from './societyEventCelebrationReducer/societyEventCelebrationReducer'
 import MaintenanceBillReducer from './maintenanceBillReducer/maintenanceBillReducer';
+import salaryAccountReducer from './salaryAccount/salaryAccountReducer';
 
 
 const rootReducer = combineReducers({
@@ -127,6 +128,7 @@ const rootReducer = combineReducers({
     ownerAccessReducer,
     societyEventCelebrationReducer,
     MeterReducer,
-    MaintenanceBillReducer
+    MaintenanceBillReducer,
+    salaryAccountReducer
 })
 export default rootReducer;
