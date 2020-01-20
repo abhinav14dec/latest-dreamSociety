@@ -4,6 +4,7 @@ import { Table, Input, Modal, Button, FormGroup, ModalBody, ModalHeader, Label, 
 import Select from 'react-select';
 import { getCountry, getState, getCity, getLocation } from './../../actions/societyMasterAction';
 import { getDashboardEmployee, updateDashboardEmployee } from '../../actions/employeeMasterAction';
+import {getEmployee} from '../../actions/employeeTypeMasterAction';
 import { bindActionCreators } from 'redux';
 import { UR } from '../../actionCreators';
 import Spinner from '../../components/spinner/spinner'
@@ -120,6 +121,7 @@ class EmployeeDashboardDetails extends Component {
         const userId=localStorage.getItem('userId')      
         console.log(userId,"userId");
         this.props.getDashboardEmployee(userId).then(() => this.setState({ loading: false, modalLoading: false, editEmployeeModal: false }));
+        this.props.getEmployee().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getCountry().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getState().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getCity().then(() => this.setState({ loading: false, modalLoading: false }))
@@ -524,7 +526,7 @@ class EmployeeDashboardDetails extends Component {
 
     getService = ({ getEmployee }) => {
         if (getEmployee && getEmployee.employeeDetail) {
-            return getEmployee.employeeDetail.map((item) => {
+            return getEmployee.employeeDetail.map((item) => { console.log(item,"=======i")
                 return (
                     <option key={item.employeeDetailId} value={item.employeeDetailId}>
                         {item.serviceType}-{item.employee_work_type_master.employeeWorkType}-
@@ -1333,7 +1335,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getDashboardEmployee, getCountry, getState, getCity, getLocation, updateDashboardEmployee, getRfId }, dispatch)
+    return bindActionCreators({ getDashboardEmployee,getEmployee, getCountry, getState, getCity, getLocation, updateDashboardEmployee, getRfId }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeDashboardDetails)

@@ -41,8 +41,8 @@ class FingerPrint extends Component {
 
   refreshData = (selected) => {
     const type = this.state.type;
-    console.log(type,"=====")
-
+    console.log(type,"======type")
+    
     this.setState({ loading: true });
     this.props
       .getFingerprintData(selected)
@@ -131,7 +131,6 @@ class FingerPrint extends Component {
 
   getDropdownForFlats = ({ fingerprintDetails }, userId) => {
     if (fingerprintDetails && fingerprintDetails.userData) {
-      console.log(fingerprintDetails,"======");
       return fingerprintDetails.userData
         .filter(flatRecord => {
           return flatRecord.userId === userId;
@@ -152,9 +151,8 @@ class FingerPrint extends Component {
 
   getFingerprintDetail({ fingerprintDetails }) {
     if (fingerprintDetails && fingerprintDetails.userData) {
-      console.log(fingerprintDetails,"======");
       return fingerprintDetails.userData
-        .sort((item1, item2) => {console.log("========")
+        .sort((item1, item2) => {
           var cmprVal =
             item1.firstName && item2.firstName
               ? item1[this.state.filterName].localeCompare(
@@ -164,7 +162,7 @@ class FingerPrint extends Component {
           return this.state.sortVal ? cmprVal : -cmprVal;
         })
         .filter(this.searchFilter(this.state.search))
-        .map((item, index) => { console.log(item,"====")
+        .map((item, index) => {
           return (
             <tr key={item.userId}>
               <td> {index + 1}</td>
@@ -242,6 +240,7 @@ class FingerPrint extends Component {
   };
 
   render() {
+    
     let tableData = (
       <Table bordered>
         <thead>
@@ -366,7 +365,6 @@ class FingerPrint extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state,"======state")
   return {
     fingerprintReducer: state.fingerprintReducer
   };

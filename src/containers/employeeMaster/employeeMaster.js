@@ -546,7 +546,7 @@ defaultPermanentAddressChange = (e) =>{
 }
 
 onChange = (e) => {
-    console.log(e.target.value)
+
     this.setState({emailServerError:'',contactServerError:''  })
     if (!!this.state.errors[e.target.name]) {
         let errors = Object.assign({}, this.state.errors);
@@ -679,8 +679,18 @@ onRateChange=(e)=>{
         this.setState({[e.target.name]:e.target.value});    
     }
 } 
+onRateChange1=(e)=>{
+    if (e.target.value.match(/^\d*(\.\d{0,2})?$/)){
+        this.setState({[e.target.name]:e.target.value});    
+    }
+} 
+onRateChange2=(e)=>{
+    if (e.target.value.match(/^\d*(\.\d{0,2})?$/)){   
+        this.setState({[e.target.name]:e.target.value});   
+    }
+} 
 render(){
-
+ 
 let formData=
 <div>
 
@@ -762,10 +772,10 @@ let formData=
     <FormGroup>
         <Row md={12}>
            <Col md={6}>
-               <Input placeholder="HRA" type="text"  name ="hra" value={this.state.hra} onChange ={this.onRateChange}  maxLength={15}></Input>
+               <Input placeholder="HRA" type="text"  name ="hra" value={this.state.hra} onChange ={this.onRateChange1}  maxLength={15}></Input>
            </Col>
            <Col md={6}>
-           <Input placeholder="Travel Allowance" type="text"  name ="travelAllowance"  value={this.state.travelAllowance} onChange ={this.onRateChange}  maxLength={15}></Input>
+           <Input placeholder="Travel Allowance" type="text"  name ="travelAllowance"  value={this.state.travelAllowance} onChange ={this.onRateChange2}  maxLength={15}></Input>
            </Col>
         </Row>
     </FormGroup>
@@ -779,6 +789,7 @@ let formData=
            </Col>
         </Row>
     </FormGroup>
+    
     
 
 <FormGroup style={{paddingTop:'20px'}}>
