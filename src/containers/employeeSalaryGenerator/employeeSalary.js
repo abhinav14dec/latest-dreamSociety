@@ -5,37 +5,27 @@ import Select from 'react-select';
 import { getCountry, getState, getCity, getLocation } from './../../actions/societyMasterAction';
 import { ViewEmployee, updateEmployee, deleteEmployee, deleteMultipleEmployee } from '../../actions/employeeMasterAction';
 import { getEmployee } from '../../actions/employeeTypeMasterAction';
-
+import { getRfId } from '../../actions/rfIdAction';
 import { bindActionCreators } from 'redux';
-import { UR } from '../../actionCreators';
-import Spinner from '../../components/spinner/spinner'
+import Spinner from '../../components/spinner/spinner';
 import UI from '../../components/newUI/superAdminDashboard'
-import SearchFilter from '../../components/searchFilter/searchFilter';
-import DefaultSelect from '../../constants/defaultSelect'
-import './employeeMaster.css'
-import GoogleDocsViewer from 'react-google-docs-viewer';
-import {getRfId} from '../../actions/rfIdAction';
-import {emailValid} from '../../validation/validation';
+import DefaultSelect from '../../constants/defaultSelect';
+import { emailValid } from '../../validation/validation';
 
-class DisplayEmployeeMaster extends Component {
-
+class EmployeeSalaryGenerator extends Component {
     constructor(props) {
         super(props);
         this.state = {
             editEmployeeData: {
                 employeeId: '',
-
-
                 startDate: '',
                 endDate: '',
-
                 selectedDocumentUrl: null,
-
-
                 modal: false,
                 modalIsOpen: false,
                 isActive: false
             },
+            editEventModal: false,
             picture: '',
             profilePicture: '',
             editEmployeeModal: false,
@@ -52,11 +42,11 @@ class DisplayEmployeeMaster extends Component {
             firstName: '',
             middleName: '',
             lastName: '',
-            hra:'',
-            basic:'',
-            travelAllowance:'',
-            pf:'',
-            esi:'',
+            hra: '',
+            basic: '',
+            travelAllowance: '',
+            pf: '',
+            esi: '',
             contact: '',
             ids: [],
             isDisabled: true,
@@ -102,13 +92,47 @@ class DisplayEmployeeMaster extends Component {
             employeeType: '',
             doc1: '',
             doc2: '',
-            rfidId:'',
-            rfid:''
+            rfidId: '',
+            rfid: '',
+            attendenceInDays: '',
+            bank: '',
+            accountNo: '',
+            bankLocation: '',
+            pan: '',
+            lwp: '',
+            plBalance: '',
+            clBalance: '',
+            salaryAccountNo: '',
+            variableComponent: '',
+            selfDevelopmentAllowance: '',
+            canteenAllowance: '',
+            medicalReimbursement: '',
+            nightAllowance: '',
+            specialAllowance: '',
+            pfNo: '',
+            tds: '',
+            netSalary: '',
+            adjustments: '',
+            adjustmentAdditions: '',
+            adjustmentDeductions: '',
+            annualBonus: '',
+            totalPayment: ''
         }
     }
 
     componentDidMount() {
         this.refreshData()
+    }
+
+    onChange = (e) => {
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({ [e.target.name]: e.target.value, errors });
+        }
+        else {
+            this.setState({ [e.target.name]: e.target.value });
+        }
     }
 
 
@@ -128,7 +152,7 @@ class DisplayEmployeeMaster extends Component {
         this.props.getState().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getCity().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getLocation().then(() => this.setState({ loading: false, modalLoading: false }))
-        this.props.getRfId().then(() => this.setState({ loading: false,modalLoading: false }))
+        this.props.getRfId().then(() => this.setState({ loading: false, modalLoading: false }))
         this.setState({
             userPermanent: false, editPermanent: false,
             countryId: '', stateId: '', cityId: '', locationId: '',
@@ -137,129 +161,16 @@ class DisplayEmployeeMaster extends Component {
         })
     }
 
-    onChange = (e) => {
-
-
-        if (!!this.state.errors[e.target.name]) {
-            let errors = Object.assign({}, this.state.errors);
-            delete errors[e.target.name];
-            this.setState({ [e.target.name]: e.target.value, errors });
-        }
-        else {
-            this.setState({ [e.target.name]: e.target.value });
-        }
-
-    }
-
-    openModal = (documentOne) => {
-
-        this.setState({
-            documentOne
-        })
-        this.setState({ modalIsOpen: true });
-
-    }
-
-    Modal = (documentTwo) => {
-
-        this.setState({
-            documentTwo
-        })
-
-        this.setState({ modal: true });
-
-    }
-
-    toggleModal() {
-        this.setState({ modalIsOpen: false });
-    }
-    toggle() {
-        this.setState({ modal: false });
-    }
-
     toggleEditEmployeeModal() {
         this.setState({
             editEmployeeModal: !this.state.editEmployeeModal, emailServerError: '', contactServerError: '', errors: {}, userPermanent: false, editPermanent: false, countryId: '',
             stateId: '', cityId: '', locationId: '', permanentAddress: this.state.readOnlyPermanent,
             editCurrent: false, userCurrent: false, currentCountryId: '', currentStateId: '', currentCityId: '',
-            currentLocationId: '', sameAsPermanent: false, rfid:'', rfidId:''
-        })
-    }
-    onPicChange = (event) => {
-        if (!!this.state.errors[event.target.name]) {
-
-            let errors = Object.assign({}, this.state.errors)
-            delete errors[event.target.name]
-            this.setState({ [event.target.name]: event.target.files, errors });
-        }
-        else {
-            this.setState({ profilePicture: event.target.files[0] })
-
-        }
-    }
-
-    // onImageChange = (event) => {
-    //     if(!!this.state.errors[event.target.name]){
-
-    //         let errors =Object.assign({},this.state.errors)
-    //         delete  errors[event.target.name]
-    //         this.setState({[event.target.name]:event.target.files,errors});
-    //     }
-    //     else{
-    ImageChange = (event) => {
-        if (!!this.state.errors[event.target.name]) {
-
-            let errors = Object.assign({}, this.state.errors)
-            delete errors[event.target.name]
-            this.setState({ [event.target.name]: event.target.files, errors });
-        }
-        else {
-            if (event.target.files && event.target.files[0]) {
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    this.setState({ picture: reader.result });
-                };
-
-                reader.readAsDataURL(event.target.files[0]);
-                this.setState({ profilePicture: event.target.files[0] })
-            }
-        }
-    }
-
-    onFileChange = (event) => {
-        if (!!this.state.errors[event.target.name]) {
-
-            let errors = Object.assign({}, this.state.errors)
-            delete errors[event.target.name]
-            this.setState({ [event.target.name]: event.target.files, errors });
-        }
-        else {
-            this.setState({ documentOne: event.target.files[0] })
-
-        }
-    }
-
-
-    FileChange = (event) => {
-        if (!!this.state.errors[event.target.name]) {
-
-            let errors = Object.assign({}, this.state.errors)
-            delete errors[event.target.name]
-            this.setState({ [event.target.name]: event.target.files, errors });
-        }
-        else {
-            this.setState({ documentTwo: event.target.files[0] })
-
-        }
-    }
-
-    editEmployeeResult(employeeId, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, documentOne, documentTwo, startDate,  employeeDetailId, rfid, rfidId) {
-        console.log(employeeId, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, documentOne, documentTwo, startDate,  employeeDetailId, rfid, rfidId,"========viewedit")
-        this.setState({
-            editEmployeeData: { employeeId, startDate },
-            documentOne, documentTwo, picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email,
-            currentAddress, permanentAddress, employeeDetailId,rfid, rfidId,
-            readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress, editEmployeeModal: !this.state.editEmployeeModal
+            currentLocationId: '', sameAsPermanent: false, rfid: '', rfidId: '', attendenceInDays: '', bank: '',
+            bankLocation: '', pan: '', lwp: '', plBalance: '', clBalance: '', salaryAccountNo: '', variableComponent: '', selfDevelopmentAllowance: '',
+            canteenAllowance: '', medicalReimbursement: '', nightAllowance: '', specialAllowance: '', pfNo: '', tds: '',
+            netSalary: '', adjustments: '', adjustmentAdditions: '', adjustmentDeductions: '',
+            annualBonus: '', totalPayment: ''
         })
     }
 
@@ -274,19 +185,80 @@ class DisplayEmployeeMaster extends Component {
             errors.lastName = "Last Name can't be empty."
         }
         if (!this.state.contact) {
-            errors.contact = "contact can't be empty"
+            errors.contact = "Contact can't be empty"
         }
         if (!this.state.employeeDetailId) {
-            errors.employeeDetailId = "service Type can't be empty"
+            errors.employeeDetailId = "Service Type can't be empty"
         }
-
 
         if (!this.state.email) {
-            errors.email = "email can't be empty"
+            errors.email = "Email can't be empty"
         }
         if (!this.state.basic) {
-            errors.basic = "basic can't be empty."
+            errors.basic = "Basic can't be empty."
         }
+        if (!this.state.attendenceInDays) {
+            errors.attendenceInDays = "Attendence in days can't be empty."
+        }
+        if (!this.state.bank) {
+            errors.bank = "Bank name  can't be empty."
+        }
+        if (!this.state.salaryAccountNo) {
+            errors.salaryAccountNo = "Salary account number can't be empty."
+        }
+        if (!this.state.bankLocation) {
+            errors.bankLocation = "Bank location can't be empty."
+        }
+        if (!this.state.pan) {
+            errors.pan = "Pan can't be empty."
+        }
+        if (!this.state.plBalance) {
+            errors.plBalance = "PL balance can't be empty."
+        }
+        if (!this.state.clBalance) {
+            errors.clBalance = "CL balance can't be empty."
+        }
+        if (!this.state.variableComponent) {
+            errors.variableComponent = "Variable component can't be empty."
+        }
+        if (!this.state.selfDevelopmentAllowance) {
+            errors.selfDevelopmentAllowance = "Self development allowance can't be empty."
+        }
+        if (!this.state.canteenAllowance) {
+            errors.canteenAllowance = "Canteen allowance can't be empty."
+        }
+        if (!this.state.nightAllowance) {
+            errors.nightAllowance = "Night allowance can't be empty."
+        }
+        if (!this.state.specialAllowance) {
+            errors.specialAllowance = "Special allowance can't be empty."
+        }
+        if (!this.state.pfNo) {
+            errors.pfNo = "PF No can't be empty."
+        }
+        if (!this.state.tds) {
+            errors.tds = "TDS can't be empty."
+        }
+
+        if (!this.state.netSalary) {
+            errors.netSalary = "Net Salary can't be empty."
+        }
+        if (!this.state.adjustments) {
+            errors.adjustments = "Adjustments can't be empty."
+        }
+        if (!this.state.adjustmentAdditions) {
+            errors.adjustmentAdditions = "Adjustments additions can't be empty."
+        }
+        if (!this.state.adjustmentDeductions) {
+            errors.adjustmentDeductions = "Adjustments deduction can't be empty."
+        }
+        if (!this.state.annualBonus) {
+            errors.annualBonus = "Annual Bonus can't be empty."
+        }
+        if (!this.state.totalPayment) {
+            errors.adjustmentDeductions = "Total Payment can't be empty."
+        }
+
         if (!!document.getElementById('isChecked').checked) {
             if (this.state.permanentAddressDefault === '') errors.permanentAddressDefault = `Permanent Address can't be empty.`;
         }
@@ -311,30 +283,43 @@ class DisplayEmployeeMaster extends Component {
         if (isValid) {
 
             const data = new FormData()
-            data.append('documentOne', this.state.documentOne)
-            data.append('documentTwo', this.state.documentTwo)
             data.append('firstName', this.state.firstName)
             data.append('middleName', this.state.middleName)
             data.append('lastName', this.state.lastName)
             data.append('basic', this.state.basic)
-            data.append('hra',this.state.hra)
-            data.append('travelAllowance',this.state.travelAllowance)
-            data.append('pf',this.state.pf)
-            data.append('esi',this.state.esi)
+            data.append('hra', this.state.hra)
+            data.append('travelAllowance', this.state.travelAllowance)
+            data.append('pf', this.state.pf)
+            data.append('esi', this.state.esi)
             data.append('email', this.state.email)
             data.append('contact', this.state.contact)
             data.append('employeeDetailId', this.state.employeeDetailId)
             data.append('currentAddress', this.state.currentAddress)
             data.append('permanentAddress', this.state.permanentAddress)
-
             data.append('startDate', this.state.editEmployeeData.startDate)
-
-            data.append('profilePicture', this.state.profilePicture)
-            data.append('rfidId', this.state.rfidId)
-
-
+            data.append('attendenceInDays', this.state.attendenceInDays)
+            data.append('bank', this.state.bank)
+            data.append('bankLocation', this.state.bankLocation)
+            data.append('pan', this.state.pan)
+            data.append('plBalance', this.state.plBalance)
+            data.append('clBalance', this.state.clBalance)
+            data.append('salaryAccountNo', this.state.salaryAccountNo)
+            data.append('variableComponent', this.state.variableComponent)
+            data.append('selfDevelopmentAllowance', this.state.selfDevelopmentAllowance)
+            data.append('canteenAllowance', this.state.canteenAllowance)
+            data.append('medicalReimbursement', this.state.medicalReimbursement)
+            data.append('specialAllowance', this.state.specialAllowance)
+            data.append('nightAllowance', this.state.nightAllowance)
+            data.append('pfNo', this.state.pfNo)
+            data.append('tds', this.state.tds)
+            data.append('total', this.state.total)
+            data.append('netSalary', this.state.netSalary)
+            data.append('adjustments', this.state.adjustments)
+            data.append('adjustmentAdditions', this.state.adjustmentAdditions);
+            data.append('annualBonus', this.state.annualBonus);
+            data.append('totalPayment', this.state.totalPayment);
             this.props.updateEmployee(this.state.editEmployeeData.employeeId, data).then(() => this.refreshData()).catch(err => {
-                
+
                 this.setState({
                     modalLoading: false, contactServerError: err.response.data.messageContactErr,
                     emailServerError: err.response.data.messageEmailErr
@@ -450,7 +435,7 @@ class DisplayEmployeeMaster extends Component {
         else {
             this.setState({
                 currentAddressDefault: e.target.value, currentAddress: e.target.value + (this.state.currentLocation ? (', ' + this.state.currentLocation + ', ') : ', ') +
-                `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`
+                    `${this.state.currentCity}, ${this.state.currentState}, ${this.state.currentCountry}, Pin/Zip code: ${this.state.pin}`
             })
         }
     }
@@ -463,7 +448,7 @@ class DisplayEmployeeMaster extends Component {
             this.setState({ editCurrent: false, currentAddress: this.state.readOnlyCurrent, userCurrent: false })
         }
     }
-   
+
     emailChange = (e) => {
         this.setState({ errors: { email: '' } })
         this.setState({ email: e.target.value, emailServerError: '' })
@@ -484,6 +469,28 @@ class DisplayEmployeeMaster extends Component {
 
     }
 
+    editEmployeeResult(employeeId, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, startDate, employeeDetailId, rfid, rfidId, attendenceInDays, bank,
+        bankLocation, pan, lwp, plBalance, clBalance, salaryAccountNo, variableComponent, selfDevelopmentAllowance,
+        canteenAllowance, medicalReimbursement, nightAllowance, specialAllowance, pfNo, tds, netSalary,
+        adjustments, annualBonus, totalPayment) {
+        console.log(employeeId, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, startDate, employeeDetailId, rfid, rfidId, "========viewedit")
+        this.setState({
+            editEmployeeData: { employeeId, startDate },
+            firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email,
+            currentAddress, permanentAddress, employeeDetailId, rfid, rfidId,
+            readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress, editEmployeeModal: !this.state.editEmployeeModal,
+            attendenceInDays, bank,
+            bankLocation, pan, lwp, plBalance, clBalance, salaryAccountNo, variableComponent, selfDevelopmentAllowance,
+            canteenAllowance, medicalReimbursement, nightAllowance, specialAllowance, pfNo, tds, netSalary,
+            adjustments, annualBonus, totalPayment
+        })
+    }
+
+    toggleEditEventModal() {
+        this.setState({
+            editEventModal: !this.state.editEventModal
+        });
+    }
 
 
     getEmployee({ getEmployee }) {
@@ -492,8 +499,7 @@ class DisplayEmployeeMaster extends Component {
                 getEmployee.data.employee.sort((item1, item2) => {
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
-                }).filter(this.searchFilter(this.state.search)).map((item, index) => { console.log(item,"========item")
-
+                }).filter(this.searchFilter(this.state.search)).map((item, index) => {
                     return (
                         <tr key={item.employeeId}>
                             <td><input type="checkbox" name="ids" value={item.employeeId} className="SelectAll"
@@ -519,8 +525,6 @@ class DisplayEmployeeMaster extends Component {
                                     }
                                 }} /></td>
                             <td>{index + 1}</td>
-                            <td style={{ width: '4%' }}><img style={{ width: "100px", height: "100px" }} src={UR + item.picture} alt="Profile Pic" /></td>
-
                             <td >{item.firstName}</td>
                             <td>{item.lastName}</td>
                             <td>{item.employee_detail_master ? item.employee_detail_master.serviceType : ''}-
@@ -532,40 +536,41 @@ class DisplayEmployeeMaster extends Component {
                             <td>{item.pf}</td>
                             <td>{item.esi}</td>
                             <td>{item.rfid_master ? item.rfid_master.rfid : ''}</td>
-
-                            <td> <button className="btn btn-success" onClick={this.viewData.bind(this, UR + item.picture, item.firstName, item.middleName, item.lastName, item.basic,item.hra,item.travelAllowance,item.pf,item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, UR + item.documentOne, UR + item.documentTwo, item.startDate, item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType, item.rfid_master ? item.rfid_master.rfid :'' , item.rfid_master ? item.rfid_master.rfidId: '')}>View</button></td>
-
+                            <td> <button className="btn btn-success" onClick={this.viewData.bind(this, item.firstName, item.middleName, item.lastName, item.basic, item.hra, item.travelAllowance, item.pf, item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, item.startDate, item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType, item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '')}>View</button></td>
                             <td>
-                                {/* <button className="btn btn-success mr-2" onClick={this.editEmployeeResult.bind(this, item.employeeId, UR + item.picture, item.firstName, item.middleName, item.lastName, item.basic,item.hra,item.travelAllowance,item.pf,item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, UR + item.documentOne, UR + item.documentTwo, item.startDate, item.employee_detail_master.employeeDetailId,  item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '')} >Edit</button> */}
+                                <button className="btn btn-success mr-2" onClick={this.editEmployeeResult.bind(this, item.employeeId, item.firstName, item.middleName, item.lastName, item.basic, item.hra, item.travelAllowance, item.pf, item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, item.startDate, item.employee_detail_master.employeeDetailId, item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '', item.bank,
+                                    item.accountNo, item.bankLocation, item.pan, item.lwp, item.plBalance, item.clBalance, item.salaryAccountNo, item.variableComponent, item.selfDevelopmentAllowance,
+                                    item.canteenAllowance, item.medicalReimbursement, item.nightAllowance, item.specialAllowance, item.pfNo, item.tds, item.netSalary,
+                                    item.adjustments, item.adjustmentAdditions, item.adjustmentDeductions, item.annualBonus, item.totalPayment)} >Edit</button>
                                 {/* <button className="btn btn-danger" onClick={this.deleteEmployee.bind(this, item.employeeId)}> Delete</button> */}
                             </td>
-
-
-                        </tr>
+                        </tr >
                     )
                 })
             )
         }
     }
 
-    viewData(picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, doc1, doc2, startDate, serviceType, employeeWorkType,
+
+    viewData(picture, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, doc1, doc2, startDate, serviceType, employeeWorkType,
         employeeType, rfid, rfidId) {
-            console.log(picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, doc1, doc2, startDate, serviceType, employeeWorkType,
-                employeeType, rfid, rfidId)
+        console.log(picture, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, doc1, doc2, startDate, serviceType, employeeWorkType,
+            employeeType, rfid, rfidId)
         this.setState({
-            picture, firstName, middleName, lastName, basic,hra,travelAllowance,pf,esi, contact, email, currentAddress, permanentAddress, doc1, doc2, startDate, serviceType, employeeWorkType,
-            employeeType,rfid, rfidId, displayEmployee: true
+            picture, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, doc1, doc2, startDate, serviceType, employeeWorkType,
+            employeeType, rfid, rfidId, displayEmployee: true
         })
     }
+
 
     close = () => {
         return this.props.history.replace('/superDashBoard/displayemployee');
     }
-    
-    rfidData=({ ownerRf })=> {
-        if(ownerRf && ownerRf.rfids){
+
+    rfidData = ({ ownerRf }) => {
+        if (ownerRf && ownerRf.rfids) {
             return (
-                ownerRf.rfids.map((item)=>{ 
+                ownerRf.rfids.map((item) => {
                     return (
                         <option key={item.rfidId} value={item.rfidId}>
                             {item.rfid}
@@ -628,7 +633,6 @@ class DisplayEmployeeMaster extends Component {
     }
 
     addEmployee = () => {
-
         this.props.history.push('/superDashboard/employee')
     }
 
@@ -778,10 +782,10 @@ class DisplayEmployeeMaster extends Component {
         }
     }
 
-    rfIdChangeHandler=(e)=>{
-           console.log(e.target.value,"======rfid------")
+    rfIdChangeHandler = (e) => {
+        console.log(e.target.value, "======rfid------")
         this.setState({
-            rfidId:e.target.value
+            rfidId: e.target.value
         })
 
     }
@@ -894,142 +898,35 @@ class DisplayEmployeeMaster extends Component {
             event.preventDefault();
         }
     }
-    onRateChange=(e)=>{
-        if (e.target.value.match(/^\d*(\.\d{0,2})?$/)){
-            this.setState({[e.target.name]:e.target.value});          
-        }}
-
+    onRateChange = (e) => {
+        if (e.target.value.match(/^\d*(\.\d{0,2})?$/)) {
+            this.setState({ [e.target.name]: e.target.value });
+        }
+    }
 
     render() {
-        console.log("rfid", this.state.rfid,this.state.rfidId,this.state.doc1)
-        
-        let employeeData = <div>
-            <FormGroup>
-                <div style={{ border: '1px solid black', textAlign: 'center', width: '100px', height: '100px', margin: '0 auto' }}>
-                    <img src={this.state.picture} height='100px' width='100px' alt="profile pic"/>
-                </div>
-            </FormGroup>
-            <FormGroup>
-                <Row md={12}>
-                    <Col md={6}>
-                        <Label>First Name</Label>
-                        <Input value={this.state.firstName} onChange={this.onChange} readOnly />
-                    </Col>
-                    <Col md={6}>
-                        <Label>Last Name</Label>
-                        <Input value={this.state.lastName} onChange={this.onChange} readOnly />
-                    </Col>
-                </Row>
-            </FormGroup>
-            <FormGroup>
-                <Row md={12}>
-                    <Col md={6}>
-                        <Label>Email</Label>
-                        <Input value={this.state.email} onChange={this.onChange} readOnly />
-                    </Col>
-                    <Col md={6}>
-                        <Label>Contact</Label>
-                        <Input value={this.state.contact} onChange={this.onChange} readOnly />
-                    </Col>
-                </Row>
-            </FormGroup>
-
-            <FormGroup>
-                <Row md={12}>
-                <Col md={6}>
-                        <Label>Service Type</Label>
-                        <Input value={this.state.serviceType + ' - ' + this.state.employeeWorkType + ' - ' + this.state.employeeType} onChange={this.onChange} readOnly />
-                    </Col>
-                    <Col md={6}>
-                        <Label>basic</Label>
-                        <Input value={this.state.basic} readOnly />
-                    </Col>
-                </Row>
-            </FormGroup>
-            <FormGroup>
-        <Row md={12}>
-           <Col md={6}>
-               <Input placeholder="HRA" value={this.state.hra} readOnly></Input>
-           </Col>
-           <Col md={6}>
-           <Input placeholder="Travel Allowance" value={this.state.travelAllowance} readOnly></Input>
-           </Col>
-        </Row>
-    </FormGroup>
-    <FormGroup>
-        <Row md={12}>
-           <Col md={6}>
-               <Input placeholder="PF"  value={this.state.pf}  readOnly></Input>
-           </Col>
-           <Col md={6}>
-           <Input placeholder="ESI"  value={this.state.esi}  readOnly></Input>
-           </Col>
-        </Row>
-    </FormGroup>
-            <FormGroup>
-                <Row md={12}>
-                    <Col md={6}>
-                        <Label>Permanent Address</Label>
-                        <Input type="textarea" value={this.state.permanentAddress} onChange={this.onChange} readOnly />
-                    </Col>
-                    <Col md={6}>
-                        <Label>Current Address</Label>
-                        <Input type="textarea" value={this.state.currentAddress} onChange={this.onChange} readOnly />
-                    </Col>
-                </Row>
-            </FormGroup>
-            <FormGroup>
-                <Row md={12}>
-                    <Col md={6}>
-                        <Label>Start Date</Label>
-                        <Input readOnly value={this.state.startDate} onChange={this.onChange} />
-                    </Col>
-                    <Col md={6}></Col>
-                </Row>
-            </FormGroup>
-            <FormGroup style={{ textAlign: 'center' }}>
-                <h4>Document One</h4>
-                <GoogleDocsViewer
-                    width="400px"
-                    height="600px"
-                    fileUrl={this.state.doc1}
-                />
-            </FormGroup>
-
-            <FormGroup style={{ textAlign: 'center' }}>
-                <h4>Document Two</h4>
-                <GoogleDocsViewer
-                    width="400px"
-                    height="600px"
-                    fileUrl={this.state.doc2}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label>RF ID</Label>
-                <Input  name="rfidId" onChange={this.onChange} value={this.state.rfid} readOnly>
-                    <DefaultSelect />
-                    {this.rfidData(this.props.rfId)}
-                </Input>
-            </FormGroup>
-        </div>
+        let { basic, hra, travelAllowance, esi, pf, variableComponent, nightAllowance, specialAllowance, canteenAllowance
+            , medicalReimbursement, mobileReimbursement, selfDevelopmentAllowance, adjustmentDeductions, adjustmentAdditions,
+            annualBonus
+        } = this.state;
 
         let tableData;
-
         tableData =
             <Table bordered>
                 <thead>
                     <tr>
                         <th style={{ width: "4px" }}></th>
                         <th style={{ width: "4px" }}>#</th>
-                        <th style={{ textAlign: "center", width: "12%" }}>Profile Picture</th>
-                        <th onClick={() => {
-                            this.setState((state) => {
-                                return {
-                                    sortVal: !state.sortVal,
-                                    filterName: 'firstName'
-                                }
-                            })
-                        }} >First Name      <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
+                        <th
+                        // onClick={() => {
+                        //     this.setState((state) => {
+                        //         return {
+                        //             sortVal: !state.sortVal,
+                        //             filterName: 'firstName'
+                        //         }
+                        //     })
+                        // }}
+                        >First Name      <i className="fa fa-arrows-v" id="sortArrow" aria-hidden="true"></i></th>
                         <th> Last Name</th>
                         <th>Service Type</th>
                         <th>Basic Salary</th>
@@ -1047,35 +944,14 @@ class DisplayEmployeeMaster extends Component {
                 </tbody>
             </Table>
 
+
         let modalData = <div>
-            <FormGroup>
-                <Row>
-                    <Col md={8}>
-                        <label>update your Photo</label>
-                        <input accept='image/*' type="file" name="profilePicture" onChange={this.ImageChange} />
-
-
-                    </Col>
-                    <Col md={4}>
-                        <div style={{ textAlign: 'center' }}>
-                            <img id="target" src={this.state.picture} height='100px' width='100px' alt="profile pic" />
-                        </div>
-                    </Col>
-
-                </Row>
-
-
-            </FormGroup>
-
-
             <FormGroup>
                 <Label > First Name</Label>
                 <Input name="firstName" value={this.state.firstName}
                     onChange={this.onChange}
-
                     maxLength={25}
                     onKeyPress={this.fNameKeyPress}
-
                 />
                 <span className="error">{this.state.errors.firstName}</span>
             </FormGroup>
@@ -1099,25 +975,33 @@ class DisplayEmployeeMaster extends Component {
             </FormGroup>
 
             <FormGroup>
-        <Row md={12}>
-           <Col md={6}>
-           <Input placeholder="HRA"  name="hra" value={this.state.hra} maxLength={15} onChange={this.onRateChange}></Input>
-           </Col>
-           <Col md={6}>
-           <Input placeholder="Travel Allowance"  name ="travelAllowance"  value={this.state.travelAllowance} onChange ={this.onRateChange}  maxLength={15}></Input>
-           </Col>
-        </Row>
-    </FormGroup>
-    <FormGroup>
-        <Row md={12}>
-           <Col md={6}>
-               <Input placeholder="PF"  name ="pf"  value={this.state.pf} onChange={this.onRateChange} maxLength={15}></Input>
-           </Col>
-           <Col md={6}>
-           <Input placeholder="ESI" name ="esi"  value={this.state.esi} onChange={this.onRateChange}  maxLength={15}></Input>
-           </Col>
-        </Row>
-    </FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>HRA</Label>
+                        <Input placeholder="HRA" name="hra" value={this.state.hra} maxLength={15} onChange={this.onRateChange}></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Travel Allowance</Label>
+                        <Input placeholder="Travel Allowance" name="travelAllowance" value={this.state.travelAllowance} onChange={this.onRateChange} maxLength={15}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={4}>
+                        <Label>PF</Label>
+                        <Input placeholder="PF" name="pf" value={this.state.pf} onChange={this.onRateChange} maxLength={15}></Input>
+                    </Col>
+                    <Col md={4}>
+                        <Label>PF No.</Label>
+                        <Input placeholder="PF No." name="pfNo" value={this.state.pfNo} onChange={this.onRateChange} maxLength={15}></Input>
+                    </Col>
+                    <Col md={4}>
+                        <Label>ESI</Label>
+                        <Input placeholder="ESI" name="esi" value={this.state.esi} onChange={this.onRateChange} maxLength={15}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
 
             <FormGroup>
                 <Label > Email Address</Label>
@@ -1283,79 +1167,166 @@ class DisplayEmployeeMaster extends Component {
                     </FormGroup>
                 </div> : ''}
 
-                <FormGroup>
+            <FormGroup>
                 <Label>RF ID</Label>
-                <Input type="select" name="rfidId" onChange={this.rfIdChangeHandler} >
-                    <option value={this.state.rfid}>{this.state.rfid}</option>
-                    {/* <DefaultSelect /> */}
+                <Input name="rfidId" onChange={this.onChange} value={this.state.rfid} readOnly>
+                    <DefaultSelect />
                     {this.rfidData(this.props.rfId)}
                 </Input>
-               </FormGroup>
-
-
-            <FormGroup>
-
-                <Label > Document One</Label>
-
-                <GoogleDocsViewer
-                    width="400px"
-                    height="600px"
-                    fileUrl={this.state.documentOne}
-                />
-
-
-                <Label> Update your Id</Label>
-                <input accept='.docx ,.doc,application/pdf' type="file" name="documentOne" onChange={this.onFileChange} />
-
             </FormGroup>
 
             <FormGroup>
-                <Label > Document Two</Label>
-
-                <GoogleDocsViewer
-                    width="400px"
-                    height="600px"
-                    fileUrl={this.state.documentTwo}
-                />
-
+                <Row>
+                    <Col md={6}>
+                        <Label > Employment Date</Label>
+                        <Input type="date" value={this.state.editEmployeeData.startDate}
+                            onChange={(e) => {
+                                let { editEmployeeData } = this.state;
+                                editEmployeeData.startDate = e.target.value;
+                                this.setState({ editEmployeeData });
+                            }} required onKeyPress={this.OnKeyPresshandler}
+                        />
+                    </Col>
+                    <Col md={6}>
+                        <Label> Attendence in days</Label>
+                        <Input name="attendenceInDays" value={this.state.attendenceInDays}
+                            onChange={this.onRateChange}
+                            maxLength={20}
+                        />
+                        <span className="error" >{this.state.errors.attendenceInDays}</span>
+                    </Col>
+                </Row>
             </FormGroup>
-
             <FormGroup>
-                <div className="input-contain">
-                    <Label> Update your Id</Label>
-                    <input accept='.docx,application/pdf' type="file" name="documentTwo" onChange={this.FileChange} />
-                </div>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label >Bank</Label>
+                        <Input placeholder="Bank Name" name="bank" value={this.state.bank}
+                            onChange={this.onChange}
+                            maxLength={25}
+                            onKeyPress={this.fNameKeyPress}
+                        />
+                        <span className="error" >{this.state.errors.bank}</span>
+                    </Col>
+                    <Col md={6}>
+                        <Label > Salary A/C No </Label>
+                        <Input placeholder="Salary A/C No" name="salaryAccountNo"
+                            value={this.state.salaryAccountNo}
+                            onKeyPress={this.OnKeyPressNumber}
+                            maxLength={20}
+                        />
+                        <span className="error" >{this.state.errors.salaryAccountNo}</span>
+                    </Col>
+                </Row>
             </FormGroup>
-
             <FormGroup>
-                <Label > Employment Date</Label>
-                <Input type="date" value={this.state.editEmployeeData.startDate}
-
-
-                    onChange={(e) => {
-                        let { editEmployeeData } = this.state;
-
-                        editEmployeeData.startDate = e.target.value;
-
-                        this.setState({ editEmployeeData });
-                    }}
-                    required
-
-                    onKeyPress={this.OnKeyPresshandler}
-
-                />
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label > PAN </Label>
+                        <Input placeholder="PAN" name="pan" value={this.state.pan}
+                            maxLength={20}
+                        />
+                        <span className="error" >{this.state.errors.pan}</span>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Leave Without Pay(LWP)</Label>
+                        <Input placeholder="Leave Without Pay" name="lwp" value={this.state.lwp} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                </Row>
             </FormGroup>
-
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>PL Balance as on</Label>
+                        <Input placeholder="PL Balance as on" name="plBalance" value={this.state.plBalance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>CL Balance as on</Label>
+                        <Input placeholder="CL Balance as on" name="clBalance" value={this.state.clBalance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>Variable Component</Label>
+                        <Input placeholder="Variable Component" name="variableComponent"
+                            value={this.state.variableComponent}
+                            onChange={this.onChange}
+                            onKeyPress={this.OnKeyPressNumber}
+                            maxLength={25}
+                        ></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Self Development Allowance</Label>
+                        <Input placeholder="Self Development Allowance" name="selfDevelopmentAllowance" value={this.state.selfDevelopmentAllowance}
+                            onChange={this.onChange}
+                            onKeyPress={this.OnKeyPressNumber}
+                            maxLength={4}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>Canteen Allowance</Label>
+                        <Input placeholder="Canteen Allowance" name="canteenAllowance" value={this.state.canteenAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Medical Reimbursement</Label>
+                        <Input placeholder="Medical Reimbursement" name="medicalReimbursement" value={this.state.medicalReimbursement} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>Night Allowance</Label>
+                        <Input placeholder="Night Allowance" name="nightAllowance" value={this.state.nightAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Special Allowance</Label>
+                        <Input placeholder="Special Allowance" name="specialAllowance" value={this.state.specialAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>TDS</Label>
+                        <Input placeholder="TDS" name="tds" value={this.state.tds} onKeyPress={this.OnKeyPressNumber} onChange={this.onRateChange} maxLength={2}></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Mobile Reimbursement</Label>
+                        <Input placeholder="Mobile Reimbursement" name="mobileReimbursement" value={this.state.mobileReimbursement} onKeyPress={this.OnKeyPressNumber} onChange={this.onRateChange} maxLength={2}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label>Adjustment Additions</Label>
+                        <Input placeholder="Adjustment Additions" name="adjustmentAdditions" value={this.state.adjustmentAdditions} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                    <Col md={6}>
+                        <Label>Adjustment Deductions</Label>
+                        <Input placeholder="Adjustment Deductions" name="adjustmentDeductions" value={this.state.adjustmentDeductions} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                    </Col>
+                </Row>
+            </FormGroup>
+            <FormGroup>
+                <Label>Annual Bonus</Label>
+                <Input placeholder="Annual Bonus" name="annualBonus" value={this.state.annualBonus} onChange={this.onRateChange} maxLength={3}></Input>
+            </FormGroup>
+            <FormGroup>
+                <Label>Total Payment</Label>
+                <Input placeholder="Total Payment" name="totalPayment" value={this.state.totalPayment} onChange={this.onRateChange} maxLength={10} disabled></Input>
+            </FormGroup>
             <Button color="primary" className="mr-2" onClick={this.updateEmployee}>Save</Button>
             <Button color="danger" onClick={this.toggleEditEmployeeModal.bind(this)}>Cancel</Button>
-
-
         </div>
-
-
-        let deleteSelectedButton = <Button color="danger" className="mb-2" disabled={this.state.isDisabled}
-            onClick={this.deleteSelected.bind(this, this.state.ids)}>Delete Selected</Button>;
         return (
+
             <div>
                 <UI onClick={this.logout} change={this.changePassword}>
                     <div className="w3-container w3-margin-top w3-responsive">
@@ -1363,94 +1334,35 @@ class DisplayEmployeeMaster extends Component {
                             <span aria-hidden="true">&times;</span>
                         </div>
                         <div className="top-details" >
-                            <h3 align="center"> Employee Details</h3>
-                            <Button color="primary" onClick={this.addEmployee} > Add Employee</Button>
+                            {!this.state.loading ? tableData : <Spinner />}
                         </div>
-                        <Modal isOpen={this.state.editEmployeeModal} toggle={this.toggleEditEmployeeModal.bind(this)}>
-                            <ModalHeader toggle={this.toggleEditEmployeeModal.bind(this)}>Edit  Employee Details</ModalHeader>
-                            <ModalBody>
-                                {!this.state.modalLoading ? modalData : <Spinner />}
-
-
-
-                            </ModalBody>
-                        </Modal>
-                        <Modal isOpen={this.state.displayEmployee} toggle={this.toggleEmployeeModal.bind(this)}>
-                            <ModalHeader toggle={this.toggleEmployeeModal.bind(this)}>Employee Details</ModalHeader>
-                            <ModalBody>
-                                {employeeData}
-                                <Button color="primary" onClick={this.toggleEmployeeModal.bind(this)}>Cancel</Button>
-                            </ModalBody>
-                        </Modal>
-                        <SearchFilter type="text" value={this.state.search} onChange={this.searchOnChange} />
-
-                        {deleteSelectedButton}
-                        <Label style={{ padding: '10px' }}><b>Select All</b><input className="ml-2"
-                            id="allSelect"
-                            type="checkbox" onChange={(e) => {
-                                if (e.target.checked) {
-                                    this.selectAll();
-                                }
-                                else if (!e.target.checked) {
-                                    this.unSelectAll();
-                                }
-                            }
-                            } />
-                        </Label>
-                        {!this.state.loading ? tableData : <Spinner />}
                     </div>
-
-
-                    <Modal
-                        isOpen={this.state.modalIsOpen} >
-                        <ModalHeader toggle={this.toggleModal.bind(this)}></ModalHeader>
+                    <Modal isOpen={this.state.editEmployeeModal} toggle={this.toggleEmployeeModal.bind(this)}>
+                        <ModalHeader toggle={this.toggleEmployeeModal.bind(this)}>Edit  Employee Details</ModalHeader>
                         <ModalBody>
-
-                            <GoogleDocsViewer
-                                width="400px"
-                                height="780px"
-                                fileUrl={this.state.documentOne}
-                            />
-
+                            {!this.state.modalLoading ? modalData : <Spinner />}
                         </ModalBody>
-
-                    </Modal>
-                    <Modal
-                        isOpen={this.state.modal} >
-                        <ModalHeader toggle={this.toggle.bind(this)}></ModalHeader>
-                        <ModalBody>
-
-                            <GoogleDocsViewer
-                                width="400px"
-                                height="780px"
-                                fileUrl={this.state.documentTwo}
-                            />
-                        </ModalBody>
-
                     </Modal>
                 </UI>
-
             </div>
         )
     }
-
 }
 
 
 function mapStateToProps(state) {
-
     return {
         EmpDetails: state.EmpDetails,
         locationMasterReducer: state.locationMasterReducer,
         societyReducer: state.societyReducer,
         employeeDetails: state.employeeDetails,
-        rfId:state.RFIdReducer
-
-
+        rfId: state.RFIdReducer
     }
 }
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ ViewEmployee, getCountry, getState, getCity, getLocation, updateEmployee, deleteEmployee, deleteMultipleEmployee, getEmployee, getRfId }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayEmployeeMaster);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeSalaryGenerator);
+

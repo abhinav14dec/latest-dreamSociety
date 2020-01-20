@@ -3,9 +3,7 @@ import React from 'react';
 
 const defaultSelect = (props) => {
     return (
-    
-            <option value='no-value' disabled>--Select--</option>
-       
+        <option value='no-value' disabled>--Select--</option>
     );
 }
 

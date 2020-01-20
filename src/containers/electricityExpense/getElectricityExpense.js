@@ -361,6 +361,7 @@ class GetElectricityExpense extends Component {
       [e.target.name]: e.target.value
     });
   };
+  
   onChangeSign = e => {
     this.setState({
       amountDue: e.target.value
@@ -379,7 +380,7 @@ class GetElectricityExpense extends Component {
   searchOnChange = e => {
     this.setState({ search: e.target.value });
   };
-  searchFilter = search => {
+  searchFilter =search => {
     return function(x) {
       return (
         x.flat_detail_master.tower_master.towerName
