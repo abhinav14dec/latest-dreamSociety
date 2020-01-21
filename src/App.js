@@ -211,6 +211,8 @@ import SalaryAccount from './containers/salaryAcountComponent/addSalaryAccount';
 import GetSalaryAccount from './containers/salaryAcountComponent/getSalaryAccount';
 import GetLinkedAccount from './containers/salaryAcountComponent/getLinkedAccount';
 import ActivateSalaryAccount from './containers/salaryAcountComponent/activateSalaryAccount';
+import EmployeeSalaryGenerate from './containers/employeeSalaryGenerator/employeeSalaryGenerate';
+
 
 class App extends Component {
   render() {
@@ -436,6 +438,8 @@ class App extends Component {
             <TenantPrivateRoute path='/tenantDashboard/facilityBillGeneration' component={FacilityBillCharges} />
 
             <EmployeePrivateRoute path='/employeeDashboard/employeeDashboardDetails' component={EmployeeDashboardDetails} />
+            
+            <PrivateRoute path='/superDashboard/employeeSalaryGenerate' component={EmployeeSalaryGenerate} />
 
           </Switch>
 
