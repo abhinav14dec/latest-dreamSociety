@@ -40,7 +40,7 @@ class FingerPrint extends Component {
   };
 
   refreshData = (selected) => {
-    const type = this.state.type;
+    // const type = this.state.type;
     this.setState({ loading: true });
     this.props
       .getFingerprintData(selected)

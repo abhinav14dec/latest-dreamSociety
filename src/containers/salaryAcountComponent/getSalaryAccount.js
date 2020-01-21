@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import UI from '../../components/newUI/superAdminDashboard';
 import { bindActionCreators } from 'redux';
 import { ViewEmployee } from '../../actions/employeeMasterAction';
-import { Table, Row, Col, FormGroup, Input, Button, Label } from "reactstrap";
-import { getEmployeeAccount } from '../../actions/salaryAccount'
+import { Table, Button } from "reactstrap";
+// import { getEmployeeAccount } from '../../actions/salaryAccount'
 import Spinner from '../../components/spinner/spinner';
 
 

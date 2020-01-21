@@ -4,6 +4,7 @@ import { Table, Input, Modal, Button, FormGroup, ModalBody, ModalHeader, Label, 
 import Select from 'react-select';
 import { getCountry, getState, getCity, getLocation } from './../../actions/societyMasterAction';
 import { ViewEmployee, updateEmployee, deleteEmployee, deleteMultipleEmployee } from '../../actions/employeeMasterAction';
+import { viewActiveAccounts } from '../../actions/salaryAccount';
 import { getEmployee } from '../../actions/employeeTypeMasterAction';
 import { getRfId } from '../../actions/rfIdAction';
 import { bindActionCreators } from 'redux';
@@ -95,7 +96,7 @@ class EmployeeSalaryGenerator extends Component {
             rfidId: '',
             rfid: '',
             attendenceInDays: '',
-            bank: '',
+            bankName: '',
             accountNo: '',
             bankLocation: '',
             pan: '',
@@ -116,7 +117,8 @@ class EmployeeSalaryGenerator extends Component {
             adjustmentAdditions: '',
             adjustmentDeductions: '',
             annualBonus: '',
-            totalPayment: ''
+            totalPayment: '',
+            total: ''
         }
     }
 
@@ -152,7 +154,7 @@ class EmployeeSalaryGenerator extends Component {
         this.props.getState().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getCity().then(() => this.setState({ loading: false, modalLoading: false }))
         this.props.getLocation().then(() => this.setState({ loading: false, modalLoading: false }))
-        this.props.getRfId().then(() => this.setState({ loading: false, modalLoading: false }))
+        this.props.getRfId().then(() => this.setState({ loading: false, modalLoading: false }));
         this.setState({
             userPermanent: false, editPermanent: false,
             countryId: '', stateId: '', cityId: '', locationId: '',
@@ -200,64 +202,9 @@ class EmployeeSalaryGenerator extends Component {
         if (!this.state.attendenceInDays) {
             errors.attendenceInDays = "Attendence in days can't be empty."
         }
-        if (!this.state.bank) {
-            errors.bank = "Bank name  can't be empty."
-        }
-        if (!this.state.salaryAccountNo) {
-            errors.salaryAccountNo = "Salary account number can't be empty."
-        }
-        if (!this.state.bankLocation) {
-            errors.bankLocation = "Bank location can't be empty."
-        }
-        if (!this.state.pan) {
-            errors.pan = "Pan can't be empty."
-        }
-        if (!this.state.plBalance) {
-            errors.plBalance = "PL balance can't be empty."
-        }
-        if (!this.state.clBalance) {
-            errors.clBalance = "CL balance can't be empty."
-        }
-        if (!this.state.variableComponent) {
-            errors.variableComponent = "Variable component can't be empty."
-        }
-        if (!this.state.selfDevelopmentAllowance) {
-            errors.selfDevelopmentAllowance = "Self development allowance can't be empty."
-        }
-        if (!this.state.canteenAllowance) {
-            errors.canteenAllowance = "Canteen allowance can't be empty."
-        }
-        if (!this.state.nightAllowance) {
-            errors.nightAllowance = "Night allowance can't be empty."
-        }
-        if (!this.state.specialAllowance) {
-            errors.specialAllowance = "Special allowance can't be empty."
-        }
-        if (!this.state.pfNo) {
-            errors.pfNo = "PF No can't be empty."
-        }
-        if (!this.state.tds) {
-            errors.tds = "TDS can't be empty."
-        }
-
-        if (!this.state.netSalary) {
-            errors.netSalary = "Net Salary can't be empty."
-        }
-        if (!this.state.adjustments) {
-            errors.adjustments = "Adjustments can't be empty."
-        }
-        if (!this.state.adjustmentAdditions) {
-            errors.adjustmentAdditions = "Adjustments additions can't be empty."
-        }
-        if (!this.state.adjustmentDeductions) {
-            errors.adjustmentDeductions = "Adjustments deduction can't be empty."
-        }
-        if (!this.state.annualBonus) {
-            errors.annualBonus = "Annual Bonus can't be empty."
-        }
-        if (!this.state.totalPayment) {
-            errors.adjustmentDeductions = "Total Payment can't be empty."
-        }
+        // if (!this.state.totalPayment) {
+        //     errors.adjustmentDeductions = "Total Payment can't be empty."
+        // }
 
         if (!!document.getElementById('isChecked').checked) {
             if (this.state.permanentAddressDefault === '') errors.permanentAddressDefault = `Permanent Address can't be empty.`;
@@ -276,7 +223,6 @@ class EmployeeSalaryGenerator extends Component {
         if (!this.state.editEmployeeData.startDate) {
             errors.startDate = " Start Date can't be empty ."
         }
-
 
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0
@@ -328,7 +274,6 @@ class EmployeeSalaryGenerator extends Component {
 
             this.setState({
                 modalLoading: true
-
             })
 
         }
@@ -344,7 +289,6 @@ class EmployeeSalaryGenerator extends Component {
     }
 
     searchOnChange = (e) => {
-
         this.setState({ search: e.target.value })
     }
 
@@ -469,20 +413,30 @@ class EmployeeSalaryGenerator extends Component {
 
     }
 
-    editEmployeeResult(employeeId, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, startDate, employeeDetailId, rfid, rfidId, attendenceInDays, bank,
+    async  editEmployeeResult(employeeId, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, startDate, employeeDetailId, rfid, rfidId, attendenceInDays, bank,
         bankLocation, pan, lwp, plBalance, clBalance, salaryAccountNo, variableComponent, selfDevelopmentAllowance,
         canteenAllowance, medicalReimbursement, nightAllowance, specialAllowance, pfNo, tds, netSalary,
-        adjustments, annualBonus, totalPayment) {
-        console.log(employeeId, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, startDate, employeeDetailId, rfid, rfidId, "========viewedit")
+        adjustments, annualBonus, totalPayment, total) {
+        // console.log(employeeId, firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email, currentAddress, permanentAddress, startDate, employeeDetailId, rfid, rfidId, "========viewedit")
+        const response = await this.props.viewActiveAccounts(employeeId);
+        const account = response.payload.account;
+        const totalSalary = parseInt(basic) + parseInt(hra) + parseInt(travelAllowance) - parseInt(pf) - parseInt(esi);
+
         this.setState({
+            totalPayment: totalSalary,
+            total: total,
+            bankName: account.bankName,
+            accountNo: account.accountNo,
+            accountId: account.accountId,
+            pan: account.pan,
             editEmployeeData: { employeeId, startDate },
             firstName, middleName, lastName, basic, hra, travelAllowance, pf, esi, contact, email,
             currentAddress, permanentAddress, employeeDetailId, rfid, rfidId,
             readOnlyPermanent: permanentAddress, readOnlyCurrent: currentAddress, editEmployeeModal: !this.state.editEmployeeModal,
             attendenceInDays, bank,
-            bankLocation, pan, lwp, plBalance, clBalance, salaryAccountNo, variableComponent, selfDevelopmentAllowance,
+            bankLocation, lwp, plBalance, clBalance, salaryAccountNo, variableComponent, selfDevelopmentAllowance,
             canteenAllowance, medicalReimbursement, nightAllowance, specialAllowance, pfNo, tds, netSalary,
-            adjustments, annualBonus, totalPayment
+            adjustments, annualBonus
         })
     }
 
@@ -536,12 +490,12 @@ class EmployeeSalaryGenerator extends Component {
                             <td>{item.pf}</td>
                             <td>{item.esi}</td>
                             <td>{item.rfid_master ? item.rfid_master.rfid : ''}</td>
-                            <td> <button className="btn btn-success" onClick={this.viewData.bind(this, item.firstName, item.middleName, item.lastName, item.basic, item.hra, item.travelAllowance, item.pf, item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, item.startDate, item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType, item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '')}>View</button></td>
+                            {/* <td> <button className="btn btn-success" onClick={this.viewData.bind(this, item.firstName, item.middleName, item.lastName, item.basic, item.hra, item.travelAllowance, item.pf, item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, item.startDate, item.employee_detail_master.serviceType, item.employee_detail_master.employee_work_type_master.employeeWorkType, item.employee_detail_master.employee_type_master.employeeType, item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '')}>View</button></td> */}
                             <td>
                                 <button className="btn btn-success mr-2" onClick={this.editEmployeeResult.bind(this, item.employeeId, item.firstName, item.middleName, item.lastName, item.basic, item.hra, item.travelAllowance, item.pf, item.esi, item.contact, item.email, item.currentAddress, item.permanentAddress, item.startDate, item.employee_detail_master.employeeDetailId, item.rfid_master ? item.rfid_master.rfid : '', item.rfid_master ? item.rfid_master.rfidId : '', item.bank,
                                     item.accountNo, item.bankLocation, item.pan, item.lwp, item.plBalance, item.clBalance, item.salaryAccountNo, item.variableComponent, item.selfDevelopmentAllowance,
                                     item.canteenAllowance, item.medicalReimbursement, item.nightAllowance, item.specialAllowance, item.pfNo, item.tds, item.netSalary,
-                                    item.adjustments, item.adjustmentAdditions, item.adjustmentDeductions, item.annualBonus, item.totalPayment)} >Edit</button>
+                                    item.adjustments, item.adjustmentAdditions, item.adjustmentDeductions, item.annualBonus, item.totalPayment, item.attendenceInDays)} >Edit</button>
                                 {/* <button className="btn btn-danger" onClick={this.deleteEmployee.bind(this, item.employeeId)}> Delete</button> */}
                             </td>
                         </tr >
@@ -904,11 +858,58 @@ class EmployeeSalaryGenerator extends Component {
         }
     }
 
+    onAttendenceChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+        let d = new Date();
+        let month = d.getMonth() + 1;
+        let year = d.getFullYear();
+        let noOfDays = new Date(year, month, 0).getDate();
+            const final = (parseInt(this.state.totalPayment) / noOfDays).toFixed(2);
+            const finalAmount = Math.round((final * e.target.value).toFixed(2));
+            this.setState({
+                total: finalAmount
+            })
+    }
+
+    getAccountDetail() {
+        return (
+            <FormGroup>
+                <Row md={12}>
+                    <Col md={6}>
+                        <Label >Bank</Label>
+                        <Input placeholder="Bank Name" name="bank" value={this.state.bankName}
+                            disabled
+                            onChange={this.onChange}
+                            maxLength={25}
+                            onKeyPress={this.fNameKeyPress}
+                        />
+                        <span className="error" >{this.state.errors.bank}</span>
+                    </Col>
+                    <Col md={6}>
+                        <Label > Salary A/C No </Label>
+                        <Input placeholder="Salary A/C No" name="salaryAccountNo"
+                            disabled
+                            value={this.state.accountNo}
+                            onKeyPress={this.OnKeyPressNumber}
+                            maxLength={20}
+                        />
+                        <span className="error" >{this.state.errors.salaryAccountNo}</span>
+                    </Col>
+                </Row>
+                <Label > PAN </Label>
+                <Input disabled placeholder="PAN" name="pan" value={this.state.pan}
+                    maxLength={20}
+                />
+                <span className="error" >{this.state.errors.pan}</span>
+            </FormGroup>
+        )
+    }
     render() {
-        let { basic, hra, travelAllowance, esi, pf, variableComponent, nightAllowance, specialAllowance, canteenAllowance
-            , medicalReimbursement, mobileReimbursement, selfDevelopmentAllowance, adjustmentDeductions, adjustmentAdditions,
-            annualBonus
-        } = this.state;
+        // let { basic, hra, travelAllowance, esi, pf, variableComponent, nightAllowance, specialAllowance, canteenAllowance
+        //     , medicalReimbursement, mobileReimbursement, selfDevelopmentAllowance, adjustmentDeductions, adjustmentAdditions,
+        //     annualBonus, totalPayment
+        // } = this.state;
+        // console.log(">>", totalPayment)
 
         let tableData;
         tableData =
@@ -935,7 +936,7 @@ class EmployeeSalaryGenerator extends Component {
                         <th>PF</th>
                         <th>ESI</th>
                         <th>RF ID</th>
-                        <th>Employee Detail </th>
+                        {/* <th>Employee Detail </th> */}
                         <th> Actions  </th>
                     </tr>
                 </thead>
@@ -1190,49 +1191,17 @@ class EmployeeSalaryGenerator extends Component {
                     <Col md={6}>
                         <Label> Attendence in days</Label>
                         <Input name="attendenceInDays" value={this.state.attendenceInDays}
-                            onChange={this.onRateChange}
+                            onChange={this.onAttendenceChange}
                             maxLength={20}
                         />
                         <span className="error" >{this.state.errors.attendenceInDays}</span>
                     </Col>
                 </Row>
             </FormGroup>
+            {this.getAccountDetail()}
             <FormGroup>
-                <Row md={12}>
-                    <Col md={6}>
-                        <Label >Bank</Label>
-                        <Input placeholder="Bank Name" name="bank" value={this.state.bank}
-                            onChange={this.onChange}
-                            maxLength={25}
-                            onKeyPress={this.fNameKeyPress}
-                        />
-                        <span className="error" >{this.state.errors.bank}</span>
-                    </Col>
-                    <Col md={6}>
-                        <Label > Salary A/C No </Label>
-                        <Input placeholder="Salary A/C No" name="salaryAccountNo"
-                            value={this.state.salaryAccountNo}
-                            onKeyPress={this.OnKeyPressNumber}
-                            maxLength={20}
-                        />
-                        <span className="error" >{this.state.errors.salaryAccountNo}</span>
-                    </Col>
-                </Row>
-            </FormGroup>
-            <FormGroup>
-                <Row md={12}>
-                    <Col md={6}>
-                        <Label > PAN </Label>
-                        <Input placeholder="PAN" name="pan" value={this.state.pan}
-                            maxLength={20}
-                        />
-                        <span className="error" >{this.state.errors.pan}</span>
-                    </Col>
-                    <Col md={6}>
-                        <Label>Leave Without Pay(LWP)</Label>
-                        <Input placeholder="Leave Without Pay" name="lwp" value={this.state.lwp} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
-                    </Col>
-                </Row>
+                <Label>Leave Without Pay(LWP)</Label>
+                <Input placeholder="Leave Without Pay" name="lwp" value={this.state.lwp} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
             </FormGroup>
             <FormGroup>
                 <Row md={12}>
@@ -1254,7 +1223,7 @@ class EmployeeSalaryGenerator extends Component {
                             value={this.state.variableComponent}
                             onChange={this.onChange}
                             onKeyPress={this.OnKeyPressNumber}
-                            maxLength={25}
+                            maxLength={10}
                         ></Input>
                     </Col>
                     <Col md={6}>
@@ -1262,7 +1231,7 @@ class EmployeeSalaryGenerator extends Component {
                         <Input placeholder="Self Development Allowance" name="selfDevelopmentAllowance" value={this.state.selfDevelopmentAllowance}
                             onChange={this.onChange}
                             onKeyPress={this.OnKeyPressNumber}
-                            maxLength={4}></Input>
+                            maxLength={10}></Input>
                     </Col>
                 </Row>
             </FormGroup>
@@ -1270,11 +1239,11 @@ class EmployeeSalaryGenerator extends Component {
                 <Row md={12}>
                     <Col md={6}>
                         <Label>Canteen Allowance</Label>
-                        <Input placeholder="Canteen Allowance" name="canteenAllowance" value={this.state.canteenAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                        <Input placeholder="Canteen Allowance" name="canteenAllowance" value={this.state.canteenAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={10}></Input>
                     </Col>
                     <Col md={6}>
                         <Label>Medical Reimbursement</Label>
-                        <Input placeholder="Medical Reimbursement" name="medicalReimbursement" value={this.state.medicalReimbursement} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                        <Input placeholder="Medical Reimbursement" name="medicalReimbursement" value={this.state.medicalReimbursement} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={10}></Input>
                     </Col>
                 </Row>
             </FormGroup>
@@ -1282,11 +1251,11 @@ class EmployeeSalaryGenerator extends Component {
                 <Row md={12}>
                     <Col md={6}>
                         <Label>Night Allowance</Label>
-                        <Input placeholder="Night Allowance" name="nightAllowance" value={this.state.nightAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                        <Input placeholder="Night Allowance" name="nightAllowance" value={this.state.nightAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={10}></Input>
                     </Col>
                     <Col md={6}>
                         <Label>Special Allowance</Label>
-                        <Input placeholder="Special Allowance" name="specialAllowance" value={this.state.specialAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                        <Input placeholder="Special Allowance" name="specialAllowance" value={this.state.specialAllowance} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={10}></Input>
                     </Col>
                 </Row>
             </FormGroup>
@@ -1294,11 +1263,11 @@ class EmployeeSalaryGenerator extends Component {
                 <Row md={12}>
                     <Col md={6}>
                         <Label>TDS</Label>
-                        <Input placeholder="TDS" name="tds" value={this.state.tds} onKeyPress={this.OnKeyPressNumber} onChange={this.onRateChange} maxLength={2}></Input>
+                        <Input placeholder="TDS" name="tds" value={this.state.tds} onKeyPress={this.OnKeyPressNumber} onChange={this.onRateChange} maxLength={10}></Input>
                     </Col>
                     <Col md={6}>
                         <Label>Mobile Reimbursement</Label>
-                        <Input placeholder="Mobile Reimbursement" name="mobileReimbursement" value={this.state.mobileReimbursement} onKeyPress={this.OnKeyPressNumber} onChange={this.onRateChange} maxLength={2}></Input>
+                        <Input placeholder="Mobile Reimbursement" name="mobileReimbursement" value={this.state.mobileReimbursement} onKeyPress={this.OnKeyPressNumber} onChange={this.onRateChange} maxLength={10}></Input>
                     </Col>
                 </Row>
             </FormGroup>
@@ -1306,11 +1275,11 @@ class EmployeeSalaryGenerator extends Component {
                 <Row md={12}>
                     <Col md={6}>
                         <Label>Adjustment Additions</Label>
-                        <Input placeholder="Adjustment Additions" name="adjustmentAdditions" value={this.state.adjustmentAdditions} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                        <Input placeholder="Adjustment Additions" name="adjustmentAdditions" value={this.state.adjustmentAdditions} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={10}></Input>
                     </Col>
                     <Col md={6}>
                         <Label>Adjustment Deductions</Label>
-                        <Input placeholder="Adjustment Deductions" name="adjustmentDeductions" value={this.state.adjustmentDeductions} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={2}></Input>
+                        <Input placeholder="Adjustment Deductions" name="adjustmentDeductions" value={this.state.adjustmentDeductions} onChange={this.onRateChange} onKeyPress={this.OnKeyPressNumber} maxLength={10}></Input>
                     </Col>
                 </Row>
             </FormGroup>
@@ -1320,7 +1289,7 @@ class EmployeeSalaryGenerator extends Component {
             </FormGroup>
             <FormGroup>
                 <Label>Total Payment</Label>
-                <Input placeholder="Total Payment" name="totalPayment" value={this.state.totalPayment} onChange={this.onRateChange} maxLength={10} disabled></Input>
+                <Input placeholder="Total Payment" name="totalPayment" disabled value={this.state.total} onChange={this.onRateChange} maxLength={10} ></Input>
             </FormGroup>
             <Button color="primary" className="mr-2" onClick={this.updateEmployee}>Save</Button>
             <Button color="danger" onClick={this.toggleEditEmployeeModal.bind(this)}>Cancel</Button>
@@ -1361,7 +1330,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ ViewEmployee, getCountry, getState, getCity, getLocation, updateEmployee, deleteEmployee, deleteMultipleEmployee, getEmployee, getRfId }, dispatch)
+    return bindActionCreators({ viewActiveAccounts, ViewEmployee, getCountry, getState, getCity, getLocation, updateEmployee, deleteEmployee, deleteMultipleEmployee, getEmployee, getRfId }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeSalaryGenerator);
