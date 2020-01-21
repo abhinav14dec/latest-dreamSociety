@@ -165,7 +165,7 @@ FileChange=(event)=>{
 
     
     rfIdChangeHandler=(selectOption)=>{
-        console.log(selectOption.rfidId,"======rfid")
+        
         this.setState({
             rfidId:selectOption.rfidId
         })
@@ -283,7 +283,7 @@ FileChange=(event)=>{
         data.append('employeeDetailId',this.state.employeeDetailId)
 
 
-         this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  { console.log(err)
+         this.props.AddEmployee(data).then(()=>this.props.history.push('/superDashboard/displayEmployee')).catch(err =>  { 
             this.setState({emailServerError:  err.response.data.messageEmailErr,
                 contactServerError:  err.response.data.messageContactErr,loading: false})
         });
@@ -318,7 +318,7 @@ FileChange=(event)=>{
 
     getService=({getEmployee})=>{
  if(getEmployee && getEmployee.employeeDetail){
-     return getEmployee.employeeDetail.map((item)=>{ console.log(item,"=====")
+     return getEmployee.employeeDetail.map((item)=>{ 
    return(
        <option key={item.employeeDetailId} value={item.employeeDetailId}>
             {item.serviceType}-{item.employee_work_type_master.employeeWorkType}-

@@ -1,4 +1,4 @@
-import { URN, ADD_EMP, GET_EMP, DELETE_EMP, GET_LOCATION_DETAIL, UPDATE_EMPLOYEE, DELETE_MULTIPLE_EMPLOYEE, UPDATE_DASHBOARD_EMPLOYEE, GET_DASHBOARD_EMPLOYEE } from '../actionCreators/index'
+import { URN, ADD_EMP, GET_EMP, DELETE_EMP, GET_LOCATION_DETAIL, UPDATE_EMPLOYEE, DELETE_MULTIPLE_EMPLOYEE, UPDATE_DASHBOARD_EMPLOYEE, GET_DASHBOARD_EMPLOYEE, POST_EMP_SALARY_DETAIL } from '../actionCreators/index'
 import axios from 'axios';
 import { authHeader } from '../helper/authHeader';
 
@@ -97,6 +97,18 @@ export function getDashboardEmployee(userId) {
     const request = axios.get(`${URN}/employee/${userId}`, { headers: authHeader() })
     return {
         type: GET_DASHBOARD_EMPLOYEE,
+        payload: request
+    }
+}
+
+//post employee salary details
+export function postEmpSalaryDetail(data) {
+
+    const request = axios.post(`${URN}/generate/employee/salary`, data, { headers: authHeader() })
+    .then(response =>response.data);
+
+    return {
+        type: POST_EMP_SALARY_DETAIL,
         payload: request
     }
 }

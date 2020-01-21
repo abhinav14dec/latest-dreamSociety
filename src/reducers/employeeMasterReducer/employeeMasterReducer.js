@@ -1,4 +1,4 @@
-import {ADD_EMP,GET_EMP,GET_LOCATION_DETAIL,GET_DASHBOARD_EMPLOYEE} from '../../actionCreators/index'
+import {ADD_EMP,GET_EMP,GET_LOCATION_DETAIL,GET_DASHBOARD_EMPLOYEE,POST_EMP_SALARY_DETAIL} from '../../actionCreators/index'
 
   export default function(state={}, action){
       switch(action.type){
@@ -10,8 +10,12 @@ import {ADD_EMP,GET_EMP,GET_LOCATION_DETAIL,GET_DASHBOARD_EMPLOYEE} from '../../
           case GET_DASHBOARD_EMPLOYEE:
           return{...state,getDashboardEmployee:action.payload}
            
-    case GET_LOCATION_DETAIL:
-    return {  ...state, locationResult: action.payload};
+          case GET_LOCATION_DETAIL:
+          return {  ...state, locationResult: action.payload};
+
+          case POST_EMP_SALARY_DETAIL:
+          return {  ...state, postEmpSal: action.payload};
+          
            default: 
            return state;
       }
