@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import UI from '../../components/newUI/superAdminDashboard';
 import { bindActionCreators } from 'redux';
 import { viewAccounts, activateAccount, deleteAccount } from '../../actions/salaryAccount'
-import { Table, FormGroup, Button, Label } from "reactstrap";
+import { Table, Button } from "reactstrap";
 import Spinner from '../../components/spinner/spinner';
 
 class ActivateSalaryAccount extends Component {
