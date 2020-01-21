@@ -499,7 +499,7 @@ class EmployeeSalaryGenerator extends Component {
                 getEmployee.data.employee.sort((item1, item2) => {
                     var cmprVal = (item1[this.state.filterName].localeCompare(item2[this.state.filterName]))
                     return this.state.sortVal ? cmprVal : -cmprVal;
-                }).filter(this.searchFilter(this.state.search)).map((item, index) => {
+                }).filter(this.searchFilter(this.state.search)).map((item, index) =>{
                     return (
                         <tr key={item.employeeId}>
                             <td><input type="checkbox" name="ids" value={item.employeeId} className="SelectAll"
