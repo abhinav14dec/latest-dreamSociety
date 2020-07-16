@@ -7,6 +7,7 @@ import { authHeader } from '../helper/authHeader';
 export const changePassword=(values)=>{
     const request = axios.post(`${URN}/user/changePassword` ,values , {headers:authHeader()})
      .then(response => response.data)
+     
      return{
  
          type:CHANGE_PASSWORD,

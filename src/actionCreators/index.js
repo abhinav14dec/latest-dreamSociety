@@ -4,15 +4,16 @@
 // export  const DocURN = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
 // export  const UR = 'http://ec2-18-216-4-122.us-east-2.compute.amazonaws.com:8082/';
 
-// export const URN = 'http://127.0.0.1:8082/api';
-// export const PicURN = 'http://127.0.0.1:8082/';
-// export const DocURN = 'http://127.0.0.1:8082/';
-// export const UR = 'http://127.0.0.1:8082/';
+export const URN = 'http://localhost:8082/api';
+export const PicURN = 'http://localhost:8082/';
+export const DocURN = 'http://localhost:8082/';
+export const UR = 'http://localhost:8082/';
 
-export const URN = 'http://192.168.0.117:9090/api';
-export  const PicURN = 'http://192.168.0.117:9090/';
-export  const DocURN = 'http://192.168.0.117:9090/';
-export  const UR = 'http://192.168.0.117:9090/';
+
+// export const URN = 'http://192.168.0.117:9090/api';
+// export  const PicURN = 'http://192.168.0.117:9090/';
+// export  const DocURN = 'http://192.168.0.117:9090/';
+// export  const UR = 'http://192.168.0.117:9090/';
 
 
 
